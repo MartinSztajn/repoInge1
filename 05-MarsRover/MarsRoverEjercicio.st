@@ -5,44 +5,25 @@ TestCase subclass: #MarsRoverTest
 	poolDictionaries: ''
 	category: 'MarsRoverEjercicio'!
 
-!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 14:21:25'!
-direccionEste
-
-	^ Este new! !
-
-!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 13:12:27'!
-direccionNorte
-
-	^Norte new! !
-
-!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 14:25:57'!
-direccionOeste
-
-	^ Oeste new! !
-
-!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 14:23:39'!
-direccionSur
-
-	^ Sur new! !
-
-!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 21:31:54'!
+!MarsRoverTest methodsFor: 'initialize' stamp: 'Ms 5/14/2023 21:31:54'!
 marsRoverEnCoordendaIncialMirandoAlEste
 
 	^ MarsRover new initializeAtXY: 0@0 LookingAt: self direccionEste! !
 
-!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 21:30:44'!
+!MarsRoverTest methodsFor: 'initialize' stamp: 'Ms 5/14/2023 21:30:44'!
 marsRoverEnCoordendaIncialMirandoAlNorte
 
 	^ MarsRover new initializeAtXY: 0@0 LookingAt: self direccionNorte! !
 
-!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 21:30:44'!
+
+!MarsRoverTest methodsFor: 'test' stamp: 'Ms 5/14/2023 21:30:44'!
 test01EmpiezaEnUnPuntoInicial
 	|rover|
 	
 	rover := self marsRoverEnCoordendaIncialMirandoAlNorte .
 	self assert: (rover hasAPosition: 0@0 andFaces:  self direccionNorte).! !
 
-!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 21:30:44'!
+!MarsRoverTest methodsFor: 'test' stamp: 'Ms 5/14/2023 21:30:44'!
 test02RecibeElComandoVacio
 	|rover|
 	
@@ -50,7 +31,7 @@ test02RecibeElComandoVacio
 	rover reedComands: ''.
 	self assert: (rover hasAPosition: 0@0 andFaces: self direccionNorte).! !
 
-!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 21:30:44'!
+!MarsRoverTest methodsFor: 'test' stamp: 'Ms 5/14/2023 21:30:44'!
 test03RecibeElComandoAvanzarMirandoHaciaElNorte
 	|rover|
 	
@@ -58,7 +39,7 @@ test03RecibeElComandoAvanzarMirandoHaciaElNorte
 	rover reedComands: 'f'.
 	self assert: (rover hasAPosition: 0@1 andFaces: self direccionNorte).! !
 
-!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 21:30:44'!
+!MarsRoverTest methodsFor: 'test' stamp: 'Ms 5/14/2023 21:30:44'!
 test04RecibeElComandoRetrocederMirandoHaciaElNorte
 	|rover|
 	
@@ -66,7 +47,7 @@ test04RecibeElComandoRetrocederMirandoHaciaElNorte
 	rover reedComands: 'b'.
 	self assert: (rover hasAPosition: 0@-1 andFaces: self direccionNorte).! !
 
-!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 21:31:55'!
+!MarsRoverTest methodsFor: 'test' stamp: 'Ms 5/14/2023 21:31:55'!
 test05RecibeElComandoAvanzarMirandoHaciaElEste
 	|rover|
 	
@@ -74,7 +55,7 @@ test05RecibeElComandoAvanzarMirandoHaciaElEste
 	rover reedComands: 'f'.
 	self assert: (rover hasAPosition: 1@0 andFaces: self direccionEste).! !
 
-!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 21:31:54'!
+!MarsRoverTest methodsFor: 'test' stamp: 'Ms 5/14/2023 21:31:54'!
 test06RecibeElComandoRetrocederMirandoHaciaElEste
 	|rover|
 	
@@ -82,7 +63,7 @@ test06RecibeElComandoRetrocederMirandoHaciaElEste
 	rover reedComands: 'b'.
 	self assert: (rover hasAPosition: -1@0 andFaces: self direccionEste).! !
 
-!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 21:30:44'!
+!MarsRoverTest methodsFor: 'test' stamp: 'Ms 5/14/2023 21:30:44'!
 test07RecibeElComandoRotarALaIzquierda
 	|rover|
 	
@@ -90,7 +71,7 @@ test07RecibeElComandoRotarALaIzquierda
 	rover reedComands: 'l'.
 	self assert: (rover hasAPosition: 0@0 andFaces: self direccionOeste ).! !
 
-!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 21:30:44'!
+!MarsRoverTest methodsFor: 'test' stamp: 'Ms 5/14/2023 21:30:44'!
 test08RecibeElComandoRotarALaDerecha
 	|rover|
 	
@@ -98,7 +79,7 @@ test08RecibeElComandoRotarALaDerecha
 	rover reedComands: 'r'.
 	self assert: (rover hasAPosition: 0@0 andFaces: self direccionEste).! !
 
-!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 21:30:44'!
+!MarsRoverTest methodsFor: 'test' stamp: 'Ms 5/14/2023 21:30:44'!
 test09DarUnGiroCompletoALaIzquierda
 	|rover|
 	
@@ -112,7 +93,7 @@ test09DarUnGiroCompletoALaIzquierda
 
 	self assert: (rover hasAPosition: 0@0 andFaces: self direccionNorte).! !
 
-!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 21:30:44'!
+!MarsRoverTest methodsFor: 'test' stamp: 'Ms 5/14/2023 21:30:44'!
 test10DarUnGiroCompletoALaDerecha
 	|rover|
 	
@@ -125,7 +106,7 @@ test10DarUnGiroCompletoALaDerecha
 
 	self assert: (rover hasAPosition: 0@0 andFaces: self direccionNorte).! !
 
-!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 21:30:44'!
+!MarsRoverTest methodsFor: 'test' stamp: 'Ms 5/14/2023 21:30:44'!
 test11RecibeUnComandoErroneo
 	|rover|
 	
@@ -136,7 +117,7 @@ test11RecibeUnComandoErroneo
 		raise: Error 
 		withMessageText: MarsRover mensajeErrorComandoIncorrecto.! !
 
-!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 21:30:44'!
+!MarsRoverTest methodsFor: 'test' stamp: 'Ms 5/14/2023 21:30:44'!
 test12RecibeMultiplesComandos
 	|rover|
 	
@@ -144,6 +125,27 @@ test12RecibeMultiplesComandos
 	rover reedComands: 'lrbrrff'.
 	self assert: (rover hasAPosition: 0@-3 andFaces: self direccionSur).
 	! !
+
+
+!MarsRoverTest methodsFor: 'direction - private' stamp: 'Ms 5/14/2023 14:21:25'!
+direccionEste
+
+	^ Este new! !
+
+!MarsRoverTest methodsFor: 'direction - private' stamp: 'Ms 5/14/2023 13:12:27'!
+direccionNorte
+
+	^Norte new! !
+
+!MarsRoverTest methodsFor: 'direction - private' stamp: 'Ms 5/14/2023 14:25:57'!
+direccionOeste
+
+	^ Oeste new! !
+
+!MarsRoverTest methodsFor: 'direction - private' stamp: 'Ms 5/14/2023 14:23:39'!
+direccionSur
+
+	^ Sur new! !
 
 
 !classDefinition: #MarsRover category: 'MarsRoverEjercicio'!
@@ -173,17 +175,7 @@ position
 	^position ! !
 
 
-!MarsRover methodsFor: 'category-name' stamp: 'Ms 5/14/2023 13:55:37'!
-backwards
-	position := direction moveBackward: position.
-! !
-
-!MarsRover methodsFor: 'category-name' stamp: 'Ms 5/14/2023 13:50:44'!
-forward
-	position := direction moveForward: position.
-! !
-
-!MarsRover methodsFor: 'category-name' stamp: 'Ms 5/14/2023 14:22:59'!
+!MarsRover methodsFor: 'comand' stamp: 'Ms 5/14/2023 14:22:59'!
 processComand: aComand 
 		(aComand = $f) ifTrue: [^self forward].
 		(aComand = $b) ifTrue: [^self backwards].
@@ -192,17 +184,28 @@ processComand: aComand
 		(aComand = '') ifFalse: [^self error: self class mensajeErrorComandoIncorrecto].
 		! !
 
-!MarsRover methodsFor: 'category-name' stamp: 'Ms 5/14/2023 21:32:59'!
+!MarsRover methodsFor: 'comand' stamp: 'Ms 5/14/2023 21:32:59'!
 reedComands: aComand 
 		aComand do: [:each | 	self processComand: each. ]
 ! !
 
-!MarsRover methodsFor: 'category-name' stamp: 'Ms 5/14/2023 13:16:56'!
+
+!MarsRover methodsFor: 'actions' stamp: 'Ms 5/14/2023 13:55:37'!
+backwards
+	position := direction moveBackward: position.
+! !
+
+!MarsRover methodsFor: 'actions' stamp: 'Ms 5/14/2023 13:50:44'!
+forward
+	position := direction moveForward: position.
+! !
+
+!MarsRover methodsFor: 'actions' stamp: 'Ms 5/14/2023 13:16:56'!
 rotateLeft
 	direction := direction rotateLeft.
 ! !
 
-!MarsRover methodsFor: 'category-name' stamp: 'Ms 5/14/2023 13:55:23'!
+!MarsRover methodsFor: 'actions' stamp: 'Ms 5/14/2023 13:55:23'!
 rotateRight
 	direction := direction rotateRight.
 	! !
@@ -225,29 +228,30 @@ Object subclass: #MarsRoverDireccion
 	poolDictionaries: ''
 	category: 'MarsRoverEjercicio'!
 
-!MarsRoverDireccion methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 13:11:01'!
+!MarsRoverDireccion methodsFor: 'verify' stamp: 'Ms 5/14/2023 13:11:01'!
 equals: aDireccion
 	^ aDireccion tipo = self tipo.! !
 
-!MarsRoverDireccion methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 13:55:11'!
+!MarsRoverDireccion methodsFor: 'verify' stamp: 'Ms 5/14/2023 13:11:11'!
+tipo
+	^tipo! !
+
+
+!MarsRoverDireccion methodsFor: 'actions' stamp: 'Ms 5/14/2023 13:55:11'!
 moveBackward: aPosition
 	self subclassResponsibility ! !
 
-!MarsRoverDireccion methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 13:50:08'!
+!MarsRoverDireccion methodsFor: 'actions' stamp: 'Ms 5/14/2023 13:50:08'!
 moveForward: aPosition
 	self subclassResponsibility ! !
 
-!MarsRoverDireccion methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 13:17:10'!
+!MarsRoverDireccion methodsFor: 'actions' stamp: 'Ms 5/14/2023 13:17:10'!
 rotateLeft
 	self subclassResponsibility ! !
 
-!MarsRoverDireccion methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 13:17:14'!
+!MarsRoverDireccion methodsFor: 'actions' stamp: 'Ms 5/14/2023 13:17:14'!
 rotateRight
 	self subclassResponsibility ! !
-
-!MarsRoverDireccion methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 13:11:11'!
-tipo
-	^tipo! !
 
 
 !classDefinition: #Este category: 'MarsRoverEjercicio'!
@@ -257,24 +261,25 @@ MarsRoverDireccion subclass: #Este
 	poolDictionaries: ''
 	category: 'MarsRoverEjercicio'!
 
-!Este methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 13:10:17'!
+!Este methodsFor: 'initialize' stamp: 'Ms 5/14/2023 13:10:17'!
 initialize
 	tipo := #Este! !
 
-!Este methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 13:53:16'!
+
+!Este methodsFor: 'actions' stamp: 'Ms 5/14/2023 13:53:16'!
 moveBackward: aPosition
 	^(aPosition x -1) @ aPosition y! !
 
-!Este methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 13:52:45'!
+!Este methodsFor: 'actions' stamp: 'Ms 5/14/2023 13:52:45'!
 moveForward: aPosition
 	^(aPosition x + 1) @ aPosition y! !
 
-!Este methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 13:17:29'!
+!Este methodsFor: 'actions' stamp: 'Ms 5/14/2023 13:17:29'!
 rotateLeft
 	^Norte new
 		! !
 
-!Este methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 13:15:28'!
+!Este methodsFor: 'actions' stamp: 'Ms 5/14/2023 13:15:28'!
 rotateRight
 	^Sur new
 		! !
@@ -287,26 +292,27 @@ MarsRoverDireccion subclass: #Norte
 	poolDictionaries: ''
 	category: 'MarsRoverEjercicio'!
 
-!Norte methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 13:08:28'!
-initialize
-	tipo := #Norte! !
-
-!Norte methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 13:54:10'!
+!Norte methodsFor: 'actions' stamp: 'Ms 5/14/2023 13:54:10'!
 moveBackward: aPosition
 	^aPosition x @ (aPosition y - 1)! !
 
-!Norte methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 13:54:00'!
+!Norte methodsFor: 'actions' stamp: 'Ms 5/14/2023 13:54:00'!
 moveForward: aPosition
 	^aPosition x @ (aPosition y + 1)! !
 
-!Norte methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 13:17:41'!
+!Norte methodsFor: 'actions' stamp: 'Ms 5/14/2023 13:17:41'!
 rotateLeft
 	^Oeste new! !
 
-!Norte methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 13:20:21'!
+!Norte methodsFor: 'actions' stamp: 'Ms 5/14/2023 13:20:21'!
 rotateRight
 	^Este new
 	! !
+
+
+!Norte methodsFor: 'initialize' stamp: 'Ms 5/14/2023 13:08:28'!
+initialize
+	tipo := #Norte! !
 
 
 !classDefinition: #Oeste category: 'MarsRoverEjercicio'!
@@ -316,23 +322,24 @@ MarsRoverDireccion subclass: #Oeste
 	poolDictionaries: ''
 	category: 'MarsRoverEjercicio'!
 
-!Oeste methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 13:10:05'!
+!Oeste methodsFor: 'initialize' stamp: 'Ms 5/14/2023 13:10:05'!
 initialize
 	tipo := #Oeste! !
 
-!Oeste methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 13:54:47'!
+
+!Oeste methodsFor: 'actions' stamp: 'Ms 5/14/2023 13:54:47'!
 moveBackward: aPosition
 	^(aPosition x + 1) @ aPosition y! !
 
-!Oeste methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 13:55:00'!
+!Oeste methodsFor: 'actions' stamp: 'Ms 5/14/2023 13:55:00'!
 moveForward: aPosition
 	^(aPosition x - 1) @ aPosition y! !
 
-!Oeste methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 13:17:48'!
+!Oeste methodsFor: 'actions' stamp: 'Ms 5/14/2023 13:17:48'!
 rotateLeft
 	^Sur new! !
 
-!Oeste methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 13:15:50'!
+!Oeste methodsFor: 'actions' stamp: 'Ms 5/14/2023 13:15:50'!
 rotateRight
 	^Norte new! !
 
@@ -344,22 +351,23 @@ MarsRoverDireccion subclass: #Sur
 	poolDictionaries: ''
 	category: 'MarsRoverEjercicio'!
 
-!Sur methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 13:10:11'!
-initialize
-	tipo := #Sur! !
-
-!Sur methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 13:54:24'!
+!Sur methodsFor: 'actions' stamp: 'Ms 5/14/2023 13:54:24'!
 moveBackward: aPosition
 	^aPosition x @ (aPosition y + 1)! !
 
-!Sur methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 13:54:34'!
+!Sur methodsFor: 'actions' stamp: 'Ms 5/14/2023 13:54:34'!
 moveForward: aPosition
 	^aPosition x @ (aPosition y - 1)! !
 
-!Sur methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 13:17:54'!
+!Sur methodsFor: 'actions' stamp: 'Ms 5/14/2023 13:17:54'!
 rotateLeft
 	^Este new! !
 
-!Sur methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 13:16:05'!
+!Sur methodsFor: 'actions' stamp: 'Ms 5/14/2023 13:16:05'!
 rotateRight
 	^Oeste new! !
+
+
+!Sur methodsFor: 'initialize' stamp: 'Ms 5/14/2023 13:10:11'!
+initialize
+	tipo := #Sur! !
