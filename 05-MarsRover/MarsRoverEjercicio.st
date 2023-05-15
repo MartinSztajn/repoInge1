@@ -25,74 +25,84 @@ direccionSur
 
 	^ Sur new! !
 
-!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 13:12:39'!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 21:31:54'!
+marsRoverEnCoordendaIncialMirandoAlEste
+
+	^ MarsRover new initializeAtXY: 0@0 LookingAt: self direccionEste! !
+
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 21:30:44'!
+marsRoverEnCoordendaIncialMirandoAlNorte
+
+	^ MarsRover new initializeAtXY: 0@0 LookingAt: self direccionNorte! !
+
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 21:30:44'!
 test01EmpiezaEnUnPuntoInicial
 	|rover|
 	
-	rover := MarsRover new initializeAtXY: 0@0 LookingAt: self direccionNorte .
+	rover := self marsRoverEnCoordendaIncialMirandoAlNorte .
 	self assert: (rover hasAPosition: 0@0 andFaces:  self direccionNorte).! !
 
-!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 13:12:06'!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 21:30:44'!
 test02RecibeElComandoVacio
 	|rover|
 	
-	rover := MarsRover new initializeAtXY: 0@0 LookingAt: self direccionNorte.
+	rover := self marsRoverEnCoordendaIncialMirandoAlNorte.
 	rover reedComands: ''.
 	self assert: (rover hasAPosition: 0@0 andFaces: self direccionNorte).! !
 
-!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 14:20:27'!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 21:30:44'!
 test03RecibeElComandoAvanzarMirandoHaciaElNorte
 	|rover|
 	
-	rover := MarsRover new initializeAtXY: 0@0 LookingAt: self direccionNorte.
+	rover := self marsRoverEnCoordendaIncialMirandoAlNorte.
 	rover reedComands: 'f'.
 	self assert: (rover hasAPosition: 0@1 andFaces: self direccionNorte).! !
 
-!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 14:20:43'!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 21:30:44'!
 test04RecibeElComandoRetrocederMirandoHaciaElNorte
 	|rover|
 	
-	rover := MarsRover new initializeAtXY: 0@0 LookingAt: self direccionNorte.
+	rover := self marsRoverEnCoordendaIncialMirandoAlNorte.
 	rover reedComands: 'b'.
 	self assert: (rover hasAPosition: 0@-1 andFaces: self direccionNorte).! !
 
-!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 14:21:25'!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 21:31:55'!
 test05RecibeElComandoAvanzarMirandoHaciaElEste
 	|rover|
 	
-	rover := MarsRover new initializeAtXY: 0@0 LookingAt: self direccionEste.
+	rover := self marsRoverEnCoordendaIncialMirandoAlEste.
 	rover reedComands: 'f'.
 	self assert: (rover hasAPosition: 1@0 andFaces: self direccionEste).! !
 
-!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 14:21:25'!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 21:31:54'!
 test06RecibeElComandoRetrocederMirandoHaciaElEste
 	|rover|
 	
-	rover := MarsRover new initializeAtXY: 0@0 LookingAt: self direccionEste.
+	rover := self marsRoverEnCoordendaIncialMirandoAlEste.
 	rover reedComands: 'b'.
 	self assert: (rover hasAPosition: -1@0 andFaces: self direccionEste).! !
 
-!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 14:26:16'!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 21:30:44'!
 test07RecibeElComandoRotarALaIzquierda
 	|rover|
 	
-	rover := MarsRover new initializeAtXY: 0@0 LookingAt: self direccionNorte.
+	rover := self marsRoverEnCoordendaIncialMirandoAlNorte.
 	rover reedComands: 'l'.
 	self assert: (rover hasAPosition: 0@0 andFaces: self direccionOeste ).! !
 
-!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 14:21:25'!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 21:30:44'!
 test08RecibeElComandoRotarALaDerecha
 	|rover|
 	
-	rover := MarsRover new initializeAtXY: 0@0 LookingAt: self direccionNorte.
+	rover := self marsRoverEnCoordendaIncialMirandoAlNorte.
 	rover reedComands: 'r'.
 	self assert: (rover hasAPosition: 0@0 andFaces: self direccionEste).! !
 
-!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 14:25:35'!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 21:30:44'!
 test09DarUnGiroCompletoALaIzquierda
 	|rover|
 	
-	rover := MarsRover new initializeAtXY: 0@0 LookingAt: self direccionNorte.
+	rover := self marsRoverEnCoordendaIncialMirandoAlNorte.
 	
 	rover reedComands: 'l'.
 	rover reedComands: 'l'.
@@ -102,11 +112,11 @@ test09DarUnGiroCompletoALaIzquierda
 
 	self assert: (rover hasAPosition: 0@0 andFaces: self direccionNorte).! !
 
-!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 14:19:35'!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 21:30:44'!
 test10DarUnGiroCompletoALaDerecha
 	|rover|
 	
-	rover := MarsRover new initializeAtXY: 0@0 LookingAt: self direccionNorte.
+	rover := self marsRoverEnCoordendaIncialMirandoAlNorte.
 	rover reedComands: 'r'.
 	rover reedComands: 'r'.
 	rover reedComands: 'r'.
@@ -115,22 +125,22 @@ test10DarUnGiroCompletoALaDerecha
 
 	self assert: (rover hasAPosition: 0@0 andFaces: self direccionNorte).! !
 
-!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 14:23:18'!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 21:30:44'!
 test11RecibeUnComandoErroneo
 	|rover|
 	
-	rover := MarsRover new initializeAtXY: 0@0 LookingAt: self direccionNorte.
+	rover := self marsRoverEnCoordendaIncialMirandoAlNorte.
 
 	self
 		should: [	rover reedComands: 'x'.]
 		raise: Error 
 		withMessageText: MarsRover mensajeErrorComandoIncorrecto.! !
 
-!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 14:23:39'!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/14/2023 21:30:44'!
 test12RecibeMultiplesComandos
 	|rover|
 	
-	rover := MarsRover new initializeAtXY: 0@0 LookingAt: self direccionNorte.
+	rover := self marsRoverEnCoordendaIncialMirandoAlNorte.
 	rover reedComands: 'lrbrrff'.
 	self assert: (rover hasAPosition: 0@-3 andFaces: self direccionSur).
 	! !
@@ -182,11 +192,9 @@ processComand: aComand
 		(aComand = '') ifFalse: [^self error: self class mensajeErrorComandoIncorrecto].
 		! !
 
-!MarsRover methodsFor: 'category-name' stamp: 'Ms 5/14/2023 14:08:33'!
+!MarsRover methodsFor: 'category-name' stamp: 'Ms 5/14/2023 21:32:59'!
 reedComands: aComand 
-		aComand do: [:each |
-			self processComand: each.
-		]
+		aComand do: [:each | 	self processComand: each. ]
 ! !
 
 !MarsRover methodsFor: 'category-name' stamp: 'Ms 5/14/2023 13:16:56'!
