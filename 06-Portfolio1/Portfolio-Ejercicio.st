@@ -213,7 +213,7 @@ test12PortfolioCannotAddExistingAccountInMultipleParents
 
 ! !
 
-!PortfolioTest methodsFor: 'tests' stamp: 'TM 5/22/2023 14:45:11'!
+!PortfolioTest methodsFor: 'tests' stamp: 'TM 5/22/2023 16:34:09'!
 test13PortfolioCannotAddExistingAccountInAncestor
 
 	| grandparentPortfolio parentPortfolio childPortfolio account |
@@ -227,7 +227,7 @@ test13PortfolioCannotAddExistingAccountInAncestor
 	
 	grandparentPortfolio add: parentPortfolio.
 	parentPortfolio add: childPortfolio.
-
+	
 	self
 		should: [	childPortfolio add: account.]
 		raise: Error 
@@ -458,9 +458,17 @@ for: aValue
 	^ self new initializeFor: aValue ! !
 
 
+!classDefinition: #Asset category: 'Portfolio-Ejercicio'!
+Object subclass: #Asset
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+
 !classDefinition: #Portfolio category: 'Portfolio-Ejercicio'!
 Object subclass: #Portfolio
-	instanceVariableNames: 'assets balance parent'
+	instanceVariableNames: 'assets parents'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Ejercicio'!
@@ -485,19 +493,20 @@ balance
 	^assets sum: [ :each | each balance ] ifEmpty: [0]! !
 
 
-!Portfolio methodsFor: 'initialization' stamp: 'TM 5/22/2023 14:38:35'!
+!Portfolio methodsFor: 'initialization' stamp: 'TM 5/22/2023 16:28:18'!
 initialize
 
-	balance := 0.
 	assets := Set new.
-	parent := self.! !
+	parents := Set new.! !
 
 
-!Portfolio methodsFor: 'testing' stamp: 'TM 5/22/2023 14:37:45'!
+!Portfolio methodsFor: 'testing' stamp: 'TM 5/22/2023 16:34:18'!
 anyParentContains: anAsset
 
-	parent = self
-	ifFalse: [ ^parent anyParentContains: anAsset ]
+	parents isEmpty 
+	ifFalse: [
+		^parents anySatisfy: [ :each | each anyParentContains: anAsset ]
+	]
 	ifTrue: [ ^	self contains: anAsset ].
 ! !
 
@@ -513,23 +522,24 @@ hasRegistered: aTransaction
 	^assets anySatisfy: [ :each | each hasRegistered: aTransaction ].! !
 
 
-!Portfolio methodsFor: 'adding' stamp: 'TM 5/22/2023 14:35:39'!
+!Portfolio methodsFor: 'adding' stamp: 'TM 5/22/2023 16:25:07'!
 add: asset
 
 	(asset isEqualTo: self) ifTrue: [^self error: Portfolio cannotAddExistingAssetErrorDescription ].
 	
 	(self contains: asset ) ifTrue: [^self error: Portfolio cannotAddExistingAssetErrorDescription ].
 
-	asset parentPortfolio: self.
 	(self anyParentContains: asset ) ifTrue: [^self error: Portfolio cannotAddExistingAssetErrorDescription ].
 
-	^assets add: asset.
+	asset addParent: self.
+	
+	assets add: asset.
 		! !
 
-!Portfolio methodsFor: 'adding' stamp: 'TM 5/22/2023 14:36:02'!
-parentPortfolio: aPortfolio
+!Portfolio methodsFor: 'adding' stamp: 'TM 5/22/2023 16:25:21'!
+addParent: aPortfolio
 
-	parent := aPortfolio.
+	parents add: aPortfolio.
 		! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
@@ -584,6 +594,9 @@ balance
 	^acum.! !
 
 
+!ReceptiveAccount methodsFor: 'testing' stamp: 'TM 5/22/2023 16:23:23'!
+addParent: aPortfolio! !
+
 !ReceptiveAccount methodsFor: 'testing' stamp: 'TM 5/22/2023 14:31:36'!
 contains: acount
 
@@ -597,6 +610,3 @@ hasRegistered: aTransaction
 	^ transactions includes: aTransaction 
 
 ! !
-
-!ReceptiveAccount methodsFor: 'testing' stamp: 'TM 5/22/2023 14:25:52'!
-parentPortfolio: aPortfolio! !

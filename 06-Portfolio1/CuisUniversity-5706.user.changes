@@ -10033,3 +10033,455 @@ PASSED!
 FAILURE!
 
 ----SNAPSHOT----(22 May 2023 14:50:26) CuisUniversity-5706.image priorSource: 17287382!
+!Portfolio methodsFor: 'adding' stamp: 'TM 5/22/2023 16:21:39' prior: 50874424!
+add: asset
+
+	(asset isEqualTo: self) ifTrue: [^self error: Portfolio cannotAddExistingAssetErrorDescription ].
+	
+	(self contains: asset ) ifTrue: [^self error: Portfolio cannotAddExistingAssetErrorDescription ].
+
+	(self anyParentContains: asset ) ifTrue: [^self error: Portfolio cannotAddExistingAssetErrorDescription ].
+
+	asset parentPortfolio: self.
+	
+	^assets add: asset.
+		! !
+
+!testRun: #PortfolioTest #test01PortfolioHasZeroBalanceWhenCreated stamp: 'TM 5/22/2023 16:21:40'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioBalanceEqualsOneAccountBalance stamp: 'TM 5/22/2023 16:21:40'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioBalanceEqualsManyAccountsBalance stamp: 'TM 5/22/2023 16:21:40'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioHasNotRegisteredTransaction stamp: 'TM 5/22/2023 16:21:40'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredTransactionInOneAccount stamp: 'TM 5/22/2023 16:21:40'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioHasRegisteredTransactionsInManyAccounts stamp: 'TM 5/22/2023 16:21:40'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioTransactionsEqualAssetsTransactions stamp: 'TM 5/22/2023 16:21:40'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioCannotAddItself stamp: 'TM 5/22/2023 16:21:40'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioCannotAddExistingAccount stamp: 'TM 5/22/2023 16:21:40'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCannotAddExistingAccountInChild stamp: 'TM 5/22/2023 16:21:40'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCannotAddExistingAccountInParent stamp: 'TM 5/22/2023 16:21:40'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCannotAddExistingAccountInMultipleParents stamp: 'TM 5/22/2023 16:21:40'!
+FAILURE!
+
+!testRun: #PortfolioTest #test13PortfolioCannotAddExistingAccountInAncestor stamp: 'TM 5/22/2023 16:21:40'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCannotAddExistingAccountInMultipleParents stamp: 'TM 5/22/2023 16:21:40'!
+FAILURE!
+!Portfolio methodsFor: 'adding' stamp: 'TM 5/22/2023 16:23:23'!
+addParent: aPortfolio
+
+	parent := aPortfolio.
+		! !
+!ReceptiveAccount methodsFor: 'testing' stamp: 'TM 5/22/2023 16:23:23'!
+addParent: aPortfolio! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'TM 5/22/2023 16:23:23' prior: 50875099!
+add: asset
+
+	(asset isEqualTo: self) ifTrue: [^self error: Portfolio cannotAddExistingAssetErrorDescription ].
+	
+	(self contains: asset ) ifTrue: [^self error: Portfolio cannotAddExistingAssetErrorDescription ].
+
+	(self anyParentContains: asset ) ifTrue: [^self error: Portfolio cannotAddExistingAssetErrorDescription ].
+
+	asset addParent: self.
+	
+	^assets add: asset.
+		! !
+
+!methodRemoval: Portfolio #parentPortfolio: stamp: 'TM 5/22/2023 16:23:23'!
+parentPortfolio: aPortfolio
+
+	parent := aPortfolio.
+		!
+
+!methodRemoval: ReceptiveAccount #parentPortfolio: stamp: 'TM 5/22/2023 16:23:23'!
+parentPortfolio: aPortfolio!
+
+Object subclass: #Asset
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classDefinition: #Asset category: 'Portfolio-Ejercicio' stamp: 'TM 5/22/2023 16:23:43'!
+Object subclass: #Asset
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+Object subclass: #Portfolio
+	instanceVariableNames: 'assets balance parents'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classDefinition: #Portfolio category: 'Portfolio-Ejercicio' stamp: 'TM 5/22/2023 16:24:43'!
+Object subclass: #Portfolio
+	instanceVariableNames: 'assets balance parents'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+!Portfolio methodsFor: 'adding' stamp: 'TM 5/22/2023 16:25:07' prior: 50875172!
+add: asset
+
+	(asset isEqualTo: self) ifTrue: [^self error: Portfolio cannotAddExistingAssetErrorDescription ].
+	
+	(self contains: asset ) ifTrue: [^self error: Portfolio cannotAddExistingAssetErrorDescription ].
+
+	(self anyParentContains: asset ) ifTrue: [^self error: Portfolio cannotAddExistingAssetErrorDescription ].
+
+	asset addParent: self.
+	
+	assets add: asset.
+		! !
+!Portfolio methodsFor: 'adding' stamp: 'TM 5/22/2023 16:25:21' prior: 50875164!
+addParent: aPortfolio
+
+	parents add: aPortfolio.
+		! !
+!Portfolio methodsFor: 'initialization' stamp: 'TM 5/22/2023 16:25:33' prior: 50874544 overrides: 16920235!
+initialize
+
+	balance := 0.
+	assets := Set new.
+	parents := Set new.! !
+
+Object subclass: #Portfolio
+	instanceVariableNames: 'assets parents'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classDefinition: #Portfolio category: 'Portfolio-Ejercicio' stamp: 'TM 5/22/2023 16:26:01'!
+Object subclass: #Portfolio
+	instanceVariableNames: 'assets parents'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+!Portfolio methodsFor: 'testing' stamp: 'TM 5/22/2023 16:26:45' prior: 50874494!
+anyParentContains: anAsset
+
+	parents isEmpty 
+	ifFalse: [ ^parents anyParentContains: anAsset ]
+	ifTrue: [ ^	self contains: anAsset ].
+! !
+!Portfolio methodsFor: 'testing' stamp: 'TM 5/22/2023 16:27:43' prior: 50875257!
+anyParentContains: anAsset
+
+	parents isEmpty 
+	ifFalse: [
+		^parents anySatisfy: [ :each | each contains: anAsset ]
+	]
+	ifTrue: [ ^	self contains: anAsset ].
+! !
+!Portfolio methodsFor: 'initialization' stamp: 'TM 5/22/2023 16:28:18' prior: 50875239 overrides: 16920235!
+initialize
+
+	assets := Set new.
+	parents := Set new.! !
+
+!testRun: #PortfolioTest #test01PortfolioHasZeroBalanceWhenCreated stamp: 'TM 5/22/2023 16:28:29'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioBalanceEqualsOneAccountBalance stamp: 'TM 5/22/2023 16:28:29'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioBalanceEqualsManyAccountsBalance stamp: 'TM 5/22/2023 16:28:29'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioHasNotRegisteredTransaction stamp: 'TM 5/22/2023 16:28:29'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredTransactionInOneAccount stamp: 'TM 5/22/2023 16:28:29'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioHasRegisteredTransactionsInManyAccounts stamp: 'TM 5/22/2023 16:28:29'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioTransactionsEqualAssetsTransactions stamp: 'TM 5/22/2023 16:28:29'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioCannotAddItself stamp: 'TM 5/22/2023 16:28:29'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioCannotAddExistingAccount stamp: 'TM 5/22/2023 16:28:29'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCannotAddExistingAccountInChild stamp: 'TM 5/22/2023 16:28:29'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCannotAddExistingAccountInParent stamp: 'TM 5/22/2023 16:28:29'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCannotAddExistingAccountInMultipleParents stamp: 'TM 5/22/2023 16:28:29'!
+PASSED!
+
+!testRun: #PortfolioTest #test13PortfolioCannotAddExistingAccountInAncestor stamp: 'TM 5/22/2023 16:28:29'!
+FAILURE!
+
+!testRun: #PortfolioTest #test13PortfolioCannotAddExistingAccountInAncestor stamp: 'TM 5/22/2023 16:28:29'!
+FAILURE!
+
+!testRun: #PortfolioTest #test01PortfolioHasZeroBalanceWhenCreated stamp: 'TM 5/22/2023 16:28:37'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioBalanceEqualsOneAccountBalance stamp: 'TM 5/22/2023 16:28:37'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioBalanceEqualsManyAccountsBalance stamp: 'TM 5/22/2023 16:28:37'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioHasNotRegisteredTransaction stamp: 'TM 5/22/2023 16:28:37'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredTransactionInOneAccount stamp: 'TM 5/22/2023 16:28:37'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioHasRegisteredTransactionsInManyAccounts stamp: 'TM 5/22/2023 16:28:37'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioTransactionsEqualAssetsTransactions stamp: 'TM 5/22/2023 16:28:37'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioCannotAddItself stamp: 'TM 5/22/2023 16:28:37'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioCannotAddExistingAccount stamp: 'TM 5/22/2023 16:28:37'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCannotAddExistingAccountInChild stamp: 'TM 5/22/2023 16:28:37'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCannotAddExistingAccountInParent stamp: 'TM 5/22/2023 16:28:37'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCannotAddExistingAccountInMultipleParents stamp: 'TM 5/22/2023 16:28:37'!
+PASSED!
+
+!testRun: #PortfolioTest #test13PortfolioCannotAddExistingAccountInAncestor stamp: 'TM 5/22/2023 16:28:37'!
+FAILURE!
+
+!testRun: #PortfolioTest #test13PortfolioCannotAddExistingAccountInAncestor stamp: 'TM 5/22/2023 16:28:37'!
+FAILURE!
+
+!testRun: #PortfolioTest #test13PortfolioCannotAddExistingAccountInAncestor stamp: 'TM 5/22/2023 16:29:22'!
+FAILURE!
+
+!testRun: #PortfolioTest #test13PortfolioCannotAddExistingAccountInAncestor stamp: 'TM 5/22/2023 16:29:22'!
+FAILURE!
+
+!testRun: #PortfolioTest #test13PortfolioCannotAddExistingAccountInAncestor stamp: 'TM 5/22/2023 16:30:12'!
+FAILURE!
+
+!testRun: #PortfolioTest #test13PortfolioCannotAddExistingAccountInAncestor stamp: 'TM 5/22/2023 16:30:48'!
+FAILURE!
+
+	| grandparentPortfolio parentPortfolio childPortfolio account |
+
+	grandparentPortfolio := self createPortfolio.
+	parentPortfolio  := self createPortfolio.	
+	childPortfolio  := self createPortfolio.	
+
+	account := self createAccount.	
+	grandparentPortfolio add: account.
+	
+	grandparentPortfolio add: parentPortfolio.
+	parentPortfolio add: childPortfolio.
+!
+!PortfolioTest methodsFor: 'tests' stamp: 'TM 5/22/2023 16:32:44' prior: 50874927!
+test13PortfolioCannotAddExistingAccountInAncestor
+
+	| grandparentPortfolio parentPortfolio childPortfolio account |
+
+	grandparentPortfolio := self createPortfolio.
+	parentPortfolio  := self createPortfolio.	
+	childPortfolio  := self createPortfolio.	
+
+	account := self createAccount.	
+	grandparentPortfolio add: account.
+	
+	grandparentPortfolio add: parentPortfolio.
+	parentPortfolio add: childPortfolio.
+	
+	childPortfolio add: account.
+	
+	self
+		should: [	childPortfolio add: account.]
+		raise: Error 
+		withMessageText: Portfolio cannotAddExistingAssetErrorDescription 
+
+! !
+
+!testRun: #PortfolioTest #test13PortfolioCannotAddExistingAccountInAncestor stamp: 'TM 5/22/2023 16:32:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test01PortfolioHasZeroBalanceWhenCreated stamp: 'TM 5/22/2023 16:32:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioBalanceEqualsOneAccountBalance stamp: 'TM 5/22/2023 16:32:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioBalanceEqualsManyAccountsBalance stamp: 'TM 5/22/2023 16:32:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioHasNotRegisteredTransaction stamp: 'TM 5/22/2023 16:32:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredTransactionInOneAccount stamp: 'TM 5/22/2023 16:32:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioHasRegisteredTransactionsInManyAccounts stamp: 'TM 5/22/2023 16:32:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioTransactionsEqualAssetsTransactions stamp: 'TM 5/22/2023 16:32:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioCannotAddItself stamp: 'TM 5/22/2023 16:32:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioCannotAddExistingAccount stamp: 'TM 5/22/2023 16:32:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCannotAddExistingAccountInChild stamp: 'TM 5/22/2023 16:32:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCannotAddExistingAccountInParent stamp: 'TM 5/22/2023 16:32:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCannotAddExistingAccountInMultipleParents stamp: 'TM 5/22/2023 16:32:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test13PortfolioCannotAddExistingAccountInAncestor stamp: 'TM 5/22/2023 16:32:46'!
+PASSED!
+!PortfolioTest methodsFor: 'tests' stamp: 'TM 5/22/2023 16:34:09' prior: 50875404!
+test13PortfolioCannotAddExistingAccountInAncestor
+
+	| grandparentPortfolio parentPortfolio childPortfolio account |
+
+	grandparentPortfolio := self createPortfolio.
+	parentPortfolio  := self createPortfolio.	
+	childPortfolio  := self createPortfolio.	
+
+	account := self createAccount.	
+	grandparentPortfolio add: account.
+	
+	grandparentPortfolio add: parentPortfolio.
+	parentPortfolio add: childPortfolio.
+	
+	self
+		should: [	childPortfolio add: account.]
+		raise: Error 
+		withMessageText: Portfolio cannotAddExistingAssetErrorDescription 
+
+! !
+!Portfolio methodsFor: 'testing' stamp: 'TM 5/22/2023 16:34:18' prior: 50875264!
+anyParentContains: anAsset
+
+	parents isEmpty 
+	ifFalse: [
+		^parents anySatisfy: [ :each | each anyParentContains: anAsset ]
+	]
+	ifTrue: [ ^	self contains: anAsset ].
+! !
+
+!testRun: #PortfolioTest #test01PortfolioHasZeroBalanceWhenCreated stamp: 'TM 5/22/2023 16:34:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioBalanceEqualsOneAccountBalance stamp: 'TM 5/22/2023 16:34:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioBalanceEqualsManyAccountsBalance stamp: 'TM 5/22/2023 16:34:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioHasNotRegisteredTransaction stamp: 'TM 5/22/2023 16:34:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredTransactionInOneAccount stamp: 'TM 5/22/2023 16:34:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioHasRegisteredTransactionsInManyAccounts stamp: 'TM 5/22/2023 16:34:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioTransactionsEqualAssetsTransactions stamp: 'TM 5/22/2023 16:34:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioCannotAddItself stamp: 'TM 5/22/2023 16:34:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioCannotAddExistingAccount stamp: 'TM 5/22/2023 16:34:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCannotAddExistingAccountInChild stamp: 'TM 5/22/2023 16:34:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCannotAddExistingAccountInParent stamp: 'TM 5/22/2023 16:34:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCannotAddExistingAccountInMultipleParents stamp: 'TM 5/22/2023 16:34:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test13PortfolioCannotAddExistingAccountInAncestor stamp: 'TM 5/22/2023 16:34:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test01PortfolioHasZeroBalanceWhenCreated stamp: 'TM 5/22/2023 16:34:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioBalanceEqualsOneAccountBalance stamp: 'TM 5/22/2023 16:34:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioBalanceEqualsManyAccountsBalance stamp: 'TM 5/22/2023 16:34:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioHasNotRegisteredTransaction stamp: 'TM 5/22/2023 16:34:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredTransactionInOneAccount stamp: 'TM 5/22/2023 16:34:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioHasRegisteredTransactionsInManyAccounts stamp: 'TM 5/22/2023 16:34:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioTransactionsEqualAssetsTransactions stamp: 'TM 5/22/2023 16:34:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioCannotAddItself stamp: 'TM 5/22/2023 16:34:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioCannotAddExistingAccount stamp: 'TM 5/22/2023 16:34:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCannotAddExistingAccountInChild stamp: 'TM 5/22/2023 16:34:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCannotAddExistingAccountInParent stamp: 'TM 5/22/2023 16:34:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCannotAddExistingAccountInMultipleParents stamp: 'TM 5/22/2023 16:34:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test13PortfolioCannotAddExistingAccountInAncestor stamp: 'TM 5/22/2023 16:34:39'!
+PASSED!
+
+----SNAPSHOT----(22 May 2023 16:34:56) CuisUniversity-5706.image priorSource: 17390236!
