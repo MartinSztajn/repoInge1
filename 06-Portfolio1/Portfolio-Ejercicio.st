@@ -465,9 +465,37 @@ Object subclass: #Asset
 	poolDictionaries: ''
 	category: 'Portfolio-Ejercicio'!
 
+!Asset methodsFor: 'testing' stamp: 'TM 5/22/2023 16:47:08'!
+contains: anAsset
+
+	self subclassResponsibility ! !
+
+!Asset methodsFor: 'testing' stamp: 'TM 5/22/2023 16:39:35'!
+hasRegistered: aTransaction
+
+	self subclassResponsibility ! !
+
+
+!Asset methodsFor: 'balance' stamp: 'TM 5/22/2023 16:40:07'!
+balance
+
+	self subclassResponsibility ! !
+
+
+!Asset methodsFor: 'transactions' stamp: 'TM 5/22/2023 16:38:21'!
+transactions
+
+	self subclassResponsibility ! !
+
+
+!Asset methodsFor: 'modifying' stamp: 'TM 5/22/2023 16:56:30'!
+addParent: anAsset
+
+	self subclassResponsibility ! !
+
 
 !classDefinition: #Portfolio category: 'Portfolio-Ejercicio'!
-Object subclass: #Portfolio
+Asset subclass: #Portfolio
 	instanceVariableNames: 'assets parents'
 	classVariableNames: ''
 	poolDictionaries: ''
@@ -493,22 +521,21 @@ balance
 	^assets sum: [ :each | each balance ] ifEmpty: [0]! !
 
 
-!Portfolio methodsFor: 'initialization' stamp: 'TM 5/22/2023 16:28:18'!
+!Portfolio methodsFor: 'initialization' stamp: 'TM 5/22/2023 16:55:47'!
 initialize
 
 	assets := Set new.
 	parents := Set new.! !
 
 
-!Portfolio methodsFor: 'testing' stamp: 'TM 5/22/2023 16:34:18'!
+!Portfolio methodsFor: 'testing' stamp: 'TM 5/22/2023 16:53:48'!
 anyParentContains: anAsset
 
 	parents isEmpty 
 	ifFalse: [
 		^parents anySatisfy: [ :each | each anyParentContains: anAsset ]
 	]
-	ifTrue: [ ^	self contains: anAsset ].
-! !
+	ifTrue: [ ^	self contains: anAsset ].! !
 
 !Portfolio methodsFor: 'testing' stamp: 'TM 5/22/2023 14:31:36'!
 contains: anAsset
@@ -522,7 +549,7 @@ hasRegistered: aTransaction
 	^assets anySatisfy: [ :each | each hasRegistered: aTransaction ].! !
 
 
-!Portfolio methodsFor: 'adding' stamp: 'TM 5/22/2023 16:25:07'!
+!Portfolio methodsFor: 'modifying' stamp: 'TM 5/22/2023 16:25:07'!
 add: asset
 
 	(asset isEqualTo: self) ifTrue: [^self error: Portfolio cannotAddExistingAssetErrorDescription ].
@@ -536,11 +563,10 @@ add: asset
 	assets add: asset.
 		! !
 
-!Portfolio methodsFor: 'adding' stamp: 'TM 5/22/2023 16:25:21'!
-addParent: aPortfolio
+!Portfolio methodsFor: 'modifying' stamp: 'TM 5/22/2023 16:56:43'!
+addParent: anAsset
 
-	parents add: aPortfolio.
-		! !
+	parents add: anAsset.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -555,16 +581,16 @@ cannotAddExistingAssetErrorDescription
 
 
 !classDefinition: #ReceptiveAccount category: 'Portfolio-Ejercicio'!
-Object subclass: #ReceptiveAccount
+Asset subclass: #ReceptiveAccount
 	instanceVariableNames: 'transactions'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Ejercicio'!
 
-!ReceptiveAccount methodsFor: 'initialization' stamp: 'TM 5/22/2023 13:22:44'!
+!ReceptiveAccount methodsFor: 'initialization' stamp: 'TM 5/22/2023 16:38:49'!
 initialize
 
-	transactions := OrderedCollection new.! !
+	transactions := Set new.! !
 
 
 !ReceptiveAccount methodsFor: 'transactions' stamp: 'TM 5/22/2023 13:22:36'!
@@ -594,13 +620,10 @@ balance
 	^acum.! !
 
 
-!ReceptiveAccount methodsFor: 'testing' stamp: 'TM 5/22/2023 16:23:23'!
-addParent: aPortfolio! !
+!ReceptiveAccount methodsFor: 'testing' stamp: 'TM 5/22/2023 16:42:32'!
+contains: anAsset
 
-!ReceptiveAccount methodsFor: 'testing' stamp: 'TM 5/22/2023 14:31:36'!
-contains: acount
-
-	^(self = acount)
+	^(self = anAsset)
 
 ! !
 
@@ -610,3 +633,7 @@ hasRegistered: aTransaction
 	^ transactions includes: aTransaction 
 
 ! !
+
+
+!ReceptiveAccount methodsFor: 'modifying' stamp: 'TM 5/22/2023 16:56:51'!
+addParent: anAsset! !

@@ -10485,3 +10485,993 @@ PASSED!
 PASSED!
 
 ----SNAPSHOT----(22 May 2023 16:34:56) CuisUniversity-5706.image priorSource: 17390236!
+
+Asset subclass: #Portfolio
+	instanceVariableNames: 'assets parents'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classDefinition: #Portfolio category: 'Portfolio-Ejercicio' stamp: 'TM 5/22/2023 16:36:49'!
+Asset subclass: #Portfolio
+	instanceVariableNames: 'assets parents'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!testRun: #PortfolioTest #test01PortfolioHasZeroBalanceWhenCreated stamp: 'TM 5/22/2023 16:36:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioBalanceEqualsOneAccountBalance stamp: 'TM 5/22/2023 16:36:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioBalanceEqualsManyAccountsBalance stamp: 'TM 5/22/2023 16:36:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioHasNotRegisteredTransaction stamp: 'TM 5/22/2023 16:36:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredTransactionInOneAccount stamp: 'TM 5/22/2023 16:36:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioHasRegisteredTransactionsInManyAccounts stamp: 'TM 5/22/2023 16:36:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioTransactionsEqualAssetsTransactions stamp: 'TM 5/22/2023 16:36:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioCannotAddItself stamp: 'TM 5/22/2023 16:36:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioCannotAddExistingAccount stamp: 'TM 5/22/2023 16:36:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCannotAddExistingAccountInChild stamp: 'TM 5/22/2023 16:36:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCannotAddExistingAccountInParent stamp: 'TM 5/22/2023 16:36:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCannotAddExistingAccountInMultipleParents stamp: 'TM 5/22/2023 16:36:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test13PortfolioCannotAddExistingAccountInAncestor stamp: 'TM 5/22/2023 16:36:55'!
+PASSED!
+
+Asset subclass: #ReceptiveAccount
+	instanceVariableNames: 'transactions'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classDefinition: #ReceptiveAccount category: 'Portfolio-Ejercicio' stamp: 'TM 5/22/2023 16:37:08'!
+Asset subclass: #ReceptiveAccount
+	instanceVariableNames: 'transactions'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHasZeroAsBalanceWhenCreated stamp: 'TM 5/22/2023 16:37:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'TM 5/22/2023 16:37:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'TM 5/22/2023 16:37:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'TM 5/22/2023 16:37:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'TM 5/22/2023 16:37:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'TM 5/22/2023 16:37:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'TM 5/22/2023 16:37:11'!
+PASSED!
+!Asset methodsFor: 'transactions' stamp: 'TM 5/22/2023 16:38:21'!
+transactions
+
+	self subclassResponsibility ! !
+!ReceptiveAccount methodsFor: 'initialization' stamp: 'TM 5/22/2023 16:38:49' prior: 50871972 overrides: 16920235!
+initialize
+
+	transactions := Set new.! !
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHasZeroAsBalanceWhenCreated stamp: 'TM 5/22/2023 16:38:50'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'TM 5/22/2023 16:38:50'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'TM 5/22/2023 16:38:50'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'TM 5/22/2023 16:38:50'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'TM 5/22/2023 16:38:50'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'TM 5/22/2023 16:38:50'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'TM 5/22/2023 16:38:50'!
+PASSED!
+
+!testRun: #PortfolioTest #test01PortfolioHasZeroBalanceWhenCreated stamp: 'TM 5/22/2023 16:38:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioBalanceEqualsOneAccountBalance stamp: 'TM 5/22/2023 16:38:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioBalanceEqualsManyAccountsBalance stamp: 'TM 5/22/2023 16:38:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioHasNotRegisteredTransaction stamp: 'TM 5/22/2023 16:38:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredTransactionInOneAccount stamp: 'TM 5/22/2023 16:38:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioHasRegisteredTransactionsInManyAccounts stamp: 'TM 5/22/2023 16:38:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioTransactionsEqualAssetsTransactions stamp: 'TM 5/22/2023 16:38:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioCannotAddItself stamp: 'TM 5/22/2023 16:38:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioCannotAddExistingAccount stamp: 'TM 5/22/2023 16:38:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCannotAddExistingAccountInChild stamp: 'TM 5/22/2023 16:38:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCannotAddExistingAccountInParent stamp: 'TM 5/22/2023 16:38:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCannotAddExistingAccountInMultipleParents stamp: 'TM 5/22/2023 16:38:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test13PortfolioCannotAddExistingAccountInAncestor stamp: 'TM 5/22/2023 16:38:54'!
+PASSED!
+!Asset methodsFor: 'testing' stamp: 'TM 5/22/2023 16:39:35'!
+hasRegistered: aTransaction
+
+	self subclassResponsibility ! !
+!Asset methodsFor: 'balance' stamp: 'TM 5/22/2023 16:40:07'!
+balance
+
+	self subclassResponsibility ! !
+!ReceptiveAccount methodsFor: 'testing' stamp: 'TM 5/22/2023 16:41:03' prior: 50874257!
+contains: acount
+
+	^self = acount
+
+! !
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHasZeroAsBalanceWhenCreated stamp: 'TM 5/22/2023 16:41:04'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'TM 5/22/2023 16:41:04'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'TM 5/22/2023 16:41:04'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'TM 5/22/2023 16:41:04'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'TM 5/22/2023 16:41:04'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'TM 5/22/2023 16:41:04'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'TM 5/22/2023 16:41:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test01PortfolioHasZeroBalanceWhenCreated stamp: 'TM 5/22/2023 16:41:06'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioBalanceEqualsOneAccountBalance stamp: 'TM 5/22/2023 16:41:06'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioBalanceEqualsManyAccountsBalance stamp: 'TM 5/22/2023 16:41:06'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioHasNotRegisteredTransaction stamp: 'TM 5/22/2023 16:41:06'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredTransactionInOneAccount stamp: 'TM 5/22/2023 16:41:06'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioHasRegisteredTransactionsInManyAccounts stamp: 'TM 5/22/2023 16:41:06'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioTransactionsEqualAssetsTransactions stamp: 'TM 5/22/2023 16:41:06'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioCannotAddItself stamp: 'TM 5/22/2023 16:41:06'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioCannotAddExistingAccount stamp: 'TM 5/22/2023 16:41:06'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCannotAddExistingAccountInChild stamp: 'TM 5/22/2023 16:41:06'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCannotAddExistingAccountInParent stamp: 'TM 5/22/2023 16:41:06'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCannotAddExistingAccountInMultipleParents stamp: 'TM 5/22/2023 16:41:06'!
+PASSED!
+
+!testRun: #PortfolioTest #test13PortfolioCannotAddExistingAccountInAncestor stamp: 'TM 5/22/2023 16:41:06'!
+PASSED!
+!ReceptiveAccount methodsFor: 'testing' stamp: 'TM 5/22/2023 16:41:22' prior: 50875787!
+contains: acount
+
+	^(self = acount)
+
+! !
+!ReceptiveAccount methodsFor: 'testing' stamp: 'TM 5/22/2023 16:42:32' prior: 50875864!
+contains: anAsset
+
+	^(self = anAsset)
+
+! !
+
+Object subclass: #Asset
+	instanceVariableNames: 'parents'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classDefinition: #Portfolio category: 'Portfolio-Ejercicio' stamp: 'TM 5/22/2023 16:44:06'!
+Asset subclass: #Portfolio
+	instanceVariableNames: 'parents'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classDefinition: #Asset category: 'Portfolio-Ejercicio' stamp: 'TM 5/22/2023 16:44:06'!
+Object subclass: #Asset
+	instanceVariableNames: 'assets'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+Object subclass: #Asset
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classDefinition: #Asset category: 'Portfolio-Ejercicio' stamp: 'TM 5/22/2023 16:44:19'!
+Object subclass: #Asset
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+Asset subclass: #Portfolio
+	instanceVariableNames: 'assets parents'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classDefinition: #Portfolio category: 'Portfolio-Ejercicio' stamp: 'TM 5/22/2023 16:44:24'!
+Asset subclass: #Portfolio
+	instanceVariableNames: 'assets parents'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!testRun: #PortfolioTest #test01PortfolioHasZeroBalanceWhenCreated stamp: 'TM 5/22/2023 16:44:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioBalanceEqualsOneAccountBalance stamp: 'TM 5/22/2023 16:44:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioBalanceEqualsManyAccountsBalance stamp: 'TM 5/22/2023 16:44:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioHasNotRegisteredTransaction stamp: 'TM 5/22/2023 16:44:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredTransactionInOneAccount stamp: 'TM 5/22/2023 16:44:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioHasRegisteredTransactionsInManyAccounts stamp: 'TM 5/22/2023 16:44:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioTransactionsEqualAssetsTransactions stamp: 'TM 5/22/2023 16:44:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioCannotAddItself stamp: 'TM 5/22/2023 16:44:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioCannotAddExistingAccount stamp: 'TM 5/22/2023 16:44:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCannotAddExistingAccountInChild stamp: 'TM 5/22/2023 16:44:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCannotAddExistingAccountInParent stamp: 'TM 5/22/2023 16:44:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCannotAddExistingAccountInMultipleParents stamp: 'TM 5/22/2023 16:44:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test13PortfolioCannotAddExistingAccountInAncestor stamp: 'TM 5/22/2023 16:44:26'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHasZeroAsBalanceWhenCreated stamp: 'TM 5/22/2023 16:44:28'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'TM 5/22/2023 16:44:28'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'TM 5/22/2023 16:44:28'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'TM 5/22/2023 16:44:28'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'TM 5/22/2023 16:44:28'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'TM 5/22/2023 16:44:28'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'TM 5/22/2023 16:44:28'!
+PASSED!
+
+!classDefinition: #Portfolio category: 'Portfolio-Ejercicio' stamp: 'TM 5/22/2023 16:44:36'!
+Asset subclass: #Portfolio
+	instanceVariableNames: 'parents'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classDefinition: #Asset category: 'Portfolio-Ejercicio' stamp: 'TM 5/22/2023 16:44:36'!
+Object subclass: #Asset
+	instanceVariableNames: 'assets'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+Object subclass: #Asset
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classDefinition: #Asset category: 'Portfolio-Ejercicio' stamp: 'TM 5/22/2023 16:44:58'!
+Object subclass: #Asset
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classDefinition: #Portfolio category: 'Portfolio-Ejercicio' stamp: 'TM 5/22/2023 16:45:21'!
+Asset subclass: #Portfolio
+	instanceVariableNames: 'parents assets'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+!Portfolio methodsFor: 'initialization' stamp: 'TM 5/22/2023 16:45:16' prior: 50875273 overrides: 16920235!
+initialize
+
+	assets := Set new.! !
+
+Object subclass: #Asset
+	instanceVariableNames: 'assets'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+Object subclass: #Asset
+	instanceVariableNames: 'parents2'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classDefinition: #Asset category: 'Portfolio-Ejercicio' stamp: 'TM 5/22/2023 16:45:50'!
+Object subclass: #Asset
+	instanceVariableNames: 'parents2'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+Object subclass: #Asset
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classDefinition: #Asset category: 'Portfolio-Ejercicio' stamp: 'TM 5/22/2023 16:46:08'!
+Object subclass: #Asset
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+Asset subclass: #Portfolio
+	instanceVariableNames: 'assets parents'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classDefinition: #Portfolio category: 'Portfolio-Ejercicio' stamp: 'TM 5/22/2023 16:46:15'!
+Asset subclass: #Portfolio
+	instanceVariableNames: 'assets parents'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHasZeroAsBalanceWhenCreated stamp: 'TM 5/22/2023 16:46:18'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'TM 5/22/2023 16:46:18'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'TM 5/22/2023 16:46:18'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'TM 5/22/2023 16:46:18'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'TM 5/22/2023 16:46:18'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'TM 5/22/2023 16:46:18'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'TM 5/22/2023 16:46:18'!
+PASSED!
+
+!testRun: #PortfolioTest #test01PortfolioHasZeroBalanceWhenCreated stamp: 'TM 5/22/2023 16:46:20'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioBalanceEqualsOneAccountBalance stamp: 'TM 5/22/2023 16:46:20'!
+ERROR!
+
+!testRun: #PortfolioTest #test03PortfolioBalanceEqualsManyAccountsBalance stamp: 'TM 5/22/2023 16:46:20'!
+ERROR!
+
+!testRun: #PortfolioTest #test04PortfolioHasNotRegisteredTransaction stamp: 'TM 5/22/2023 16:46:20'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredTransactionInOneAccount stamp: 'TM 5/22/2023 16:46:20'!
+ERROR!
+
+!testRun: #PortfolioTest #test06PortfolioHasRegisteredTransactionsInManyAccounts stamp: 'TM 5/22/2023 16:46:20'!
+ERROR!
+
+!testRun: #PortfolioTest #test07PortfolioTransactionsEqualAssetsTransactions stamp: 'TM 5/22/2023 16:46:20'!
+ERROR!
+
+!testRun: #PortfolioTest #test08PortfolioCannotAddItself stamp: 'TM 5/22/2023 16:46:20'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioCannotAddExistingAccount stamp: 'TM 5/22/2023 16:46:20'!
+ERROR!
+
+!testRun: #PortfolioTest #test10PortfolioCannotAddExistingAccountInChild stamp: 'TM 5/22/2023 16:46:20'!
+ERROR!
+
+!testRun: #PortfolioTest #test11PortfolioCannotAddExistingAccountInParent stamp: 'TM 5/22/2023 16:46:20'!
+ERROR!
+
+!testRun: #PortfolioTest #test12PortfolioCannotAddExistingAccountInMultipleParents stamp: 'TM 5/22/2023 16:46:20'!
+ERROR!
+
+!testRun: #PortfolioTest #test13PortfolioCannotAddExistingAccountInAncestor stamp: 'TM 5/22/2023 16:46:20'!
+ERROR!
+!Portfolio methodsFor: 'initialization' stamp: 'TM 5/22/2023 16:46:33' prior: 50876022 overrides: 16920235!
+initialize
+
+	assets := Set new.
+	parents := Set new.! !
+
+!testRun: #PortfolioTest #test01PortfolioHasZeroBalanceWhenCreated stamp: 'TM 5/22/2023 16:46:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioBalanceEqualsOneAccountBalance stamp: 'TM 5/22/2023 16:46:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioBalanceEqualsManyAccountsBalance stamp: 'TM 5/22/2023 16:46:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioHasNotRegisteredTransaction stamp: 'TM 5/22/2023 16:46:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredTransactionInOneAccount stamp: 'TM 5/22/2023 16:46:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioHasRegisteredTransactionsInManyAccounts stamp: 'TM 5/22/2023 16:46:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioTransactionsEqualAssetsTransactions stamp: 'TM 5/22/2023 16:46:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioCannotAddItself stamp: 'TM 5/22/2023 16:46:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioCannotAddExistingAccount stamp: 'TM 5/22/2023 16:46:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCannotAddExistingAccountInChild stamp: 'TM 5/22/2023 16:46:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCannotAddExistingAccountInParent stamp: 'TM 5/22/2023 16:46:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCannotAddExistingAccountInMultipleParents stamp: 'TM 5/22/2023 16:46:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test13PortfolioCannotAddExistingAccountInAncestor stamp: 'TM 5/22/2023 16:46:35'!
+PASSED!
+!Asset methodsFor: 'testing' stamp: 'TM 5/22/2023 16:47:08'!
+contains: anAsset
+
+	self subclassResponsibility ! !
+
+!testRun: #PortfolioTest #test01PortfolioHasZeroBalanceWhenCreated stamp: 'TM 5/22/2023 16:47:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioBalanceEqualsOneAccountBalance stamp: 'TM 5/22/2023 16:47:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioBalanceEqualsManyAccountsBalance stamp: 'TM 5/22/2023 16:47:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioHasNotRegisteredTransaction stamp: 'TM 5/22/2023 16:47:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredTransactionInOneAccount stamp: 'TM 5/22/2023 16:47:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioHasRegisteredTransactionsInManyAccounts stamp: 'TM 5/22/2023 16:47:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioTransactionsEqualAssetsTransactions stamp: 'TM 5/22/2023 16:47:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioCannotAddItself stamp: 'TM 5/22/2023 16:47:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioCannotAddExistingAccount stamp: 'TM 5/22/2023 16:47:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCannotAddExistingAccountInChild stamp: 'TM 5/22/2023 16:47:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCannotAddExistingAccountInParent stamp: 'TM 5/22/2023 16:47:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCannotAddExistingAccountInMultipleParents stamp: 'TM 5/22/2023 16:47:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test13PortfolioCannotAddExistingAccountInAncestor stamp: 'TM 5/22/2023 16:47:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHasZeroAsBalanceWhenCreated stamp: 'TM 5/22/2023 16:47:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'TM 5/22/2023 16:47:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'TM 5/22/2023 16:47:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'TM 5/22/2023 16:47:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'TM 5/22/2023 16:47:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'TM 5/22/2023 16:47:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'TM 5/22/2023 16:47:12'!
+PASSED!
+!Portfolio methodsFor: 'adding' stamp: 'TM 5/22/2023 16:47:30' prior: 50875233!
+addParent: aPortfolio
+
+	parents add: aPortfolio.! !
+!Portfolio methodsFor: 'adding' stamp: 'TM 5/22/2023 16:48:35' prior: 50876265!
+addParent: aPortfolio
+"
+	parents add: aPortfolio.
+"! !
+
+Asset subclass: #Portfolio
+	instanceVariableNames: 'assets'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classDefinition: #Portfolio category: 'Portfolio-Ejercicio' stamp: 'TM 5/22/2023 16:48:41'!
+Asset subclass: #Portfolio
+	instanceVariableNames: 'assets'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+Object subclass: #Asset
+	instanceVariableNames: 'parents'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classDefinition: #Asset category: 'Portfolio-Ejercicio' stamp: 'TM 5/22/2023 16:48:47'!
+Object subclass: #Asset
+	instanceVariableNames: 'parents'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+!Asset methodsFor: 'initialization' stamp: 'TM 5/22/2023 16:49:07' overrides: 16920235!
+initialize
+
+	parents := Set new! !
+!Asset methodsFor: 'initialization' stamp: 'TM 5/22/2023 16:49:10' prior: 50876298 overrides: 16920235!
+initialize
+
+	parents := Set new.! !
+!Portfolio methodsFor: 'initialization' stamp: 'TM 5/22/2023 16:49:22' prior: 50876138 overrides: 50876303!
+initialize
+
+	assets := Set new.
+	"parents := Set new."! !
+!Asset methodsFor: 'modifying' stamp: 'TM 5/22/2023 16:49:54'!
+addParent: aPortfolio
+
+	parents add: aPortfolio.! !
+
+!methodRemoval: ReceptiveAccount #addParent: stamp: 'TM 5/22/2023 16:50:14'!
+addParent: aPortfolio!
+
+!methodRemoval: Portfolio #addParent: stamp: 'TM 5/22/2023 16:50:17'!
+addParent: aPortfolio
+"
+	parents add: aPortfolio.
+"!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHasZeroAsBalanceWhenCreated stamp: 'TM 5/22/2023 16:50:46'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'TM 5/22/2023 16:50:46'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'TM 5/22/2023 16:50:46'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'TM 5/22/2023 16:50:46'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'TM 5/22/2023 16:50:46'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'TM 5/22/2023 16:50:46'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'TM 5/22/2023 16:50:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test01PortfolioHasZeroBalanceWhenCreated stamp: 'TM 5/22/2023 16:50:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioBalanceEqualsOneAccountBalance stamp: 'TM 5/22/2023 16:50:47'!
+ERROR!
+
+!testRun: #PortfolioTest #test03PortfolioBalanceEqualsManyAccountsBalance stamp: 'TM 5/22/2023 16:50:47'!
+ERROR!
+
+!testRun: #PortfolioTest #test04PortfolioHasNotRegisteredTransaction stamp: 'TM 5/22/2023 16:50:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredTransactionInOneAccount stamp: 'TM 5/22/2023 16:50:47'!
+ERROR!
+
+!testRun: #PortfolioTest #test06PortfolioHasRegisteredTransactionsInManyAccounts stamp: 'TM 5/22/2023 16:50:47'!
+ERROR!
+
+!testRun: #PortfolioTest #test07PortfolioTransactionsEqualAssetsTransactions stamp: 'TM 5/22/2023 16:50:47'!
+ERROR!
+
+!testRun: #PortfolioTest #test08PortfolioCannotAddItself stamp: 'TM 5/22/2023 16:50:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioCannotAddExistingAccount stamp: 'TM 5/22/2023 16:50:47'!
+ERROR!
+
+!testRun: #PortfolioTest #test10PortfolioCannotAddExistingAccountInChild stamp: 'TM 5/22/2023 16:50:47'!
+ERROR!
+
+!testRun: #PortfolioTest #test11PortfolioCannotAddExistingAccountInParent stamp: 'TM 5/22/2023 16:50:47'!
+ERROR!
+
+!testRun: #PortfolioTest #test12PortfolioCannotAddExistingAccountInMultipleParents stamp: 'TM 5/22/2023 16:50:47'!
+ERROR!
+
+!testRun: #PortfolioTest #test13PortfolioCannotAddExistingAccountInAncestor stamp: 'TM 5/22/2023 16:50:47'!
+ERROR!
+
+!testRun: #PortfolioTest #test02PortfolioBalanceEqualsOneAccountBalance stamp: 'TM 5/22/2023 16:50:54'!
+ERROR!
+
+!testRun: #PortfolioTest #test02PortfolioBalanceEqualsOneAccountBalance stamp: 'TM 5/22/2023 16:51:22'!
+ERROR!
+!Asset methodsFor: 'parents' stamp: 'TM 5/22/2023 16:53:16'!
+parents
+
+	^self parents.! !
+!Portfolio methodsFor: 'testing' stamp: 'TM 5/22/2023 16:53:33' prior: 50875495!
+anyParentContains: anAsset
+
+	self parents isEmpty 
+	ifFalse: [
+		^self parents anySatisfy: [ :each | each anyParentContains: anAsset ]
+	]
+	ifTrue: [ ^	self contains: anAsset ].
+! !
+
+!testRun: #PortfolioTest #test01PortfolioHasZeroBalanceWhenCreated stamp: 'TM 5/22/2023 16:53:34'!
+PASSED!
+!Portfolio methodsFor: 'testing' stamp: 'TM 5/22/2023 16:53:45' prior: 50876406!
+anyParentContains: anAsset
+
+	parents isEmpty 
+	ifFalse: [
+		^parents anySatisfy: [ :each | each anyParentContains: anAsset ]
+	]
+	ifTrue: [ ^	self contains: anAsset ].
+! !
+!Portfolio methodsFor: 'testing' stamp: 'TM 5/22/2023 16:53:48' prior: 50876418!
+anyParentContains: anAsset
+
+	parents isEmpty 
+	ifFalse: [
+		^parents anySatisfy: [ :each | each anyParentContains: anAsset ]
+	]
+	ifTrue: [ ^	self contains: anAsset ].! !
+!Portfolio methodsFor: 'modifying' stamp: 'TM 5/22/2023 16:54:02' overrides: 50876312!
+addParent: aPortfolio
+
+	parents add: aPortfolio.! !
+
+!methodRemoval: Asset #initialize stamp: 'TM 5/22/2023 16:54:12'!
+initialize
+
+	parents := Set new.!
+
+!methodRemoval: Asset #addParent: stamp: 'TM 5/22/2023 16:54:24'!
+addParent: aPortfolio
+
+	parents add: aPortfolio.!
+
+!methodRemoval: Asset #parents stamp: 'TM 5/22/2023 16:54:27'!
+parents
+
+	^self parents.!
+
+Object subclass: #Asset
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classDefinition: #Asset category: 'Portfolio-Ejercicio' stamp: 'TM 5/22/2023 16:54:32'!
+Object subclass: #Asset
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+Asset subclass: #Portfolio
+	instanceVariableNames: 'assets parents'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classDefinition: #Portfolio category: 'Portfolio-Ejercicio' stamp: 'TM 5/22/2023 16:54:36'!
+Asset subclass: #Portfolio
+	instanceVariableNames: 'assets parents'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+!ReceptiveAccount methodsFor: 'nil' stamp: 'TM 5/22/2023 16:54:50'!
+addParent: anAsset! !
+!ReceptiveAccount methodsFor: 'modifying' stamp: 'TM 5/22/2023 16:55:21' prior: 50876472!
+addParent: parents! !
+!ReceptiveAccount methodsFor: 'modifying' stamp: 'TM 5/22/2023 16:55:31' prior: 50876476!
+addParent: aPortfolio! !
+
+!testRun: #PortfolioTest #test01PortfolioHasZeroBalanceWhenCreated stamp: 'TM 5/22/2023 16:55:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioBalanceEqualsOneAccountBalance stamp: 'TM 5/22/2023 16:55:39'!
+ERROR!
+
+!testRun: #PortfolioTest #test03PortfolioBalanceEqualsManyAccountsBalance stamp: 'TM 5/22/2023 16:55:39'!
+ERROR!
+
+!testRun: #PortfolioTest #test04PortfolioHasNotRegisteredTransaction stamp: 'TM 5/22/2023 16:55:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredTransactionInOneAccount stamp: 'TM 5/22/2023 16:55:39'!
+ERROR!
+
+!testRun: #PortfolioTest #test06PortfolioHasRegisteredTransactionsInManyAccounts stamp: 'TM 5/22/2023 16:55:39'!
+ERROR!
+
+!testRun: #PortfolioTest #test07PortfolioTransactionsEqualAssetsTransactions stamp: 'TM 5/22/2023 16:55:39'!
+ERROR!
+
+!testRun: #PortfolioTest #test08PortfolioCannotAddItself stamp: 'TM 5/22/2023 16:55:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioCannotAddExistingAccount stamp: 'TM 5/22/2023 16:55:39'!
+ERROR!
+
+!testRun: #PortfolioTest #test10PortfolioCannotAddExistingAccountInChild stamp: 'TM 5/22/2023 16:55:39'!
+ERROR!
+
+!testRun: #PortfolioTest #test11PortfolioCannotAddExistingAccountInParent stamp: 'TM 5/22/2023 16:55:39'!
+ERROR!
+
+!testRun: #PortfolioTest #test12PortfolioCannotAddExistingAccountInMultipleParents stamp: 'TM 5/22/2023 16:55:39'!
+ERROR!
+
+!testRun: #PortfolioTest #test13PortfolioCannotAddExistingAccountInAncestor stamp: 'TM 5/22/2023 16:55:39'!
+ERROR!
+!Portfolio methodsFor: 'initialization' stamp: 'TM 5/22/2023 16:55:47' prior: 50876308 overrides: 16920235!
+initialize
+
+	assets := Set new.
+	parents := Set new.! !
+
+!testRun: #PortfolioTest #test01PortfolioHasZeroBalanceWhenCreated stamp: 'TM 5/22/2023 16:55:48'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioBalanceEqualsOneAccountBalance stamp: 'TM 5/22/2023 16:55:48'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioBalanceEqualsManyAccountsBalance stamp: 'TM 5/22/2023 16:55:48'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioHasNotRegisteredTransaction stamp: 'TM 5/22/2023 16:55:48'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredTransactionInOneAccount stamp: 'TM 5/22/2023 16:55:48'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioHasRegisteredTransactionsInManyAccounts stamp: 'TM 5/22/2023 16:55:48'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioTransactionsEqualAssetsTransactions stamp: 'TM 5/22/2023 16:55:48'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioCannotAddItself stamp: 'TM 5/22/2023 16:55:48'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioCannotAddExistingAccount stamp: 'TM 5/22/2023 16:55:48'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCannotAddExistingAccountInChild stamp: 'TM 5/22/2023 16:55:48'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCannotAddExistingAccountInParent stamp: 'TM 5/22/2023 16:55:48'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCannotAddExistingAccountInMultipleParents stamp: 'TM 5/22/2023 16:55:48'!
+PASSED!
+
+!testRun: #PortfolioTest #test13PortfolioCannotAddExistingAccountInAncestor stamp: 'TM 5/22/2023 16:55:48'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHasZeroAsBalanceWhenCreated stamp: 'TM 5/22/2023 16:55:50'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'TM 5/22/2023 16:55:50'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'TM 5/22/2023 16:55:50'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'TM 5/22/2023 16:55:50'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'TM 5/22/2023 16:55:50'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'TM 5/22/2023 16:55:50'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'TM 5/22/2023 16:55:50'!
+PASSED!
+!Asset methodsFor: 'modifying' stamp: 'TM 5/22/2023 16:56:22'!
+addParent: aPortfolio
+
+	self subclassResponsibility ! !
+!Asset methodsFor: 'modifying' stamp: 'TM 5/22/2023 16:56:30' prior: 50876608!
+addParent: anAsset
+
+	self subclassResponsibility ! !
+!Portfolio methodsFor: 'modifying' stamp: 'TM 5/22/2023 16:56:43' prior: 50876435 overrides: 50876613!
+addParent: anAsset
+
+	parents add: anAsset.! !
+!ReceptiveAccount methodsFor: 'modifying' stamp: 'TM 5/22/2023 16:56:51' prior: 50876480 overrides: 50876613!
+addParent: anAsset! !
+
+!testRun: #PortfolioTest #test01PortfolioHasZeroBalanceWhenCreated stamp: 'TM 5/22/2023 16:56:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioBalanceEqualsOneAccountBalance stamp: 'TM 5/22/2023 16:56:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioBalanceEqualsManyAccountsBalance stamp: 'TM 5/22/2023 16:56:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioHasNotRegisteredTransaction stamp: 'TM 5/22/2023 16:56:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredTransactionInOneAccount stamp: 'TM 5/22/2023 16:56:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioHasRegisteredTransactionsInManyAccounts stamp: 'TM 5/22/2023 16:56:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioTransactionsEqualAssetsTransactions stamp: 'TM 5/22/2023 16:56:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioCannotAddItself stamp: 'TM 5/22/2023 16:56:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioCannotAddExistingAccount stamp: 'TM 5/22/2023 16:56:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCannotAddExistingAccountInChild stamp: 'TM 5/22/2023 16:56:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCannotAddExistingAccountInParent stamp: 'TM 5/22/2023 16:56:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCannotAddExistingAccountInMultipleParents stamp: 'TM 5/22/2023 16:56:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test13PortfolioCannotAddExistingAccountInAncestor stamp: 'TM 5/22/2023 16:56:54'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHasZeroAsBalanceWhenCreated stamp: 'TM 5/22/2023 16:56:56'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'TM 5/22/2023 16:56:56'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'TM 5/22/2023 16:56:56'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'TM 5/22/2023 16:56:56'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'TM 5/22/2023 16:56:56'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'TM 5/22/2023 16:56:56'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'TM 5/22/2023 16:56:56'!
+PASSED!
+
+----SNAPSHOT----(22 May 2023 16:57:10) CuisUniversity-5706.image priorSource: 17406234!
+
+----QUIT----(22 May 2023 16:57:12) CuisUniversity-5706.image priorSource: 17441541!
