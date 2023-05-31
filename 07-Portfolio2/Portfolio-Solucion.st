@@ -139,6 +139,41 @@ test07ManyAccountSummaryWithManyTransactions
 
 ! !
 
+!AccountSummaryTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 14:43:28'!
+test08PortofolioAccountSummaryWithBalanceZero
+	| portfolio message |
+	
+	portfolio := Portfolio new.
+
+	message := OrderedCollection new.
+	message add: 'Balance = 0'.
+	
+	self assert: message equals:  (AccountSummary of: portfolio) value.
+
+! !
+
+!AccountSummaryTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 14:49:47'!
+test09PortofolioAccountSummaryWithManyAccounts
+	| portfolio account1 account2 message |
+
+	account1  := ReceptiveAccount new.
+	account2  := ReceptiveAccount new.
+
+	Deposit register: 100  on: account1.
+	Deposit register: 300  on: account2.
+	
+	portfolio := Portfolio with: account1 with: account2.
+
+
+	message := OrderedCollection new.
+	message add: 'Deposito por 100'.
+	message add: 'Deposito por 300'.
+	message add: 'Balance = 400'.
+	
+	self assert: message equals:  (AccountSummary of: portfolio) value.
+
+! !
+
 
 !classDefinition: #PortfolioTest category: 'Portfolio-Solucion'!
 TestCase subclass: #PortfolioTest
@@ -447,6 +482,47 @@ test07AccountKnowsItsTransactions
 ! !
 
 
+!classDefinition: #ReportPortfolioTest category: 'Portfolio-Solucion'!
+TestCase subclass: #ReportPortfolioTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!ReportPortfolioTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 15:05:25'!
+test01PortofolioNotHaveAccounts
+
+	| portfolio message |
+	portfolio := Portfolio named: 'Portfolio de la familia'.
+	
+	message := OrderedCollection new.
+	message add: 'Portfolio de la familia'.
+	
+	self assert: message equals: (PortfolioEstruct of: portfolio) value
+	! !
+
+!ReportPortfolioTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 15:24:58'!
+test02PortofolioWithOneAccount
+
+	| portfolio myAccount message message2 |
+	myAccount := ReceptiveAccount named: 'Cuenta mia'.
+
+	portfolio := Portfolio named: 'Portfolio de la familia' with: myAccount.
+
+	
+	message := OrderedCollection new.
+	message add: 'Portfolio de la familia'.
+	
+	message2 := OrderedCollection new.
+	message2 add: '	Cuenta mia'.
+	
+	message add: message2.
+
+	
+	self assert: message equals: (PortfolioEstruct of: portfolio) value
+	! !
+
+
 !classDefinition: #TransferNetTest category: 'Portfolio-Solucion'!
 TestCase subclass: #TransferNetTest
 	instanceVariableNames: ''
@@ -487,6 +563,52 @@ test03TransferNetWithSendingTransference
 	Transference register: 100 from: account2  to: account1.
 	
 	self assert: -100 equals: (TransferNet of: account2) value.
+! !
+
+!TransferNetTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 14:37:49'!
+test04MultipleTransferencesTransferNet
+
+	| account1 account2 |
+	
+	account1 := ReceptiveAccount new.
+	account2 := ReceptiveAccount new.
+
+	Transference register: 100 from: account2  to: account1.
+	Transference register: 30 from: account1  to: account2.
+	Transference register: 100 from: account2  to: account1.
+	
+	self assert: 170 equals: (TransferNet of: account1) value.
+	self assert: -170 equals: (TransferNet of: account2) value.
+
+! !
+
+!TransferNetTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 14:51:10'!
+test04PortfolioTransferNetWithBalanceZero
+
+	| portfolio |
+	
+	portfolio := Portfolio new.
+	
+	self assert: 0 equals:  (TransferNet of: portfolio) value.
+
+
+! !
+
+!TransferNetTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 14:56:14'!
+test05PortfolioTransferNetWithMultipleAccount
+
+	| portfolio account1 account2 account3 |
+
+	account1  := ReceptiveAccount new.
+	account2  := ReceptiveAccount new.
+	account3  := ReceptiveAccount new.
+
+	Transference register: 100 from: account3  to: account1.
+	Transference register: 300 from: account3  to: account2.
+
+	portfolio := Portfolio with: account1 with: account2.
+	
+	self assert: 400 equals:  (TransferNet of: portfolio) value.
 ! !
 
 
@@ -545,7 +667,7 @@ test04SecondAccountCanSearchFirstAccount
 
 !classDefinition: #Account category: 'Portfolio-Solucion'!
 Object subclass: #Account
-	instanceVariableNames: ''
+	instanceVariableNames: 'name'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
@@ -583,6 +705,29 @@ addedTo: aPortfolio
 
 	self subclassResponsibility ! !
 
+
+!Account methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 14:45:49'!
+processReport: aReport
+
+	self transactions do: [ :trans |  trans addTransactionToReport: aReport	].
+	aReport printBalance: self balance.
+! !
+
+
+!Account methodsFor: 'initialization' stamp: 'Ms 5/31/2023 15:31:14'!
+initializeWithName: aName
+	name := aName.! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'Account class' category: 'Portfolio-Solucion'!
+Account class
+	instanceVariableNames: ''!
+
+!Account class methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 15:30:15'!
+named: aName
+
+	^self new initializeWithName: aName.! !
 
 
 !classDefinition: #Portfolio category: 'Portfolio-Solucion'!
@@ -697,9 +842,20 @@ signalCanNotAddAccount
 	self error: self class canNotAddAccountErrorMessage! !
 
 
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 15:39:39'!
+acountReport: aReport
+
+	aReport printName: self name.
+	accounts do: [ :acc |  acc acountReport: aReport	].
+! !
+
 !Portfolio methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 02:21:04'!
 getMessageTransaction
 	^'Deposito por ', self value asString.! !
+
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 15:50:41'!
+name
+	^name ! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -711,6 +867,11 @@ Portfolio class
 canNotAddAccountErrorMessage
 	
 	^'Can not add repeated account to a portfolio'! !
+
+!Portfolio class methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 15:26:43'!
+named: aName with: anAccount
+
+	^(self new initializeWithName: aName) add: anAccount.! !
 
 !Portfolio class methodsFor: 'as yet unclassified' stamp: 'HAW 5/25/2019 11:18:21'!
 with: anAccount
@@ -742,10 +903,19 @@ initialize
 	transactions := OrderedCollection new.! !
 
 
+!ReceptiveAccount methodsFor: 'transactions' stamp: 'Ms 5/31/2023 15:41:06'!
+acountReport: aReport	
+	aReport printName: self name.
+! !
+
 !ReceptiveAccount methodsFor: 'transactions' stamp: 'HAW 5/25/2019 11:38:52'!
 addTransactionsTo: aCollectionOfTransactions
 
 	aCollectionOfTransactions addAll: transactions ! !
+
+!ReceptiveAccount methodsFor: 'transactions' stamp: 'Ms 5/31/2023 15:53:15'!
+name
+	^name ! !
 
 !ReceptiveAccount methodsFor: 'transactions' stamp: 'HernanWilkinson 7/13/2011 18:37'!
 register: aTransaction
@@ -789,13 +959,6 @@ addedTo: aPortfolio
 !ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 02:21:04'!
 getMessageTransaction
 	^'Deposito por ', self value asString.! !
-
-!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 12:31:10'!
-processReport: aReport
-
-	transactions do: [ :trans |  trans addTransactionToReport: aReport	].
-	aReport printBalance: self balance.
-! !
 
 !ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 02:39:41'!
 showMessageSummary: aSummary
@@ -1047,11 +1210,9 @@ addLegWithdrawWithValue: aValue
 addWithdrawWithValue: aValue
 	self subclassResponsibility ! !
 
-!Reporte methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 12:40:46'!
+!Reporte methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 15:44:49'!
 intializeWithAccount: anAccount
-	account  := anAccount.
-	account processReport: self.
-
+	self subclassResponsibility 
 ! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
@@ -1088,9 +1249,12 @@ addLegWithdrawWithValue: aValue
 addWithdrawWithValue: aValue
 	^message add: 'Extraccion por ', aValue asString.! !
 
-!AccountSummary methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 12:39:40'!
-initialize
-	message := OrderedCollection new.! !
+!AccountSummary methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 15:45:17'!
+intializeWithAccount: anAccount
+	account := anAccount.
+	message := OrderedCollection new.
+	account processReport: self.
+! !
 
 !AccountSummary methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 02:51:42'!
 printBalance: aValue
@@ -1099,6 +1263,30 @@ printBalance: aValue
 !AccountSummary methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 12:41:29'!
 value
 	^message! !
+
+
+!classDefinition: #PortfolioEstruct category: 'Portfolio-Solucion'!
+Reporte subclass: #PortfolioEstruct
+	instanceVariableNames: 'message'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!PortfolioEstruct methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 15:45:35'!
+intializeWithAccount: anAccount
+	account := anAccount.
+	message := OrderedCollection new.
+	account acountReport: self.
+! !
+
+!PortfolioEstruct methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 15:47:01'!
+printName: aName
+	message add: aName
+! !
+
+!PortfolioEstruct methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 15:57:18'!
+value
+	^message ! !
 
 
 !classDefinition: #TransferNet category: 'Portfolio-Solucion'!
@@ -1124,9 +1312,12 @@ addLegWithdrawWithValue: aValue
 addWithdrawWithValue: aValue
 	 ! !
 
-!TransferNet methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 12:39:24'!
-initialize
-	balance := 0! !
+!TransferNet methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 15:45:44'!
+intializeWithAccount: anAccount
+	account := anAccount.
+	balance := 0.
+	account processReport: self.
+! !
 
 !TransferNet methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 12:37:56'!
 printBalance: aValue
