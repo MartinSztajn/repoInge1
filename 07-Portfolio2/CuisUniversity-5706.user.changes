@@ -12615,3 +12615,753 @@ PASSED!
 PASSED!
 
 ----SNAPSHOT----(31 May 2023 02:55:06) CuisUniversity-5706.image priorSource: 17479011!
+
+----SNAPSHOT----(31 May 2023 02:56:59) CuisUniversity-5706.image priorSource: 17558744!
+
+----STARTUP---- (31 May 2023 11:44:21) as C:\windows64\CuisUniversity-5706.image!
+
+!LegDepositTransfer methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 11:51:15' prior: 50878329!
+getTransfer
+	^transfer withdrawTransfer ! !
+!TransferenceTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 11:51:26' prior: 50878316!
+test03FirstAccountCanSearchSecondAccount
+	| firstAccount secondAccount transfer |
+	firstAccount := ReceptiveAccount new.
+	secondAccount := ReceptiveAccount new.
+	
+	transfer := Transference register: 50 from: firstAccount to: secondAccount.
+	
+	self assert: transfer withdrawTransfer equals: transfer depositTransfer getTransfer.
+! !
+
+!testRun: #TransferenceTest #test03FirstAccountCanSearchSecondAccount stamp: 'Ms 5/31/2023 11:51:27'!
+PASSED!
+
+!testRun: #TransferenceTest #test01TransferAccountToAnotherAffectBalance stamp: 'Ms 5/31/2023 11:51:27'!
+PASSED!
+
+!testRun: #TransferenceTest #test02AccountsHaveRegisterTransfer stamp: 'Ms 5/31/2023 11:51:27'!
+PASSED!
+
+!testRun: #TransferenceTest #test03FirstAccountCanSearchSecondAccount stamp: 'Ms 5/31/2023 11:51:27'!
+PASSED!
+
+!testRun: #TransferenceTest #test04SecondAccountCanSearchFirstAccount stamp: 'Ms 5/31/2023 11:51:27'!
+PASSED!
+!TransferenceTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 11:51:54' prior: 50878963!
+test04SecondAccountCanSearchFirstAccount
+	| firstAccount secondAccount transfer |
+	firstAccount := ReceptiveAccount new.
+	secondAccount := ReceptiveAccount new.
+	
+	transfer := Transference register: 50 from: firstAccount to: secondAccount.
+	
+	self assert: transfer depositTransfer equals: transfer withdrawTransfer getTransfer.
+! !
+!LegWithdrawTransfer methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 11:52:00' prior: 50878333!
+getTransfer
+	^transfer depositTransfer! !
+
+!testRun: #TransferenceTest #test01TransferAccountToAnotherAffectBalance stamp: 'Ms 5/31/2023 11:52:03'!
+PASSED!
+
+!testRun: #TransferenceTest #test02AccountsHaveRegisterTransfer stamp: 'Ms 5/31/2023 11:52:03'!
+PASSED!
+
+!testRun: #TransferenceTest #test03FirstAccountCanSearchSecondAccount stamp: 'Ms 5/31/2023 11:52:04'!
+PASSED!
+
+!testRun: #TransferenceTest #test04SecondAccountCanSearchFirstAccount stamp: 'Ms 5/31/2023 11:52:04'!
+PASSED!
+
+TestCase subclass: #TransferNetTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classDefinition: #TransferNetTest category: 'Portfolio-Solucion' stamp: 'Ms 5/31/2023 12:00:22'!
+TestCase subclass: #TransferNetTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classDefinition: #TransferNet category: 'Portfolio-Solucion' stamp: 'Ms 5/31/2023 12:01:10'!
+Object subclass: #TransferNet
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+!TransferNetTest methodsFor: 'nil' stamp: 'Ms 5/31/2023 12:01:04'!
+test01TransferNetWithBalanceZero
+
+	| account1  message |
+	
+	account1 := ReceptiveAccount new.
+			
+	message := OrderedCollection new.	
+	message add: 'Balance = 0'.
+
+	self assert: message equals: (TransferNet of: account1) reviewAccount.
+! !
+
+Object subclass: #TransferNet
+	instanceVariableNames: 'account message'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classDefinition: #TransferNet category: 'Portfolio-Solucion' stamp: 'Ms 5/31/2023 12:01:33'!
+Object subclass: #TransferNet
+	instanceVariableNames: 'account message'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classDefinition: #Reporte category: 'Portfolio-Solucion' stamp: 'Ms 5/31/2023 12:03:09'!
+Object subclass: #Reporte
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+Reporte subclass: #TransferNet
+	instanceVariableNames: 'account message'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classDefinition: #TransferNet category: 'Portfolio-Solucion' stamp: 'Ms 5/31/2023 12:03:09'!
+Reporte subclass: #TransferNet
+	instanceVariableNames: 'account message'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+Reporte subclass: #AccountSummary
+	instanceVariableNames: 'account message'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classDefinition: #AccountSummary category: 'Portfolio-Solucion' stamp: 'Ms 5/31/2023 12:03:17'!
+Reporte subclass: #AccountSummary
+	instanceVariableNames: 'account message'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+!TransferNet class methodsFor: 'nil' stamp: 'Ms 5/31/2023 12:03:44'!
+of: anAccount
+	^self new intializeWithAccount: anAccount.! !
+!TransferNet methodsFor: 'nil' stamp: 'Ms 5/31/2023 12:03:56'!
+intializeWithAccount: anAccount
+	account  := anAccount.
+	message := OrderedCollection new.! !
+
+!testRun: #TransferNetTest #test01TransferNetWithBalanceZero stamp: 'Ms 5/31/2023 12:04:25'!
+ERROR!
+!TransferNet methodsFor: 'nil' stamp: 'Ms 5/31/2023 12:04:40'!
+reviewAccount
+		
+	account showMessageSummary: self.
+	^message
+! !
+
+!testRun: #TransferNetTest #test01TransferNetWithBalanceZero stamp: 'Ms 5/31/2023 12:04:41'!
+ERROR!
+
+!testRun: #TransferNetTest #test01TransferNetWithBalanceZero stamp: 'Ms 5/31/2023 12:04:41'!
+ERROR!
+!TransferNet methodsFor: 'nil' stamp: 'Ms 5/31/2023 12:05:08'!
+printBalance: aValue
+	^message add: 'Balance = ', aValue asString.! !
+
+!testRun: #TransferNetTest #test01TransferNetWithBalanceZero stamp: 'Ms 5/31/2023 12:05:11'!
+PASSED!
+!TransferNet methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 12:18:30' prior: 50880526!
+reviewAccount
+		
+	account showMessageTransferences: self.
+	^message
+! !
+!TransferNet methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 12:18:34' prior: 50880546!
+reviewAccount
+		
+	account showMessageSummary: self.
+	^message
+! !
+!TransferNetTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 12:20:03' prior: 50880458!
+test01TransferNetWithBalanceZero
+
+	| account1  message |
+	
+	account1 := ReceptiveAccount new.
+			
+	message := 'Balance = 0'.
+
+	self assert: message equals: (TransferNet of: account1) reviewAccount.
+! !
+!TransferNet methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 12:20:35' prior: 50880552!
+reviewAccount
+		
+	^account showMessageSummary: self.
+	
+! !
+!TransferNet methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 12:21:06' prior: 50880568!
+reviewAccount
+		
+	^account showMessageTransferences: self.
+	
+! !
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 12:21:37'!
+showMessageTransferences
+! !
+
+!methodRemoval: ReceptiveAccount #showMessageTransferences stamp: 'Ms 5/31/2023 12:21:42'!
+showMessageTransferences
+!
+!AccountSummary methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 12:24:46' prior: 50879823!
+reviewAccount
+		
+	account processReport: self.
+	^message
+! !
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 12:25:17'!
+processReport: aSummary
+
+	transactions do: [ :trans |  trans printOnSummaryMessage: aSummary	].
+	aSummary printBalance: self balance.
+! !
+!TransferNet methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 12:25:34' prior: 50880573!
+reviewAccount
+		
+	account processReport: self.
+	^message
+! !
+!Reporte class methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 12:26:11'!
+of: anAccount
+	^self new intializeWithAccount: anAccount.! !
+
+!methodRemoval: TransferNet class #of: stamp: 'Ms 5/31/2023 12:26:11'!
+of: anAccount
+	^self new intializeWithAccount: anAccount.!
+
+!methodRemoval: AccountSummary class #of: stamp: 'Ms 5/31/2023 12:26:17'!
+of: anAccount
+	^self new intializeWithAccount: anAccount.!
+
+Reporte subclass: #AccountSummary
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classDefinition: #AccountSummary category: 'Portfolio-Solucion' stamp: 'Ms 5/31/2023 12:26:45'!
+Reporte subclass: #AccountSummary
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+Reporte subclass: #TransferNet
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classDefinition: #TransferNet category: 'Portfolio-Solucion' stamp: 'Ms 5/31/2023 12:26:49'!
+Reporte subclass: #TransferNet
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+Object subclass: #Reporte
+	instanceVariableNames: 'account message'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classDefinition: #Reporte category: 'Portfolio-Solucion' stamp: 'Ms 5/31/2023 12:26:52'!
+Object subclass: #Reporte
+	instanceVariableNames: 'account message'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+Reporte subclass: #AccountSummary
+	instanceVariableNames: 'message'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+Object subclass: #Reporte
+	instanceVariableNames: 'account'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classDefinition: #Reporte category: 'Portfolio-Solucion' stamp: 'Ms 5/31/2023 12:27:42'!
+Object subclass: #Reporte
+	instanceVariableNames: 'account'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+Reporte subclass: #AccountSummary
+	instanceVariableNames: 'message'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classDefinition: #AccountSummary category: 'Portfolio-Solucion' stamp: 'Ms 5/31/2023 12:27:45'!
+Reporte subclass: #AccountSummary
+	instanceVariableNames: 'message'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+!AccountSummary methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 12:29:01' prior: 50880586!
+reviewAccount
+		
+	account processReport: self.
+! !
+!Reporte methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 12:29:06'!
+reviewAccount
+		
+	account processReport: self.
+! !
+
+!methodRemoval: AccountSummary #reviewAccount stamp: 'Ms 5/31/2023 12:29:06'!
+reviewAccount
+		
+	account processReport: self.
+!
+
+!methodRemoval: TransferNet #reviewAccount stamp: 'Ms 5/31/2023 12:29:15'!
+reviewAccount
+		
+	account processReport: self.
+	^message
+!
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 12:31:10' prior: 50880591!
+processReport: aReport
+
+	transactions do: [ :trans |  trans addTransactionToReport: aReport	].
+	aReport printBalance: self balance.
+! !
+!Deposit methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 12:31:40'!
+addTransactionToReport: aReport
+	^ aReport addDepositWithValue: self value.! !
+!LegDepositTransfer methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 12:32:12'!
+addTransactionToReport: aReport
+   ^ aReport addLegDepositWithValue: self value.! !
+!Withdraw methodsFor: 'category-name' stamp: 'Ms 5/31/2023 12:32:29'!
+addTransactionToReport: aReport
+   ^ aReport addWithdrawWithValue: self value.! !
+!LegWithdrawTransfer methodsFor: 'category-name' stamp: 'Ms 5/31/2023 12:33:00'!
+addTransactionToReport: aReport
+   ^ aReport addLegWithdrawWithValue: self value.! !
+!AccountSummary methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 12:33:50'!
+addDepositWithValue: aValue
+	^message add: 'Deposito por ', aValue asString.! !
+
+!methodRemoval: AccountSummary #printDepositWithValue: stamp: 'Ms 5/31/2023 12:33:50'!
+printDepositWithValue: aValue
+	^message add: 'Deposito por ', aValue asString.!
+!AccountSummary methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 12:34:09'!
+addLegDepositWithValue: aValue
+	^message add:  'Entrada por transferencia de ', aValue asString.! !
+
+!methodRemoval: AccountSummary #printLegDepositWithValue: stamp: 'Ms 5/31/2023 12:34:09'!
+printLegDepositWithValue: aValue
+	^message add:  'Entrada por transferencia de ', aValue asString.!
+!AccountSummary methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 12:34:19'!
+addLegWithdrawWithValue: aValue
+	^message add:  'Salida por transferencia de ', aValue asString.! !
+
+!methodRemoval: AccountSummary #printLegWithdrawWithValue: stamp: 'Ms 5/31/2023 12:34:19'!
+printLegWithdrawWithValue: aValue
+	^message add:  'Salida por transferencia de ', aValue asString.!
+!AccountSummary methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 12:34:35'!
+addWithdrawWithValue: aValue
+	^message add: 'Extraccion por ', aValue asString.! !
+
+!methodRemoval: AccountSummary #printWithdrawWithValue: stamp: 'Ms 5/31/2023 12:34:35'!
+printWithdrawWithValue: aValue
+	^message add: 'Extraccion por ', aValue asString.!
+!Reporte methodsFor: 'nil' stamp: 'Ms 5/31/2023 12:35:11'!
+addLegDepositWithValue: aValue
+	self subclassResponsibility ! !
+!Reporte methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 12:35:16'!
+addDepositWithValue: aValue
+	self subclassResponsibility ! !
+!Reporte methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 12:35:21'!
+addWithdrawWithValue: aValue
+	self subclassResponsibility ! !
+!Reporte methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 12:35:30'!
+addLegWithdrawWithValue: aValue
+	self subclassResponsibility ! !
+!TransferNet methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 12:35:54' overrides: 50880784!
+addWithdrawWithValue: aValue
+	 ! !
+!TransferNet methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 12:35:58' overrides: 50880779!
+addDepositWithValue: aValue
+	 ! !
+!TransferNet methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 12:36:01' overrides: 50880774!
+addLegDepositWithValue: aValue
+	 ! !
+
+!classDefinition: #TransferNet category: 'Portfolio-Solucion' stamp: 'Ms 5/31/2023 12:36:38'!
+Reporte subclass: #TransferNet
+	instanceVariableNames: 'balance'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+!TransferNet methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 12:36:36' prior: 50880805 overrides: 50880774!
+addLegDepositWithValue: aValue
+	balance := balance + aValue	 ! !
+!TransferNet methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 12:36:47' overrides: 50880789!
+addLegWithdrawWithValue: aValue
+	balance := balance - aValue	 ! !
+!TransferNet methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 12:37:56' prior: 50880537!
+printBalance: aValue
+	^'Balance = ', aValue asString.! !
+!TransferNet methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 12:38:24' prior: 50880517!
+intializeWithAccount: anAccount
+	account  := anAccount.
+! !
+!Reporte methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 12:38:39'!
+intializeWithAccount: anAccount
+	account  := anAccount.
+! !
+
+!methodRemoval: TransferNet #intializeWithAccount: stamp: 'Ms 5/31/2023 12:38:39'!
+intializeWithAccount: anAccount
+	account  := anAccount.
+!
+!AccountSummary methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 12:38:59'!
+intialize
+	message := OrderedCollection new.! !
+
+!methodRemoval: AccountSummary #intializeWithAccount: stamp: 'Ms 5/31/2023 12:39:03'!
+intializeWithAccount: anAccount
+	account  := anAccount.
+	message := OrderedCollection new.!
+!TransferNet methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 12:39:24' overrides: 16920235!
+initialize
+	balance := 0! !
+!AccountSummary methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 12:39:40' overrides: 16920235!
+initialize
+	message := OrderedCollection new.! !
+
+!methodRemoval: AccountSummary #intialize stamp: 'Ms 5/31/2023 12:39:40'!
+intialize
+	message := OrderedCollection new.!
+!Reporte methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 12:40:46' prior: 50880840!
+intializeWithAccount: anAccount
+	account  := anAccount.
+	account processReport: self.
+
+! !
+
+!methodRemoval: Reporte #reviewAccount stamp: 'Ms 5/31/2023 12:40:49'!
+reviewAccount
+		
+	account processReport: self.
+!
+!AccountSummary methodsFor: 'nil' stamp: 'Ms 5/31/2023 12:41:29' overrides: 16902254!
+value
+	^message! !
+!TransferNet methodsFor: 'nil' stamp: 'Ms 5/31/2023 12:41:38' overrides: 16902254!
+value
+	^balance! !
+!AccountSummaryTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 12:42:19' prior: 50879983!
+test01AccountSummaryWithBalanceZero
+
+	| account1  message |
+	
+	account1 := ReceptiveAccount new.
+			
+	message := OrderedCollection new.	
+	message add: 'Balance = 0'.
+
+	self assert: message equals: (AccountSummary of: account1) value.
+! !
+
+!testRun: #AccountSummaryTest #test01AccountSummaryWithBalanceZero stamp: 'Ms 5/31/2023 12:42:21'!
+PASSED!
+!AccountSummaryTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 12:42:30' prior: 50879966!
+test02AccountSummaryWithDeposit
+
+	| account1 message |
+	
+	account1 := ReceptiveAccount new.
+	Deposit register: 100 on: account1.
+	
+	
+	message := OrderedCollection new.
+	message add: 'Deposito por 100'.
+	message add: 'Balance = 100'.
+
+	
+	self assert: message equals: (AccountSummary of: account1) value.
+! !
+
+!testRun: #AccountSummaryTest #test02AccountSummaryWithDeposit stamp: 'Ms 5/31/2023 12:42:31'!
+PASSED!
+
+!testRun: #AccountSummaryTest #test01AccountSummaryWithBalanceZero stamp: 'Ms 5/31/2023 12:42:31'!
+PASSED!
+
+!testRun: #AccountSummaryTest #test02AccountSummaryWithDeposit stamp: 'Ms 5/31/2023 12:42:31'!
+PASSED!
+
+!testRun: #AccountSummaryTest #test03AccountSummaryWithWithdraw stamp: 'Ms 5/31/2023 12:42:31'!
+ERROR!
+
+!testRun: #AccountSummaryTest #test04AccountSummaryWithRecevingTransference stamp: 'Ms 5/31/2023 12:42:31'!
+ERROR!
+
+!testRun: #AccountSummaryTest #test05AccountSummaryWithSendingTransference stamp: 'Ms 5/31/2023 12:42:31'!
+ERROR!
+
+!testRun: #AccountSummaryTest #test06AccountSummaryWithManyTransactions stamp: 'Ms 5/31/2023 12:42:31'!
+ERROR!
+
+!testRun: #AccountSummaryTest #test07ManyAccountSummaryWithManyTransactions stamp: 'Ms 5/31/2023 12:42:31'!
+ERROR!
+!AccountSummaryTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 12:42:45' prior: 50880156!
+test03AccountSummaryWithWithdraw
+
+	| account1 message |
+	
+	account1 := ReceptiveAccount new.
+	Withdraw register: 100 on: account1.
+	
+	
+	message := OrderedCollection new.
+	message add: 'Extraccion por 100'.
+	message add: 'Balance = -100'.
+
+	
+	self assert: message equals:  (AccountSummary of: account1) value.
+! !
+!AccountSummaryTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 12:42:49' prior: 50880170!
+test04AccountSummaryWithRecevingTransference
+
+	| account1 account2 message |
+	
+	account1 := ReceptiveAccount new.
+	account2 := ReceptiveAccount new.
+
+	Transference register: 100 from: account2  to: account1.
+	
+	
+	message := OrderedCollection new.
+	message add: 'Entrada por transferencia de 100'.
+	message add: 'Balance = 100'.
+
+	
+	self assert: message equals: (AccountSummary of: account1) value.! !
+!AccountSummaryTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 12:42:52' prior: 50880318!
+test05AccountSummaryWithSendingTransference
+
+	| account1 account2 message |
+	
+	account1 := ReceptiveAccount new.
+	account2 := ReceptiveAccount new.
+
+	Transference register: 100 from: account2  to: account1.
+	
+	
+	message := OrderedCollection new.
+	message add: 'Salida por transferencia de 100'.
+	message add: 'Balance = -100'.
+
+	
+	self assert: message equals: (AccountSummary of: account2) value.
+! !
+!AccountSummaryTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 12:43:01' prior: 50880202!
+test06AccountSummaryWithManyTransactions
+	| account1 account2 message |
+	
+	account1 := ReceptiveAccount new.
+	account2 := ReceptiveAccount new.
+	Deposit register: 100 on: account1.
+	Withdraw register: 50 on: account1.
+	Transference register: 20 from: account1  to: account2.
+	Transference register: 30 from: account2  to: account1.
+	
+	message := OrderedCollection new.
+	message add: 'Deposito por 100'.
+	message add: 'Extraccion por 50'.
+	message add: 'Salida por transferencia de 20'.
+	message add: 'Entrada por transferencia de 30'.
+	message add: 'Balance = 60'.
+
+	
+	self assert: message equals:  (AccountSummary of: account1) value.! !
+!AccountSummaryTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 12:43:06' prior: 50880258!
+test07ManyAccountSummaryWithManyTransactions
+	| account1 account2 message message2 |
+	
+	account1 := ReceptiveAccount new.
+	account2 := ReceptiveAccount new.
+	Deposit register: 100 on: account1.
+	Withdraw register: 50 on: account1.
+	Transference register: 20 from: account1  to: account2.
+	Transference register: 30 from: account2  to: account1.
+	
+	message := OrderedCollection new.
+	message add: 'Deposito por 100'.
+	message add: 'Extraccion por 50'.
+	message add: 'Salida por transferencia de 20'.
+	message add: 'Entrada por transferencia de 30'.
+	message add: 'Balance = 60'.
+	
+	message2 := OrderedCollection new.
+	message2 add: 'Entrada por transferencia de 20'.
+	message2 add: 'Salida por transferencia de 30'.
+	message2 add: 'Balance = -10'.
+
+	
+	self assert: message equals:  (AccountSummary of: account1) value.
+	self assert: message2 equals:  (AccountSummary of: account2) reviewAccount.
+
+! !
+!AccountSummaryTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 12:43:09' prior: 50881016!
+test07ManyAccountSummaryWithManyTransactions
+	| account1 account2 message message2 |
+	
+	account1 := ReceptiveAccount new.
+	account2 := ReceptiveAccount new.
+	Deposit register: 100 on: account1.
+	Withdraw register: 50 on: account1.
+	Transference register: 20 from: account1  to: account2.
+	Transference register: 30 from: account2  to: account1.
+	
+	message := OrderedCollection new.
+	message add: 'Deposito por 100'.
+	message add: 'Extraccion por 50'.
+	message add: 'Salida por transferencia de 20'.
+	message add: 'Entrada por transferencia de 30'.
+	message add: 'Balance = 60'.
+	
+	message2 := OrderedCollection new.
+	message2 add: 'Entrada por transferencia de 20'.
+	message2 add: 'Salida por transferencia de 30'.
+	message2 add: 'Balance = -10'.
+
+	
+	self assert: message equals:  (AccountSummary of: account1) value.
+	self assert: message2 equals:  (AccountSummary of: account2) value.
+
+! !
+
+!testRun: #AccountSummaryTest #test01AccountSummaryWithBalanceZero stamp: 'Ms 5/31/2023 12:43:25'!
+PASSED!
+
+!testRun: #AccountSummaryTest #test02AccountSummaryWithDeposit stamp: 'Ms 5/31/2023 12:43:25'!
+PASSED!
+
+!testRun: #AccountSummaryTest #test03AccountSummaryWithWithdraw stamp: 'Ms 5/31/2023 12:43:25'!
+PASSED!
+
+!testRun: #AccountSummaryTest #test04AccountSummaryWithRecevingTransference stamp: 'Ms 5/31/2023 12:43:25'!
+PASSED!
+
+!testRun: #AccountSummaryTest #test05AccountSummaryWithSendingTransference stamp: 'Ms 5/31/2023 12:43:25'!
+PASSED!
+
+!testRun: #AccountSummaryTest #test06AccountSummaryWithManyTransactions stamp: 'Ms 5/31/2023 12:43:25'!
+PASSED!
+
+!testRun: #AccountSummaryTest #test07ManyAccountSummaryWithManyTransactions stamp: 'Ms 5/31/2023 12:43:25'!
+PASSED!
+!TransferNetTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 12:43:33' prior: 50880558!
+test01TransferNetWithBalanceZero
+
+	| account1  message |
+	
+	account1 := ReceptiveAccount new.
+			
+	message := 'Balance = 0'.
+
+	self assert: message equals: (TransferNet of: account1) value.
+! !
+
+!testRun: #TransferNetTest #test01TransferNetWithBalanceZero stamp: 'Ms 5/31/2023 12:43:34'!
+FAILURE!
+!TransferNetTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 12:43:45' prior: 50881104!
+test01TransferNetWithBalanceZero
+
+	| account1  |
+	
+	account1 := ReceptiveAccount new.
+			
+	self assert: 0 equals: (TransferNet of: account1) value.
+! !
+
+!testRun: #TransferNetTest #test01TransferNetWithBalanceZero stamp: 'Ms 5/31/2023 12:43:47'!
+PASSED!
+
+!testRun: #TransferNetTest #test01TransferNetWithBalanceZero stamp: 'Ms 5/31/2023 12:43:47'!
+PASSED!
+!TransferNetTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 12:45:02'!
+test02TransferNetWithRecevingTransference
+
+	| account1 account2 |
+	
+	account1 := ReceptiveAccount new.
+	account2 := ReceptiveAccount new.
+
+	Transference register: 100 from: account2  to: account1.
+	
+	self assert: 100 equals: (TransferNet of: account1) value.! !
+
+!testRun: #TransferNetTest #test02TransferNetWithRecevingTransference stamp: 'Ms 5/31/2023 12:45:04'!
+PASSED!
+
+!testRun: #TransferNetTest #test01TransferNetWithBalanceZero stamp: 'Ms 5/31/2023 12:45:04'!
+PASSED!
+
+!testRun: #TransferNetTest #test02TransferNetWithRecevingTransference stamp: 'Ms 5/31/2023 12:45:04'!
+PASSED!
+
+!testRun: #TransferNetTest #test02TransferNetWithRecevingTransference stamp: 'Ms 5/31/2023 12:45:35'!
+PASSED!
+
+!testRun: #TransferNetTest #test01TransferNetWithBalanceZero stamp: 'Ms 5/31/2023 12:45:35'!
+PASSED!
+
+!testRun: #TransferNetTest #test02TransferNetWithRecevingTransference stamp: 'Ms 5/31/2023 12:45:35'!
+PASSED!
+!TransferNetTest methodsFor: 'as yet unclassified' stamp: 'Ms 5/31/2023 12:46:38'!
+test03TransferNetWithSendingTransference
+
+	| account1 account2 |
+	
+	account1 := ReceptiveAccount new.
+	account2 := ReceptiveAccount new.
+
+	Transference register: 100 from: account2  to: account1.
+	
+	self assert: -100 equals: (TransferNet of: account2) value.
+! !
+
+!testRun: #TransferNetTest #test03TransferNetWithSendingTransference stamp: 'Ms 5/31/2023 12:46:41'!
+PASSED!
+
+!testRun: #TransferNetTest #test01TransferNetWithBalanceZero stamp: 'Ms 5/31/2023 12:46:41'!
+PASSED!
+
+!testRun: #TransferNetTest #test02TransferNetWithRecevingTransference stamp: 'Ms 5/31/2023 12:46:41'!
+PASSED!
+
+!testRun: #TransferNetTest #test03TransferNetWithSendingTransference stamp: 'Ms 5/31/2023 12:46:41'!
+PASSED!
+
+----SNAPSHOT----(31 May 2023 12:46:55) CuisUniversity-5706.image priorSource: 17558833!
+
+----SNAPSHOT----(31 May 2023 13:33:45) CuisUniversity-5706.image priorSource: 17585175!
