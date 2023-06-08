@@ -1509,3 +1509,2386 @@ PASSED!
 PASSED!
 
 ----SNAPSHOT----(8 June 2023 11:39:43) CuisUniversity-5832.image priorSource: 9440258!
+
+----STARTUP---- (8 June 2023 12:48:38) as /home/tomas/Downloads/cuis-2023-6-8/CuisUniversity-5832.image!
+
+
+----End fileIn of /home/tomas/Downloads/cuis-2023-6-8/TusLibros.com.st----!
+
+!testRun: #CarritoTest #test01CartEmptyWhenCreated stamp: 'TM 6/8/2023 12:52:38'!
+PASSED!
+
+!testRun: #CarritoTest #test02CartContainsOneItem stamp: 'TM 6/8/2023 12:52:38'!
+PASSED!
+
+!testRun: #CarritoTest #test03ListAllImtemsOfCart stamp: 'TM 6/8/2023 12:52:38'!
+PASSED!
+
+!testRun: #CarritoTest #test04CanNotAddItemNotCreated stamp: 'TM 6/8/2023 12:52:38'!
+PASSED!
+
+----SNAPSHOT----(8 June 2023 13:30:01) CuisUniversity-5832.image priorSource: 9453136!
+
+!testRun: #CarritoTest #test01CartEmptyWhenCreated stamp: 'TM 6/8/2023 13:34:18'!
+PASSED!
+
+!testRun: #CarritoTest #test02CartContainsOneItem stamp: 'TM 6/8/2023 13:34:18'!
+PASSED!
+
+!testRun: #CarritoTest #test03ListAllImtemsOfCart stamp: 'TM 6/8/2023 13:34:18'!
+PASSED!
+
+!testRun: #CarritoTest #test04CanNotAddItemNotCreated stamp: 'TM 6/8/2023 13:34:18'!
+PASSED!
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 13:34:32' prior: 50627061!
+test01CartEmptyWhenCreated
+	
+	| carrito |
+	carrito := Carrito new.
+	
+	self assert: carrito isEmpty.! !
+
+!testRun: #CarritoTest #test01CartEmptyWhenCreated stamp: 'TM 6/8/2023 13:34:33'!
+ERROR!
+!Carrito methodsFor: 'testing' stamp: 'TM 6/8/2023 13:34:53'!
+isEmpty
+	self shouldBeImplemented.! !
+!Carrito methodsFor: 'testing' stamp: 'TM 6/8/2023 13:35:13' prior: 50627263!
+isEmpty
+	^self elementos isEmpty.! !
+
+!testRun: #CarritoTest #test01CartEmptyWhenCreated stamp: 'TM 6/8/2023 13:35:30'!
+PASSED!
+
+!testRun: #CarritoTest #test01CartEmptyWhenCreated stamp: 'TM 6/8/2023 13:35:30'!
+PASSED!
+
+!testRun: #CarritoTest #test02CartContainsOneItem stamp: 'TM 6/8/2023 13:35:30'!
+PASSED!
+
+!testRun: #CarritoTest #test03ListAllImtemsOfCart stamp: 'TM 6/8/2023 13:35:30'!
+PASSED!
+
+!testRun: #CarritoTest #test04CanNotAddItemNotCreated stamp: 'TM 6/8/2023 13:35:30'!
+PASSED!
+
+!classDefinition: #BookMarket category: 'TusLibros' stamp: 'TM 6/8/2023 13:47:13'!
+Object subclass: #BookMarket
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 13:47:06' prior: 50627255!
+test01CartEmptyWhenCreated
+	
+	| market carrito |
+	
+	market := BookMarket new.
+	carrito := Carrito for: market.
+	
+	self assert: carrito isEmpty.! !
+
+Object subclass: #Market
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #Market category: 'TusLibros' stamp: 'TM 6/8/2023 13:47:20'!
+Object subclass: #Market
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+Market subclass: #BookMarket
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #BookMarket category: 'TusLibros' stamp: 'TM 6/8/2023 13:47:27'!
+Market subclass: #BookMarket
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!testRun: #CarritoTest #test01CartEmptyWhenCreated stamp: 'TM 6/8/2023 13:47:58'!
+ERROR!
+!Carrito class methodsFor: 'instance creation' stamp: 'TM 6/8/2023 13:48:07'!
+for: aBookMarket 
+	"DO NOT FORGET TO RENAME COLLABORATORS AND REMOVE THIS COMMENT!!!!"
+	self shouldBeImplemented.
+	^self new initializeFor: aBookMarket ! !
+!Carrito class methodsFor: 'instance creation' stamp: 'TM 6/8/2023 13:48:26' prior: 50627323!
+for: aMarket 
+	"DO NOT FORGET TO RENAME COLLABORATORS AND REMOVE THIS COMMENT!!!!"
+	self shouldBeImplemented.
+	^self new initializeFor: aMarket ! !
+!Carrito class methodsFor: 'instance creation' stamp: 'TM 6/8/2023 13:48:43' prior: 50627331!
+for: aMarket 
+	^self new initializeFor: aMarket ! !
+
+!testRun: #CarritoTest #test01CartEmptyWhenCreated stamp: 'TM 6/8/2023 13:48:52'!
+ERROR!
+
+!classDefinition: #Carrito category: 'TusLibros' stamp: 'TM 6/8/2023 13:49:02'!
+Object subclass: #Carrito
+	instanceVariableNames: 'items market'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Carrito methodsFor: 'initialize' stamp: 'TM 6/8/2023 13:49:02'!
+initializeFor: aMarket 
+	self shouldBeImplemented.
+	market := aMarket.! !
+!Carrito methodsFor: 'initialize' stamp: 'TM 6/8/2023 13:49:14' prior: 50627353!
+initializeFor: aMarket 
+	market := aMarket.! !
+
+!testRun: #CarritoTest #test01CartEmptyWhenCreated stamp: 'TM 6/8/2023 13:49:17'!
+PASSED!
+
+!testRun: #CarritoTest #test01CartEmptyWhenCreated stamp: 'TM 6/8/2023 13:49:17'!
+PASSED!
+
+!testRun: #CarritoTest #test02CartContainsOneItem stamp: 'TM 6/8/2023 13:49:17'!
+PASSED!
+
+!testRun: #CarritoTest #test03ListAllImtemsOfCart stamp: 'TM 6/8/2023 13:49:17'!
+PASSED!
+
+!testRun: #CarritoTest #test04CanNotAddItemNotCreated stamp: 'TM 6/8/2023 13:49:17'!
+PASSED!
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 13:49:24' prior: 50627292!
+test01CartEmptyWhenCreated
+	
+	| market carrito |
+	
+	market := BookMarket new.
+	carrito := Carrito for: market.
+	
+	self assert: carrito isEmpty! !
+
+!testRun: #CarritoTest #test01CartEmptyWhenCreated stamp: 'TM 6/8/2023 13:49:25'!
+PASSED!
+
+!testRun: #CarritoTest #test01CartEmptyWhenCreated stamp: 'TM 6/8/2023 13:49:25'!
+PASSED!
+
+!testRun: #CarritoTest #test02CartContainsOneItem stamp: 'TM 6/8/2023 13:49:25'!
+PASSED!
+
+!testRun: #CarritoTest #test03ListAllImtemsOfCart stamp: 'TM 6/8/2023 13:49:25'!
+PASSED!
+
+!testRun: #CarritoTest #test04CanNotAddItemNotCreated stamp: 'TM 6/8/2023 13:49:25'!
+PASSED!
+
+!testRun: #CarritoTest #test01CartEmptyWhenCreated stamp: 'TM 6/8/2023 13:49:30'!
+PASSED!
+
+!testRun: #CarritoTest #test01CartEmptyWhenCreated stamp: 'TM 6/8/2023 13:49:30'!
+PASSED!
+
+!testRun: #CarritoTest #test02CartContainsOneItem stamp: 'TM 6/8/2023 13:49:30'!
+PASSED!
+
+!testRun: #CarritoTest #test03ListAllImtemsOfCart stamp: 'TM 6/8/2023 13:49:31'!
+PASSED!
+
+!testRun: #CarritoTest #test04CanNotAddItemNotCreated stamp: 'TM 6/8/2023 13:49:31'!
+PASSED!
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 13:53:45'!
+test04CartContainsOneItem
+	
+	| carrito item itemsList |
+	carrito := Carrito new.
+	
+	itemsList := ListBook new.
+	item := ItemBook withIsbn: 'hola' quantity:  2.
+	
+	itemsList createItem: item.
+	
+	carrito addToCart: item inList: itemsList.
+	
+	
+	
+	self assert: carrito elementos first equals: item.! !
+
+!methodRemoval: CarritoTest #test02CartContainsOneItem stamp: 'TM 6/8/2023 13:53:45'!
+test02CartContainsOneItem
+	
+	| carrito item itemsList |
+	carrito := Carrito new.
+	
+	itemsList := ListBook new.
+	item := ItemBook withIsbn: 'hola' quantity:  2.
+	
+	itemsList createItem: item.
+	
+	carrito addToCart: item inList: itemsList.
+	
+	
+	
+	self assert: carrito elementos first equals: item.!
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 13:53:51'!
+test02CanNotAddItemNotCreated
+	
+	| carrito itemsList item item2 item3 |
+	carrito := Carrito new.
+	itemsList := ListBook new.
+	item := ItemBook withIsbn: 'hola' quantity:  2.
+	item2 := ItemBook withIsbn: 'chau' quantity:  3.
+	
+	itemsList createItem: item.
+	itemsList createItem: item2.
+
+	item3 := ItemBook withIsbn: 'buenas' quantity:  1.
+	
+	
+	self 
+
+		should: [	carrito addToCart: item3 inList: itemsList]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [ :anError |
+			self assert: anError messageText equals: Carrito invalidItemErrorDescription.
+		 ]
+
+	! !
+
+!methodRemoval: CarritoTest #test04CanNotAddItemNotCreated stamp: 'TM 6/8/2023 13:53:51'!
+test04CanNotAddItemNotCreated
+	
+	| carrito itemsList item item2 item3 |
+	carrito := Carrito new.
+	itemsList := ListBook new.
+	item := ItemBook withIsbn: 'hola' quantity:  2.
+	item2 := ItemBook withIsbn: 'chau' quantity:  3.
+	
+	itemsList createItem: item.
+	itemsList createItem: item2.
+
+	item3 := ItemBook withIsbn: 'buenas' quantity:  1.
+	
+	
+	self 
+
+		should: [	carrito addToCart: item3 inList: itemsList]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [ :anError |
+			self assert: anError messageText equals: Carrito invalidItemErrorDescription.
+		 ]
+
+	!
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 13:57:08'!
+test02CannotAddItemNotListedInMarket
+	
+	| carrito itemsList item item2 item3 |
+	carrito := Carrito new.
+	itemsList := ListBook new.
+	item := ItemBook withIsbn: 'hola' quantity:  2.
+	item2 := ItemBook withIsbn: 'chau' quantity:  3.
+	
+	itemsList createItem: item.
+	itemsList createItem: item2.
+
+	item3 := ItemBook withIsbn: 'buenas' quantity:  1.
+	
+	
+	self 
+
+		should: [	carrito addToCart: item3 inList: itemsList]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [ :anError |
+			self assert: anError messageText equals: Carrito invalidItemErrorDescription.
+		 ]
+
+	! !
+
+!testRun: #CarritoTest #test02CannotAddItemNotListedInMarket stamp: 'TM 6/8/2023 13:57:08'!
+PASSED!
+
+!testRun: #CarritoTest #test01CartEmptyWhenCreated stamp: 'TM 6/8/2023 13:57:08'!
+PASSED!
+
+!testRun: #CarritoTest #test02CanNotAddItemNotCreated stamp: 'TM 6/8/2023 13:57:08'!
+PASSED!
+
+!testRun: #CarritoTest #test02CannotAddItemNotListedInMarket stamp: 'TM 6/8/2023 13:57:08'!
+PASSED!
+
+!testRun: #CarritoTest #test03ListAllImtemsOfCart stamp: 'TM 6/8/2023 13:57:08'!
+PASSED!
+
+!testRun: #CarritoTest #test04CartContainsOneItem stamp: 'TM 6/8/2023 13:57:08'!
+PASSED!
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 13:58:08'!
+test01CartIsEmptyWhenCreated
+	
+	| market carrito |
+	
+	market := BookMarket new.
+	carrito := Carrito for: market.
+	
+	self assert: carrito isEmpty! !
+
+!methodRemoval: CarritoTest #test01CartEmptyWhenCreated stamp: 'TM 6/8/2023 13:58:08'!
+test01CartEmptyWhenCreated
+	
+	| market carrito |
+	
+	market := BookMarket new.
+	carrito := Carrito for: market.
+	
+	self assert: carrito isEmpty!
+
+!methodRemoval: CarritoTest #test02CanNotAddItemNotCreated stamp: 'TM 6/8/2023 13:58:18'!
+test02CanNotAddItemNotCreated
+	
+	| carrito itemsList item item2 item3 |
+	carrito := Carrito new.
+	itemsList := ListBook new.
+	item := ItemBook withIsbn: 'hola' quantity:  2.
+	item2 := ItemBook withIsbn: 'chau' quantity:  3.
+	
+	itemsList createItem: item.
+	itemsList createItem: item2.
+
+	item3 := ItemBook withIsbn: 'buenas' quantity:  1.
+	
+	
+	self 
+
+		should: [	carrito addToCart: item3 inList: itemsList]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [ :anError |
+			self assert: anError messageText equals: Carrito invalidItemErrorDescription.
+		 ]
+
+	!
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 13:58:50' prior: 50627478!
+test02CannotAddItemNotListedInMarket
+	
+	| carrito itemsList item item2 item3 |
+	
+	carrito := Carrito new.
+	
+	itemsList := ListBook new.
+	item := ItemBook withIsbn: 'hola' quantity:  2.
+	item2 := ItemBook withIsbn: 'chau' quantity:  3.
+	
+	itemsList createItem: item.
+	itemsList createItem: item2.
+
+	item3 := ItemBook withIsbn: 'buenas' quantity:  1.
+	
+	
+	self 
+
+		should: [	carrito addToCart: item3 inList: itemsList]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [ :anError |
+			self assert: anError messageText equals: Carrito invalidItemErrorDescription.
+		 ]
+
+	! !
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 14:01:16' prior: 50627516!
+test01CartIsEmptyWhenCreated
+	
+	| carrito market |
+	
+	market := BookMarket new.
+	carrito := Carrito for: market.
+	
+	self assert: carrito isEmpty! !
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 14:01:24' prior: 50627551!
+test02CannotAddItemNotListedInMarket
+	
+	| carrito market itemsList item item2 item3 |
+	
+	carrito := Carrito new.
+	
+	itemsList := ListBook new.
+	item := ItemBook withIsbn: 'hola' quantity:  2.
+	item2 := ItemBook withIsbn: 'chau' quantity:  3.
+	
+	itemsList createItem: item.
+	itemsList createItem: item2.
+
+	item3 := ItemBook withIsbn: 'buenas' quantity:  1.
+	
+	
+	self 
+
+		should: [	carrito addToCart: item3 inList: itemsList]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [ :anError |
+			self assert: anError messageText equals: Carrito invalidItemErrorDescription.
+		 ]
+
+	! !
+
+!classDefinition: #Book category: 'TusLibros' stamp: 'TM 6/8/2023 14:41:06'!
+Object subclass: #Book
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 14:41:00' prior: 50627580!
+test02CannotAddItemNotListedInMarket
+	
+	| carrito market book |
+	
+	carrito := Carrito new.
+	market := BookMarket new.
+	book := Book withISBN: 9783161484100.
+	
+	market add: book.
+		
+	self 
+		should: [ carrito addToCart: book. ]
+		raise: Error
+		withExceptionDo: [ :anError |
+			self assert: anError messageText equals: Carrito invalidItemErrorDescription.
+		]
+
+	! !
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 14:41:34' prior: 50627572!
+test01CartIsEmptyWhenCreated
+	
+	| carrito |
+	
+	carrito := Carrito new.
+	
+	self assert: carrito isEmpty! !
+
+!testRun: #CarritoTest #test01CartIsEmptyWhenCreated stamp: 'TM 6/8/2023 14:41:35'!
+PASSED!
+
+!testRun: #CarritoTest #test01CartIsEmptyWhenCreated stamp: 'TM 6/8/2023 14:41:35'!
+PASSED!
+
+!testRun: #CarritoTest #test02CannotAddItemNotListedInMarket stamp: 'TM 6/8/2023 14:41:35'!
+ERROR!
+
+!testRun: #CarritoTest #test03ListAllImtemsOfCart stamp: 'TM 6/8/2023 14:41:35'!
+PASSED!
+
+!testRun: #CarritoTest #test04CartContainsOneItem stamp: 'TM 6/8/2023 14:41:35'!
+PASSED!
+
+!testRun: #CarritoTest #test02CannotAddItemNotListedInMarket stamp: 'TM 6/8/2023 14:41:35'!
+ERROR!
+
+!testRun: #CarritoTest #test01CartIsEmptyWhenCreated stamp: 'TM 6/8/2023 14:41:39'!
+PASSED!
+
+!testRun: #CarritoTest #test01CartIsEmptyWhenCreated stamp: 'TM 6/8/2023 14:41:39'!
+PASSED!
+
+!testRun: #CarritoTest #test02CannotAddItemNotListedInMarket stamp: 'TM 6/8/2023 14:41:39'!
+ERROR!
+
+!testRun: #CarritoTest #test03ListAllImtemsOfCart stamp: 'TM 6/8/2023 14:41:39'!
+PASSED!
+
+!testRun: #CarritoTest #test04CartContainsOneItem stamp: 'TM 6/8/2023 14:41:39'!
+PASSED!
+
+!testRun: #CarritoTest #test02CannotAddItemNotListedInMarket stamp: 'TM 6/8/2023 14:41:39'!
+ERROR!
+
+!testRun: #CarritoTest #test01CartIsEmptyWhenCreated stamp: 'TM 6/8/2023 14:41:43'!
+PASSED!
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 14:42:17' prior: 50627608!
+test02CannotAddItemNotListedInMarket
+	
+	| carrito market book |
+	
+	market := BookMarket new.
+	book := Book withISBN: 9783161484100.
+	
+	carrito := Carrito for: market.
+	
+	market add: book.
+		
+	self 
+		should: [ carrito addToCart: book. ]
+		raise: Error
+		withExceptionDo: [ :anError |
+			self assert: anError messageText equals: Carrito invalidItemErrorDescription.
+		]
+
+	! !
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 14:42:25' prior: 50627667!
+test02CannotAddItemNotListedInMarket
+	
+	| carrito market book |
+	
+	market := BookMarket new.	
+	carrito := Carrito for: market.
+	
+	book := Book withISBN: 9783161484100.
+	market add: book.
+		
+	self 
+		should: [ carrito addToCart: book. ]
+		raise: Error
+		withExceptionDo: [ :anError |
+			self assert: anError messageText equals: Carrito invalidItemErrorDescription.
+		]
+
+	! !
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 14:42:32' prior: 50627682!
+test02CannotAddItemNotListedInMarket
+	
+	| market carrito book |
+	
+	market := BookMarket new.	
+	carrito := Carrito for: market.
+	
+	book := Book withISBN: 9783161484100.
+	market add: book.
+		
+	self 
+		should: [ carrito addToCart: book. ]
+		raise: Error
+		withExceptionDo: [ :anError |
+			self assert: anError messageText equals: Carrito invalidItemErrorDescription.
+		]
+
+	! !
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 14:42:55' prior: 50627697!
+test02CannotAddItemNotListedInMarket
+	
+	| market carrito book |
+	
+	market := BookMarket new.	
+	carrito := Carrito for: market. "Carrito belongs to a certain market"
+	
+	book := Book withISBN: 9783161484100.
+	market add: book.
+		
+	self 
+		should: [ carrito addToCart: book. ]
+		raise: Error
+		withExceptionDo: [ :anError |
+			self assert: anError messageText equals: Carrito invalidItemErrorDescription.
+		]
+
+	! !
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 14:43:47'!
+test02CannotAddBookNotListedInMarket
+	
+	| market carrito book |
+	
+	market := BookMarket new.	
+	carrito := Carrito for: market. "Carrito belongs to a certain market"
+	
+	book := Book withISBN: 9783161484100.
+	market add: book.
+		
+	self 
+		should: [ carrito addToCart: book. ]
+		raise: Error
+		withExceptionDo: [ :anError |
+			self assert: anError messageText equals: Carrito invalidItemErrorDescription.
+		]
+
+	! !
+
+!methodRemoval: CarritoTest #test02CannotAddItemNotListedInMarket stamp: 'TM 6/8/2023 14:43:47'!
+test02CannotAddItemNotListedInMarket
+	
+	| market carrito book |
+	
+	market := BookMarket new.	
+	carrito := Carrito for: market. "Carrito belongs to a certain market"
+	
+	book := Book withISBN: 9783161484100.
+	market add: book.
+		
+	self 
+		should: [ carrito addToCart: book. ]
+		raise: Error
+		withExceptionDo: [ :anError |
+			self assert: anError messageText equals: Carrito invalidItemErrorDescription.
+		]
+
+	!
+
+!testRun: #CarritoTest #test02CannotAddBookNotListedInMarket stamp: 'TM 6/8/2023 14:44:09'!
+ERROR!
+!ItemBook class methodsFor: 'as yet unclassified' stamp: 'TM 6/8/2023 14:45:06'!
+withISBN: anISBN
+	^self new initializeWithISBN: anISBN.
+! !
+
+!methodRemoval: ItemBook class #withIsbn:quantity: stamp: 'TM 6/8/2023 14:45:17'!
+withIsbn: aIsbn quantity:  aQuantity.
+	^self new initializeWithIsbn: aIsbn quantity:  aQuantity.
+!
+
+Object subclass: #Item
+	instanceVariableNames: 'isbn quantity'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #Item category: 'TusLibros' stamp: 'TM 6/8/2023 14:45:40'!
+Object subclass: #Item
+	instanceVariableNames: 'isbn quantity'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+Item subclass: #ItemBook
+	instanceVariableNames: 'isbn quantity'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+Item subclass: #ItemBook
+	instanceVariableNames: 'isbn quantity'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+Object subclass: #Item
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #Item category: 'TusLibros' stamp: 'TM 6/8/2023 14:46:08'!
+Object subclass: #Item
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+Item subclass: #ItemBook
+	instanceVariableNames: 'isbn quantity'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #ItemBook category: 'TusLibros' stamp: 'TM 6/8/2023 14:46:16'!
+Item subclass: #ItemBook
+	instanceVariableNames: 'isbn quantity'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRenamed: #ItemBook as: #BookItem stamp: 'TM 6/8/2023 14:46:29'!
+Smalltalk renameClassNamed: #ItemBook as: #BookItem!
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'TM 6/8/2023 14:46:29' prior: 50627079!
+test03ListAllImtemsOfCart
+	
+	| carrito itemsList item item2 item3 |
+	carrito := Carrito new.
+	itemsList := ListBook new.
+	item := BookItem withIsbn: 'hola' quantity:  2.
+	item2 := BookItem withIsbn: 'chau' quantity:  3.
+	item3 := BookItem withIsbn: 'buenas' quantity:  1.
+	
+	itemsList createItem: item.
+	itemsList createItem: item2.
+	itemsList createItem: item3.
+
+	carrito addToCart: item inList: itemsList.
+	carrito addToCart: item2 inList: itemsList.
+	carrito addToCart: item3 inList: itemsList.
+	
+	self assert: carrito elementos equals: itemsList items.! !
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'TM 6/8/2023 14:46:29' prior: 50627413!
+test04CartContainsOneItem
+	
+	| carrito item itemsList |
+	carrito := Carrito new.
+	
+	itemsList := ListBook new.
+	item := BookItem withIsbn: 'hola' quantity:  2.
+	
+	itemsList createItem: item.
+	
+	carrito addToCart: item inList: itemsList.
+	
+	
+	
+	self assert: carrito elementos first equals: item.! !
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 14:46:58' prior: 50627727!
+test02CannotAddBookNotListedInMarket
+	
+	| market carrito book |
+	
+	market := BookMarket new.	
+	carrito := Carrito for: market. "Carrito belongs to a certain market"
+	
+	book := BookItem withISBN: 9783161484100.
+	market add: book.
+		
+	self 
+		should: [ carrito addToCart: book. ]
+		raise: Error
+		withExceptionDo: [ :anError |
+			self assert: anError messageText equals: Carrito invalidItemErrorDescription.
+		]
+
+	! !
+
+!classRemoval: #Book stamp: 'TM 6/8/2023 14:47:02'!
+Object subclass: #Book
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 14:47:35' prior: 50627850!
+test02CannotAddBookNotListedInMarket
+	
+	| market carrito book |
+	
+	market := BookMarket new.	
+	carrito := Carrito for: market. "Carrito belongs to a certain market"
+	
+	book := BookItem withISBN: 9783161484100.
+	"market add: book."
+		
+	self 
+		should: [ carrito addToCart: book. ]
+		raise: Error
+		withExceptionDo: [ :anError |
+			self assert: anError messageText equals: Carrito invalidItemErrorDescription.
+		]
+
+	! !
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 14:47:39' prior: 50627871!
+test02CannotAddBookNotListedInMarket
+	
+	| market carrito book |
+	
+	market := BookMarket new.	
+	carrito := Carrito for: market. "Carrito belongs to a certain market"
+	
+	book := BookItem withISBN: 9783161484100.
+	"market add: book."
+	
+	self 
+		should: [ carrito addToCart: book. ]
+		raise: Error
+		withExceptionDo: [ :anError |
+			self assert: anError messageText equals: Carrito invalidItemErrorDescription.
+		]
+
+	! !
+
+!testRun: #CarritoTest #test02CannotAddBookNotListedInMarket stamp: 'TM 6/8/2023 14:47:40'!
+ERROR!
+
+!classDefinition: #BookItem category: 'TusLibros' stamp: 'TM 6/8/2023 14:47:45'!
+Item subclass: #BookItem
+	instanceVariableNames: 'isbn quantity iSBN'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!BookItem methodsFor: 'initialize' stamp: 'TM 6/8/2023 14:47:45'!
+initializeWithISBN: anISBN 
+	self shouldBeImplemented.
+	iSBN := anISBN.! !
+!BookItem methodsFor: 'initialize' stamp: 'TM 6/8/2023 14:47:56' prior: 50627913!
+initializeWithISBN: anISBN 
+	isbn := anISBN.! !
+
+!testRun: #CarritoTest #test02CannotAddBookNotListedInMarket stamp: 'TM 6/8/2023 14:48:24'!
+FAILURE!
+
+Item subclass: #BookItem
+	instanceVariableNames: 'isbn'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #BookItem category: 'TusLibros' stamp: 'TM 6/8/2023 14:48:44'!
+Item subclass: #BookItem
+	instanceVariableNames: 'isbn'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!methodRemoval: BookItem #initializeWithIsbn:quantity: stamp: 'TM 6/8/2023 14:49:41'!
+initializeWithIsbn: aIsbn quantity:  aQuantity
+	isbn := aIsbn.
+	quantity := aQuantity.!
+!Carrito methodsFor: 'elements' stamp: 'TM 6/8/2023 14:51:35' prior: 50627131!
+addToCart: anItem
+	(market has: anItem)
+	ifFalse: [  ].
+	
+	items add: anItem.! !
+!Carrito methodsFor: 'elements' stamp: 'TM 6/8/2023 14:51:58' prior: 50627942!
+addToCart: anItem
+	(market has: anItem)
+	ifFalse: [ ^self error: Carrito invalidItemErrorDescription ].
+	
+	items add: anItem.! !
+!Carrito methodsFor: 'elements' stamp: 'TM 6/8/2023 14:52:04' prior: 50627947!
+addToCart: anItem
+
+	(market has: anItem)
+	ifFalse: [ ^self error: Carrito invalidItemErrorDescription ].
+	
+	items add: anItem.! !
+
+Market subclass: #BookMarket
+	instanceVariableNames: 'items'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #BookMarket category: 'TusLibros' stamp: 'TM 6/8/2023 14:52:35'!
+Market subclass: #BookMarket
+	instanceVariableNames: 'items'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!testRun: #CarritoTest #test02CannotAddBookNotListedInMarket stamp: 'TM 6/8/2023 14:53:14'!
+FAILURE!
+
+!testRun: #CarritoTest #test02CannotAddBookNotListedInMarket stamp: 'TM 6/8/2023 14:53:14'!
+FAILURE!
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 14:53:46' prior: 50627887!
+test02CannotAddBookNotListedInMarket
+	
+	| market carrito book |
+	
+	market := BookMarket new.	
+	carrito := Carrito for: market. "Carrito belongs to a certain market"
+	
+	book := BookItem withISBN: 9783161484100.
+	"market add: book."
+	
+	self 
+		should: [ carrito addToCart: book. ]
+		raise: Error
+		withExceptionDo: [ :anError |
+			self assert: anError messageText equals: Carrito invalidItemErrorDescription.
+		]
+
+	! !
+
+!testRun: #CarritoTest #test02CannotAddBookNotListedInMarket stamp: 'TM 6/8/2023 14:53:50'!
+FAILURE!
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 14:54:39' prior: 50627978!
+test02CannotAddBookNotListedInMarket
+	
+	| market carrito book |
+	
+	market := BookMarket new.	
+	carrito := Carrito for: market. "Carrito belongs to a certain market"
+	
+	book := BookItem withISBN: 9783161484100.
+	"market add: book."
+	
+	self 
+		should: [ carrito addToCart: book. ]
+		raise: Error
+		withExceptionDo: [ :anError |
+			self assert: Carrito invalidItemErrorDescription equals: anError messageText.
+		]
+
+	! !
+
+!testRun: #CarritoTest #test02CannotAddBookNotListedInMarket stamp: 'TM 6/8/2023 14:54:40'!
+FAILURE!
+!Carrito class methodsFor: 'error' stamp: 'TM 6/8/2023 14:55:13' prior: 50627165!
+invalidItemErrorDescription
+	^'El item no está listado'! !
+!BookMarket methodsFor: 'testing' stamp: 'TM 6/8/2023 14:56:33'!
+has: aBook
+	^False.! !
+
+!testRun: #CarritoTest #test02CannotAddBookNotListedInMarket stamp: 'TM 6/8/2023 14:56:40'!
+FAILURE!
+!BookMarket methodsFor: 'testing' stamp: 'TM 6/8/2023 14:56:52' prior: 50628020!
+has: aBook
+	^False new.! !
+
+!testRun: #CarritoTest #test02CannotAddBookNotListedInMarket stamp: 'TM 6/8/2023 14:56:56'!
+FAILURE!
+
+!testRun: #CarritoTest #test02CannotAddBookNotListedInMarket stamp: 'TM 6/8/2023 14:56:56'!
+FAILURE!
+!BookMarket methodsFor: 'testing' stamp: 'TM 6/8/2023 14:57:10' prior: 50628027!
+has: aBook
+	^False.! !
+
+!testRun: #CarritoTest #test02CannotAddBookNotListedInMarket stamp: 'TM 6/8/2023 14:57:20'!
+FAILURE!
+
+!testRun: #CarritoTest #test02CannotAddBookNotListedInMarket stamp: 'TM 6/8/2023 14:57:20'!
+FAILURE!
+
+!testRun: #CarritoTest #test02CannotAddBookNotListedInMarket stamp: 'TM 6/8/2023 14:57:30'!
+FAILURE!
+
+!testRun: #CarritoTest #test02CannotAddBookNotListedInMarket stamp: 'TM 6/8/2023 14:57:54'!
+FAILURE!
+
+!testRun: #CarritoTest #test02CannotAddBookNotListedInMarket stamp: 'TM 6/8/2023 14:58:18'!
+FAILURE!
+
+!testRun: #CarritoTest #test02CannotAddBookNotListedInMarket stamp: 'TM 6/8/2023 14:58:25'!
+FAILURE!
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 14:59:58' prior: 50627997!
+test02CannotAddBookNotListedInMarket
+	
+	| market carrito book |
+	
+	market := BookMarket new.	
+	carrito := Carrito for: market. "Carrito belongs to a certain market"
+	
+	book := BookItem withISBN: 9783161484100.
+	"market add: book."
+	
+	carrito addToCart: book.
+	
+	self 
+		should: [ carrito addToCart: book. ]
+		raise: Error
+		withExceptionDo: [ :anError |
+			self assert: Carrito invalidItemErrorDescription equals: anError messageText.
+		]
+
+	! !
+
+!testRun: #CarritoTest #test02CannotAddBookNotListedInMarket stamp: 'TM 6/8/2023 15:00:01'!
+ERROR!
+
+False!
+
+False ifTrue: []!
+
+false ifTrue: []!
+
+false ifTrue: []!
+
+false ifTrue: []!
+
+true ifTrue: []!
+
+true ifTrue: []!
+
+true ifTrue: []!
+
+true ifTrue: []!
+
+true ifTrue: []!
+
+true ifTrue: []!
+
+true ifTrue: []!
+
+true ifTrue: []!
+
+true ifTrue: []!
+
+true ifTrue: []!
+
+true ifTrue: []!
+
+true ifTrue: []!
+
+false ifTrue: [] nil !
+
+false ifFalse: []!
+
+false ifFalse: [ ^'asd' ] !
+!BookMarket methodsFor: 'testing' stamp: 'TM 6/8/2023 15:03:41' prior: 50628037!
+has: aBook
+	^false.! !
+
+!testRun: #CarritoTest #test02CannotAddBookNotListedInMarket stamp: 'TM 6/8/2023 15:03:44'!
+ERROR!
+
+!testRun: #CarritoTest #test02CannotAddBookNotListedInMarket stamp: 'TM 6/8/2023 15:03:44'!
+ERROR!
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 15:03:50' prior: 50628060!
+test02CannotAddBookNotListedInMarket
+	
+	| market carrito book |
+	
+	market := BookMarket new.	
+	carrito := Carrito for: market. "Carrito belongs to a certain market"
+	
+	book := BookItem withISBN: 9783161484100.
+	"market add: book."
+	
+	self 
+		should: [ carrito addToCart: book. ]
+		raise: Error
+		withExceptionDo: [ :anError |
+			self assert: Carrito invalidItemErrorDescription equals: anError messageText.
+		]
+
+	! !
+
+!testRun: #CarritoTest #test02CannotAddBookNotListedInMarket stamp: 'TM 6/8/2023 15:03:51'!
+PASSED!
+
+!testRun: #CarritoTest #test01CartIsEmptyWhenCreated stamp: 'TM 6/8/2023 15:03:51'!
+PASSED!
+
+!testRun: #CarritoTest #test02CannotAddBookNotListedInMarket stamp: 'TM 6/8/2023 15:03:51'!
+PASSED!
+
+!testRun: #CarritoTest #test03ListAllImtemsOfCart stamp: 'TM 6/8/2023 15:03:51'!
+ERROR!
+
+!testRun: #CarritoTest #test04CartContainsOneItem stamp: 'TM 6/8/2023 15:03:51'!
+ERROR!
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 15:04:02' prior: 50628102!
+test02CannotAddBookNotListedInMarket
+	
+	| market carrito book |
+	
+	market := BookMarket new.	
+	carrito := Carrito for: market.
+	
+	book := BookItem withISBN: 9783161484100.
+	
+	self 
+		should: [ carrito addToCart: book. ]
+		raise: Error
+		withExceptionDo: [ :anError |
+			self assert: Carrito invalidItemErrorDescription equals: anError messageText.
+		]
+
+	! !
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 15:04:30'!
+test03CanAddBookListedInMarket
+	
+	| market carrito book |
+	
+	market := BookMarket new.	
+	carrito := Carrito for: market.
+	
+	book := BookItem withISBN: 9783161484100.
+	market add: book.
+	
+	self 
+		should: [ carrito addToCart: book. ]
+		raise: Error
+		withExceptionDo: [ :anError |
+			self assert: Carrito invalidItemErrorDescription equals: anError messageText.
+		]
+
+	! !
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 15:04:55' prior: 50628147!
+test03CanAddBookListedInMarket
+	
+	| market carrito book |
+	
+	market := BookMarket new.	
+	carrito := Carrito for: market.
+	
+	book := BookItem withISBN: 9783161484100.
+	market add: book.
+	
+	carrito addToCart: book.! !
+
+!testRun: #CarritoTest #test03CanAddBookListedInMarket stamp: 'TM 6/8/2023 15:04:56'!
+ERROR!
+!BookMarket methodsFor: 'adding' stamp: 'TM 6/8/2023 15:05:07'!
+add: book 
+	self shouldBeImplemented.! !
+!BookMarket methodsFor: 'adding' stamp: 'TM 6/8/2023 15:05:27' prior: 50628174!
+add: aBook
+	items add: aBook.! !
+
+!testRun: #CarritoTest #test03CanAddBookListedInMarket stamp: 'TM 6/8/2023 15:05:36'!
+ERROR!
+
+!classRenamed: #BookMarket as: #BookListing stamp: 'TM 6/8/2023 15:07:59'!
+Smalltalk renameClassNamed: #BookMarket as: #BookListing!
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'TM 6/8/2023 15:07:59' prior: 50628133!
+test02CannotAddBookNotListedInMarket
+	
+	| market carrito book |
+	
+	market := BookListing new.	
+	carrito := Carrito for: market.
+	
+	book := BookItem withISBN: 9783161484100.
+	
+	self 
+		should: [ carrito addToCart: book. ]
+		raise: Error
+		withExceptionDo: [ :anError |
+			self assert: Carrito invalidItemErrorDescription equals: anError messageText.
+		]
+
+	! !
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'TM 6/8/2023 15:07:59' prior: 50628162!
+test03CanAddBookListedInMarket
+	
+	| market carrito book |
+	
+	market := BookListing new.	
+	carrito := Carrito for: market.
+	
+	book := BookItem withISBN: 9783161484100.
+	market add: book.
+	
+	carrito addToCart: book.! !
+
+Object subclass: #BookListing
+	instanceVariableNames: 'items'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #BookListing category: 'TusLibros' stamp: 'TM 6/8/2023 15:08:07'!
+Object subclass: #BookListing
+	instanceVariableNames: 'items'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+Object subclass: #BookItem
+	instanceVariableNames: 'isbn'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #BookItem category: 'TusLibros' stamp: 'TM 6/8/2023 15:08:12'!
+Object subclass: #BookItem
+	instanceVariableNames: 'isbn'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #Item stamp: 'TM 6/8/2023 15:08:28'!
+Object subclass: #Item
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #Market stamp: 'TM 6/8/2023 15:08:30'!
+Object subclass: #Market
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!BookItem methodsFor: 'accessing' stamp: 'TM 6/8/2023 15:09:04'!
+isbn
+	^isbn! !
+!BookListing methodsFor: 'initialization' stamp: 'TM 6/8/2023 15:09:44' overrides: 16920235!
+initialize
+	items := Set new! !
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 15:11:37' prior: 50628190!
+test02CannotAddBookNotListedInMarket
+	
+	| market carrito book |
+	
+	market := BookListing new.	
+	carrito := Carrito for: market.
+	
+	book := BookItem withISBN: 9783161484100.
+	
+	self 
+		should: [ carrito addISBN: 9783161484100. ]
+		raise: Error
+		withExceptionDo: [ :anError |
+			self assert: Carrito invalidItemErrorDescription equals: anError messageText.
+		]
+
+	! !
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 15:12:28'!
+test02CannotAddBookNotListed
+	
+	| listing carrito |
+	
+	listing := BookListing new.	
+	carrito := Carrito for: listing.
+	
+	self 
+		should: [ carrito addISBN: 9783161484100. ]
+		raise: Error
+		withExceptionDo: [ :anError |
+			self assert: Carrito invalidItemErrorDescription equals: anError messageText.
+		]
+
+	! !
+
+!testRun: #CarritoTest #test02CannotAddBookNotListed stamp: 'TM 6/8/2023 15:12:37'!
+FAILURE!
+!Carrito methodsFor: 'elements' stamp: 'TM 6/8/2023 15:13:17'!
+addISBN: anISBN
+
+	(market hasISBN: anISBN)
+	ifFalse: [ ^self error: Carrito invalidItemErrorDescription ].
+	
+	items add: anISBN.! !
+!BookListing methodsFor: 'testing' stamp: 'TM 6/8/2023 15:15:21' prior: 50628092!
+has: anISBN
+	^items includes: anISBN.! !
+!BookListing methodsFor: 'adding' stamp: 'TM 6/8/2023 15:15:33' prior: 50628178!
+add: anISBN
+	items add: anISBN.! !
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 15:17:22' prior: 50628205!
+test03CanAddBookListedInMarket
+	
+	| listing carrito isbn |
+	
+	listing := BookListing new.	
+	carrito := Carrito for: listing.
+	
+	isbn := 9783161484100.
+	listing add: isbn.
+	
+	carrito addToCart: isbn.! !
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 15:18:03' prior: 50628269!
+test02CannotAddBookNotListed
+	
+	| listing carrito isbn |
+	
+	listing := BookListing new.	
+	carrito := Carrito for: listing.
+	
+	isbn := 9783161484100.
+	
+	self 
+		should: [ carrito addISBN: isbn. ]
+		raise: Error
+		withExceptionDo: [ :anError |
+			self assert: Carrito invalidItemErrorDescription equals: anError messageText.
+		]
+
+	! !
+
+!testRun: #CarritoTest #test02CannotAddBookNotListed stamp: 'TM 6/8/2023 15:18:13'!
+FAILURE!
+
+!testRun: #CarritoTest #test02CannotAddBookNotListed stamp: 'TM 6/8/2023 15:18:13'!
+FAILURE!
+!BookListing methodsFor: 'testing' stamp: 'TM 6/8/2023 15:19:08'!
+hasISBN: anISBN
+	^items includes: anISBN.! !
+
+!methodRemoval: BookListing #has: stamp: 'TM 6/8/2023 15:19:08'!
+has: anISBN
+	^items includes: anISBN.!
+!BookListing methodsFor: 'adding' stamp: 'TM 6/8/2023 15:19:21'!
+addISBN: anISBN
+	items add: anISBN.! !
+!BookListing methodsFor: 'as yet unclassified' stamp: 'TM 6/8/2023 15:19:21' prior: 50628295!
+add: anISBN
+	items addISBN: anISBN.! !
+!BookListing methodsFor: 'as yet unclassified' stamp: 'TM 6/8/2023 15:19:21' prior: 50628334!
+addISBN: anISBN
+	items addISBN: anISBN.! !
+
+!methodRemoval: BookListing #add: stamp: 'TM 6/8/2023 15:19:21'!
+add: anISBN
+	items addISBN: anISBN.!
+!BookListing methodsFor: 'adding' stamp: 'TM 6/8/2023 15:19:35' prior: 50628344!
+addISBN: anISBN
+	items add: anISBN.! !
+
+!methodRemoval: Carrito #addToCart: stamp: 'TM 6/8/2023 15:20:27'!
+addToCart: anItem
+
+	(market has: anItem)
+	ifFalse: [ ^self error: Carrito invalidItemErrorDescription ].
+	
+	items add: anItem.!
+
+!methodRemoval: Carrito #addToCart:inList: stamp: 'TM 6/8/2023 15:20:29'!
+addToCart: aItemBook inList: aList
+	(self assertItemBookIsCreated: aItemBook inList: aList) 
+		ifTrue: [ items add: aItemBook. ]
+		ifFalse: [	 ^self error: self class invalidItemErrorDescription].
+	!
+
+!methodRemoval: Carrito #assertItemBookIsCreated:inList: stamp: 'TM 6/8/2023 15:20:30'!
+assertItemBookIsCreated: aItemBook inList: aList
+	^(aList items includes: aItemBook)!
+
+!methodRemoval: Carrito #elementos stamp: 'TM 6/8/2023 15:20:32'!
+elementos
+	^items!
+!Carrito methodsFor: 'initialization' stamp: 'TM 6/8/2023 15:20:50' prior: 50627148 overrides: 16920235!
+initialize
+	items := Dictionary new.! !
+
+!classDefinition: #Carrito category: 'TusLibros' stamp: 'TM 6/8/2023 15:21:07'!
+Object subclass: #Carrito
+	instanceVariableNames: 'items market listing'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Carrito methodsFor: 'initialization' stamp: 'TM 6/8/2023 15:21:06' prior: 50627358!
+initializeFor: aListing
+	listing := aListing.! !
+!Carrito methodsFor: 'adding' stamp: 'TM 6/8/2023 15:21:27' prior: 50628284!
+addISBN: anISBN
+
+	(market hasISBN: anISBN)
+	ifFalse: [ ^self error: Carrito invalidItemErrorDescription ].
+	
+	items at: anISBN put: 1.! !
+!Carrito methodsFor: 'testing' stamp: 'TM 6/8/2023 15:21:43' prior: 50627267!
+isEmpty
+	^items isEmpty.! !
+
+!testRun: #CarritoTest #test01CartIsEmptyWhenCreated stamp: 'TM 6/8/2023 15:21:50'!
+PASSED!
+
+!testRun: #CarritoTest #test02CannotAddBookNotListed stamp: 'TM 6/8/2023 15:21:52'!
+FAILURE!
+
+!testRun: #CarritoTest #test02CannotAddBookNotListed stamp: 'TM 6/8/2023 15:21:52'!
+FAILURE!
+
+!testRun: #CarritoTest #test02CannotAddBookNotListed stamp: 'TM 6/8/2023 15:22:03'!
+FAILURE!
+
+!testRun: #CarritoTest #test02CannotAddBookNotListed stamp: 'TM 6/8/2023 15:22:03'!
+FAILURE!
+!Carrito methodsFor: 'adding' stamp: 'TM 6/8/2023 15:22:46' prior: 50628395!
+addISBN: anISBN
+
+	(listing hasISBN: anISBN)
+	ifFalse: [ ^self error: Carrito invalidItemErrorDescription ].
+	
+	items at: anISBN put: 1.! !
+
+Object subclass: #Carrito
+	instanceVariableNames: 'items listing'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #Carrito category: 'TusLibros' stamp: 'TM 6/8/2023 15:22:53'!
+Object subclass: #Carrito
+	instanceVariableNames: 'items listing'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!testRun: #CarritoTest #test02CannotAddBookNotListed stamp: 'TM 6/8/2023 15:23:02'!
+PASSED!
+
+!testRun: #CarritoTest #test01CartIsEmptyWhenCreated stamp: 'TM 6/8/2023 15:23:04'!
+PASSED!
+
+!testRun: #CarritoTest #test02CannotAddBookNotListed stamp: 'TM 6/8/2023 15:23:06'!
+PASSED!
+
+!methodRemoval: CarritoTest #test02CannotAddBookNotListedInMarket stamp: 'TM 6/8/2023 15:23:11'!
+test02CannotAddBookNotListedInMarket
+	
+	| market carrito book |
+	
+	market := BookListing new.	
+	carrito := Carrito for: market.
+	
+	book := BookItem withISBN: 9783161484100.
+	
+	self 
+		should: [ carrito addISBN: 9783161484100. ]
+		raise: Error
+		withExceptionDo: [ :anError |
+			self assert: Carrito invalidItemErrorDescription equals: anError messageText.
+		]
+
+	!
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 15:23:21'!
+test02CannotAddBookNotInListing
+	
+	| listing carrito isbn |
+	
+	listing := BookListing new.	
+	carrito := Carrito for: listing.
+	
+	isbn := 9783161484100.
+	
+	self 
+		should: [ carrito addISBN: isbn. ]
+		raise: Error
+		withExceptionDo: [ :anError |
+			self assert: Carrito invalidItemErrorDescription equals: anError messageText.
+		]
+
+	! !
+
+!methodRemoval: CarritoTest #test02CannotAddBookNotListed stamp: 'TM 6/8/2023 15:23:27'!
+test02CannotAddBookNotListed
+	
+	| listing carrito isbn |
+	
+	listing := BookListing new.	
+	carrito := Carrito for: listing.
+	
+	isbn := 9783161484100.
+	
+	self 
+		should: [ carrito addISBN: isbn. ]
+		raise: Error
+		withExceptionDo: [ :anError |
+			self assert: Carrito invalidItemErrorDescription equals: anError messageText.
+		]
+
+	!
+
+!testRun: #CarritoTest #test01CartIsEmptyWhenCreated stamp: 'TM 6/8/2023 15:23:29'!
+PASSED!
+
+!testRun: #CarritoTest #test02CannotAddBookNotInListing stamp: 'TM 6/8/2023 15:23:31'!
+PASSED!
+
+!testRun: #CarritoTest #test03CanAddBookListedInMarket stamp: 'TM 6/8/2023 15:23:41'!
+ERROR!
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 15:23:52' prior: 50628299!
+test03CanAddBookListedInMarket
+	
+	| listing carrito isbn |
+	
+	listing := BookListing new.	
+	carrito := Carrito for: listing.
+	
+	isbn := 9783161484100.
+	listing addISBN: isbn.
+	
+	carrito addISBN: isbn.! !
+
+!testRun: #CarritoTest #test03CanAddBookListedInMarket stamp: 'TM 6/8/2023 15:23:53'!
+PASSED!
+
+!testRun: #CarritoTest #test01CartIsEmptyWhenCreated stamp: 'TM 6/8/2023 15:23:53'!
+PASSED!
+
+!testRun: #CarritoTest #test02CannotAddBookNotInListing stamp: 'TM 6/8/2023 15:23:53'!
+PASSED!
+
+!testRun: #CarritoTest #test03CanAddBookListedInMarket stamp: 'TM 6/8/2023 15:23:53'!
+PASSED!
+
+!testRun: #CarritoTest #test03ListAllImtemsOfCart stamp: 'TM 6/8/2023 15:23:53'!
+ERROR!
+
+!testRun: #CarritoTest #test04CartContainsOneItem stamp: 'TM 6/8/2023 15:23:53'!
+ERROR!
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 15:24:10'!
+test03CanAddBookInListing
+	
+	| listing carrito isbn |
+	
+	listing := BookListing new.	
+	carrito := Carrito for: listing.
+	
+	isbn := 9783161484100.
+	listing addISBN: isbn.
+	
+	carrito addISBN: isbn.! !
+
+!methodRemoval: CarritoTest #test03CanAddBookListedInMarket stamp: 'TM 6/8/2023 15:24:10'!
+test03CanAddBookListedInMarket
+	
+	| listing carrito isbn |
+	
+	listing := BookListing new.	
+	carrito := Carrito for: listing.
+	
+	isbn := 9783161484100.
+	listing addISBN: isbn.
+	
+	carrito addISBN: isbn.!
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 15:24:27'!
+test05ListAllImtemsOfCart
+	
+	| carrito itemsList item item2 item3 |
+	carrito := Carrito new.
+	itemsList := ListBook new.
+	item := BookItem withIsbn: 'hola' quantity:  2.
+	item2 := BookItem withIsbn: 'chau' quantity:  3.
+	item3 := BookItem withIsbn: 'buenas' quantity:  1.
+	
+	itemsList createItem: item.
+	itemsList createItem: item2.
+	itemsList createItem: item3.
+
+	carrito addToCart: item inList: itemsList.
+	carrito addToCart: item2 inList: itemsList.
+	carrito addToCart: item3 inList: itemsList.
+	
+	self assert: carrito elementos equals: itemsList items.! !
+
+!methodRemoval: CarritoTest #test03ListAllImtemsOfCart stamp: 'TM 6/8/2023 15:24:27'!
+test03ListAllImtemsOfCart
+	
+	| carrito itemsList item item2 item3 |
+	carrito := Carrito new.
+	itemsList := ListBook new.
+	item := BookItem withIsbn: 'hola' quantity:  2.
+	item2 := BookItem withIsbn: 'chau' quantity:  3.
+	item3 := BookItem withIsbn: 'buenas' quantity:  1.
+	
+	itemsList createItem: item.
+	itemsList createItem: item2.
+	itemsList createItem: item3.
+
+	carrito addToCart: item inList: itemsList.
+	carrito addToCart: item2 inList: itemsList.
+	carrito addToCart: item3 inList: itemsList.
+	
+	self assert: carrito elementos equals: itemsList items.!
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 15:24:41'!
+test01CarritoIsEmptyWhenCreated
+	
+	| carrito |
+	
+	carrito := Carrito new.
+	
+	self assert: carrito isEmpty! !
+
+!methodRemoval: CarritoTest #test01CartIsEmptyWhenCreated stamp: 'TM 6/8/2023 15:24:41'!
+test01CartIsEmptyWhenCreated
+	
+	| carrito |
+	
+	carrito := Carrito new.
+	
+	self assert: carrito isEmpty!
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 15:24:51'!
+test04CarritoContainsOneItem
+	
+	| carrito item itemsList |
+	carrito := Carrito new.
+	
+	itemsList := ListBook new.
+	item := BookItem withIsbn: 'hola' quantity:  2.
+	
+	itemsList createItem: item.
+	
+	carrito addToCart: item inList: itemsList.
+	
+	
+	
+	self assert: carrito elementos first equals: item.! !
+
+!methodRemoval: CarritoTest #test04CartContainsOneItem stamp: 'TM 6/8/2023 15:24:51'!
+test04CartContainsOneItem
+	
+	| carrito item itemsList |
+	carrito := Carrito new.
+	
+	itemsList := ListBook new.
+	item := BookItem withIsbn: 'hola' quantity:  2.
+	
+	itemsList createItem: item.
+	
+	carrito addToCart: item inList: itemsList.
+	
+	
+	
+	self assert: carrito elementos first equals: item.!
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 15:25:27' prior: 50628461!
+test02CannotAddBookNotInListing
+	
+	| carrito listing isbn |
+	
+	listing := BookListing new.	
+	carrito := Carrito for: listing.
+	
+	isbn := 9783161484100.
+	
+	self 
+		should: [ carrito addISBN: isbn. ]
+		raise: Error
+		withExceptionDo: [ :anError |
+			self assert: Carrito invalidItemErrorDescription equals: anError messageText.
+		]
+
+	! !
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 15:25:32' prior: 50628522!
+test03CanAddBookInListing
+	
+	| carrito listing isbn |
+	
+	listing := BookListing new.	
+	carrito := Carrito for: listing.
+	
+	isbn := 9783161484100.
+	listing addISBN: isbn.
+	
+	carrito addISBN: isbn.! !
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 15:27:44' prior: 50628592!
+test04CarritoContainsOneItem
+	
+	| carrito listing isbn |
+	
+	listing := BookListing new.
+	carrito := Carrito for: listing.
+	
+	isbn := 1.
+	listing addISBN: isbn.
+	
+	carrito addISBN: isbn.	
+	
+	self assert: (carrito has: isbn).! !
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 15:27:52' prior: 50628638!
+test04CarritoContainsOneItem
+	
+	| carrito listing isbn |
+	
+	listing := BookListing new.
+	carrito := Carrito for: listing.
+	
+	isbn := 1.
+	listing addISBN: isbn.
+	
+	carrito addISBN: isbn.	
+	
+	self assert: (carrito hasISBN: isbn).! !
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 15:28:12' prior: 50628616!
+test02CannotAddBookNotInListing
+	
+	| carrito listing isbn |
+	
+	listing := BookListing new.	
+	carrito := Carrito for: listing.
+	
+	isbn := 9783161484100.
+	"listing addISBN: isbn."
+	
+	self 
+		should: [ carrito addISBN: isbn. ]
+		raise: Error
+		withExceptionDo: [ :anError |
+			self assert: Carrito invalidItemErrorDescription equals: anError messageText.
+		]
+
+	! !
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 15:28:59' prior: 50628648!
+test04CarritoContainsOneItem
+	
+	| carrito listing isbn |
+	
+	listing := BookListing new.
+	carrito := Carrito for: listing.
+	
+	isbn := 9783161484100.
+	listing addISBN: isbn.
+	
+	carrito addISBN: isbn.	
+	
+	self assert: (carrito hasISBN: isbn).! !
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 15:29:46'!
+test04CarritoContainsItem
+	
+	| carrito listing isbn |
+	
+	listing := BookListing new.
+	carrito := Carrito for: listing.
+	
+	isbn := 9783161484100.
+	listing addISBN: isbn.
+	
+	carrito addISBN: isbn.	
+	
+	self assert: (carrito hasISBN: isbn).! !
+
+!methodRemoval: CarritoTest #test04CarritoContainsOneItem stamp: 'TM 6/8/2023 15:29:46'!
+test04CarritoContainsOneItem
+	
+	| carrito listing isbn |
+	
+	listing := BookListing new.
+	carrito := Carrito for: listing.
+	
+	isbn := 9783161484100.
+	listing addISBN: isbn.
+	
+	carrito addISBN: isbn.	
+	
+	self assert: (carrito hasISBN: isbn).!
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 15:29:57'!
+test04CarritoContainsBook
+	
+	| carrito listing isbn |
+	
+	listing := BookListing new.
+	carrito := Carrito for: listing.
+	
+	isbn := 9783161484100.
+	listing addISBN: isbn.
+	
+	carrito addISBN: isbn.	
+	
+	self assert: (carrito hasISBN: isbn).! !
+
+!methodRemoval: CarritoTest #test04CarritoContainsItem stamp: 'TM 6/8/2023 15:29:57'!
+test04CarritoContainsItem
+	
+	| carrito listing isbn |
+	
+	listing := BookListing new.
+	carrito := Carrito for: listing.
+	
+	isbn := 9783161484100.
+	listing addISBN: isbn.
+	
+	carrito addISBN: isbn.	
+	
+	self assert: (carrito hasISBN: isbn).!
+
+!testRun: #CarritoTest #test04CarritoContainsBook stamp: 'TM 6/8/2023 15:30:11'!
+ERROR!
+!Carrito methodsFor: 'testing' stamp: 'TM 6/8/2023 15:30:17'!
+hasISBN: isbn 
+	self shouldBeImplemented.! !
+!Carrito methodsFor: 'testing' stamp: 'TM 6/8/2023 15:30:37' prior: 50628725!
+hasISBN: anISBN
+	^items includes: anISBN.! !
+
+!testRun: #CarritoTest #test04CarritoContainsBook stamp: 'TM 6/8/2023 15:30:43'!
+FAILURE!
+
+| isbn dict |!
+
+isbn := 9783161484100.!
+
+dict := Dictionary new.!
+
+dict at: isbn put: 1.!
+
+dict keys!
+
+dict includes: isbn.!
+
+dict includes: isbn.!
+!Carrito methodsFor: 'testing' stamp: 'TM 6/8/2023 15:33:57' prior: 50628729!
+hasISBN: anISBN
+	^items includesKey: anISBN.! !
+
+!testRun: #CarritoTest #test01CarritoIsEmptyWhenCreated stamp: 'TM 6/8/2023 15:33:58'!
+PASSED!
+
+!testRun: #CarritoTest #test02CannotAddBookNotInListing stamp: 'TM 6/8/2023 15:33:58'!
+PASSED!
+
+!testRun: #CarritoTest #test03CanAddBookInListing stamp: 'TM 6/8/2023 15:33:58'!
+PASSED!
+
+!testRun: #CarritoTest #test04CarritoContainsBook stamp: 'TM 6/8/2023 15:33:58'!
+PASSED!
+
+!testRun: #CarritoTest #test05ListAllImtemsOfCart stamp: 'TM 6/8/2023 15:33:58'!
+ERROR!
+
+!testRun: #CarritoTest #test05ListAllImtemsOfCart stamp: 'TM 6/8/2023 15:33:58'!
+ERROR!
+
+!testRun: #CarritoTest #test04CarritoContainsBook stamp: 'TM 6/8/2023 15:34:04'!
+PASSED!
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 15:35:26'!
+_ignore_test05ListAllImtemsOfCart
+	
+	| carrito itemsList item item2 item3 |
+	carrito := Carrito new.
+	itemsList := ListBook new.
+	item := BookItem withIsbn: 'hola' quantity:  2.
+	item2 := BookItem withIsbn: 'chau' quantity:  3.
+	item3 := BookItem withIsbn: 'buenas' quantity:  1.
+	
+	itemsList createItem: item.
+	itemsList createItem: item2.
+	itemsList createItem: item3.
+
+	carrito addToCart: item inList: itemsList.
+	carrito addToCart: item2 inList: itemsList.
+	carrito addToCart: item3 inList: itemsList.
+	
+	self assert: carrito elementos equals: itemsList items.! !
+
+!methodRemoval: CarritoTest #test05ListAllImtemsOfCart stamp: 'TM 6/8/2023 15:35:26'!
+test05ListAllImtemsOfCart
+	
+	| carrito itemsList item item2 item3 |
+	carrito := Carrito new.
+	itemsList := ListBook new.
+	item := BookItem withIsbn: 'hola' quantity:  2.
+	item2 := BookItem withIsbn: 'chau' quantity:  3.
+	item3 := BookItem withIsbn: 'buenas' quantity:  1.
+	
+	itemsList createItem: item.
+	itemsList createItem: item2.
+	itemsList createItem: item3.
+
+	carrito addToCart: item inList: itemsList.
+	carrito addToCart: item2 inList: itemsList.
+	carrito addToCart: item3 inList: itemsList.
+	
+	self assert: carrito elementos equals: itemsList items.!
+
+!testRun: #CarritoTest #test01CarritoIsEmptyWhenCreated stamp: 'TM 6/8/2023 15:35:29'!
+PASSED!
+
+!testRun: #CarritoTest #test02CannotAddBookNotInListing stamp: 'TM 6/8/2023 15:35:29'!
+PASSED!
+
+!testRun: #CarritoTest #test03CanAddBookInListing stamp: 'TM 6/8/2023 15:35:29'!
+PASSED!
+
+!testRun: #CarritoTest #test04CarritoContainsBook stamp: 'TM 6/8/2023 15:35:29'!
+PASSED!
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 15:37:06'!
+test05CanAddBookWithQuantity
+	
+	| carrito listing isbn |
+	
+	listing := BookListing new.
+	carrito := Carrito for: listing.
+	
+	isbn := 9783161484100.
+	listing addISBN: isbn.
+	
+	carrito addISBN: isbn quantity: 10.	
+	
+	self assert: (carrito quantityOf: isbn).! !
+
+!testRun: #CarritoTest #test05CanAddBookWithQuantity stamp: 'TM 6/8/2023 15:37:08'!
+ERROR!
+!Carrito methodsFor: 'adding' stamp: 'TM 6/8/2023 15:37:15'!
+addISBN: isbn quantity: aRenameMe1 
+	self shouldBeImplemented.! !
+!Carrito methodsFor: 'adding' stamp: 'TM 6/8/2023 15:37:55' prior: 50628830!
+addISBN: anISBN quantity: aPositiveQuantity 
+	self shouldBeImplemented.! !
+!Carrito methodsFor: 'adding' stamp: 'TM 6/8/2023 15:38:25' prior: 50628835!
+addISBN: anISBN quantity: aQuantity
+
+	(listing hasISBN: anISBN)
+	ifFalse: [ ^self error: Carrito invalidItemErrorDescription ].
+	
+	items at: anISBN put: aQuantity.! !
+
+!testRun: #CarritoTest #test01CarritoIsEmptyWhenCreated stamp: 'TM 6/8/2023 15:38:28'!
+PASSED!
+
+!testRun: #CarritoTest #test02CannotAddBookNotInListing stamp: 'TM 6/8/2023 15:38:28'!
+PASSED!
+
+!testRun: #CarritoTest #test03CanAddBookInListing stamp: 'TM 6/8/2023 15:38:28'!
+PASSED!
+
+!testRun: #CarritoTest #test04CarritoContainsBook stamp: 'TM 6/8/2023 15:38:28'!
+PASSED!
+
+!testRun: #CarritoTest #test05CanAddBookWithQuantity stamp: 'TM 6/8/2023 15:38:28'!
+ERROR!
+
+!testRun: #CarritoTest #test05CanAddBookWithQuantity stamp: 'TM 6/8/2023 15:38:28'!
+ERROR!
+!Carrito methodsFor: 'testing' stamp: 'TM 6/8/2023 15:38:34'!
+quantityOf: isbn 
+	self shouldBeImplemented.! !
+!Carrito methodsFor: 'accessing' stamp: 'TM 6/8/2023 15:39:11' prior: 50628865!
+quantityOf: anISBN 
+	^items at: anISBN.! !
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 15:39:41' prior: 50628817!
+test05CanAddBookWithQuantity
+	
+	| carrito listing isbn quantity |
+	
+	listing := BookListing new.
+	carrito := Carrito for: listing.
+	
+	isbn := 9783161484100.
+	listing addISBN: isbn.
+	
+	quantity := 10.
+	carrito addISBN: isbn quantity: quantity.	
+	
+	self assert: quantity equals: (carrito quantityOf: isbn).! !
+
+!testRun: #CarritoTest #test05CanAddBookWithQuantity stamp: 'TM 6/8/2023 15:39:43'!
+PASSED!
+
+!testRun: #CarritoTest #test01CarritoIsEmptyWhenCreated stamp: 'TM 6/8/2023 15:39:43'!
+PASSED!
+
+!testRun: #CarritoTest #test02CannotAddBookNotInListing stamp: 'TM 6/8/2023 15:39:43'!
+PASSED!
+
+!testRun: #CarritoTest #test03CanAddBookInListing stamp: 'TM 6/8/2023 15:39:43'!
+PASSED!
+
+!testRun: #CarritoTest #test04CarritoContainsBook stamp: 'TM 6/8/2023 15:39:43'!
+PASSED!
+
+!testRun: #CarritoTest #test05CanAddBookWithQuantity stamp: 'TM 6/8/2023 15:39:43'!
+PASSED!
+
+!testRun: #CarritoTest #test01CarritoIsEmptyWhenCreated stamp: 'TM 6/8/2023 15:39:49'!
+PASSED!
+
+!testRun: #CarritoTest #test02CannotAddBookNotInListing stamp: 'TM 6/8/2023 15:39:49'!
+PASSED!
+
+!testRun: #CarritoTest #test03CanAddBookInListing stamp: 'TM 6/8/2023 15:39:49'!
+PASSED!
+
+!testRun: #CarritoTest #test04CarritoContainsBook stamp: 'TM 6/8/2023 15:39:49'!
+PASSED!
+
+!testRun: #CarritoTest #test05CanAddBookWithQuantity stamp: 'TM 6/8/2023 15:39:49'!
+PASSED!
+!Carrito methodsFor: 'adding' stamp: 'TM 6/8/2023 15:40:05' prior: 50628420!
+addISBN: anISBN
+
+	self addISBN: anISBN quantity: 1! !
+
+!testRun: #CarritoTest #test01CarritoIsEmptyWhenCreated stamp: 'TM 6/8/2023 15:40:06'!
+PASSED!
+
+!testRun: #CarritoTest #test02CannotAddBookNotInListing stamp: 'TM 6/8/2023 15:40:06'!
+PASSED!
+
+!testRun: #CarritoTest #test03CanAddBookInListing stamp: 'TM 6/8/2023 15:40:06'!
+PASSED!
+
+!testRun: #CarritoTest #test04CarritoContainsBook stamp: 'TM 6/8/2023 15:40:06'!
+PASSED!
+
+!testRun: #CarritoTest #test05CanAddBookWithQuantity stamp: 'TM 6/8/2023 15:40:06'!
+PASSED!
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 15:41:49'!
+test06CannotAddNonPositiveQuantities
+	
+	| carrito listing isbn quantity |
+	
+	listing := BookListing new.
+	carrito := Carrito for: listing.
+	
+	isbn := 9783161484100.
+	listing addISBN: isbn.
+	
+	quantity := 10.
+	carrito addISBN: isbn quantity: quantity.	
+	
+	self assert: quantity equals: (carrito quantityOf: isbn).! !
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 15:42:21'!
+test04CarritoContainsAddedBook
+	
+	| carrito listing isbn |
+	
+	listing := BookListing new.
+	carrito := Carrito for: listing.
+	
+	isbn := 9783161484100.
+	listing addISBN: isbn.
+	
+	carrito addISBN: isbn.	
+	
+	self assert: (carrito hasISBN: isbn).! !
+
+!methodRemoval: CarritoTest #test04CarritoContainsBook stamp: 'TM 6/8/2023 15:42:21'!
+test04CarritoContainsBook
+	
+	| carrito listing isbn |
+	
+	listing := BookListing new.
+	carrito := Carrito for: listing.
+	
+	isbn := 9783161484100.
+	listing addISBN: isbn.
+	
+	carrito addISBN: isbn.	
+	
+	self assert: (carrito hasISBN: isbn).!
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 15:42:48' prior: 50628936!
+test06CannotAddNonPositiveQuantities
+	
+	| carrito listing isbn quantity |
+	
+	listing := BookListing new.
+	carrito := Carrito for: listing.
+	
+	isbn := 9783161484100.
+	listing addISBN: isbn.
+	
+	quantity := 0.
+	carrito addISBN: isbn quantity: quantity.	
+	
+	self assert: quantity equals: (carrito quantityOf: isbn).! !
+
+!testRun: #CarritoTest #test01CarritoIsEmptyWhenCreated stamp: 'TM 6/8/2023 15:42:54'!
+PASSED!
+
+!testRun: #CarritoTest #test02CannotAddBookNotInListing stamp: 'TM 6/8/2023 15:42:54'!
+PASSED!
+
+!testRun: #CarritoTest #test03CanAddBookInListing stamp: 'TM 6/8/2023 15:42:54'!
+PASSED!
+
+!testRun: #CarritoTest #test04CarritoContainsAddedBook stamp: 'TM 6/8/2023 15:42:54'!
+PASSED!
+
+!testRun: #CarritoTest #test05CanAddBookWithQuantity stamp: 'TM 6/8/2023 15:42:54'!
+PASSED!
+
+!testRun: #CarritoTest #test06CannotAddNonPositiveQuantities stamp: 'TM 6/8/2023 15:42:54'!
+PASSED!
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 15:43:05' prior: 50628658!
+test02CannotAddBookNotInListing
+	
+	| carrito listing isbn |
+	
+	listing := BookListing new.	
+	carrito := Carrito for: listing.
+	
+	isbn := 9783161484100.
+	"listing addISBN: isbn."
+	
+	self 
+		should: [ carrito addISBN: isbn. ]
+		raise: Error
+		withExceptionDo: [ :anError |
+			self assert: Carrito invalidItemErrorDescription equals: anError messageText.
+		]! !
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 15:43:35' prior: 50628969!
+test06CannotAddNonPositiveQuantities
+	
+	| carrito listing isbn quantity |
+	
+	listing := BookListing new.
+	carrito := Carrito for: listing.
+	
+	isbn := 9783161484100.
+	listing addISBN: isbn.
+	
+	quantity := 0.
+	carrito addISBN: isbn quantity: quantity.	
+	
+	self 
+		should: [ carrito addISBN: isbn quantity: quantity.	 ]
+		raise: Error
+		withExceptionDo: [ :anError |
+			self assert: Carrito invalidQuantityErrorDescription equals: anError messageText.
+		]! !
+
+!testRun: #CarritoTest #test06CannotAddNonPositiveQuantities stamp: 'TM 6/8/2023 15:43:40'!
+FAILURE!
+!Carrito class methodsFor: 'error' stamp: 'TM 6/8/2023 15:44:19'!
+invalidQuantityErrorDescription
+	^'La cantidad especificada es inválida!!'! !
+!Carrito class methodsFor: 'error' stamp: 'TM 6/8/2023 15:44:24' prior: 50628016!
+invalidItemErrorDescription
+	^'El item no está listado'! !
+!Carrito class methodsFor: 'error' stamp: 'TM 6/8/2023 15:44:27' prior: 50629034!
+invalidQuantityErrorDescription
+	^'La cantidad especificada es inválida'! !
+
+!testRun: #CarritoTest #test06CannotAddNonPositiveQuantities stamp: 'TM 6/8/2023 15:44:33'!
+FAILURE!
+
+!testRun: #CarritoTest #test06CannotAddNonPositiveQuantities stamp: 'TM 6/8/2023 15:44:33'!
+FAILURE!
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 15:44:47' prior: 50629014!
+test06CannotAddNonPositiveQuantities
+	
+	| carrito listing isbn quantity |
+	
+	listing := BookListing new.
+	carrito := Carrito for: listing.
+	
+	isbn := 9783161484100.
+	listing addISBN: isbn.
+	
+	quantity := 0.
+	
+	self 
+		should: [ carrito addISBN: isbn quantity: quantity.	 ]
+		raise: Error
+		withExceptionDo: [ :anError |
+			self assert: Carrito invalidQuantityErrorDescription equals: anError messageText.
+		]! !
+
+!testRun: #CarritoTest #test06CannotAddNonPositiveQuantities stamp: 'TM 6/8/2023 15:44:49'!
+FAILURE!
+
+!testRun: #CarritoTest #test06CannotAddNonPositiveQuantities stamp: 'TM 6/8/2023 15:44:53'!
+FAILURE!
+
+!testRun: #CarritoTest #test06CannotAddNonPositiveQuantities stamp: 'TM 6/8/2023 15:44:54'!
+FAILURE!
+!Carrito methodsFor: 'adding' stamp: 'TM 6/8/2023 15:45:41' prior: 50628840!
+addISBN: anISBN quantity: aPositiveQuantity
+
+	(listing hasISBN: anISBN)
+	ifFalse: [ ^self error: Carrito invalidItemErrorDescription ].
+	
+	(aPositiveQuantity < 1)
+	ifFalse: [ ^self error: Carrito invalidQuantityErrorDescription ].
+	
+	items at: anISBN put: aPositiveQuantity.! !
+
+!testRun: #CarritoTest #test06CannotAddNonPositiveQuantities stamp: 'TM 6/8/2023 15:45:44'!
+FAILURE!
+
+!testRun: #CarritoTest #test06CannotAddNonPositiveQuantities stamp: 'TM 6/8/2023 15:45:44'!
+FAILURE!
+
+!testRun: #CarritoTest #test01CarritoIsEmptyWhenCreated stamp: 'TM 6/8/2023 15:45:55'!
+PASSED!
+
+!testRun: #CarritoTest #test02CannotAddBookNotInListing stamp: 'TM 6/8/2023 15:45:55'!
+PASSED!
+
+!testRun: #CarritoTest #test03CanAddBookInListing stamp: 'TM 6/8/2023 15:45:55'!
+ERROR!
+
+!testRun: #CarritoTest #test04CarritoContainsAddedBook stamp: 'TM 6/8/2023 15:45:55'!
+ERROR!
+
+!testRun: #CarritoTest #test05CanAddBookWithQuantity stamp: 'TM 6/8/2023 15:45:55'!
+ERROR!
+
+!testRun: #CarritoTest #test06CannotAddNonPositiveQuantities stamp: 'TM 6/8/2023 15:45:55'!
+FAILURE!
+!Carrito methodsFor: 'adding' stamp: 'TM 6/8/2023 15:46:07' prior: 50629082!
+addISBN: anISBN quantity: aPositiveQuantity
+
+	(listing hasISBN: anISBN)
+	ifFalse: [ ^self error: Carrito invalidItemErrorDescription ].
+	
+	(aPositiveQuantity < 1)
+	ifTrue: [ ^self error: Carrito invalidQuantityErrorDescription ].
+	
+	items at: anISBN put: aPositiveQuantity.! !
+
+!testRun: #CarritoTest #test01CarritoIsEmptyWhenCreated stamp: 'TM 6/8/2023 15:46:08'!
+PASSED!
+
+!testRun: #CarritoTest #test02CannotAddBookNotInListing stamp: 'TM 6/8/2023 15:46:08'!
+PASSED!
+
+!testRun: #CarritoTest #test03CanAddBookInListing stamp: 'TM 6/8/2023 15:46:08'!
+PASSED!
+
+!testRun: #CarritoTest #test04CarritoContainsAddedBook stamp: 'TM 6/8/2023 15:46:08'!
+PASSED!
+
+!testRun: #CarritoTest #test05CanAddBookWithQuantity stamp: 'TM 6/8/2023 15:46:08'!
+PASSED!
+
+!testRun: #CarritoTest #test06CannotAddNonPositiveQuantities stamp: 'TM 6/8/2023 15:46:08'!
+PASSED!
+
+!testRun: #CarritoTest #test01CarritoIsEmptyWhenCreated stamp: 'TM 6/8/2023 15:46:10'!
+PASSED!
+
+!testRun: #CarritoTest #test02CannotAddBookNotInListing stamp: 'TM 6/8/2023 15:46:10'!
+PASSED!
+
+!testRun: #CarritoTest #test03CanAddBookInListing stamp: 'TM 6/8/2023 15:46:10'!
+PASSED!
+
+!testRun: #CarritoTest #test04CarritoContainsAddedBook stamp: 'TM 6/8/2023 15:46:10'!
+PASSED!
+
+!testRun: #CarritoTest #test05CanAddBookWithQuantity stamp: 'TM 6/8/2023 15:46:10'!
+PASSED!
+
+!testRun: #CarritoTest #test06CannotAddNonPositiveQuantities stamp: 'TM 6/8/2023 15:46:10'!
+PASSED!
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 15:47:47'!
+test07CanAddBookMultipleTimes
+	
+	| carrito listing isbn |
+	
+	listing := BookListing new.
+	carrito := Carrito for: listing.
+	
+	isbn := 9783161484100.
+	listing addISBN: isbn.
+	
+	carrito addISBN: isbn.	
+	carrito addISBN: isbn.	
+	
+	self assert: 2 equals: (carrito quantityOf: isbn).! !
+
+!testRun: #CarritoTest #test07CanAddBookMultipleTimes stamp: 'TM 6/8/2023 15:47:48'!
+FAILURE!
+
+!testRun: #CarritoTest #test07CanAddBookMultipleTimes stamp: 'TM 6/8/2023 15:47:53'!
+FAILURE!
+!Carrito methodsFor: 'adding' stamp: 'TM 6/8/2023 15:51:39' prior: 50629118!
+addISBN: anISBN quantity: aPositiveQuantity
+
+	| quantity |
+
+	(listing hasISBN: anISBN)
+	ifFalse: [ ^self error: Carrito invalidItemErrorDescription ].
+	
+	(aPositiveQuantity < 1)
+	ifTrue: [ ^self error: Carrito invalidQuantityErrorDescription ].
+	
+	quantity := aPositiveQuantity.
+	
+	items at: anISBN
+	ifPresent: [ quantity := quantity + items at: anISBN. ].
+	
+	items at: anISBN put: quantity.! !
+
+!testRun: #CarritoTest #test01CarritoIsEmptyWhenCreated stamp: 'TM 6/8/2023 15:51:42'!
+PASSED!
+
+!testRun: #CarritoTest #test02CannotAddBookNotInListing stamp: 'TM 6/8/2023 15:51:42'!
+PASSED!
+
+!testRun: #CarritoTest #test03CanAddBookInListing stamp: 'TM 6/8/2023 15:51:42'!
+PASSED!
+
+!testRun: #CarritoTest #test04CarritoContainsAddedBook stamp: 'TM 6/8/2023 15:51:42'!
+PASSED!
+
+!testRun: #CarritoTest #test05CanAddBookWithQuantity stamp: 'TM 6/8/2023 15:51:42'!
+PASSED!
+
+!testRun: #CarritoTest #test06CannotAddNonPositiveQuantities stamp: 'TM 6/8/2023 15:51:42'!
+PASSED!
+
+!testRun: #CarritoTest #test07CanAddBookMultipleTimes stamp: 'TM 6/8/2023 15:51:42'!
+ERROR!
+
+!testRun: #CarritoTest #test07CanAddBookMultipleTimes stamp: 'TM 6/8/2023 15:51:42'!
+ERROR!
+!Carrito methodsFor: 'adding' stamp: 'TM 6/8/2023 15:52:40' prior: 50629183!
+addISBN: anISBN quantity: aPositiveQuantity
+
+	| quantity |
+
+	(listing hasISBN: anISBN)
+	ifFalse: [ ^self error: Carrito invalidItemErrorDescription ].
+	
+	(aPositiveQuantity < 1)
+	ifTrue: [ ^self error: Carrito invalidQuantityErrorDescription ].
+	
+	quantity := aPositiveQuantity.
+	
+	items at: anISBN
+	ifPresent: [ :currentQuantity | quantity := quantity + currentQuantity. ].
+	
+	items at: anISBN put: quantity.! !
+
+!testRun: #CarritoTest #test01CarritoIsEmptyWhenCreated stamp: 'TM 6/8/2023 15:52:42'!
+PASSED!
+
+!testRun: #CarritoTest #test02CannotAddBookNotInListing stamp: 'TM 6/8/2023 15:52:42'!
+PASSED!
+
+!testRun: #CarritoTest #test03CanAddBookInListing stamp: 'TM 6/8/2023 15:52:42'!
+PASSED!
+
+!testRun: #CarritoTest #test04CarritoContainsAddedBook stamp: 'TM 6/8/2023 15:52:42'!
+PASSED!
+
+!testRun: #CarritoTest #test05CanAddBookWithQuantity stamp: 'TM 6/8/2023 15:52:42'!
+PASSED!
+
+!testRun: #CarritoTest #test06CannotAddNonPositiveQuantities stamp: 'TM 6/8/2023 15:52:42'!
+PASSED!
+
+!testRun: #CarritoTest #test07CanAddBookMultipleTimes stamp: 'TM 6/8/2023 15:52:42'!
+PASSED!
+
+!testRun: #CarritoTest #test01CarritoIsEmptyWhenCreated stamp: 'TM 6/8/2023 15:52:44'!
+PASSED!
+
+!testRun: #CarritoTest #test02CannotAddBookNotInListing stamp: 'TM 6/8/2023 15:52:44'!
+PASSED!
+
+!testRun: #CarritoTest #test03CanAddBookInListing stamp: 'TM 6/8/2023 15:52:44'!
+PASSED!
+
+!testRun: #CarritoTest #test04CarritoContainsAddedBook stamp: 'TM 6/8/2023 15:52:44'!
+PASSED!
+
+!testRun: #CarritoTest #test05CanAddBookWithQuantity stamp: 'TM 6/8/2023 15:52:44'!
+PASSED!
+
+!testRun: #CarritoTest #test06CannotAddNonPositiveQuantities stamp: 'TM 6/8/2023 15:52:44'!
+PASSED!
+
+!testRun: #CarritoTest #test07CanAddBookMultipleTimes stamp: 'TM 6/8/2023 15:52:44'!
+PASSED!
+!Carrito methodsFor: 'adding' stamp: 'TM 6/8/2023 15:53:22' prior: 50629222!
+addISBN: anISBN quantity: aPositiveQuantity
+
+	| finalQuantity |
+
+	(listing hasISBN: anISBN)
+	ifFalse: [ ^self error: Carrito invalidItemErrorDescription ].
+	
+	(aPositiveQuantity < 1)
+	ifTrue: [ ^self error: Carrito invalidQuantityErrorDescription ].
+	
+	finalQuantity := aPositiveQuantity.
+	
+	items at: anISBN
+	ifPresent: [ :currentQuantity | finalQuantity := finalQuantity + currentQuantity. ].
+	
+	items at: anISBN put: finalQuantity.! !
+
+!testRun: #CarritoTest #test01CarritoIsEmptyWhenCreated stamp: 'TM 6/8/2023 15:53:24'!
+PASSED!
+
+!testRun: #CarritoTest #test02CannotAddBookNotInListing stamp: 'TM 6/8/2023 15:53:24'!
+PASSED!
+
+!testRun: #CarritoTest #test03CanAddBookInListing stamp: 'TM 6/8/2023 15:53:24'!
+PASSED!
+
+!testRun: #CarritoTest #test04CarritoContainsAddedBook stamp: 'TM 6/8/2023 15:53:24'!
+PASSED!
+
+!testRun: #CarritoTest #test05CanAddBookWithQuantity stamp: 'TM 6/8/2023 15:53:24'!
+PASSED!
+
+!testRun: #CarritoTest #test06CannotAddNonPositiveQuantities stamp: 'TM 6/8/2023 15:53:24'!
+PASSED!
+
+!testRun: #CarritoTest #test07CanAddBookMultipleTimes stamp: 'TM 6/8/2023 15:53:24'!
+PASSED!
+
+!testRun: #CarritoTest #test01CarritoIsEmptyWhenCreated stamp: 'TM 6/8/2023 15:53:29'!
+PASSED!
+
+!testRun: #CarritoTest #test02CannotAddBookNotInListing stamp: 'TM 6/8/2023 15:53:29'!
+PASSED!
+
+!testRun: #CarritoTest #test03CanAddBookInListing stamp: 'TM 6/8/2023 15:53:29'!
+PASSED!
+
+!testRun: #CarritoTest #test04CarritoContainsAddedBook stamp: 'TM 6/8/2023 15:53:29'!
+PASSED!
+
+!testRun: #CarritoTest #test05CanAddBookWithQuantity stamp: 'TM 6/8/2023 15:53:29'!
+PASSED!
+
+!testRun: #CarritoTest #test06CannotAddNonPositiveQuantities stamp: 'TM 6/8/2023 15:53:29'!
+PASSED!
+
+!testRun: #CarritoTest #test07CanAddBookMultipleTimes stamp: 'TM 6/8/2023 15:53:29'!
+PASSED!
+
+----SNAPSHOT----(8 June 2023 15:53:32) CuisUniversity-5832.image priorSource: 9458866!
+
+----SNAPSHOT----(8 June 2023 15:53:39) CuisUniversity-5832.image priorSource: 9525959!
