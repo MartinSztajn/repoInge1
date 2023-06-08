@@ -1,0 +1,1511 @@
+
+
+----QUIT----(30 May 2023 00:05:32) CuisUniversity-5832.image priorSource: 4928100!
+
+----STARTUP---- (30 May 2023 00:05:33) as /Users/hernan/Documents/Cuis/5.0-64Bits/Cuis-University-Installer/CuisUniversity-5832.image!
+
+
+----QUIT----(30 May 2023 00:05:33) CuisUniversity-5832.image priorSource: 9366537!
+
+----STARTUP---- (5 June 2023 20:53:14) as C:\Cuis2\windows64\CuisUniversity-5832.image!
+
+
+----End fileIn of C:\windows64\repoInge1\08-MarsRover-ElRegreso\MarsRover-WithHeading.st----!
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50624825!
+headSouth
+	
+	head := MarsRoverHeadingSouth for: self! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50624883!
+moveSouth
+	
+	position := position + (0@-1)! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50624914!
+updateHeadingObservers
+	observers do: [ :obs | obs addHeading: head name ]! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50624887!
+moveWest
+	
+	position := position + (-1@0)! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50624861!
+isRotateRightCommand: aCommand
+
+	^aCommand = $r! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50624891!
+process: aSequenceOfCommands
+
+	aSequenceOfCommands do: [:aCommand | self processCommand: aCommand ]
+! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50624805!
+signalInvalidCommand
+	
+	self error: self invalidCommandErrorDescription ! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50624857!
+isRotateLeftCommand: aCommand
+
+	^aCommand = $l! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50624821!
+headNorth
+	
+	head := MarsRoverHeadingNorth for: self ! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50624897!
+processCommand: aCommand
+
+	(self isForwardCommand: aCommand) ifTrue: [ ^ self moveForward ].
+	(self isBackwardCommand: aCommand) ifTrue: [ ^ self moveBackward ].
+	(self isRotateRightCommand: aCommand) ifTrue: [ ^ self rotateRight ].
+	(self isRotateLeftCommand: aCommand) ifTrue: [ ^ self rotateLeft ].
+
+	self signalInvalidCommand.! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50624853!
+isForwardCommand: aCommand
+
+	^aCommand = $f ! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50624870!
+moveEast
+	
+	position := position + (1@0)! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50624874!
+moveForward
+	
+	head moveForward.
+	self updatePositionObservers.! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50624849!
+isBackwardCommand: aCommand
+
+	^aCommand = $b! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50624829!
+headWest
+	
+	head := MarsRoverHeadingWest for: self ! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50624865!
+moveBackward
+	
+	head moveBackward.
+	self updatePositionObservers.! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50624879!
+moveNorth
+	
+	position := position + (0@1)! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50624910!
+addObserver: anObserver
+	observers add: anObserver.! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50624817!
+headEast
+	
+	head := MarsRoverHeadingEast for: self! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50624919!
+updatePositionObservers
+	observers do: [ :obs | obs addPosition: position ]! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50624843!
+isAt: aPosition heading: aHeadingType
+
+	^position = aPosition and: [ head isHeading: aHeadingType ]! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50624833!
+rotateLeft
+	
+	head rotateLeft.
+	self updateHeadingObservers.! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50624801!
+invalidCommandErrorDescription
+	
+	^'Invalid command'! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50624838!
+rotateRight
+	
+	head rotateRight.
+	self updateHeadingObservers.! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50624810!
+initializeAt: aPosition heading: aHeadingType
+
+	position := aPosition.
+	head := aHeadingType for: self.
+	observers := OrderedCollection new.! !
+!MarsRover class methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50624933!
+at: aPosition heading: aHeadingType
+	
+	^self new initializeAt: aPosition heading: aHeadingType! !
+!MarsRoverHeading methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50624960!
+isHeading: aHeadingType
+
+	^self isKindOf: aHeadingType ! !
+!MarsRoverHeading methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50624969!
+moveForward
+
+	self subclassResponsibility ! !
+!MarsRoverHeading methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50624965!
+moveBackward
+
+	self subclassResponsibility ! !
+!MarsRoverHeading methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50624973!
+initializeFor: aMarsRover 
+	
+	marsRover := aMarsRover.! !
+!MarsRoverHeading methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50624952!
+rotateLeft
+
+	self subclassResponsibility ! !
+!MarsRoverHeading methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50624956!
+rotateRight
+
+	self subclassResponsibility ! !
+!MarsRoverHeading methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50624978 overrides: 16903442!
+name
+
+	self subclassResponsibility ! !
+!MarsRoverHeading class methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50624991!
+for: aMarsRover 
+	
+	^self new initializeFor: aMarsRover ! !
+!MarsRoverHeadingAndPositionLog methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50625230 overrides: 50625191!
+addHeading: aHeading
+	log addLast: aHeading! !
+!MarsRoverHeadingAndPositionLog methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50625235 overrides: 50625196!
+addPosition: aPosition
+	log addLast: aPosition ! !
+!MarsRoverHeadingAndPositionWindow methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50625344 overrides: 50625319!
+addHeading: aHeading 
+	heading := aHeading.! !
+!MarsRoverHeadingAndPositionWindow methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50625349 overrides: 50625324!
+addPosition: aPosition 
+	position := aPosition.! !
+!MarsRoverHeadingEast methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50625015 overrides: 50625560!
+moveForward
+	
+	^marsRover moveEast! !
+!MarsRoverHeadingEast methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50625010 overrides: 50625565!
+moveBackward
+	
+	^marsRover moveWest! !
+!MarsRoverHeadingEast methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50625020 overrides: 50625575!
+rotateLeft
+	
+	^marsRover headNorth! !
+!MarsRoverHeadingEast methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50625025 overrides: 50625580!
+rotateRight
+	
+	^marsRover headSouth! !
+!MarsRoverHeadingEast methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50625030 overrides: 50625586!
+name
+
+	^'East'.! !
+!MarsRoverHeadingLog methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50625253 overrides: 50625191!
+addHeading: aHeading
+	log addLast: aHeading! !
+!MarsRoverHeadingLog methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50625258 overrides: 50625196!
+addPosition: aPosition! !
+!MarsRoverHeadingNorth methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50625053 overrides: 50625560!
+moveForward
+	
+	^marsRover moveNorth! !
+!MarsRoverHeadingNorth methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50625048 overrides: 50625565!
+moveBackward
+	
+	^marsRover moveSouth! !
+!MarsRoverHeadingNorth methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50625058 overrides: 50625575!
+rotateLeft
+	
+	^marsRover headWest! !
+!MarsRoverHeadingNorth methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50625063 overrides: 50625580!
+rotateRight
+	
+	^marsRover headEast! !
+!MarsRoverHeadingNorth methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50625068 overrides: 50625586!
+name
+
+	^'North'.! !
+!MarsRoverHeadingSouth methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50625091 overrides: 50625560!
+moveForward
+	
+	^marsRover moveSouth! !
+!MarsRoverHeadingSouth methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50625086 overrides: 50625565!
+moveBackward
+	
+	^marsRover moveNorth! !
+!MarsRoverHeadingSouth methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50625096 overrides: 50625575!
+rotateLeft
+	
+	^marsRover headEast! !
+!MarsRoverHeadingSouth methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50625101 overrides: 50625580!
+rotateRight
+	
+	^marsRover headWest! !
+!MarsRoverHeadingSouth methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50625106 overrides: 50625586!
+name
+
+	^'South'.! !
+!MarsRoverHeadingWest methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50625129 overrides: 50625560!
+moveForward
+	
+	^marsRover moveWest! !
+!MarsRoverHeadingWest methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50625124 overrides: 50625565!
+moveBackward
+
+	^marsRover moveEast! !
+!MarsRoverHeadingWest methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50625134 overrides: 50625575!
+rotateLeft
+	
+	^marsRover headSouth! !
+!MarsRoverHeadingWest methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50625139 overrides: 50625580!
+rotateRight
+	
+	^marsRover headNorth! !
+!MarsRoverHeadingWest methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50625144 overrides: 50625586!
+name
+
+	^'West'.! !
+!MarsRoverHeadingWindow methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50625368 overrides: 50625319!
+addHeading: aHeading 
+	heading := aHeading.! !
+!MarsRoverHeadingWindow methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50625373 overrides: 50625324!
+addPosition: aPosition ! !
+!MarsRoverObserver methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50625160!
+addHeading: aHeading
+	self subclassResponsibility ! !
+!MarsRoverObserver methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50625164!
+addPosition: aPosition
+	self subclassResponsibility ! !
+!MarsRoverObserverTest methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50624395!
+test02MarsRoverSupportsMultipleObservers
+
+	| rover observer1 observer2 result |
+	
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	
+	observer1 := MarsRoverHeadingAndPositionLog new.
+	observer2 := MarsRoverHeadingAndPositionLog new.
+	
+	rover addObserver: observer1.
+	rover addObserver: observer2.
+	
+	rover process: 'fr'.
+	
+	result := OrderedCollection new.
+	result add: 0@1.
+	result add: 'East'.
+	
+	self assert: result equals: observer1 show.
+	self assert: result equals: observer2 show.! !
+!MarsRoverObserverTest methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50624380!
+test01MarsRoverSupportsOneObserver
+
+	| rover observer1 result |
+	
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	
+	observer1 := MarsRoverHeadingAndPositionLog new.
+	
+	rover addObserver: observer1.
+	
+	rover process: 'fr'.
+	
+	result := OrderedCollection new.
+	result add: 0@1.
+	result add: 'East'.
+	
+	self assert: result equals: observer1 show.! !
+!MarsRoverPositionLog methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50625276 overrides: 50625191!
+addHeading: aHeading! !
+!MarsRoverPositionLog methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50625280 overrides: 50625196!
+addPosition: aPosition
+	log addLast: aPosition! !
+!MarsRoverPositionWindow methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50625391 overrides: 50625319!
+addHeading: aHeading ! !
+!MarsRoverPositionWindow methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50625395 overrides: 50625324!
+addPosition: aPosition 
+	position := aPosition.! !
+!MarsRoverStateLog methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50625182!
+show
+	^log.! !
+!MarsRoverStateLog methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50625186 overrides: 16920235!
+initialize
+	log := OrderedCollection new.! !
+!MarsRoverStateLog methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50625191 overrides: 50625759!
+addHeading: aHeading 
+	self subclassResponsibility ! !
+!MarsRoverStateLog methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50625196 overrides: 50625764!
+addPosition: aPosition
+	self subclassResponsibility ! !
+!MarsRoverStateLog class methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50625210!
+for: aLoggingOption 
+	^self new initializeFor: aLoggingOption ! !
+!MarsRoverStateLogTest methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50624427!
+test01MarsRoverLogIsEmptyWhenInitialized
+
+	| log rover |
+
+	log := MarsRoverHeadingAndPositionLog new.
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	
+	rover addObserver: log.
+	
+	self assert: log show isEmpty.! !
+!MarsRoverStateLogTest methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50624505!
+test07MarsRoverLogsHeadingWhenRotatedFullLeft
+
+	| log rover result |
+
+	log := MarsRoverHeadingAndPositionLog new.
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	
+	rover addObserver: log.
+	
+	rover process: 'llll'.
+	
+	result := OrderedCollection new.
+	result add: 'West'.
+	result add: 'South'.
+	result add: 'East'.
+	result add: 'North'.
+	
+	self assert: result equals: log show.! !
+!MarsRoverStateLogTest methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50624521!
+test08MarsRoverOnlyLogsPosition
+
+	| log rover result |
+
+	log := MarsRoverPositionLog new.
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	
+	rover addObserver: log.
+	
+	rover process: 'fr'.
+	
+	result := OrderedCollection new.
+	result add: 0@1.
+	
+	self assert: result equals: log show.! !
+!MarsRoverStateLogTest methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:55' prior: 50624534!
+test09MarsRoverOnlyLogsHeading
+
+	| log rover result |
+
+	log := MarsRoverHeadingLog new.
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	
+	rover addObserver: log.
+	
+	rover process: 'fr'.
+	
+	result := OrderedCollection new.
+	result add: 'East'.
+	
+	self assert: result equals: log show.! !
+!MarsRoverStateLogTest methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:56' prior: 50624489!
+test06MarsRoverLogsHeadingWhenRotatedFullRight
+
+	| log rover result |
+
+	log := MarsRoverHeadingAndPositionLog new.
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	
+	rover addObserver: log.
+	
+	rover process: 'rrrr'.
+	
+	result := OrderedCollection new.
+	result add: 'East'.
+	result add: 'South'.
+	result add: 'West'.
+	result add: 'North'.
+	
+	self assert: result equals: log show.! !
+!MarsRoverStateLogTest methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:56' prior: 50624437!
+test02MarsRoverLogsPositionWhenMovedForward
+
+	| log rover result |
+
+	log := MarsRoverHeadingAndPositionLog new.
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	
+	rover addObserver: log.
+	
+	rover process: 'f'.
+	
+	result := OrderedCollection new.
+	result add: 0@1.
+	
+	self assert: result equals: log show.! !
+!MarsRoverStateLogTest methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:56' prior: 50624450!
+test03MarsRoverLogsPositionsWhenMovedBackward
+
+	| log rover result |
+
+	log := MarsRoverHeadingAndPositionLog new.
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	
+	rover addObserver: log.
+	
+	rover process: 'b'.
+	
+	result := OrderedCollection new.
+	result add: 0@-1.
+	
+	self assert: result equals: log show.! !
+!MarsRoverStateLogTest methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:56' prior: 50624463!
+test04MarsRoverLogsHeadingWhenRotatedRight
+
+	| log rover result |
+
+	log := MarsRoverHeadingAndPositionLog new.
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	
+	rover addObserver: log.
+	
+	rover process: 'r'.
+	
+	result := OrderedCollection new.
+	result add: 'East'.
+	
+	self assert: result equals: log show.! !
+!MarsRoverStateLogTest methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:56' prior: 50624476!
+test05MarsRoverLogsHeadingWhenRotatedLeft
+
+	| log rover result |
+
+	log := MarsRoverHeadingAndPositionLog new.
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	
+	rover addObserver: log.
+	
+	rover process: 'l'.
+	
+	result := OrderedCollection new.
+	result add: 'West'.
+	
+	self assert: result equals: log show.! !
+!MarsRoverStateWindow methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:56' prior: 50625299!
+show
+	| window |
+	
+	window := SystemWindow new.
+	
+	window setLabel: 'MarsRoverStateWindow'.
+	
+	window addMorph: (LabelMorph contents: ('Posición: ', position asString)).
+	window addMorph: (LabelMorph contents: ('Apuntando al ', heading asString)).
+	
+	window openInWorld.! !
+!MarsRoverStateWindow methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:56' prior: 50625315!
+position
+	^position! !
+!MarsRoverStateWindow methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:56' prior: 50625319 overrides: 50625759!
+addHeading: aHeading
+	self subclassResponsibility ! !
+!MarsRoverStateWindow methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:56' prior: 50625311!
+heading
+	^heading! !
+!MarsRoverStateWindow methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:56' prior: 50625324 overrides: 50625764!
+addPosition: aPosition
+	self subclassResponsibility ! !
+!MarsRoverStateWindowTest methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:56' prior: 50624584!
+test03MarsRoverWindowShowsLastHeading
+
+	| window rover |
+
+	window := MarsRoverHeadingAndPositionWindow new.
+	rover := MarsRover at: 1@1 heading: MarsRoverHeadingNorth.
+	
+	rover addObserver: window.
+	
+	rover process: 'lr'.
+	
+	self assert: 'North' equals: window heading.! !
+!MarsRoverStateWindowTest methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:56' prior: 50624596!
+test04MarsRoverWindowOnlyTracksPosition
+
+	| window rover |
+
+	window := MarsRoverPositionWindow new.
+	rover := MarsRover at: 1@1 heading: MarsRoverHeadingNorth.
+	
+	rover addObserver: window.
+	
+	rover process: 'fr'.
+	
+	self assert: 1@2 equals: window position.! !
+!MarsRoverStateWindowTest methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:56' prior: 50624572!
+test02MarsRoverWindowShowsLastPosition
+
+	| window rover |
+
+	window := MarsRoverHeadingAndPositionWindow new.
+	rover := MarsRover at: 1@1 heading: MarsRoverHeadingNorth.
+	
+	rover addObserver: window.
+	
+	rover process: 'f'.
+	
+	self assert: 1@2 equals: window position.! !
+!MarsRoverStateWindowTest methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:56' prior: 50624560!
+test01MarsRoverWindowIsEmptyWhenInitialized
+
+	| window rover |
+
+	window := MarsRoverHeadingAndPositionWindow new.
+	rover := MarsRover at: 1@1 heading: MarsRoverHeadingNorth.
+	
+	rover addObserver: window.
+	
+	self assert: window position isNil.
+	self assert: window heading isNil.! !
+!MarsRoverStateWindowTest methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:56' prior: 50624607!
+test05MarsRoverWindowOnlyTracksHeading
+
+	| window rover |
+
+	window := MarsRoverHeadingWindow new.
+	rover := MarsRover at: 1@1 heading: MarsRoverHeadingNorth.
+	
+	rover addObserver: window.
+	
+	rover process: 'fr'.
+	
+	self assert: 'East' equals: window heading.! !
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:56' prior: 50624771!
+west
+
+	^ MarsRoverHeadingWest ! !
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:56' prior: 50624630!
+test01DoesNotMoveWhenNoCommand
+
+	self 
+		assertIsAt: 1@2 
+		heading: self north 
+		afterProcessing: '' 
+		whenStartingAt: 1@2 
+		heading: self north 
+! !
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:56' prior: 50624662!
+test06DecrementsYAfterMovingBackwardsWhenHeadingNorth
+
+	self 
+		assertIsAt: 1@1 
+		heading: self north 
+		afterProcessing: 'b' 
+		whenStartingAt: 1@2 
+		heading: self north 
+! !
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:56' prior: 50624717!
+test12DecrementsXAfterMovingBackwardWhenHeadingEast
+
+	self 
+		assertIsAt: 0@2 
+		heading: self east 
+		afterProcessing: 'b' 
+		whenStartingAt: 1@2 
+		heading: self east 
+! !
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:56' prior: 50624767!
+south
+
+	^ MarsRoverHeadingSouth ! !
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:56' prior: 50624646!
+test03IsAtFailsForDifferentHeading
+
+	| marsRover |
+	
+	marsRover := MarsRover at: 1@1 heading: self north . 
+	
+	self deny: (marsRover isAt: 1@1 heading: self south)! !
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:56' prior: 50624670!
+test07PointToEashAfterRotatingRightWhenHeadingNorth
+
+	self 
+		assertIsAt: 1@2 
+		heading: self east 
+		afterProcessing: 'r' 
+		whenStartingAt: 1@2 
+		heading: self north 
+! !
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:56' prior: 50624701!
+test10CanProcessMoreThanOneCommand
+
+	self 
+		assertIsAt: 1@4 
+		heading: self north 
+		afterProcessing: 'ff' 
+		whenStartingAt: 1@2 
+		heading: self north 
+! !
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:56' prior: 50624678!
+test08PointsToWestAfterRotatingLeftWhenPointingNorth
+
+	self 
+		assertIsAt: 1@2 
+		heading: self west 
+		afterProcessing: 'l' 
+		whenStartingAt: 1@2 
+		heading: self north 
+! !
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:56' prior: 50624741!
+test15ForwardBackwardsAndRotateRightWorkAsExpectedWhenPointingSouth
+
+	self 
+		assertIsAt: 1@1 
+		heading: self west 
+		afterProcessing: 'ffblrr' 
+		whenStartingAt: 1@2 
+		heading: self south 
+! !
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:56' prior: 50624750!
+test16ForwardBackwardsAndRotateRightWorkAsExpectedWhenPointingWest
+
+	self 
+		assertIsAt: 0@2 
+		heading: self north 
+		afterProcessing: 'ffblrr' 
+		whenStartingAt: 1@2 
+		heading: self west 
+! !
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:56' prior: 50624759!
+east
+
+	^ MarsRoverHeadingEast ! !
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:56' prior: 50624725!
+test13PointsToSouthAfterRotatingRightWhenHeadingEast
+
+		self 
+		assertIsAt: 1@2 
+		heading: self south 
+		afterProcessing: 'r' 
+		whenStartingAt: 1@2 
+		heading: self east 
+! !
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:56' prior: 50624654!
+test04IncrementsYAfterMovingForwardWhenHeadingNorth
+
+	self 
+		assertIsAt: 1@3 
+		heading: self north 
+		afterProcessing: 'f' 
+		whenStartingAt: 1@2 
+		heading: self north 
+! !
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:56' prior: 50624733!
+test14PointsToNorthAfterRotatingLeftWhenPointingEast
+
+		self 
+		assertIsAt: 1@2 
+		heading: self north 
+		afterProcessing: 'l' 
+		whenStartingAt: 1@2 
+		heading: self east 
+! !
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:56' prior: 50624638!
+test02IsAtFailsForDifferentPosition
+
+	| marsRover |
+	
+	marsRover := MarsRover at: 1@1 heading: self north . 
+	
+	self deny: (marsRover isAt: 1@2 heading: self north)! !
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:56' prior: 50624709!
+test11IncrementsXAfterMovingForwareWhenHeadingEast
+
+	self 
+		assertIsAt: 2@2 
+		heading: self east 
+		afterProcessing: 'f' 
+		whenStartingAt: 1@2 
+		heading: self east 
+! !
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:56' prior: 50624763!
+north
+
+	^ MarsRoverHeadingNorth ! !
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:56' prior: 50624775!
+assertIsAt: newPosition heading: newHeadingType afterProcessing: commands whenStartingAt: startPosition heading: startHeadingType
+
+	| marsRover |
+	
+	marsRover := MarsRover at: startPosition heading: startHeadingType. 
+	
+	marsRover process: commands.
+	
+	self assert: (marsRover isAt: newPosition heading: newHeadingType)! !
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'MS 6/5/2023 20:57:56' prior: 50624686!
+test09DoesNotProcessInvalidCommand
+
+	| marsRover |
+	
+	marsRover := MarsRover at: 1@2 heading: self north.
+	
+	self 
+		should: [ marsRover process: 'x' ]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [ :anError |
+			self assert: anError messageText equals: marsRover invalidCommandErrorDescription.
+			self assert: (marsRover isAt: 1@2 heading: self north) ]! !
+
+!testRun: #MarsRoverObserverTest #test01MarsRoverSupportsOneObserver stamp: 'MS 6/5/2023 21:07:57'!
+PASSED!
+
+!testRun: #MarsRoverObserverTest #test02MarsRoverSupportsMultipleObservers stamp: 'MS 6/5/2023 21:07:57'!
+PASSED!
+
+!testRun: #MarsRoverStateLogTest #test01MarsRoverLogIsEmptyWhenInitialized stamp: 'MS 6/5/2023 21:07:57'!
+PASSED!
+
+!testRun: #MarsRoverStateLogTest #test02MarsRoverLogsPositionWhenMovedForward stamp: 'MS 6/5/2023 21:07:57'!
+PASSED!
+
+!testRun: #MarsRoverStateLogTest #test03MarsRoverLogsPositionsWhenMovedBackward stamp: 'MS 6/5/2023 21:07:57'!
+PASSED!
+
+!testRun: #MarsRoverStateLogTest #test04MarsRoverLogsHeadingWhenRotatedRight stamp: 'MS 6/5/2023 21:07:57'!
+PASSED!
+
+!testRun: #MarsRoverStateLogTest #test05MarsRoverLogsHeadingWhenRotatedLeft stamp: 'MS 6/5/2023 21:07:57'!
+PASSED!
+
+!testRun: #MarsRoverStateLogTest #test06MarsRoverLogsHeadingWhenRotatedFullRight stamp: 'MS 6/5/2023 21:07:57'!
+PASSED!
+
+!testRun: #MarsRoverStateLogTest #test07MarsRoverLogsHeadingWhenRotatedFullLeft stamp: 'MS 6/5/2023 21:07:57'!
+PASSED!
+
+!testRun: #MarsRoverStateLogTest #test08MarsRoverOnlyLogsPosition stamp: 'MS 6/5/2023 21:07:57'!
+PASSED!
+
+!testRun: #MarsRoverStateLogTest #test09MarsRoverOnlyLogsHeading stamp: 'MS 6/5/2023 21:07:57'!
+PASSED!
+
+!testRun: #MarsRoverStateWindowTest #test01MarsRoverWindowIsEmptyWhenInitialized stamp: 'MS 6/5/2023 21:07:57'!
+PASSED!
+
+!testRun: #MarsRoverStateWindowTest #test02MarsRoverWindowShowsLastPosition stamp: 'MS 6/5/2023 21:07:57'!
+PASSED!
+
+!testRun: #MarsRoverStateWindowTest #test03MarsRoverWindowShowsLastHeading stamp: 'MS 6/5/2023 21:07:57'!
+PASSED!
+
+!testRun: #MarsRoverStateWindowTest #test04MarsRoverWindowOnlyTracksPosition stamp: 'MS 6/5/2023 21:07:57'!
+PASSED!
+
+!testRun: #MarsRoverStateWindowTest #test05MarsRoverWindowOnlyTracksHeading stamp: 'MS 6/5/2023 21:07:57'!
+PASSED!
+
+!testRun: #MarsRoverTest #test01DoesNotMoveWhenNoCommand stamp: 'MS 6/5/2023 21:07:57'!
+PASSED!
+
+!testRun: #MarsRoverTest #test02IsAtFailsForDifferentPosition stamp: 'MS 6/5/2023 21:07:57'!
+PASSED!
+
+!testRun: #MarsRoverTest #test03IsAtFailsForDifferentHeading stamp: 'MS 6/5/2023 21:07:57'!
+PASSED!
+
+!testRun: #MarsRoverTest #test04IncrementsYAfterMovingForwardWhenHeadingNorth stamp: 'MS 6/5/2023 21:07:57'!
+PASSED!
+
+!testRun: #MarsRoverTest #test06DecrementsYAfterMovingBackwardsWhenHeadingNorth stamp: 'MS 6/5/2023 21:07:57'!
+PASSED!
+
+!testRun: #MarsRoverTest #test07PointToEashAfterRotatingRightWhenHeadingNorth stamp: 'MS 6/5/2023 21:07:57'!
+PASSED!
+
+!testRun: #MarsRoverTest #test08PointsToWestAfterRotatingLeftWhenPointingNorth stamp: 'MS 6/5/2023 21:07:57'!
+PASSED!
+
+!testRun: #MarsRoverTest #test09DoesNotProcessInvalidCommand stamp: 'MS 6/5/2023 21:07:57'!
+PASSED!
+
+!testRun: #MarsRoverTest #test10CanProcessMoreThanOneCommand stamp: 'MS 6/5/2023 21:07:57'!
+PASSED!
+
+!testRun: #MarsRoverTest #test11IncrementsXAfterMovingForwareWhenHeadingEast stamp: 'MS 6/5/2023 21:07:57'!
+PASSED!
+
+!testRun: #MarsRoverTest #test12DecrementsXAfterMovingBackwardWhenHeadingEast stamp: 'MS 6/5/2023 21:07:57'!
+PASSED!
+
+!testRun: #MarsRoverTest #test13PointsToSouthAfterRotatingRightWhenHeadingEast stamp: 'MS 6/5/2023 21:07:57'!
+PASSED!
+
+!testRun: #MarsRoverTest #test14PointsToNorthAfterRotatingLeftWhenPointingEast stamp: 'MS 6/5/2023 21:07:57'!
+PASSED!
+
+!testRun: #MarsRoverTest #test15ForwardBackwardsAndRotateRightWorkAsExpectedWhenPointingSouth stamp: 'MS 6/5/2023 21:07:57'!
+PASSED!
+
+!testRun: #MarsRoverTest #test16ForwardBackwardsAndRotateRightWorkAsExpectedWhenPointingWest stamp: 'MS 6/5/2023 21:07:57'!
+PASSED!
+
+----STARTUP---- (8 June 2023 10:27:23) as C:\Cuis2\windows64\CuisUniversity-5832.image!
+
+
+Object subclass: #Carrito
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros.com'!
+
+!classDefinition: #Carrito category: 'TusLibros.com' stamp: 'ms 6/8/2023 10:57:41'!
+Object subclass: #Carrito
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros.com'!
+
+TestCase subclass: #CarritoTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros.com'!
+
+!classDefinition: #CarritoTest category: 'TusLibros.com' stamp: 'ms 6/8/2023 10:57:56'!
+TestCase subclass: #CarritoTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros.com'!
+!CarritoTest methodsFor: 'nil' stamp: 'ms 6/8/2023 10:58:53'!
+test01CartEmptyWhenCreated
+	
+	| carrito |
+	carrito := Carrito new.
+	
+	self assert: carrito isEmpty.! !
+
+!testRun: #CarritoTest #test01CartEmptyWhenCreated stamp: 'ms 6/8/2023 10:58:55'!
+ERROR!
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'ms 6/8/2023 10:59:30' prior: 50626383!
+test01CartEmptyWhenCreated
+	
+	| carrito |
+	carrito := Carrito new.
+	
+	self assert: carrito elementos isEmpty.! !
+
+!testRun: #CarritoTest #test01CartEmptyWhenCreated stamp: 'ms 6/8/2023 10:59:32'!
+ERROR!
+!Carrito methodsFor: 'elementos' stamp: 'ms 6/8/2023 10:59:40'!
+elementos
+	self shouldBeImplemented.! !
+!Carrito methodsFor: 'elementos' stamp: 'ms 6/8/2023 10:59:54' prior: 50626401!
+elementos
+	^OrderedCollection new.! !
+
+!testRun: #CarritoTest #test01CartEmptyWhenCreated stamp: 'ms 6/8/2023 10:59:57'!
+PASSED!
+
+!testRun: #CarritoTest #test01CartEmptyWhenCreated stamp: 'ms 6/8/2023 10:59:57'!
+PASSED!
+
+!classDefinition: #ItemBook category: 'TusLibros.com' stamp: 'ms 6/8/2023 11:04:17'!
+Object subclass: #ItemBook
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros.com'!
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'ms 6/8/2023 11:04:07'!
+test01CartContainsOneItem
+	
+	| carrito item |
+	carrito := Carrito new.
+	item := ItemBook initializeWithIsbn: 'hola' quantity:  2.
+	carrito addToCart: item.
+	
+	self assert: carrito elementos first equals: item.! !
+!ItemBook class methodsFor: 'nil' stamp: 'ms 6/8/2023 11:05:33'!
+initializeWithIsbn: aIsbn quantity:  aQuantity.
+	^self new initializeWithIsbn: aIsbn quantity:  aQuantity.
+! !
+!ItemBook class methodsFor: 'as yet unclassified' stamp: 'ms 6/8/2023 11:05:49'!
+WithIsbn: aIsbn quantity:  aQuantity.
+	^self new initializeWithIsbn: aIsbn quantity:  aQuantity.
+! !
+!ItemBook class methodsFor: 'as yet unclassified' stamp: 'ms 6/8/2023 11:05:49' prior: 50626430!
+initializeWithIsbn: aIsbn quantity:  aQuantity.
+	^self new WithIsbn: aIsbn quantity:  aQuantity.
+! !
+!ItemBook class methodsFor: 'as yet unclassified' stamp: 'ms 6/8/2023 11:05:49' prior: 50626436!
+WithIsbn: aIsbn quantity:  aQuantity.
+	^self new WithIsbn: aIsbn quantity:  aQuantity.
+! !
+
+!methodRemoval: ItemBook class #initializeWithIsbn:quantity: stamp: 'ms 6/8/2023 11:05:49'!
+initializeWithIsbn: aIsbn quantity:  aQuantity.
+	^self new WithIsbn: aIsbn quantity:  aQuantity.
+!
+!ItemBook class methodsFor: 'as yet unclassified' stamp: 'ms 6/8/2023 11:05:55'!
+withIsbn: aIsbn quantity:  aQuantity.
+	^self new WithIsbn: aIsbn quantity:  aQuantity.
+! !
+
+!methodRemoval: ItemBook class #WithIsbn:quantity: stamp: 'ms 6/8/2023 11:06:02'!
+WithIsbn: aIsbn quantity:  aQuantity.
+	^self new WithIsbn: aIsbn quantity:  aQuantity.
+!
+!ItemBook class methodsFor: 'as yet unclassified' stamp: 'ms 6/8/2023 11:06:11' prior: 50626462!
+withIsbn: aIsbn quantity:  aQuantity.
+	^self new initializeWithIsbn: aIsbn quantity:  aQuantity.
+! !
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'ms 6/8/2023 11:06:37' prior: 50626421!
+test01CartContainsOneItem
+	
+	| carrito item |
+	carrito := Carrito new.
+	item := ItemBook withIsbn: 'hola' quantity:  2.
+	carrito addToCart: item.
+	
+	self assert: carrito elementos first equals: item.! !
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'ms 6/8/2023 11:06:41'!
+test02CartContainsOneItem
+	
+	| carrito item |
+	carrito := Carrito new.
+	item := ItemBook withIsbn: 'hola' quantity:  2.
+	carrito addToCart: item.
+	
+	self assert: carrito elementos first equals: item.! !
+
+!methodRemoval: CarritoTest #test01CartContainsOneItem stamp: 'ms 6/8/2023 11:06:43'!
+test01CartContainsOneItem
+	
+	| carrito item |
+	carrito := Carrito new.
+	item := ItemBook withIsbn: 'hola' quantity:  2.
+	carrito addToCart: item.
+	
+	self assert: carrito elementos first equals: item.!
+
+!classDefinition: #ItemBook category: 'TusLibros.com' stamp: 'ms 6/8/2023 11:07:27'!
+Object subclass: #ItemBook
+	instanceVariableNames: 'isbn'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros.com'!
+
+!classDefinition: #ItemBook category: 'TusLibros.com' stamp: 'ms 6/8/2023 11:07:29'!
+Object subclass: #ItemBook
+	instanceVariableNames: 'isbn quantity'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros.com'!
+!ItemBook methodsFor: 'nil' stamp: 'ms 6/8/2023 11:07:26'!
+initializeWithIsbn: aIsbn quantity:  aQuantity
+	isbn := aIsbn.
+	quantity := aQuantity.! !
+
+!classDefinition: #Carrito category: 'TusLibros.com' stamp: 'ms 6/8/2023 11:08:40'!
+Object subclass: #Carrito
+	instanceVariableNames: 'items'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros.com'!
+!Carrito methodsFor: 'elements' stamp: 'ms 6/8/2023 11:08:38'!
+addToCart: aItemBook
+	items add: aItemBook.! !
+!Carrito methodsFor: 'elements' stamp: 'ms 6/8/2023 11:08:47' prior: 50626405!
+elementos
+	^items! !
+!Carrito methodsFor: 'initialize' stamp: 'ms 6/8/2023 11:09:16' overrides: 16920235!
+initialize
+	items := OrderedCollection new.! !
+
+!testRun: #CarritoTest #test01CartEmptyWhenCreated stamp: 'ms 6/8/2023 11:09:18'!
+PASSED!
+
+!testRun: #CarritoTest #test02CartContainsOneItem stamp: 'ms 6/8/2023 11:09:18'!
+PASSED!
+!CarritoTest methodsFor: 'test' stamp: 'ms 6/8/2023 11:12:09'!
+test03ListAllImtemsOfCart
+	
+	| carrito item item2 item3 itemsCollection|
+	carrito := Carrito new.
+	item := ItemBook withIsbn: 'hola' quantity:  2.
+	item2 := ItemBook withIsbn: 'chau' quantity:  3.
+	item3 := ItemBook withIsbn: 'buenas' quantity:  1.
+
+	carrito addToCart: item.
+	carrito addToCart: item2.
+	carrito addToCart: item3.
+	
+	itemsCollection := 	OrderedCollection new.
+	itemsCollection add: item.
+	itemsCollection add: item2.
+	itemsCollection add: item3.
+	
+	self assert: carrito elementos equals: itemsCollection.! !
+
+!testRun: #CarritoTest #test03ListAllImtemsOfCart stamp: 'ms 6/8/2023 11:12:10'!
+PASSED!
+
+!testRun: #CarritoTest #test01CartEmptyWhenCreated stamp: 'ms 6/8/2023 11:12:10'!
+PASSED!
+
+!testRun: #CarritoTest #test02CartContainsOneItem stamp: 'ms 6/8/2023 11:12:10'!
+PASSED!
+
+!testRun: #CarritoTest #test03ListAllImtemsOfCart stamp: 'ms 6/8/2023 11:12:10'!
+PASSED!
+!CarritoTest methodsFor: 'test' stamp: 'ms 6/8/2023 11:14:42' prior: 50626552!
+test03ListAllImtemsOfCart
+	
+	| carrito item item2 item3 itemsCollection|
+	carrito := Carrito new.
+	item := ItemBook withIsbn: 'hola' quantity:  2.
+	item2 := ItemBook withIsbn: 'chau' quantity:  3.
+	item3 := ItemBook withIsbn: 'buenas' quantity:  1.
+
+	carrito addToCart: item.
+	carrito addToCart: item2.
+	carrito addToCart: item3.
+	
+	itemsCollection := 	OrderedCollection new.
+	itemsCollection add: item.
+	itemsCollection add: item2.
+	itemsCollection add: item3.
+	
+	self assert: carrito elementos equals: itemsCollection.! !
+!CarritoTest methodsFor: 'test' stamp: 'ms 6/8/2023 11:16:55'!
+test04CanNotAddItemNotCreated
+	
+	| carrito itemsList item item2 item3 |
+	carrito := Carrito new.
+	itemsList := ItemBook new.
+	item := ItemBook withIsbn: 'hola' quantity:  2.
+	item2 := ItemBook withIsbn: 'chau' quantity:  3.
+	
+	itemsList createItem: item.
+	itemsList createItem: item2.
+
+	item3 := ItemBook withIsbn: 'buenas' quantity:  1.
+	
+
+	carrito addToCart: item3.
+	! !
+
+!classDefinition: #ListBook category: 'TusLibros.com' stamp: 'ms 6/8/2023 11:18:12'!
+Object subclass: #ListBook
+	instanceVariableNames: 'itemsCreated'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros.com'!
+!CarritoTest methodsFor: 'test' stamp: 'ms 6/8/2023 11:17:55' prior: 50626602!
+test04CanNotAddItemNotCreated
+	
+	| carrito itemsList item item2 item3 |
+	carrito := Carrito new.
+	itemsList := ListBook new.
+	item := ItemBook withIsbn: 'hola' quantity:  2.
+	item2 := ItemBook withIsbn: 'chau' quantity:  3.
+	
+	itemsList createItem: item.
+	itemsList createItem: item2.
+
+	item3 := ItemBook withIsbn: 'buenas' quantity:  1.
+	
+
+	carrito addToCart: item3.
+	! !
+!ListBook methodsFor: 'adding' stamp: 'ms 6/8/2023 11:19:00'!
+createItem: aItemBook.
+	itemsCreated add: aItemBook.
+! !
+!ListBook methodsFor: 'initialize' stamp: 'ms 6/8/2023 11:19:42' overrides: 16920235!
+initialize
+	itemsCreated := OrderedCollection new.! !
+
+!testRun: #CarritoTest #test01CartEmptyWhenCreated stamp: 'ms 6/8/2023 11:19:52'!
+PASSED!
+
+!testRun: #CarritoTest #test02CartContainsOneItem stamp: 'ms 6/8/2023 11:19:54'!
+PASSED!
+
+!testRun: #CarritoTest #test03ListAllImtemsOfCart stamp: 'ms 6/8/2023 11:19:55'!
+PASSED!
+
+!testRun: #CarritoTest #test04CanNotAddItemNotCreated stamp: 'ms 6/8/2023 11:19:56'!
+PASSED!
+
+----SNAPSHOT----(8 June 2023 11:20:31) CuisUniversity-5832.image priorSource: 9366758!
+!CarritoTest methodsFor: 'test' stamp: 'ms 6/8/2023 11:22:12' prior: 50626624!
+test04CanNotAddItemNotCreated
+	
+	| carrito itemsList item item2 item3 |
+	carrito := Carrito new.
+	itemsList := ListBook new.
+	item := ItemBook withIsbn: 'hola' quantity:  2.
+	item2 := ItemBook withIsbn: 'chau' quantity:  3.
+	
+	itemsList createItem: item.
+	itemsList createItem: item2.
+
+	item3 := ItemBook withIsbn: 'buenas' quantity:  1.
+	
+
+	self 
+
+		should: [	carrito addToCart: item3.]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [ :anError |
+			self assert: anError messageText equals: carrito invalidItemErrorDescription.
+		 ]
+
+	! !
+!Carrito methodsFor: 'elements' stamp: 'ms 6/8/2023 11:23:10' prior: 50626534!
+addToCart: aItemBook
+	self assertItemBookIsCreated.
+	items add: aItemBook.! !
+
+!testRun: #CarritoTest #test01CartEmptyWhenCreated stamp: 'ms 6/8/2023 11:23:16'!
+PASSED!
+
+!testRun: #CarritoTest #test02CartContainsOneItem stamp: 'ms 6/8/2023 11:23:16'!
+ERROR!
+
+!testRun: #CarritoTest #test03ListAllImtemsOfCart stamp: 'ms 6/8/2023 11:23:16'!
+ERROR!
+
+!testRun: #CarritoTest #test04CanNotAddItemNotCreated stamp: 'ms 6/8/2023 11:23:16'!
+ERROR!
+!Carrito methodsFor: 'private' stamp: 'ms 6/8/2023 11:23:53'!
+assertItemBookIsCreated: aItemBook
+	! !
+!Carrito methodsFor: 'elements' stamp: 'ms 6/8/2023 11:24:27' prior: 50626682!
+addToCart: aItemBook
+	self assertItemBookIsCreated: aItemBook.
+	items add: aItemBook.! !
+!Carrito methodsFor: 'elements' stamp: 'ms 6/8/2023 11:24:37' prior: 50626702!
+addToCart: aItemBook
+	self assertItemBookIsCreated: aItemBook.
+	items add: aItemBook.! !
+!Carrito methodsFor: 'private' stamp: 'ms 6/8/2023 11:25:02' prior: 50626698!
+assertItemBookIsCreated: aItemBook
+	! !
+!CarritoTest methodsFor: 'test' stamp: 'ms 6/8/2023 11:27:36' prior: 50626583!
+test03ListAllImtemsOfCart
+	
+	| carrito itemsList item item2 item3 itemsCollection|
+	carrito := Carrito new.
+	itemsList := ListBook new.
+	item := ItemBook withIsbn: 'hola' quantity:  2.
+	item2 := ItemBook withIsbn: 'chau' quantity:  3.
+	item3 := ItemBook withIsbn: 'buenas' quantity:  1.
+	
+
+
+	carrito addToCart: item.
+	carrito addToCart: item2.
+	carrito addToCart: item3.
+	
+	itemsCollection := 	OrderedCollection new.
+	itemsCollection add: item.
+	itemsCollection add: item2.
+	itemsCollection add: item3.
+	
+	self assert: carrito elementos equals: itemsCollection.! !
+!CarritoTest methodsFor: 'test' stamp: 'ms 6/8/2023 11:28:13' prior: 50626718!
+test03ListAllImtemsOfCart
+	
+	| carrito itemsList item item2 item3 |
+	carrito := Carrito new.
+	itemsList := ListBook new.
+	item := ItemBook withIsbn: 'hola' quantity:  2.
+	item2 := ItemBook withIsbn: 'chau' quantity:  3.
+	item3 := ItemBook withIsbn: 'buenas' quantity:  1.
+	
+	itemsList createItem: item.
+	itemsList createItem: item2.
+	itemsList createItem: item3.
+
+	carrito addToCart: item.
+	carrito addToCart: item2.
+	carrito addToCart: item3.
+	
+	self assert: carrito elementos equals: itemsList items.! !
+!ListBook methodsFor: 'accessing' stamp: 'ms 6/8/2023 11:28:42'!
+items
+	^itemsCreated ! !
+
+!testRun: #CarritoTest #test03ListAllImtemsOfCart stamp: 'ms 6/8/2023 11:28:44'!
+PASSED!
+
+!testRun: #CarritoTest #test02CartContainsOneItem stamp: 'ms 6/8/2023 11:28:46'!
+PASSED!
+!CarritoTest methodsFor: 'test' stamp: 'ms 6/8/2023 11:29:31' prior: 50626490!
+test02CartContainsOneItem
+	
+	| carrito item itemsList |
+	carrito := Carrito new.
+	
+	itemsList := ListBook new.
+	item := ItemBook withIsbn: 'hola' quantity:  2.
+	
+	itemsList createItem: item.
+	
+	carrito addToCart: item.
+	
+	
+	
+	self assert: carrito elementos first equals: item.! !
+
+!testRun: #CarritoTest #test04CanNotAddItemNotCreated stamp: 'ms 6/8/2023 11:29:54'!
+FAILURE!
+!CarritoTest methodsFor: 'test' stamp: 'ms 6/8/2023 11:31:41' prior: 50626662!
+test04CanNotAddItemNotCreated
+	
+	| carrito itemsList item item2 item3 |
+	carrito := Carrito new.
+	itemsList := ListBook new.
+	item := ItemBook withIsbn: 'hola' quantity:  2.
+	item2 := ItemBook withIsbn: 'chau' quantity:  3.
+	
+	itemsList createItem: item.
+	itemsList createItem: item2.
+
+	item3 := ItemBook withIsbn: 'buenas' quantity:  1.
+	
+	
+	self 
+
+		should: [	carrito addToCart: item3 inList: itemsList]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [ :anError |
+			self assert: anError messageText equals: carrito invalidItemErrorDescription.
+		 ]
+
+	! !
+!Carrito methodsFor: 'elements' stamp: 'ms 6/8/2023 11:31:57'!
+addToCart: aItemBook inItemList: aList
+	self assertItemBookIsCreated: aItemBook.
+	items add: aItemBook.! !
+!Carrito methodsFor: 'elements' stamp: 'ms 6/8/2023 11:32:13'!
+addToCart: aItemBook inList: aList
+	self assertItemBookIsCreated: aItemBook.
+	items add: aItemBook.! !
+
+!methodRemoval: Carrito #addToCart:inItemList: stamp: 'ms 6/8/2023 11:32:14'!
+addToCart: aItemBook inItemList: aList
+	self assertItemBookIsCreated: aItemBook.
+	items add: aItemBook.!
+!Carrito methodsFor: 'elements' stamp: 'ms 6/8/2023 11:32:27' prior: 50626807!
+addToCart: aItemBook inList: aList
+	self assertItemBookIsCreated: aItemBook inList: aList .
+	items add: aItemBook.! !
+!Carrito methodsFor: 'elements' stamp: 'ms 6/8/2023 11:32:29' prior: 50626819!
+addToCart: aItemBook inList: aList
+	self assertItemBookIsCreated: aItemBook inList: aList.
+	items add: aItemBook.! !
+!Carrito methodsFor: 'private' stamp: 'ms 6/8/2023 11:32:53'!
+assertItemBookIsCreated: aItemBook inList: aList
+	! !
+
+!methodRemoval: Carrito #assertItemBookIsCreated: stamp: 'ms 6/8/2023 11:32:55'!
+assertItemBookIsCreated: aItemBook
+	!
+!Carrito methodsFor: 'private' stamp: 'ms 6/8/2023 11:33:47' prior: 50626832!
+assertItemBookIsCreated: aItemBook inList: aList
+	^aList includes: aItemBook! !
+!Carrito methodsFor: 'elements' stamp: 'ms 6/8/2023 11:35:18' prior: 50626826!
+addToCart: aItemBook inList: aList
+	(self assertItemBookIsCreated: aItemBook inList: aList) 
+	ifTrue: 
+	[ items add: aItemBook. ]
+	ifFalse: [
+		self error: self invalid
+		].
+	! !
+!Carrito methodsFor: 'elements' stamp: 'ms 6/8/2023 11:35:32' prior: 50626845!
+addToCart: aItemBook inList: aList
+	(self assertItemBookIsCreated: aItemBook inList: aList) 
+	ifTrue: 
+	[ items add: aItemBook. ]
+	ifFalse: [
+		self error: self invalidItemErrorDescription
+		].
+	! !
+!Carrito methodsFor: 'elements' stamp: 'ms 6/8/2023 11:35:50' prior: 50626854!
+addToCart: aItemBook inList: aList
+	(self assertItemBookIsCreated: aItemBook inList: aList) 
+		ifTrue: [ items add: aItemBook. ]
+		ifFalse: [	 ^self error: self invalidItemErrorDescription].
+	! !
+!Carrito class methodsFor: 'error' stamp: 'ms 6/8/2023 11:36:25'!
+invalidItemErrorDescription
+	^'El Item no esta creado'! !
+!Carrito methodsFor: 'elements' stamp: 'ms 6/8/2023 11:36:40' prior: 50626708!
+addToCart: aItemBook
+	items add: aItemBook.! !
+!Carrito methodsFor: 'elements' stamp: 'ms 6/8/2023 11:36:46' prior: 50626863!
+addToCart: aItemBook inList: aList
+	(self assertItemBookIsCreated: aItemBook inList: aList) 
+		ifTrue: [ items add: aItemBook. ]
+		ifFalse: [	 ^self error: self class invalidItemErrorDescription].
+	! !
+
+!testRun: #CarritoTest #test01CartEmptyWhenCreated stamp: 'ms 6/8/2023 11:36:47'!
+PASSED!
+
+!testRun: #CarritoTest #test02CartContainsOneItem stamp: 'ms 6/8/2023 11:36:47'!
+PASSED!
+
+!testRun: #CarritoTest #test03ListAllImtemsOfCart stamp: 'ms 6/8/2023 11:36:47'!
+PASSED!
+
+!testRun: #CarritoTest #test04CanNotAddItemNotCreated stamp: 'ms 6/8/2023 11:36:47'!
+ERROR!
+
+!testRun: #CarritoTest #test04CanNotAddItemNotCreated stamp: 'ms 6/8/2023 11:36:47'!
+ERROR!
+
+!testRun: #CarritoTest #test01CartEmptyWhenCreated stamp: 'ms 6/8/2023 11:36:59'!
+PASSED!
+
+!testRun: #CarritoTest #test02CartContainsOneItem stamp: 'ms 6/8/2023 11:37:01'!
+PASSED!
+
+!testRun: #CarritoTest #test03ListAllImtemsOfCart stamp: 'ms 6/8/2023 11:37:01'!
+PASSED!
+
+!testRun: #CarritoTest #test04CanNotAddItemNotCreated stamp: 'ms 6/8/2023 11:37:03'!
+ERROR!
+
+!testRun: #CarritoTest #test04CanNotAddItemNotCreated stamp: 'ms 6/8/2023 11:37:03'!
+ERROR!
+!Carrito methodsFor: 'private' stamp: 'ms 6/8/2023 11:37:37' prior: 50626840!
+assertItemBookIsCreated: aItemBook inList: aList
+	^(aList includes: aItemBook)! !
+
+!testRun: #CarritoTest #test01CartEmptyWhenCreated stamp: 'ms 6/8/2023 11:37:38'!
+PASSED!
+
+!testRun: #CarritoTest #test02CartContainsOneItem stamp: 'ms 6/8/2023 11:37:38'!
+PASSED!
+
+!testRun: #CarritoTest #test03ListAllImtemsOfCart stamp: 'ms 6/8/2023 11:37:38'!
+PASSED!
+
+!testRun: #CarritoTest #test04CanNotAddItemNotCreated stamp: 'ms 6/8/2023 11:37:38'!
+ERROR!
+
+!testRun: #CarritoTest #test04CanNotAddItemNotCreated stamp: 'ms 6/8/2023 11:37:38'!
+ERROR!
+!Carrito methodsFor: 'private' stamp: 'ms 6/8/2023 11:38:04' prior: 50626919!
+assertItemBookIsCreated: aItemBook inList: aList
+	^(aList  includes: aItemBook)! !
+!Carrito methodsFor: 'private' stamp: 'ms 6/8/2023 11:38:19' prior: 50626939!
+assertItemBookIsCreated: aItemBook inList: aList
+	^(aList items includes: aItemBook)! !
+
+!testRun: #CarritoTest #test01CartEmptyWhenCreated stamp: 'ms 6/8/2023 11:38:19'!
+PASSED!
+
+!testRun: #CarritoTest #test02CartContainsOneItem stamp: 'ms 6/8/2023 11:38:19'!
+PASSED!
+
+!testRun: #CarritoTest #test03ListAllImtemsOfCart stamp: 'ms 6/8/2023 11:38:19'!
+PASSED!
+
+!testRun: #CarritoTest #test04CanNotAddItemNotCreated stamp: 'ms 6/8/2023 11:38:19'!
+ERROR!
+
+!testRun: #CarritoTest #test04CanNotAddItemNotCreated stamp: 'ms 6/8/2023 11:38:19'!
+ERROR!
+!CarritoTest methodsFor: 'test' stamp: 'ms 6/8/2023 11:39:05' prior: 50626781!
+test04CanNotAddItemNotCreated
+	
+	| carrito itemsList item item2 item3 |
+	carrito := Carrito new.
+	itemsList := ListBook new.
+	item := ItemBook withIsbn: 'hola' quantity:  2.
+	item2 := ItemBook withIsbn: 'chau' quantity:  3.
+	
+	itemsList createItem: item.
+	itemsList createItem: item2.
+
+	item3 := ItemBook withIsbn: 'buenas' quantity:  1.
+	
+	
+	self 
+
+		should: [	carrito addToCart: item3 inList: itemsList]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [ :anError |
+			self assert: anError messageText equals: Carrito invalidItemErrorDescription.
+		 ]
+
+	! !
+
+!testRun: #CarritoTest #test04CanNotAddItemNotCreated stamp: 'ms 6/8/2023 11:39:06'!
+PASSED!
+
+!testRun: #CarritoTest #test01CartEmptyWhenCreated stamp: 'ms 6/8/2023 11:39:06'!
+PASSED!
+
+!testRun: #CarritoTest #test02CartContainsOneItem stamp: 'ms 6/8/2023 11:39:06'!
+PASSED!
+
+!testRun: #CarritoTest #test03ListAllImtemsOfCart stamp: 'ms 6/8/2023 11:39:06'!
+PASSED!
+
+!testRun: #CarritoTest #test04CanNotAddItemNotCreated stamp: 'ms 6/8/2023 11:39:06'!
+PASSED!
+!CarritoTest methodsFor: 'test' stamp: 'ms 6/8/2023 11:39:27' prior: 50626739!
+test03ListAllImtemsOfCart
+	
+	| carrito itemsList item item2 item3 |
+	carrito := Carrito new.
+	itemsList := ListBook new.
+	item := ItemBook withIsbn: 'hola' quantity:  2.
+	item2 := ItemBook withIsbn: 'chau' quantity:  3.
+	item3 := ItemBook withIsbn: 'buenas' quantity:  1.
+	
+	itemsList createItem: item.
+	itemsList createItem: item2.
+	itemsList createItem: item3.
+
+	carrito addToCart: item inList: itemsList.
+	carrito addToCart: item2 inList: itemsList.
+	carrito addToCart: item3 inList: itemsList.
+	
+	self assert: carrito elementos equals: itemsList items.! !
+
+!testRun: #CarritoTest #test03ListAllImtemsOfCart stamp: 'ms 6/8/2023 11:39:28'!
+PASSED!
+
+!testRun: #CarritoTest #test01CartEmptyWhenCreated stamp: 'ms 6/8/2023 11:39:28'!
+PASSED!
+
+!testRun: #CarritoTest #test02CartContainsOneItem stamp: 'ms 6/8/2023 11:39:28'!
+PASSED!
+
+!testRun: #CarritoTest #test03ListAllImtemsOfCart stamp: 'ms 6/8/2023 11:39:28'!
+PASSED!
+
+!testRun: #CarritoTest #test04CanNotAddItemNotCreated stamp: 'ms 6/8/2023 11:39:28'!
+PASSED!
+!CarritoTest methodsFor: 'test' stamp: 'ms 6/8/2023 11:39:32' prior: 50626766!
+test02CartContainsOneItem
+	
+	| carrito item itemsList |
+	carrito := Carrito new.
+	
+	itemsList := ListBook new.
+	item := ItemBook withIsbn: 'hola' quantity:  2.
+	
+	itemsList createItem: item.
+	
+	carrito addToCart: item inList: itemsList.
+	
+	
+	
+	self assert: carrito elementos first equals: item.! !
+
+!testRun: #CarritoTest #test02CartContainsOneItem stamp: 'ms 6/8/2023 11:39:33'!
+PASSED!
+
+!testRun: #CarritoTest #test01CartEmptyWhenCreated stamp: 'ms 6/8/2023 11:39:33'!
+PASSED!
+
+!testRun: #CarritoTest #test02CartContainsOneItem stamp: 'ms 6/8/2023 11:39:34'!
+PASSED!
+
+!testRun: #CarritoTest #test03ListAllImtemsOfCart stamp: 'ms 6/8/2023 11:39:34'!
+PASSED!
+
+!testRun: #CarritoTest #test04CanNotAddItemNotCreated stamp: 'ms 6/8/2023 11:39:34'!
+PASSED!
+
+----SNAPSHOT----(8 June 2023 11:39:43) CuisUniversity-5832.image priorSource: 9440258!
