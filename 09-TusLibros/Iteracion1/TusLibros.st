@@ -112,53 +112,27 @@ test07CanAddBookMultipleTimes
 	
 	self assert: 2 equals: (carrito quantityOf: isbn).! !
 
-!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 15:35:26'!
-_ignore_test05ListAllImtemsOfCart
+!CarritoTest methodsFor: 'tests' stamp: 'TM 6/8/2023 16:00:40'!
+test08ListItemsInCart
 	
-	| carrito itemsList item item2 item3 |
-	carrito := Carrito new.
-	itemsList := ListBook new.
-	item := BookItem withIsbn: 'hola' quantity:  2.
-	item2 := BookItem withIsbn: 'chau' quantity:  3.
-	item3 := BookItem withIsbn: 'buenas' quantity:  1.
+	| carrito listing isbn1 isbn2 items |
 	
-	itemsList createItem: item.
-	itemsList createItem: item2.
-	itemsList createItem: item3.
-
-	carrito addToCart: item inList: itemsList.
-	carrito addToCart: item2 inList: itemsList.
-	carrito addToCart: item3 inList: itemsList.
+	listing := BookListing new.
+	carrito := Carrito for: listing.
 	
-	self assert: carrito elementos equals: itemsList items.! !
-
-
-!classDefinition: #BookItem category: 'TusLibros'!
-Object subclass: #BookItem
-	instanceVariableNames: 'isbn'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'TusLibros'!
-
-!BookItem methodsFor: 'initialization' stamp: 'TM 6/8/2023 14:47:56'!
-initializeWithISBN: anISBN 
-	isbn := anISBN.! !
-
-
-!BookItem methodsFor: 'accessing' stamp: 'TM 6/8/2023 15:09:04'!
-isbn
-	^isbn! !
-
-"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
-
-!classDefinition: 'BookItem class' category: 'TusLibros'!
-BookItem class
-	instanceVariableNames: ''!
-
-!BookItem class methodsFor: 'instance creation' stamp: 'TM 6/8/2023 14:45:06'!
-withISBN: anISBN
-	^self new initializeWithISBN: anISBN.
-! !
+	isbn1 := 9783161484100.
+	isbn2 := 9780262046305.
+	listing addISBN: isbn1.
+	listing addISBN: isbn2.
+	
+	carrito addISBN: isbn1.
+	carrito addISBN: isbn2.
+	
+	items := Dictionary new.
+	items at: isbn1 put: 1.
+	items at: isbn2 put: 1.
+	
+	self assert: items = (carrito items).! !
 
 
 !classDefinition: #BookListing category: 'TusLibros'!
@@ -232,6 +206,10 @@ isEmpty
 	^items isEmpty.! !
 
 
+!Carrito methodsFor: 'accessing' stamp: 'TM 6/8/2023 15:58:21'!
+items
+	^items! !
+
 !Carrito methodsFor: 'accessing' stamp: 'TM 6/8/2023 15:39:11'!
 quantityOf: anISBN 
 	^items at: anISBN.! !
@@ -254,26 +232,3 @@ invalidQuantityErrorDescription
 !Carrito class methodsFor: 'instance creation' stamp: 'TM 6/8/2023 13:48:43'!
 for: aMarket 
 	^self new initializeFor: aMarket ! !
-
-
-!classDefinition: #ListBook category: 'TusLibros'!
-Object subclass: #ListBook
-	instanceVariableNames: 'itemsCreated'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'TusLibros'!
-
-!ListBook methodsFor: 'initialize' stamp: 'ms 6/8/2023 11:19:42'!
-initialize
-	itemsCreated := OrderedCollection new.! !
-
-
-!ListBook methodsFor: 'accessing' stamp: 'ms 6/8/2023 11:28:42'!
-items
-	^itemsCreated ! !
-
-
-!ListBook methodsFor: 'adding' stamp: 'ms 6/8/2023 11:19:00'!
-createItem: aItemBook.
-	itemsCreated add: aItemBook.
-! !
