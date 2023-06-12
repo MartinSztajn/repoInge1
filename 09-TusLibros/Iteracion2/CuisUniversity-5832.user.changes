@@ -1,0 +1,67 @@
+
+
+----QUIT----(30 May 2023 00:05:32) CuisUniversity-5832.image priorSource: 4928100!
+
+----STARTUP---- (30 May 2023 00:05:33) as /Users/hernan/Documents/Cuis/5.0-64Bits/Cuis-University-Installer/CuisUniversity-5832.image!
+
+
+----QUIT----(30 May 2023 00:05:33) CuisUniversity-5832.image priorSource: 9366537!
+
+----STARTUP---- (12 June 2023 09:42:19) as /home/tomas/Downloads/cuis-2023-6-12/CuisUniversity-5832.image!
+
+
+----End fileIn of /home/tomas/Downloads/Iteracion1/TusLibros-18.st----!
+
+Object subclass: #Cashier
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #Cashier category: 'TusLibros' stamp: 'TM 6/12/2023 09:46:06'!
+Object subclass: #Cashier
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+TestCase subclass: #CashierTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #CashierTest category: 'TusLibros' stamp: 'TM 6/12/2023 09:46:24'!
+TestCase subclass: #CashierTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #Cashier stamp: 'TM 6/12/2023 09:46:29'!
+Object subclass: #Cashier
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 09:51:13'!
+test01CanNotCheckoutEmptyCart! !
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 09:51:23'!
+test02CanCheckoutSingleItem! !
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 09:51:35'!
+test03CanCheckoutMultipleItems! !
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 09:51:50'!
+test04CanNotUseExpiredCreditCard! !
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 09:52:00'!
+test05CanNotUseFundlessCreditCard! !
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 09:52:08'!
+test05CanNotUseOtherPersonCreditCard! !
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 09:52:22'!
+test07CheckoutsIfEverythingOk! !
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 09:52:31'!
+test06CanNotUseOtherPersonCreditCard! !
+
+!methodRemoval: CashierTest #test05CanNotUseOtherPersonCreditCard stamp: 'TM 6/12/2023 09:52:31'!
+test05CanNotUseOtherPersonCreditCard!
+
+----SNAPSHOT----(12 June 2023 09:52:48) CuisUniversity-5832.image priorSource: 9366758!
