@@ -166,3 +166,3018 @@ PASSED!
 PASSED!
 
 ----SNAPSHOT----(12 June 2023 10:09:19) CuisUniversity-5832.image priorSource: 9374832!
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 11:09:57' prior: 50624583!
+test02CanCheckoutSingleItem
+
+	| catalog cart cashier salesBook |
+	
+	catalog := Array with: 9780262046305.
+	cart := Cart acceptingItemsOf: catalog.
+	
+	cashier := Cashier new.
+	salesBook := Array new.
+"	
+	cashier checkout: cart into: salesBook
+	
+	salesBook at: 0
+	
+	self assert: 
+"! !
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 11:11:27' prior: 50624730!
+test02CanCheckoutSingleItem
+
+	| catalog cart cashier salesBook total |
+	
+	catalog := Array with: 9780262046305.
+	cart := Cart acceptingItemsOf: catalog.
+	
+	cashier := Cashier new.
+	salesBook := Array new.
+"	
+	cashier checkout: cart into: salesBook
+	
+	total := salesBook at: 0
+	
+	self assert: 
+"! !
+
+Object subclass: #BookListing
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #BookListing category: 'TusLibros' stamp: 'TM 6/12/2023 11:14:36'!
+Object subclass: #BookListing
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 11:16:03' prior: 50624742!
+test02CanCheckoutSingleItem
+
+	| bookListing cart cashier salesBook total |
+	
+	bookListing := BookListing new.
+	bookListing add: 9780262046305 for: 49.99.
+	
+	cart := Cart acceptingItemsOf: bookListing.
+	
+	cashier := Cashier new.
+	salesBook := Array new.
+"	
+	cashier checkout: cart into: salesBook
+	
+	total := salesBook at: 0
+	
+	self assert: 
+"! !
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 11:17:57' prior: 50624765!
+test02CanCheckoutSingleItem
+
+	| bookListing cart cashier salesBook |
+	
+	bookListing := BookListing new.
+	bookListing add: 9780262046305 for: 39.99.
+	
+	cart := Cart acceptingItemsOf: bookListing.
+	
+	cashier := Cashier new.
+	salesBook := Array new.
+	
+	cashier checkout: cart into: salesBook.
+	
+	self assert: 1 equals: salesBook size.
+	self assert: 39.99 equals: (salesBook at: 0).! !
+
+!testRun: #CashierTest #test02CanCheckoutSingleItem stamp: 'TM 6/12/2023 11:18:12'!
+ERROR!
+!BookListing methodsFor: 'adding' stamp: 'TM 6/12/2023 11:18:18'!
+add: aRenameMe1 for: aRenameMe2 
+	self shouldBeImplemented.! !
+
+!classDefinition: #BookListing category: 'TusLibros' stamp: 'TM 6/12/2023 11:19:54'!
+Object subclass: #BookListing
+	instanceVariableNames: 'books'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!BookListing methodsFor: 'adding' stamp: 'TM 6/12/2023 11:19:50' prior: 50624796!
+add: aBook for: aPrice
+	books add aBook.! !
+!BookListing methodsFor: 'adding' stamp: 'TM 6/12/2023 11:20:04' prior: 50624808!
+add: aBook for: aPrice
+	books add: aBook.! !
+
+!testRun: #CashierTest #test02CanCheckoutSingleItem stamp: 'TM 6/12/2023 11:20:09'!
+ERROR!
+!BookListing methodsFor: 'initialization' stamp: 'TM 6/12/2023 11:20:48' overrides: 16920235!
+initialize
+	books := Set new.! !
+!BookListing methodsFor: 'testing' stamp: 'TM 6/12/2023 11:21:34'!
+includes: aBook
+	^books includes: aBook.! !
+
+!testRun: #CashierTest #test02CanCheckoutSingleItem stamp: 'TM 6/12/2023 11:21:50'!
+ERROR!
+!Cashier methodsFor: 'checkout' stamp: 'TM 6/12/2023 11:21:56'!
+checkout: cart into: salesBook 
+	self shouldBeImplemented.! !
+!Cashier methodsFor: 'checkout' stamp: 'TM 6/12/2023 11:23:30' prior: 50624831!
+checkout: cart into: salesBook
+		
+	salesBook add: cart total.! !
+!Cashier methodsFor: 'checkout' stamp: 'TM 6/12/2023 11:23:44' prior: 50624836!
+checkout: cart into: salesBook	
+	salesBook add: cart total.! !
+
+!testRun: #CashierTest #test02CanCheckoutSingleItem stamp: 'TM 6/12/2023 11:23:48'!
+ERROR!
+!Cart methodsFor: 'checkout' stamp: 'TM 6/12/2023 11:25:13'!
+total
+	self shouldBeImplemented.! !
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 11:30:32' prior: 50624606!
+test06CanNotUseOtherPersonCreditCard! !
+
+Object subclass: #MockMerchantProcessor
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #MockMerchantProcessor category: 'TusLibros' stamp: 'TM 6/12/2023 11:30:45'!
+Object subclass: #MockMerchantProcessor
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+MockMerchantProcessor subclass: #FundlessMerchantProcessor
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #FundlessMerchantProcessor category: 'TusLibros' stamp: 'TM 6/12/2023 11:39:43'!
+MockMerchantProcessor subclass: #FundlessMerchantProcessor
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!testRun: #CashierTest #test02CanCheckoutSingleItem stamp: 'TM 6/12/2023 11:40:28'!
+ERROR!
+!BookListing methodsFor: 'initialization' stamp: 'TM 6/12/2023 11:42:02' prior: 50624820 overrides: 16920235!
+initialize
+	books := Dictionary new.! !
+!BookListing methodsFor: 'testing' stamp: 'TM 6/12/2023 11:42:12' prior: 50624824!
+includes: aBook
+	^books includesKey: aBook.! !
+!BookListing methodsFor: 'adding' stamp: 'TM 6/12/2023 11:42:26' prior: 50624812!
+add: aBook for: aPrice
+	books at: aBook put: aPrice.! !
+
+!testRun: #CashierTest #test02CanCheckoutSingleItem stamp: 'TM 6/12/2023 11:43:24'!
+ERROR!
+
+!testRun: #CashierTest #test02CanCheckoutSingleItem stamp: 'TM 6/12/2023 11:43:24'!
+ERROR!
+!BookListing methodsFor: 'accessing' stamp: 'TM 6/12/2023 11:46:46'!
+priceOf: aBook
+	^books at: aBook.! !
+!Cart methodsFor: 'checkout' stamp: 'TM 6/12/2023 11:48:33' prior: 50624848!
+total
+
+	| item |
+
+	item := items at: 0.
+
+	^catalog priceOf: item.! !
+
+!testRun: #CashierTest #test02CanCheckoutSingleItem stamp: 'TM 6/12/2023 11:49:26'!
+ERROR!
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 11:49:49' prior: 50624779!
+test02CanCheckoutSingleItem
+
+	| bookListing cart cashier salesBook |
+	
+	bookListing := BookListing new.
+	bookListing add: 9780262046305 for: 39.99.
+	
+	cart := Cart acceptingItemsOf: bookListing.
+	cart add: 9780262046305.
+	
+	cashier := Cashier new.
+	salesBook := Array new.
+	
+	cashier checkout: cart into: salesBook.
+	
+	self assert: 1 equals: salesBook size.
+	self assert: 39.99 equals: (salesBook at: 0).! !
+
+!testRun: #CashierTest #test02CanCheckoutSingleItem stamp: 'TM 6/12/2023 11:49:50'!
+ERROR!
+!Cart methodsFor: 'checkout' stamp: 'TM 6/12/2023 11:50:58' prior: 50624908!
+total
+	^catalog priceOf: items first.! !
+
+!testRun: #CashierTest #test02CanCheckoutSingleItem stamp: 'TM 6/12/2023 11:51:02'!
+ERROR!
+
+!testRun: #CashierTest #test02CanCheckoutSingleItem stamp: 'TM 6/12/2023 11:51:02'!
+ERROR!
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 11:51:30' prior: 50624916!
+test02CanCheckoutSingleItem
+
+	| bookListing cart cashier salesBook |
+	
+	bookListing := BookListing new.
+	bookListing add: 9780262046305 for: 39.99.
+	
+	cart := Cart acceptingItemsOf: bookListing.
+	cart add: 9780262046305.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	cashier checkout: cart into: salesBook.
+	
+	self assert: 1 equals: salesBook size.
+	self assert: 39.99 equals: (salesBook at: 0).! !
+
+!testRun: #CashierTest #test02CanCheckoutSingleItem stamp: 'TM 6/12/2023 11:51:32'!
+ERROR!
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 11:51:52' prior: 50624945!
+test02CanCheckoutSingleItem
+
+	| bookListing cart cashier salesBook |
+	
+	bookListing := BookListing new.
+	bookListing add: 9780262046305 for: 39.99.
+	
+	cart := Cart acceptingItemsOf: bookListing.
+	cart add: 9780262046305.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	cashier checkout: cart into: salesBook.
+	
+	self assert: 1 equals: salesBook size.
+	self assert: 39.99 equals: salesBook first.! !
+
+!testRun: #CashierTest #test02CanCheckoutSingleItem stamp: 'TM 6/12/2023 11:51:53'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'TM 6/12/2023 11:51:53'!
+PASSED!
+
+!testRun: #CashierTest #test02CanCheckoutSingleItem stamp: 'TM 6/12/2023 11:51:53'!
+PASSED!
+
+!testRun: #CashierTest #test03CanCheckoutMultipleItems stamp: 'TM 6/12/2023 11:51:53'!
+PASSED!
+
+!testRun: #CashierTest #test04CanNotUseExpiredCreditCard stamp: 'TM 6/12/2023 11:51:53'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotUseFundlessCreditCard stamp: 'TM 6/12/2023 11:51:53'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotUseOtherPersonCreditCard stamp: 'TM 6/12/2023 11:51:53'!
+PASSED!
+
+!testRun: #CashierTest #test07CheckoutsIfEverythingOk stamp: 'TM 6/12/2023 11:51:53'!
+PASSED!
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 11:52:16' prior: 50624586!
+test03CanCheckoutMultipleItems
+
+	| bookListing cart cashier salesBook |
+	
+	bookListing := BookListing new.
+	bookListing add: 9780262046305 for: 39.99.
+	
+	cart := Cart acceptingItemsOf: bookListing.
+	cart add: 9780262046305.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	cashier checkout: cart into: salesBook.
+	
+	self assert: 1 equals: salesBook size.
+	self assert: 39.99 equals: salesBook first.! !
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 11:54:27' prior: 50625004!
+test03CanCheckoutMultipleItems
+
+	| bookListing cart cashier salesBook |
+	
+	bookListing := BookListing new.
+	bookListing add: 9780262046305 for: 39.99.
+	bookListing add: 1000000000000 for: 20.00.
+	
+	cart := Cart acceptingItemsOf: bookListing.
+	cart add: 9780262046305.
+	cart add: 1000000000000.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	cashier checkout: cart into: salesBook.
+	
+	self assert: 1 equals: salesBook size.
+	self assert: 59.99 equals: salesBook first.! !
+
+!testRun: #CashierTest #test03CanCheckoutMultipleItems stamp: 'TM 6/12/2023 11:57:08'!
+FAILURE!
+!Cart methodsFor: 'checkout' stamp: 'TM 6/12/2023 11:58:57' prior: 50624935!
+total
+	^items sum: [ :item | catalog priceOf: item ] ifEmpty: [ ^0. ].! !
+
+!testRun: #CashierTest #test03CanCheckoutMultipleItems stamp: 'TM 6/12/2023 11:59:04'!
+PASSED!
+
+!testRun: #CashierTest #test02CanCheckoutSingleItem stamp: 'TM 6/12/2023 11:59:08'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'TM 6/12/2023 11:59:10'!
+PASSED!
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 11:59:34' prior: 50624624!
+test01CanNotCheckoutEmptyCart
+
+	| catalog cart cashier salesBook |
+	
+	catalog := Array with: 9780262046305.
+	cart := Cart acceptingItemsOf: catalog.
+	
+	cashier := Cashier new.
+	
+	self
+		should: [ cashier checkout: cart. ]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [ :anError |
+			self assert: Cashier emptyCartErrorMessage equals: anError messageText 
+		]! !
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 12:00:06' prior: 50625055!
+test01CanNotCheckoutEmptyCart
+
+	| catalog cart cashier salesBook |
+	
+	catalog := Array with: 9780262046305.
+	cart := Cart acceptingItemsOf: catalog.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	self
+		should: [ cashier checkout: cart into: salesBook. ]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [ :anError |
+			self assert: Cashier emptyCartErrorMessage equals: anError messageText 
+		]! !
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'TM 6/12/2023 12:00:07'!
+FAILURE!
+!Cashier methodsFor: 'checkout' stamp: 'TM 6/12/2023 12:00:55' prior: 50624841!
+checkout: aCart into: salesBook	
+	
+	(aCart isEmpty)
+	ifTrue: [ ^self error: Cashier emptyCartErrorMessage. ].
+	
+	salesBook add: aCart total.! !
+
+!methodRemoval: Cashier #checkout: stamp: 'TM 6/12/2023 12:00:57'!
+checkout: aCart 
+	^self error: Cashier emptyCartErrorMessage.!
+!Cashier methodsFor: 'checkout' stamp: 'TM 6/12/2023 12:01:22' prior: 50625089!
+checkout: aCart into: salesBook	
+	
+	(aCart isEmpty)
+	ifTrue: [ ^self error: Cashier emptyCartErrorMessage. ].
+	
+	"Expired Credit Card"
+	
+	salesBook add: aCart total.! !
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'TM 6/12/2023 12:01:40'!
+PASSED!
+
+!testRun: #CashierTest #test02CanCheckoutSingleItem stamp: 'TM 6/12/2023 12:01:42'!
+PASSED!
+
+!testRun: #CashierTest #test03CanCheckoutMultipleItems stamp: 'TM 6/12/2023 12:01:44'!
+PASSED!
+
+!classDefinition: #CreditCard category: 'TusLibros' stamp: 'TM 6/12/2023 12:09:07'!
+Object subclass: #CreditCard
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 12:09:03' prior: 50624590!
+test04CanNotUseExpiredCreditCard
+
+	| bookListing cart cashier salesBook creditCard |
+	
+	bookListing := BookListing new.
+	cart := Cart acceptingItemsOf: bookListing.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	creditCard := CreditCard withNumber: '5500 1000 0000 1234' withExpiration: 01/20 withOwner: 'Pepe'.
+	
+	self
+		should: [ cashier checkout: cart with: creditCard into: salesBook. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: Cashier expiredCreditCardErrorMessage equals: anError messageText.
+			self assert: salesBook isEmpty.
+		]! !
+
+!testRun: #CashierTest #test04CanNotUseExpiredCreditCard stamp: 'TM 6/12/2023 12:09:52'!
+ERROR!
+!CreditCard class methodsFor: 'instance creation' stamp: 'TM 6/12/2023 12:09:59'!
+withNumber: aString withExpiration: aFraction withOwner: aString3 
+	"DO NOT FORGET TO RENAME COLLABORATORS AND REMOVE THIS COMMENT!!!!"
+	self shouldBeImplemented.
+	^self new initializeWithNumber: aString withExpiration: aFraction withOwner: aString3 ! !
+!CreditCard class methodsFor: 'instance creation' stamp: 'TM 6/12/2023 12:11:17' prior: 50625150!
+withNumber: aCreditCardNumber withExpiration: anExpirationDate withOwner: aPersonName
+	^self new initializeWithNumber: aCreditCardNumber withExpiration: anExpirationDate withOwner: aPersonName.! !
+
+!testRun: #CashierTest #test04CanNotUseExpiredCreditCard stamp: 'TM 6/12/2023 12:11:19'!
+ERROR!
+
+!classDefinition: #CreditCard category: 'TusLibros' stamp: 'TM 6/12/2023 12:11:28'!
+Object subclass: #CreditCard
+	instanceVariableNames: 'creditCardNumber'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #CreditCard category: 'TusLibros' stamp: 'TM 6/12/2023 12:11:28'!
+Object subclass: #CreditCard
+	instanceVariableNames: 'creditCardNumber expirationDate'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #CreditCard category: 'TusLibros' stamp: 'TM 6/12/2023 12:11:29'!
+Object subclass: #CreditCard
+	instanceVariableNames: 'creditCardNumber expirationDate personName'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CreditCard methodsFor: 'initialization' stamp: 'TM 6/12/2023 12:11:29'!
+initializeWithNumber: aCreditCardNumber withExpiration: anExpirationDate withOwner: aPersonName 
+	self shouldBeImplemented.
+	creditCardNumber := aCreditCardNumber.
+	expirationDate := anExpirationDate.
+	personName := aPersonName.! !
+!CreditCard methodsFor: 'initialization' stamp: 'TM 6/12/2023 12:11:33' prior: 50625196!
+initializeWithNumber: aCreditCardNumber withExpiration: anExpirationDate withOwner: aPersonName 
+	creditCardNumber := aCreditCardNumber.
+	expirationDate := anExpirationDate.
+	personName := aPersonName.! !
+
+!testRun: #CashierTest #test04CanNotUseExpiredCreditCard stamp: 'TM 6/12/2023 12:11:38'!
+ERROR!
+!Cashier methodsFor: 'checkout' stamp: 'TM 6/12/2023 12:11:46'!
+checkout: cart with: creditCard into: salesBook 
+	self shouldBeImplemented.! !
+!Cashier class methodsFor: 'error messages' stamp: 'TM 6/12/2023 12:12:49'!
+expiredCreditCardErrorMessage
+	^'Credit card is expired'.! !
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 12:13:27' prior: 50625125!
+test04CanNotUseExpiredCreditCard
+
+	| bookListing cart cashier salesBook creditCard |
+	
+	bookListing := BookListing new.
+	cart := Cart acceptingItemsOf: bookListing.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	creditCard := CreditCard withNumber: '5500 1000 0000 1234' withExpiration: (June / 2022) withOwner: 'Pepe'.
+	
+	self
+		should: [ cashier checkout: cart with: creditCard into: salesBook. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: Cashier expiredCreditCardErrorMessage equals: anError messageText.
+			self assert: salesBook isEmpty.
+		]! !
+
+June / 2022!
+
+June - 2022!
+
+June class!
+
+June class!
+
+June class!
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 12:22:43' prior: 50625229!
+test04CanNotUseExpiredCreditCard
+
+	| bookListing cart cashier salesBook creditCard |
+	
+	bookListing := BookListing new.
+	cart := Cart acceptingItemsOf: bookListing.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	creditCard := CreditCard withNumber: '5500 1000 0000 1234' withExpiration: (Month month: 1 year: 2020) withOwner: 'Pepe'.
+	
+	self
+		should: [ cashier checkout: cart with: creditCard into: salesBook. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: Cashier expiredCreditCardErrorMessage equals: anError messageText.
+			self assert: salesBook isEmpty.
+		]! !
+
+!testRun: #CashierTest #test04CanNotUseExpiredCreditCard stamp: 'TM 6/12/2023 12:22:46'!
+FAILURE!
+!Cashier methodsFor: 'checkout' stamp: 'TM 6/12/2023 12:24:36' prior: 50625219!
+checkout: aCart with: aCreditCard into: aSalesBook 
+	
+	(aCart isEmpty)
+	ifTrue: [ ^self error: Cashier emptyCartErrorMessage. ].
+	
+	(aCreditCard expirationDate < Month current)
+	ifTrue: [ ^self error: Cashier expiredCreditCardErrorMessage. ].
+	
+	aSalesBook add: aCart total.! !
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'TM 6/12/2023 12:24:42'!
+PASSED!
+
+!testRun: #CashierTest #test02CanCheckoutSingleItem stamp: 'TM 6/12/2023 12:24:42'!
+PASSED!
+
+!testRun: #CashierTest #test03CanCheckoutMultipleItems stamp: 'TM 6/12/2023 12:24:42'!
+PASSED!
+
+!testRun: #CashierTest #test04CanNotUseExpiredCreditCard stamp: 'TM 6/12/2023 12:24:42'!
+FAILURE!
+
+!testRun: #CashierTest #test05CanNotUseFundlessCreditCard stamp: 'TM 6/12/2023 12:24:42'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotUseOtherPersonCreditCard stamp: 'TM 6/12/2023 12:24:42'!
+PASSED!
+
+!testRun: #CashierTest #test07CheckoutsIfEverythingOk stamp: 'TM 6/12/2023 12:24:42'!
+PASSED!
+
+!testRun: #CashierTest #test04CanNotUseExpiredCreditCard stamp: 'TM 6/12/2023 12:24:42'!
+FAILURE!
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 12:25:16' prior: 50625253!
+test04CanNotUseExpiredCreditCard
+
+	| bookListing cart cashier salesBook creditCard |
+	
+	bookListing := BookListing new.
+	bookListing add: 9780262046305 for: 39.99.
+	
+	cart := Cart acceptingItemsOf: bookListing.
+	cart add: 9780262046305.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	creditCard := CreditCard withNumber: '5500 1000 0000 1234' withExpiration: (Month month: 1 year: 2020) withOwner: 'Pepe'.
+	
+	self
+		should: [ cashier checkout: cart with: creditCard into: salesBook. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: Cashier expiredCreditCardErrorMessage equals: anError messageText.
+			self assert: salesBook isEmpty.
+		]! !
+
+!testRun: #CashierTest #test04CanNotUseExpiredCreditCard stamp: 'TM 6/12/2023 12:25:17'!
+ERROR!
+!CreditCard methodsFor: 'accessing' stamp: 'TM 6/12/2023 12:25:25'!
+expirationDate
+	self shouldBeImplemented.
+	^expirationDate! !
+!CreditCard methodsFor: 'accessing' stamp: 'TM 6/12/2023 12:25:30' prior: 50625343!
+expirationDate
+	^expirationDate.! !
+
+!testRun: #CashierTest #test04CanNotUseExpiredCreditCard stamp: 'TM 6/12/2023 12:25:34'!
+ERROR!
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 12:27:22' prior: 50625315!
+test04CanNotUseExpiredCreditCard
+
+	| bookListing cart cashier salesBook creditCard |
+	
+	bookListing := BookListing new.
+	bookListing add: 9780262046305 for: 39.99.
+	
+	cart := Cart acceptingItemsOf: bookListing.
+	cart add: 9780262046305.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	creditCard := CreditCard withNumber: '5500 1000 0000 1234' withExpiration: (Date firstWeekdayOfMonth: 1 year: 2020) withOwner: 'Pepe'.
+	
+	self
+		should: [ cashier checkout: cart with: creditCard into: salesBook. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: Cashier expiredCreditCardErrorMessage equals: anError messageText.
+			self assert: salesBook isEmpty.
+		]! !
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 12:28:21' prior: 50625355!
+test04CanNotUseExpiredCreditCard
+
+	| bookListing cart cashier salesBook creditCard |
+	
+	bookListing := BookListing new.
+	bookListing add: 9780262046305 for: 39.99.
+	
+	cart := Cart acceptingItemsOf: bookListing.
+	cart add: 9780262046305.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	creditCard := CreditCard withNumber: '5500 1000 0000 1234' withExpiration: (Date firstWeekdayOfMonth: 1 year: 2020) withOwner: 'Pepe'.
+	
+	self
+		should: [ cashier checkout: cart with: creditCard into: salesBook. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: Cashier expiredCreditCardErrorMessage equals: anError messageText.
+			self assert: salesBook isEmpty.
+		]! !
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 12:28:52'!
+newExpiredCreditCard
+
+	^ CreditCard withNumber: '5500 1000 0000 1234' withExpiration: (Date firstWeekdayOfMonth: 1 year: 2020) withOwner: 'Pepe'! !
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 12:28:52' prior: 50625380!
+test04CanNotUseExpiredCreditCard
+
+	| bookListing cart cashier salesBook creditCard |
+	
+	bookListing := BookListing new.
+	bookListing add: 9780262046305 for: 39.99.
+	
+	cart := Cart acceptingItemsOf: bookListing.
+	cart add: 9780262046305.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	creditCard := self newExpiredCreditCard.
+	
+	self
+		should: [ cashier checkout: cart with: creditCard into: salesBook. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: Cashier expiredCreditCardErrorMessage equals: anError messageText.
+			self assert: salesBook isEmpty.
+		]! !
+!Cashier methodsFor: 'checkout' stamp: 'TM 6/12/2023 12:29:36' prior: 50625279!
+checkout: aCart with: aCreditCard into: aSalesBook 
+	
+	(aCart isEmpty)
+	ifTrue: [ ^self error: Cashier emptyCartErrorMessage. ].
+	
+	(aCreditCard expirationDate < Date current)
+	ifTrue: [ ^self error: Cashier expiredCreditCardErrorMessage. ].
+	
+	aSalesBook add: aCart total.! !
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'TM 6/12/2023 12:29:37'!
+PASSED!
+
+!testRun: #CashierTest #test02CanCheckoutSingleItem stamp: 'TM 6/12/2023 12:29:37'!
+PASSED!
+
+!testRun: #CashierTest #test03CanCheckoutMultipleItems stamp: 'TM 6/12/2023 12:29:37'!
+PASSED!
+
+!testRun: #CashierTest #test04CanNotUseExpiredCreditCard stamp: 'TM 6/12/2023 12:29:37'!
+ERROR!
+
+!testRun: #CashierTest #test05CanNotUseFundlessCreditCard stamp: 'TM 6/12/2023 12:29:37'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotUseOtherPersonCreditCard stamp: 'TM 6/12/2023 12:29:37'!
+PASSED!
+
+!testRun: #CashierTest #test07CheckoutsIfEverythingOk stamp: 'TM 6/12/2023 12:29:37'!
+PASSED!
+
+!testRun: #CashierTest #test04CanNotUseExpiredCreditCard stamp: 'TM 6/12/2023 12:29:37'!
+ERROR!
+
+Date current!
+!Cashier methodsFor: 'checkout' stamp: 'TM 6/12/2023 12:30:23' prior: 50625435!
+checkout: aCart with: aCreditCard into: aSalesBook 
+	
+	(aCart isEmpty)
+	ifTrue: [ ^self error: Cashier emptyCartErrorMessage. ].
+	
+	(aCreditCard expirationDate < Date current)
+	ifTrue: [ ^self error: Cashier expiredCreditCardErrorMessage. ].
+	
+	aSalesBook add: aCart total.! !
+!Cashier methodsFor: 'checkout' stamp: 'TM 6/12/2023 12:31:14' prior: 50625471!
+checkout: aCart with: aCreditCard into: aSalesBook 
+	
+	(aCart isEmpty)
+	ifTrue: [ ^self error: Cashier emptyCartErrorMessage. ].
+	
+	(aCreditCard expirationDate < Date today)
+	ifTrue: [ ^self error: Cashier expiredCreditCardErrorMessage. ].
+	
+	aSalesBook add: aCart total.! !
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'TM 6/12/2023 12:31:15'!
+PASSED!
+
+!testRun: #CashierTest #test02CanCheckoutSingleItem stamp: 'TM 6/12/2023 12:31:15'!
+PASSED!
+
+!testRun: #CashierTest #test03CanCheckoutMultipleItems stamp: 'TM 6/12/2023 12:31:15'!
+PASSED!
+
+!testRun: #CashierTest #test04CanNotUseExpiredCreditCard stamp: 'TM 6/12/2023 12:31:15'!
+ERROR!
+
+!testRun: #CashierTest #test05CanNotUseFundlessCreditCard stamp: 'TM 6/12/2023 12:31:15'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotUseOtherPersonCreditCard stamp: 'TM 6/12/2023 12:31:15'!
+PASSED!
+
+!testRun: #CashierTest #test07CheckoutsIfEverythingOk stamp: 'TM 6/12/2023 12:31:15'!
+PASSED!
+
+!testRun: #CashierTest #test04CanNotUseExpiredCreditCard stamp: 'TM 6/12/2023 12:31:15'!
+ERROR!
+
+!testRun: #CashierTest #test04CanNotUseExpiredCreditCard stamp: 'TM 6/12/2023 12:31:34'!
+ERROR!
+
+!testRun: #CashierTest #test04CanNotUseExpiredCreditCard stamp: 'TM 6/12/2023 12:32:19'!
+ERROR!
+
+Date today!
+
+Date today < Date today!
+
+Date firstWeekdayOfMonth: 1 year: 2020 < Date today!
+
+(Date firstWeekdayOfMonth: 1 year: 2020) < Date today!
+!CashierTest methodsFor: 'auxiliary' stamp: 'TM 6/12/2023 12:36:55' prior: 50625405!
+newExpiredCreditCard
+
+	^ CreditCard withNumber: '5500 1000 0000 1234' withExpiration: (Date year: 2020 month: 1 day: 1) withOwner: 'Pepe'! !
+
+!testRun: #CashierTest #test04CanNotUseExpiredCreditCard stamp: 'TM 6/12/2023 12:37:00'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'TM 6/12/2023 12:37:00'!
+PASSED!
+
+!testRun: #CashierTest #test02CanCheckoutSingleItem stamp: 'TM 6/12/2023 12:37:00'!
+PASSED!
+
+!testRun: #CashierTest #test03CanCheckoutMultipleItems stamp: 'TM 6/12/2023 12:37:00'!
+PASSED!
+
+!testRun: #CashierTest #test04CanNotUseExpiredCreditCard stamp: 'TM 6/12/2023 12:37:00'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotUseFundlessCreditCard stamp: 'TM 6/12/2023 12:37:00'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotUseOtherPersonCreditCard stamp: 'TM 6/12/2023 12:37:00'!
+PASSED!
+
+!testRun: #CashierTest #test07CheckoutsIfEverythingOk stamp: 'TM 6/12/2023 12:37:00'!
+PASSED!
+!CashierTest methodsFor: 'auxiliary' stamp: 'TM 6/12/2023 12:45:26' prior: 50625530!
+newExpiredCreditCard
+
+	^ CreditCard withNumber: '5500 1000 0000 1234' withExpiration: (Date yesterday) withOwner: 'Pepe'! !
+!CashierTest methodsFor: 'auxiliary' stamp: 'TM 6/12/2023 12:45:29' prior: 50625562!
+newExpiredCreditCard
+
+	^ CreditCard withNumber: '5500 1000 0000 1234' withExpiration: Date yesterday withOwner: 'Pepe'! !
+!CashierTest methodsFor: 'auxiliary' stamp: 'TM 6/12/2023 12:45:40' prior: 50625569!
+newExpiredCreditCard
+
+	^ CreditCard withNumber: '5500 1000 0000 1234' withExpiration: (Date yesterday) withOwner: 'Pepe'! !
+!CashierTest methodsFor: 'auxiliary' stamp: 'TM 6/12/2023 12:46:44'!
+creditCardExpiring: anExpirationDate
+
+	^ CreditCard withNumber: '5500 1000 0000 1234' withExpiration: anExpirationDate withOwner: 'Pepe'! !
+!CashierTest methodsFor: 'auxiliary' stamp: 'TM 6/12/2023 12:47:33'!
+expiredCreditCard
+	^self creditCardExpiring: (Date yesterday).! !
+
+!methodRemoval: CashierTest #expiredCreditCard stamp: 'TM 6/12/2023 12:47:38'!
+expiredCreditCard
+	^self creditCardExpiring: (Date yesterday).!
+!CashierTest methodsFor: 'auxiliary' stamp: 'TM 6/12/2023 12:47:51'!
+expiredCreditCard
+
+	^ CreditCard withNumber: '5500 1000 0000 1234' withExpiration: (Date yesterday) withOwner: 'Pepe'! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'TM 6/12/2023 12:47:51' prior: 50625413!
+test04CanNotUseExpiredCreditCard
+
+	| bookListing cart cashier salesBook creditCard |
+	
+	bookListing := BookListing new.
+	bookListing add: 9780262046305 for: 39.99.
+	
+	cart := Cart acceptingItemsOf: bookListing.
+	cart add: 9780262046305.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	creditCard := self expiredCreditCard.
+	
+	self
+		should: [ cashier checkout: cart with: creditCard into: salesBook. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: Cashier expiredCreditCardErrorMessage equals: anError messageText.
+			self assert: salesBook isEmpty.
+		]! !
+
+!methodRemoval: CashierTest #newExpiredCreditCard stamp: 'TM 6/12/2023 12:47:51'!
+newExpiredCreditCard
+
+	^ CreditCard withNumber: '5500 1000 0000 1234' withExpiration: (Date yesterday) withOwner: 'Pepe'!
+!CashierTest methodsFor: 'auxiliary' stamp: 'TM 6/12/2023 12:48:21'!
+activeCreditCard
+
+	^ self creditCardExpiring: (Date tomorrow).! !
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 12:48:46' prior: 50624594!
+test05CanNotUseFundlessCreditCard
+
+	| bookListing cart cashier salesBook creditCard |
+	
+	bookListing := BookListing new.
+	bookListing add: 9780262046305 for: 39.99.
+	
+	cart := Cart acceptingItemsOf: bookListing.
+	cart add: 9780262046305.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	creditCard := self expiredCreditCard.
+	
+	self
+		should: [ cashier checkout: cart with: creditCard into: salesBook. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: Cashier expiredCreditCardErrorMessage equals: anError messageText.
+			self assert: salesBook isEmpty.
+		]! !
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 12:48:55' prior: 50625639!
+test05CanNotUseFundlessCreditCard
+
+	| bookListing cart cashier salesBook creditCard |
+	
+	bookListing := BookListing new.
+	bookListing add: 9780262046305 for: 39.99.
+	
+	cart := Cart acceptingItemsOf: bookListing.
+	cart add: 9780262046305.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	creditCard := self activeCreditCard.
+	
+	self
+		should: [ cashier checkout: cart with: creditCard into: salesBook. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: Cashier expiredCreditCardErrorMessage equals: anError messageText.
+			self assert: salesBook isEmpty.
+		]! !
+
+!testRun: #CashierTest #test05CanNotUseFundlessCreditCard stamp: 'TM 6/12/2023 12:48:57'!
+FAILURE!
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 12:52:38' prior: 50625661!
+test05CanNotUseFundlessCreditCard
+
+	| bookListing cart cashier salesBook creditCard merchantProcessor |
+	
+	bookListing := BookListing new.
+	bookListing add: 9780262046305 for: 39.99.
+	
+	cart := Cart acceptingItemsOf: bookListing.
+	cart add: 9780262046305.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	creditCard := self activeCreditCard.
+	merchantProcessor := FundlessMerchantProcessor new.
+	
+	self
+		should: [ cashier checkout: cart with: creditCard using: merchantProcessor into: salesBook. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: Cashier expiredCreditCardErrorMessage equals: anError messageText.
+			self assert: salesBook isEmpty.
+		]! !
+!Cashier methodsFor: 'checkout' stamp: 'TM 6/12/2023 12:53:46' prior: 50625483!
+checkout: aCart with: aCreditCard into: aSalesBook 
+	
+	(aCart isEmpty)
+	ifTrue: [ ^self error: Cashier emptyCartErrorMessage. ].
+	
+	(aCreditCard expirationDate < Date today)
+	ifTrue: [ ^self error: Cashier expiredCreditCardErrorMessage. ].
+	
+	aSalesBook add: aCart total.! !
+
+!classRenamed: #MockMerchantProcessor as: #MerchantProcessor stamp: 'TM 6/12/2023 12:54:23'!
+Smalltalk renameClassNamed: #MockMerchantProcessor as: #MerchantProcessor!
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 12:54:47' prior: 50625686!
+test05CanNotUseFundlessCreditCard
+
+	| bookListing cart cashier salesBook creditCard merchantProcessor |
+	
+	bookListing := BookListing new.
+	bookListing add: 9780262046305 for: 39.99.
+	
+	cart := Cart acceptingItemsOf: bookListing.
+	cart add: 9780262046305.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	creditCard := self activeCreditCard.
+	merchantProcessor := FundlessMerchantProcessor new.
+	
+	self
+		should: [ cashier checkout: cart with: creditCard using: merchantProcessor into: salesBook. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: MerchantProcessor fundlessCreditCardErrorMessage equals: anError messageText.
+			self assert: salesBook isEmpty.
+		]! !
+
+!testRun: #CashierTest #test05CanNotUseFundlessCreditCard stamp: 'TM 6/12/2023 12:55:03'!
+ERROR!
+!Cashier methodsFor: 'checkout' stamp: 'TM 6/12/2023 12:55:09'!
+checkout: cart with: creditCard using: merchantProcessor into: salesBook 
+	self shouldBeImplemented.! !
+!Cashier methodsFor: 'checkout' stamp: 'TM 6/12/2023 12:55:44' prior: 50625756!
+checkout: aCart with: aCreditCard using: aMerchantProcessor into: aSalesBook 
+		
+	(aCart isEmpty)
+	ifTrue: [ ^self error: Cashier emptyCartErrorMessage. ].
+	
+	(aCreditCard expirationDate < Date today)
+	ifTrue: [ ^self error: Cashier expiredCreditCardErrorMessage. ].
+	
+	aSalesBook add: aCart total.! !
+!Cashier methodsFor: 'checkout' stamp: 'TM 6/12/2023 12:58:29' prior: 50625762!
+checkout: aCart with: aCreditCard using: aMerchantProcessor into: aSalesBook 
+	
+	| total |
+		
+	(aCart isEmpty)
+	ifTrue: [ ^self error: Cashier emptyCartErrorMessage. ].
+	
+	(aCreditCard expirationDate < Date today)
+	ifTrue: [ ^self error: Cashier expiredCreditCardErrorMessage. ].
+	
+	total := aCart total.
+	
+	aMerchantProcessor debit: total from: aCreditCard.
+	
+	aSalesBook add: total.! !
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'TM 6/12/2023 12:58:35'!
+PASSED!
+
+!testRun: #CashierTest #test02CanCheckoutSingleItem stamp: 'TM 6/12/2023 12:58:35'!
+PASSED!
+
+!testRun: #CashierTest #test03CanCheckoutMultipleItems stamp: 'TM 6/12/2023 12:58:35'!
+PASSED!
+
+!testRun: #CashierTest #test04CanNotUseExpiredCreditCard stamp: 'TM 6/12/2023 12:58:35'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotUseFundlessCreditCard stamp: 'TM 6/12/2023 12:58:35'!
+ERROR!
+
+!testRun: #CashierTest #test06CanNotUseOtherPersonCreditCard stamp: 'TM 6/12/2023 12:58:35'!
+PASSED!
+
+!testRun: #CashierTest #test07CheckoutsIfEverythingOk stamp: 'TM 6/12/2023 12:58:35'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotUseFundlessCreditCard stamp: 'TM 6/12/2023 12:58:35'!
+ERROR!
+!FundlessMerchantProcessor methodsFor: 'transaction' stamp: 'TM 6/12/2023 12:58:56'!
+debit: total from: aCreditCard 
+	self shouldBeImplemented.! !
+!FundlessMerchantProcessor methodsFor: 'transaction' stamp: 'TM 6/12/2023 12:59:18' prior: 50625813!
+debit: total from: aCreditCard 
+	^self error: MerchantProcessor fundlessCreditCardErrorMessage.! !
+
+!testRun: #CashierTest #test05CanNotUseFundlessCreditCard stamp: 'TM 6/12/2023 12:59:22'!
+ERROR!
+!MerchantProcessor class methodsFor: 'error messages' stamp: 'TM 6/12/2023 12:59:31'!
+fundlessCreditCardErrorMessage
+	self shouldBeImplemented.! !
+!MerchantProcessor class methodsFor: 'error messages' stamp: 'TM 6/12/2023 12:59:46' prior: 50625828!
+fundlessCreditCardErrorMessage
+	^'Credit card is fundless'.! !
+
+!testRun: #CashierTest #test05CanNotUseFundlessCreditCard stamp: 'TM 6/12/2023 12:59:48'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'TM 6/12/2023 12:59:52'!
+PASSED!
+
+!testRun: #CashierTest #test02CanCheckoutSingleItem stamp: 'TM 6/12/2023 12:59:52'!
+PASSED!
+
+!testRun: #CashierTest #test03CanCheckoutMultipleItems stamp: 'TM 6/12/2023 12:59:52'!
+PASSED!
+
+!testRun: #CashierTest #test04CanNotUseExpiredCreditCard stamp: 'TM 6/12/2023 12:59:52'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotUseFundlessCreditCard stamp: 'TM 6/12/2023 12:59:52'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotUseOtherPersonCreditCard stamp: 'TM 6/12/2023 12:59:52'!
+PASSED!
+
+!testRun: #CashierTest #test07CheckoutsIfEverythingOk stamp: 'TM 6/12/2023 12:59:52'!
+PASSED!
+
+MerchantProcessor subclass: #OtherPersonMerchantProcessor
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #OtherPersonMerchantProcessor category: 'TusLibros' stamp: 'TM 6/12/2023 13:01:24'!
+MerchantProcessor subclass: #OtherPersonMerchantProcessor
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 13:02:29' prior: 50624852!
+test06CanNotUseOtherPersonCreditCard
+
+	| bookListing cart cashier salesBook creditCard merchantProcessor |
+	
+	bookListing := BookListing new.
+	bookListing add: 9780262046305 for: 39.99.
+	
+	cart := Cart acceptingItemsOf: bookListing.
+	cart add: 9780262046305.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	creditCard := self activeCreditCard.
+	merchantProcessor := OtherPersonMerchantProcessor new.
+	
+	self
+		should: [ cashier checkout: cart with: creditCard using: merchantProcessor into: salesBook. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: MerchantProcessor otherPersonCreditCardErrorMessage equals: anError messageText.
+			self assert: salesBook isEmpty.
+		]! !
+
+!testRun: #CashierTest #test06CanNotUseOtherPersonCreditCard stamp: 'TM 6/12/2023 13:02:31'!
+ERROR!
+!OtherPersonMerchantProcessor methodsFor: 'error messages' stamp: 'TM 6/12/2023 13:02:50'!
+debit: total from: aCreditCard 
+	self shouldBeImplemented.! !
+!OtherPersonMerchantProcessor methodsFor: 'error messages' stamp: 'TM 6/12/2023 13:03:13' prior: 50625905!
+debit: total from: aCreditCard 
+	^self error: MerchantProcessor otherPersonCreditCardErrorMessage.! !
+
+!testRun: #CashierTest #test06CanNotUseOtherPersonCreditCard stamp: 'TM 6/12/2023 13:03:16'!
+ERROR!
+!MerchantProcessor class methodsFor: 'error messages' stamp: 'TM 6/12/2023 13:03:20'!
+otherPersonCreditCardErrorMessage
+	self shouldBeImplemented.! !
+!MerchantProcessor class methodsFor: 'error messages' stamp: 'TM 6/12/2023 13:03:36' prior: 50625921!
+otherPersonCreditCardErrorMessage
+	^'Credit Card belongs to other person'.! !
+
+!testRun: #CashierTest #test06CanNotUseOtherPersonCreditCard stamp: 'TM 6/12/2023 13:03:37'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'TM 6/12/2023 13:03:37'!
+PASSED!
+
+!testRun: #CashierTest #test02CanCheckoutSingleItem stamp: 'TM 6/12/2023 13:03:37'!
+PASSED!
+
+!testRun: #CashierTest #test03CanCheckoutMultipleItems stamp: 'TM 6/12/2023 13:03:37'!
+PASSED!
+
+!testRun: #CashierTest #test04CanNotUseExpiredCreditCard stamp: 'TM 6/12/2023 13:03:37'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotUseFundlessCreditCard stamp: 'TM 6/12/2023 13:03:37'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotUseOtherPersonCreditCard stamp: 'TM 6/12/2023 13:03:37'!
+PASSED!
+
+!testRun: #CashierTest #test07CheckoutsIfEverythingOk stamp: 'TM 6/12/2023 13:03:37'!
+PASSED!
+!MerchantProcessor methodsFor: 'transaction' stamp: 'TM 6/12/2023 13:04:16'!
+debit: anAmount from: aCreditCard
+	self subclassResponsibility ! !
+!FundlessMerchantProcessor methodsFor: 'transaction' stamp: 'TM 6/12/2023 13:04:26' prior: 50625819 overrides: 50625957!
+debit: anAmount from: aCreditCard 
+	^self error: MerchantProcessor fundlessCreditCardErrorMessage.! !
+!OtherPersonMerchantProcessor methodsFor: 'transaction' stamp: 'TM 6/12/2023 13:04:33' prior: 50625911 overrides: 50625957!
+debit: anAmount from: aCreditCard 
+	^self error: MerchantProcessor otherPersonCreditCardErrorMessage.! !
+
+!testRun: #CashierTest #test04CanNotUseExpiredCreditCard stamp: 'TM 6/12/2023 13:04:45'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'TM 6/12/2023 13:04:48'!
+PASSED!
+
+!testRun: #CashierTest #test02CanCheckoutSingleItem stamp: 'TM 6/12/2023 13:04:48'!
+PASSED!
+
+!testRun: #CashierTest #test03CanCheckoutMultipleItems stamp: 'TM 6/12/2023 13:04:48'!
+PASSED!
+
+!testRun: #CashierTest #test04CanNotUseExpiredCreditCard stamp: 'TM 6/12/2023 13:04:48'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotUseFundlessCreditCard stamp: 'TM 6/12/2023 13:04:48'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotUseOtherPersonCreditCard stamp: 'TM 6/12/2023 13:04:48'!
+PASSED!
+
+!testRun: #CashierTest #test07CheckoutsIfEverythingOk stamp: 'TM 6/12/2023 13:04:48'!
+PASSED!
+
+!classDefinition: #SuccessfulMerchantProcessor category: 'TusLibros' stamp: 'TM 6/12/2023 13:05:53'!
+MerchantProcessor subclass: #SuccessfulMerchantProcessor
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 13:05:40' prior: 50624602!
+test07CheckoutsIfEverythingOk
+
+	| bookListing cart cashier salesBook creditCard merchantProcessor |
+	
+	bookListing := BookListing new.
+	bookListing add: 9780262046305 for: 39.99.
+	
+	cart := Cart acceptingItemsOf: bookListing.
+	cart add: 9780262046305.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	creditCard := self activeCreditCard.
+	merchantProcessor := SuccessfulMerchantProcessor new.
+	
+	self
+		should: [ cashier checkout: cart with: creditCard using: merchantProcessor into: salesBook. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: MerchantProcessor otherPersonCreditCardErrorMessage equals: anError messageText.
+			self assert: salesBook isEmpty.
+		]! !
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 13:06:18' prior: 50626010!
+test07CheckoutsIfEverythingOk
+
+	| bookListing cart cashier salesBook creditCard merchantProcessor |
+	
+	bookListing := BookListing new.
+	bookListing add: 9780262046305 for: 39.99.
+	
+	cart := Cart acceptingItemsOf: bookListing.
+	cart add: 9780262046305.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	creditCard := self activeCreditCard.
+	merchantProcessor := SuccessfulMerchantProcessor new.
+	
+	cashier checkout: cart with: creditCard using: merchantProcessor into: salesBook.! !
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 13:06:32' prior: 50626036!
+test07CheckoutsIfEverythingOk
+
+	| bookListing cart cashier salesBook creditCard merchantProcessor |
+	
+	bookListing := BookListing new.
+	bookListing add: 9780262046305 for: 39.99.
+	
+	cart := Cart acceptingItemsOf: bookListing.
+	cart add: 9780262046305.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	creditCard := self activeCreditCard.
+	merchantProcessor := SuccessfulMerchantProcessor new.
+	
+	cashier checkout: cart with: creditCard using: merchantProcessor into: salesBook.
+	
+	self assert: 1 equals: salesBook size.
+	self assert: 39.99 equals: salesBook first.! !
+
+!testRun: #CashierTest #test07CheckoutsIfEverythingOk stamp: 'TM 6/12/2023 13:06:33'!
+ERROR!
+
+!testRun: #CashierTest #test07CheckoutsIfEverythingOk stamp: 'TM 6/12/2023 13:06:52'!
+ERROR!
+!SuccessfulMerchantProcessor methodsFor: 'transaction' stamp: 'TM 6/12/2023 13:06:57' overrides: 50625957!
+debit: total from: aCreditCard 
+	self shouldBeImplemented.! !
+!SuccessfulMerchantProcessor methodsFor: 'transaction' stamp: 'TM 6/12/2023 13:07:16' prior: 50626083 overrides: 50625957!
+debit: total from: aCreditCard 
+! !
+!SuccessfulMerchantProcessor methodsFor: 'transaction' stamp: 'TM 6/12/2023 13:07:18' prior: 50626089 overrides: 50625957!
+debit: total from: aCreditCard! !
+
+!testRun: #CashierTest #test07CheckoutsIfEverythingOk stamp: 'TM 6/12/2023 13:07:19'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'TM 6/12/2023 13:07:19'!
+PASSED!
+
+!testRun: #CashierTest #test02CanCheckoutSingleItem stamp: 'TM 6/12/2023 13:07:19'!
+PASSED!
+
+!testRun: #CashierTest #test03CanCheckoutMultipleItems stamp: 'TM 6/12/2023 13:07:19'!
+PASSED!
+
+!testRun: #CashierTest #test04CanNotUseExpiredCreditCard stamp: 'TM 6/12/2023 13:07:19'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotUseFundlessCreditCard stamp: 'TM 6/12/2023 13:07:19'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotUseOtherPersonCreditCard stamp: 'TM 6/12/2023 13:07:19'!
+PASSED!
+
+!testRun: #CashierTest #test07CheckoutsIfEverythingOk stamp: 'TM 6/12/2023 13:07:19'!
+PASSED!
+
+----SNAPSHOT----(12 June 2023 13:08:11) CuisUniversity-5832.image priorSource: 9378444!
+!Cashier methodsFor: 'assertions' stamp: 'TM 6/12/2023 13:09:07'!
+assertThatCartIsNotEmpty: aCart
+	! !
+!Cashier methodsFor: 'assertions' stamp: 'TM 6/12/2023 13:09:20' prior: 50626125!
+assertThatCartIsNotEmpty: aCart
+	
+	(aCart isEmpty)
+	ifTrue: [ ^self error: Cashier emptyCartErrorMessage. ].! !
+!Cashier methodsFor: 'assertions' stamp: 'TM 6/12/2023 13:10:15' prior: 50626129!
+assertThatCartIsNotEmpty: aCart
+	
+	(aCart isEmpty)
+	ifTrue: [ self error: Cashier emptyCartErrorMessage. ].! !
+!Cashier methodsFor: 'assertions' stamp: 'TM 6/12/2023 13:10:19' prior: 50626136!
+assertThatCartIsNotEmpty: aCart
+	
+	(aCart isEmpty)
+	ifTrue: [ self error: Cashier emptyCartErrorMessage ].! !
+!Cashier methodsFor: 'assertions' stamp: 'TM 6/12/2023 13:10:25'!
+assertCartIsNotEmpty: aCart
+	
+	(aCart isEmpty)
+	ifTrue: [ self error: Cashier emptyCartErrorMessage ].! !
+
+!methodRemoval: Cashier #assertThatCartIsNotEmpty: stamp: 'TM 6/12/2023 13:10:25'!
+assertThatCartIsNotEmpty: aCart
+	
+	(aCart isEmpty)
+	ifTrue: [ self error: Cashier emptyCartErrorMessage ].!
+!Cashier methodsFor: 'assertions' stamp: 'TM 6/12/2023 13:10:35' prior: 50626149!
+assertCartIsNotEmpty: aCart
+	
+	(aCart isEmpty) 	ifTrue: [ self error: Cashier emptyCartErrorMessage ].! !
+!Cashier methodsFor: 'assertions' stamp: 'TM 6/12/2023 13:11:12'!
+assertCreditCardIsNotExpired: aCreditCard
+	
+	(aCreditCard expirationDate < Date today) 	ifTrue: [ self error: Cashier expiredCreditCardErrorMessage ].! !
+!Cashier methodsFor: 'checkout' stamp: 'TM 6/12/2023 13:12:27' prior: 50625774!
+checkout: aCart with: aCreditCard using: aMerchantProcessor into: aSalesBook 
+			
+	self assertCartIsNotEmpty: aCart.
+	self assertCreditCardIsNotExpired: aCreditCard.
+	
+	aMerchantProcessor debit: (aCart total) from: aCreditCard.
+	
+	aSalesBook add: (aCart total).! !
+
+!testRun: #CashierTest #test07CheckoutsIfEverythingOk stamp: 'TM 6/12/2023 13:13:31'!
+PASSED!
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 13:14:07' prior: 50625606!
+test04CanNotUseExpiredCreditCard
+
+	| bookListing cart cashier salesBook creditCard merchantProcessor |
+	
+	bookListing := BookListing new.
+	bookListing add: 9780262046305 for: 39.99.
+	
+	cart := Cart acceptingItemsOf: bookListing.
+	cart add: 9780262046305.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	creditCard := self expiredCreditCard.
+	merchantProcessor := SuccessfulMerchantProcessor new.
+	
+	self
+		should: [ cashier checkout: cart with: creditCard using: merchantProcessor into: salesBook. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: Cashier expiredCreditCardErrorMessage equals: anError messageText.
+			self assert: salesBook isEmpty.
+		]! !
+
+!testRun: #CashierTest #test04CanNotUseExpiredCreditCard stamp: 'TM 6/12/2023 13:14:09'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'TM 6/12/2023 13:14:09'!
+PASSED!
+
+!testRun: #CashierTest #test02CanCheckoutSingleItem stamp: 'TM 6/12/2023 13:14:09'!
+PASSED!
+
+!testRun: #CashierTest #test03CanCheckoutMultipleItems stamp: 'TM 6/12/2023 13:14:09'!
+PASSED!
+
+!testRun: #CashierTest #test04CanNotUseExpiredCreditCard stamp: 'TM 6/12/2023 13:14:09'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotUseFundlessCreditCard stamp: 'TM 6/12/2023 13:14:09'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotUseOtherPersonCreditCard stamp: 'TM 6/12/2023 13:14:09'!
+PASSED!
+
+!testRun: #CashierTest #test07CheckoutsIfEverythingOk stamp: 'TM 6/12/2023 13:14:09'!
+PASSED!
+!Cashier methodsFor: 'checkout' stamp: 'TM 6/12/2023 13:15:17' prior: 50625711!
+checkout: aCart with: aCreditCard into: aSalesBook 
+	
+	self checkout: aCart with: aCreditCard using: nil into: aSalesBook.! !
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'TM 6/12/2023 13:15:24'!
+PASSED!
+
+!testRun: #CashierTest #test02CanCheckoutSingleItem stamp: 'TM 6/12/2023 13:15:24'!
+PASSED!
+
+!testRun: #CashierTest #test03CanCheckoutMultipleItems stamp: 'TM 6/12/2023 13:15:24'!
+PASSED!
+
+!testRun: #CashierTest #test04CanNotUseExpiredCreditCard stamp: 'TM 6/12/2023 13:15:24'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotUseFundlessCreditCard stamp: 'TM 6/12/2023 13:15:24'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotUseOtherPersonCreditCard stamp: 'TM 6/12/2023 13:15:24'!
+PASSED!
+
+!testRun: #CashierTest #test07CheckoutsIfEverythingOk stamp: 'TM 6/12/2023 13:15:24'!
+PASSED!
+
+nil debit: 45.55!
+!Cashier methodsFor: 'checkout' stamp: 'TM 6/12/2023 13:16:15' prior: 50626175!
+checkout: aCart with: aCreditCard using: aMerchantProcessor into: aSalesBook 
+	
+	self assertCartIsNotEmpty: aCart.
+	self assertCreditCardIsNotExpired: aCreditCard.
+	
+	aMerchantProcessor debit: (aCart total) from: aCreditCard.
+	
+	aSalesBook add: (aCart total).! !
+!Cashier methodsFor: 'checkout' stamp: 'TM 6/12/2023 13:16:37' prior: 50626239!
+checkout: aCart with: aCreditCard into: aSalesBook 
+	
+	self checkout: aCart with: aCreditCard using: (SuccessfulMerchantProcessor new) into: aSalesBook.! !
+!Cashier methodsFor: 'checkout' stamp: 'TM 6/12/2023 13:17:42' prior: 50625101!
+checkout: aCart into: aSalesBook	
+	
+	self checkout: aCart with: (CreditCard new) into: aSalesBook.! !
+
+!testRun: #CashierTest #test02CanCheckoutSingleItem stamp: 'TM 6/12/2023 13:17:52'!
+ERROR!
+
+!testRun: #CashierTest #test02CanCheckoutSingleItem stamp: 'TM 6/12/2023 13:17:52'!
+ERROR!
+!CashierTest methodsFor: 'auxiliary' stamp: 'TM 6/12/2023 13:19:37' prior: 50625583!
+creditCardExpiring: anExpirationDate
+
+	^CreditCard withNumber: '5500 1000 0000 1234' withExpiration: anExpirationDate withOwner: 'Pepe'.! !
+!Cashier methodsFor: 'checkout' stamp: 'TM 6/12/2023 13:19:54' prior: 50626287!
+checkout: aCart into: aSalesBook	
+	
+	self checkout: aCart with: (CreditCard withNumber: '5500 1000 0000 1234' withExpiration: (Date tomorrow) withOwner: 'Pepe') into: aSalesBook.! !
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 13:21:08' prior: 50625020!
+test03CanCheckoutMultipleItems
+
+	| bookListing cart cashier salesBook creditCard merchantProcessor |
+	
+	bookListing := BookListing new.
+	bookListing add: 9780262046305 for: 39.99.
+	bookListing add: 1000000000000 for: 20.00.
+	
+	cart := Cart acceptingItemsOf: bookListing.
+	cart add: 9780262046305.
+	cart add: 1000000000000.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	creditCard := self activeCreditCard.
+	merchantProcessor := SuccessfulMerchantProcessor new.
+	
+	cashier checkout: cart with: creditCard using: merchantProcessor into: salesBook.
+	
+	self assert: 1 equals: salesBook size.
+	self assert: 59.99 equals: salesBook first.! !
+
+!testRun: #CashierTest #test03CanCheckoutMultipleItems stamp: 'TM 6/12/2023 13:21:09'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'TM 6/12/2023 13:21:09'!
+PASSED!
+
+!testRun: #CashierTest #test02CanCheckoutSingleItem stamp: 'TM 6/12/2023 13:21:09'!
+PASSED!
+
+!testRun: #CashierTest #test03CanCheckoutMultipleItems stamp: 'TM 6/12/2023 13:21:09'!
+PASSED!
+
+!testRun: #CashierTest #test04CanNotUseExpiredCreditCard stamp: 'TM 6/12/2023 13:21:09'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotUseFundlessCreditCard stamp: 'TM 6/12/2023 13:21:09'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotUseOtherPersonCreditCard stamp: 'TM 6/12/2023 13:21:09'!
+PASSED!
+
+!testRun: #CashierTest #test07CheckoutsIfEverythingOk stamp: 'TM 6/12/2023 13:21:09'!
+PASSED!
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 13:21:31' prior: 50624964!
+test02CanCheckoutSingleItem
+
+	| bookListing cart cashier salesBook creditCard merchantProcessor |
+	
+	bookListing := BookListing new.
+	bookListing add: 9780262046305 for: 39.99.
+	
+	cart := Cart acceptingItemsOf: bookListing.
+	cart add: 9780262046305.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	creditCard := self activeCreditCard.
+	merchantProcessor := SuccessfulMerchantProcessor new.
+	
+	cashier checkout: cart with: creditCard using: merchantProcessor into: salesBook.
+	
+	self assert: 1 equals: salesBook size.
+	self assert: 39.99 equals: salesBook first.! !
+
+!testRun: #CashierTest #test02CanCheckoutSingleItem stamp: 'TM 6/12/2023 13:21:32'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'TM 6/12/2023 13:21:32'!
+PASSED!
+
+!testRun: #CashierTest #test02CanCheckoutSingleItem stamp: 'TM 6/12/2023 13:21:32'!
+PASSED!
+
+!testRun: #CashierTest #test03CanCheckoutMultipleItems stamp: 'TM 6/12/2023 13:21:32'!
+PASSED!
+
+!testRun: #CashierTest #test04CanNotUseExpiredCreditCard stamp: 'TM 6/12/2023 13:21:32'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotUseFundlessCreditCard stamp: 'TM 6/12/2023 13:21:32'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotUseOtherPersonCreditCard stamp: 'TM 6/12/2023 13:21:32'!
+PASSED!
+
+!testRun: #CashierTest #test07CheckoutsIfEverythingOk stamp: 'TM 6/12/2023 13:21:32'!
+PASSED!
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 13:21:57' prior: 50625070!
+test01CanNotCheckoutEmptyCart
+
+	| catalog cart cashier salesBook creditCard merchantProcessor |
+	
+	catalog := Array with: 9780262046305.
+	cart := Cart acceptingItemsOf: catalog.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	creditCard := self activeCreditCard.
+	merchantProcessor := SuccessfulMerchantProcessor new.
+	
+	self
+		should: [ cashier checkout: cart with: creditCard using: merchantProcessor into: salesBook. ]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [ :anError |
+			self assert: Cashier emptyCartErrorMessage equals: anError messageText 
+		]! !
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'TM 6/12/2023 13:21:57'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'TM 6/12/2023 13:21:57'!
+PASSED!
+
+!testRun: #CashierTest #test02CanCheckoutSingleItem stamp: 'TM 6/12/2023 13:21:57'!
+PASSED!
+
+!testRun: #CashierTest #test03CanCheckoutMultipleItems stamp: 'TM 6/12/2023 13:21:57'!
+PASSED!
+
+!testRun: #CashierTest #test04CanNotUseExpiredCreditCard stamp: 'TM 6/12/2023 13:21:57'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotUseFundlessCreditCard stamp: 'TM 6/12/2023 13:21:57'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotUseOtherPersonCreditCard stamp: 'TM 6/12/2023 13:21:57'!
+PASSED!
+
+!testRun: #CashierTest #test07CheckoutsIfEverythingOk stamp: 'TM 6/12/2023 13:21:57'!
+PASSED!
+
+!methodRemoval: Cashier #checkout:into: stamp: 'TM 6/12/2023 13:22:02'!
+checkout: aCart into: aSalesBook	
+	
+	self checkout: aCart with: (CreditCard withNumber: '5500 1000 0000 1234' withExpiration: (Date tomorrow) withOwner: 'Pepe') into: aSalesBook.!
+
+!methodRemoval: Cashier #checkout:with:into: stamp: 'TM 6/12/2023 13:22:04'!
+checkout: aCart with: aCreditCard into: aSalesBook 
+	
+	self checkout: aCart with: aCreditCard using: (SuccessfulMerchantProcessor new) into: aSalesBook.!
+
+----SNAPSHOT----(12 June 2023 13:23:01) CuisUniversity-5832.image priorSource: 9423078!
+
+!classRenamed: #BookListing as: #PriceList stamp: 'TM 6/12/2023 13:23:51'!
+Smalltalk renameClassNamed: #BookListing as: #PriceList!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'TM 6/12/2023 13:23:51' prior: 50626189!
+test04CanNotUseExpiredCreditCard
+
+	| bookListing cart cashier salesBook creditCard merchantProcessor |
+	
+	bookListing := PriceList new.
+	bookListing add: 9780262046305 for: 39.99.
+	
+	cart := Cart acceptingItemsOf: bookListing.
+	cart add: 9780262046305.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	creditCard := self expiredCreditCard.
+	merchantProcessor := SuccessfulMerchantProcessor new.
+	
+	self
+		should: [ cashier checkout: cart with: creditCard using: merchantProcessor into: salesBook. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: Cashier expiredCreditCardErrorMessage equals: anError messageText.
+			self assert: salesBook isEmpty.
+		]! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'TM 6/12/2023 13:23:51' prior: 50626055!
+test07CheckoutsIfEverythingOk
+
+	| bookListing cart cashier salesBook creditCard merchantProcessor |
+	
+	bookListing := PriceList new.
+	bookListing add: 9780262046305 for: 39.99.
+	
+	cart := Cart acceptingItemsOf: bookListing.
+	cart add: 9780262046305.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	creditCard := self activeCreditCard.
+	merchantProcessor := SuccessfulMerchantProcessor new.
+	
+	cashier checkout: cart with: creditCard using: merchantProcessor into: salesBook.
+	
+	self assert: 1 equals: salesBook size.
+	self assert: 39.99 equals: salesBook first.! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'TM 6/12/2023 13:23:51' prior: 50626315!
+test03CanCheckoutMultipleItems
+
+	| bookListing cart cashier salesBook creditCard merchantProcessor |
+	
+	bookListing := PriceList new.
+	bookListing add: 9780262046305 for: 39.99.
+	bookListing add: 1000000000000 for: 20.00.
+	
+	cart := Cart acceptingItemsOf: bookListing.
+	cart add: 9780262046305.
+	cart add: 1000000000000.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	creditCard := self activeCreditCard.
+	merchantProcessor := SuccessfulMerchantProcessor new.
+	
+	cashier checkout: cart with: creditCard using: merchantProcessor into: salesBook.
+	
+	self assert: 1 equals: salesBook size.
+	self assert: 59.99 equals: salesBook first.! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'TM 6/12/2023 13:23:51' prior: 50625876!
+test06CanNotUseOtherPersonCreditCard
+
+	| bookListing cart cashier salesBook creditCard merchantProcessor |
+	
+	bookListing := PriceList new.
+	bookListing add: 9780262046305 for: 39.99.
+	
+	cart := Cart acceptingItemsOf: bookListing.
+	cart add: 9780262046305.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	creditCard := self activeCreditCard.
+	merchantProcessor := OtherPersonMerchantProcessor new.
+	
+	self
+		should: [ cashier checkout: cart with: creditCard using: merchantProcessor into: salesBook. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: MerchantProcessor otherPersonCreditCardErrorMessage equals: anError messageText.
+			self assert: salesBook isEmpty.
+		]! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'TM 6/12/2023 13:23:51' prior: 50625728!
+test05CanNotUseFundlessCreditCard
+
+	| bookListing cart cashier salesBook creditCard merchantProcessor |
+	
+	bookListing := PriceList new.
+	bookListing add: 9780262046305 for: 39.99.
+	
+	cart := Cart acceptingItemsOf: bookListing.
+	cart add: 9780262046305.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	creditCard := self activeCreditCard.
+	merchantProcessor := FundlessMerchantProcessor new.
+	
+	self
+		should: [ cashier checkout: cart with: creditCard using: merchantProcessor into: salesBook. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: MerchantProcessor fundlessCreditCardErrorMessage equals: anError messageText.
+			self assert: salesBook isEmpty.
+		]! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'TM 6/12/2023 13:23:51' prior: 50626363!
+test02CanCheckoutSingleItem
+
+	| bookListing cart cashier salesBook creditCard merchantProcessor |
+	
+	bookListing := PriceList new.
+	bookListing add: 9780262046305 for: 39.99.
+	
+	cart := Cart acceptingItemsOf: bookListing.
+	cart add: 9780262046305.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	creditCard := self activeCreditCard.
+	merchantProcessor := SuccessfulMerchantProcessor new.
+	
+	cashier checkout: cart with: creditCard using: merchantProcessor into: salesBook.
+	
+	self assert: 1 equals: salesBook size.
+	self assert: 39.99 equals: salesBook first.! !
+!PriceList methodsFor: 'adding' stamp: 'TM 6/12/2023 13:24:09' prior: 50624894!
+add: anItem for: aPrice
+	books at: anItem put: aPrice.! !
+!PriceList methodsFor: 'testing' stamp: 'TM 6/12/2023 13:24:17' prior: 50624889!
+includes: anItem
+	^books includesKey: anItem.! !
+!PriceList methodsFor: 'accessing' stamp: 'TM 6/12/2023 13:24:30' prior: 50624904!
+priceOf: anItem
+	^books at: anItem.! !
+
+!classDefinition: #PriceList category: 'TusLibros' stamp: 'TM 6/12/2023 13:24:38'!
+Object subclass: #PriceList
+	instanceVariableNames: 'items'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!PriceList methodsFor: 'as yet unclassified' stamp: 'TM 6/12/2023 13:24:38' prior: 50626621!
+add: anItem for: aPrice
+	items at: anItem put: aPrice.! !
+!PriceList methodsFor: 'as yet unclassified' stamp: 'TM 6/12/2023 13:24:38' prior: 50626626!
+includes: anItem
+	^items includesKey: anItem.! !
+!PriceList methodsFor: 'as yet unclassified' stamp: 'TM 6/12/2023 13:24:38' prior: 50624885 overrides: 16920235!
+initialize
+	items := Dictionary new.! !
+!PriceList methodsFor: 'as yet unclassified' stamp: 'TM 6/12/2023 13:24:38' prior: 50626631!
+priceOf: anItem
+	^items at: anItem.! !
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'TM 6/12/2023 13:24:50'!
+PASSED!
+
+!testRun: #CashierTest #test02CanCheckoutSingleItem stamp: 'TM 6/12/2023 13:24:50'!
+PASSED!
+
+!testRun: #CashierTest #test03CanCheckoutMultipleItems stamp: 'TM 6/12/2023 13:24:50'!
+PASSED!
+
+!testRun: #CashierTest #test04CanNotUseExpiredCreditCard stamp: 'TM 6/12/2023 13:24:50'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotUseFundlessCreditCard stamp: 'TM 6/12/2023 13:24:50'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotUseOtherPersonCreditCard stamp: 'TM 6/12/2023 13:24:50'!
+PASSED!
+
+!testRun: #CashierTest #test07CheckoutsIfEverythingOk stamp: 'TM 6/12/2023 13:24:50'!
+PASSED!
+
+TestCase subclass: #CashierTest
+	instanceVariableNames: 'priceList'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #CashierTest category: 'TusLibros' stamp: 'TM 6/12/2023 13:25:54'!
+TestCase subclass: #CashierTest
+	instanceVariableNames: 'priceList'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CashierTest methodsFor: 'auxiliary' stamp: 'TM 6/12/2023 13:26:25'!
+setup
+
+	priceList := PriceList new.
+	priceList add: 9780262046305 for: 39.99.
+	priceList add: 1000000000000 for: 20.00.! !
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 13:26:44' prior: 50626524!
+test03CanCheckoutMultipleItems
+
+	| cart cashier salesBook creditCard merchantProcessor |
+	
+	self setup.
+	
+	cart := Cart acceptingItemsOf: priceList.
+	cart add: 9780262046305.
+	cart add: 1000000000000.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	creditCard := self activeCreditCard.
+	merchantProcessor := SuccessfulMerchantProcessor new.
+	
+	cashier checkout: cart with: creditCard using: merchantProcessor into: salesBook.
+	
+	self assert: 1 equals: salesBook size.
+	self assert: 59.99 equals: salesBook first.! !
+
+!testRun: #CashierTest #test03CanCheckoutMultipleItems stamp: 'TM 6/12/2023 13:26:45'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'TM 6/12/2023 13:26:45'!
+PASSED!
+
+!testRun: #CashierTest #test02CanCheckoutSingleItem stamp: 'TM 6/12/2023 13:26:45'!
+PASSED!
+
+!testRun: #CashierTest #test03CanCheckoutMultipleItems stamp: 'TM 6/12/2023 13:26:45'!
+PASSED!
+
+!testRun: #CashierTest #test04CanNotUseExpiredCreditCard stamp: 'TM 6/12/2023 13:26:45'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotUseFundlessCreditCard stamp: 'TM 6/12/2023 13:26:45'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotUseOtherPersonCreditCard stamp: 'TM 6/12/2023 13:26:45'!
+PASSED!
+
+!testRun: #CashierTest #test07CheckoutsIfEverythingOk stamp: 'TM 6/12/2023 13:26:45'!
+PASSED!
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 13:27:01' prior: 50626600!
+test02CanCheckoutSingleItem
+
+	| cart cashier salesBook creditCard merchantProcessor |
+	
+	self setup.
+	
+	cart := Cart acceptingItemsOf: priceList.
+	cart add: 9780262046305.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	creditCard := self activeCreditCard.
+	merchantProcessor := SuccessfulMerchantProcessor new.
+	
+	cashier checkout: cart with: creditCard using: merchantProcessor into: salesBook.
+	
+	self assert: 1 equals: salesBook size.
+	self assert: 39.99 equals: salesBook first.! !
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 13:27:28' prior: 50626408!
+test01CanNotCheckoutEmptyCart
+
+	| cart cashier salesBook creditCard merchantProcessor |
+	
+	self setup.
+	
+	cart := Cart acceptingItemsOf: priceList.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	creditCard := self activeCreditCard.
+	merchantProcessor := SuccessfulMerchantProcessor new.
+	
+	self
+		should: [ cashier checkout: cart with: creditCard using: merchantProcessor into: salesBook. ]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [ :anError |
+			self assert: Cashier emptyCartErrorMessage equals: anError messageText 
+		]! !
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'TM 6/12/2023 13:27:34'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'TM 6/12/2023 13:27:34'!
+PASSED!
+
+!testRun: #CashierTest #test02CanCheckoutSingleItem stamp: 'TM 6/12/2023 13:27:34'!
+PASSED!
+
+!testRun: #CashierTest #test03CanCheckoutMultipleItems stamp: 'TM 6/12/2023 13:27:34'!
+PASSED!
+
+!testRun: #CashierTest #test04CanNotUseExpiredCreditCard stamp: 'TM 6/12/2023 13:27:34'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotUseFundlessCreditCard stamp: 'TM 6/12/2023 13:27:34'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotUseOtherPersonCreditCard stamp: 'TM 6/12/2023 13:27:34'!
+PASSED!
+
+!testRun: #CashierTest #test07CheckoutsIfEverythingOk stamp: 'TM 6/12/2023 13:27:34'!
+PASSED!
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 13:27:52' prior: 50626574!
+test05CanNotUseFundlessCreditCard
+
+	| cart cashier salesBook creditCard merchantProcessor |
+	
+	self setup.
+	
+	cart := Cart acceptingItemsOf: priceList.
+	cart add: 9780262046305.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	creditCard := self activeCreditCard.
+	merchantProcessor := FundlessMerchantProcessor new.
+	
+	self
+		should: [ cashier checkout: cart with: creditCard using: merchantProcessor into: salesBook. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: MerchantProcessor fundlessCreditCardErrorMessage equals: anError messageText.
+			self assert: salesBook isEmpty.
+		]! !
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 13:28:04' prior: 50626476!
+test04CanNotUseExpiredCreditCard
+
+	| cart cashier salesBook creditCard merchantProcessor |
+	
+	self setup.
+	
+	cart := Cart acceptingItemsOf: priceList.
+	cart add: 9780262046305.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	creditCard := self expiredCreditCard.
+	merchantProcessor := SuccessfulMerchantProcessor new.
+	
+	self
+		should: [ cashier checkout: cart with: creditCard using: merchantProcessor into: salesBook. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: Cashier expiredCreditCardErrorMessage equals: anError messageText.
+			self assert: salesBook isEmpty.
+		]! !
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 13:28:18' prior: 50626548!
+test06CanNotUseOtherPersonCreditCard
+
+	| bookListing cart cashier salesBook creditCard merchantProcessor |
+	
+	self setup.
+	
+	cart := Cart acceptingItemsOf: bookListing.
+	cart add: 9780262046305.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	creditCard := self activeCreditCard.
+	merchantProcessor := OtherPersonMerchantProcessor new.
+	
+	self
+		should: [ cashier checkout: cart with: creditCard using: merchantProcessor into: salesBook. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: MerchantProcessor otherPersonCreditCardErrorMessage equals: anError messageText.
+			self assert: salesBook isEmpty.
+		]! !
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 13:28:23' prior: 50626855!
+test06CanNotUseOtherPersonCreditCard
+
+	| cart cashier salesBook creditCard merchantProcessor |
+	
+	self setup.
+	
+	cart := Cart acceptingItemsOf: priceList.
+	cart add: 9780262046305.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	creditCard := self activeCreditCard.
+	merchantProcessor := OtherPersonMerchantProcessor new.
+	
+	self
+		should: [ cashier checkout: cart with: creditCard using: merchantProcessor into: salesBook. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: MerchantProcessor otherPersonCreditCardErrorMessage equals: anError messageText.
+			self assert: salesBook isEmpty.
+		]! !
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 13:28:33' prior: 50626502!
+test07CheckoutsIfEverythingOk
+
+	| bookListing cart cashier salesBook creditCard merchantProcessor |
+	
+	self setup.
+	
+	cart := Cart acceptingItemsOf: bookListing.
+	cart add: 9780262046305.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	creditCard := self activeCreditCard.
+	merchantProcessor := SuccessfulMerchantProcessor new.
+	
+	cashier checkout: cart with: creditCard using: merchantProcessor into: salesBook.
+	
+	self assert: 1 equals: salesBook size.
+	self assert: 39.99 equals: salesBook first.! !
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 13:28:39' prior: 50626902!
+test07CheckoutsIfEverythingOk
+
+	| cart cashier salesBook creditCard merchantProcessor |
+	
+	self setup.
+	
+	cart := Cart acceptingItemsOf: priceList.
+	cart add: 9780262046305.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	creditCard := self activeCreditCard.
+	merchantProcessor := SuccessfulMerchantProcessor new.
+	
+	cashier checkout: cart with: creditCard using: merchantProcessor into: salesBook.
+	
+	self assert: 1 equals: salesBook size.
+	self assert: 39.99 equals: salesBook first.! !
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'TM 6/12/2023 13:28:43'!
+PASSED!
+
+!testRun: #CashierTest #test02CanCheckoutSingleItem stamp: 'TM 6/12/2023 13:28:43'!
+PASSED!
+
+!testRun: #CashierTest #test03CanCheckoutMultipleItems stamp: 'TM 6/12/2023 13:28:43'!
+PASSED!
+
+!testRun: #CashierTest #test04CanNotUseExpiredCreditCard stamp: 'TM 6/12/2023 13:28:43'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotUseFundlessCreditCard stamp: 'TM 6/12/2023 13:28:43'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotUseOtherPersonCreditCard stamp: 'TM 6/12/2023 13:28:43'!
+PASSED!
+
+!testRun: #CashierTest #test07CheckoutsIfEverythingOk stamp: 'TM 6/12/2023 13:28:43'!
+PASSED!
+
+!classDefinition: #CashierTest category: 'TusLibros' stamp: 'TM 6/12/2023 13:29:13'!
+TestCase subclass: #CashierTest
+	instanceVariableNames: 'priceList cart2'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CashierTest methodsFor: 'auxiliary' stamp: 'TM 6/12/2023 13:29:12' prior: 50626694!
+setup
+
+	priceList := PriceList new.
+	priceList add: 9780262046305 for: 39.99.
+	priceList add: 1000000000000 for: 20.00.
+	
+	cart2 := Cart acceptingItemsOf: priceList.! !
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 13:29:31' prior: 50626764!
+test01CanNotCheckoutEmptyCart
+
+	| cashier salesBook creditCard merchantProcessor |
+	
+	self setup.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	creditCard := self activeCreditCard.
+	merchantProcessor := SuccessfulMerchantProcessor new.
+	
+	self
+		should: [ cashier checkout: cart2 with: creditCard using: merchantProcessor into: salesBook. ]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [ :anError |
+			self assert: Cashier emptyCartErrorMessage equals: anError messageText 
+		]! !
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 13:29:44' prior: 50626745!
+test02CanCheckoutSingleItem
+
+	| cashier salesBook creditCard merchantProcessor |
+	
+	self setup.
+	
+	cart2 add: 9780262046305.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	creditCard := self activeCreditCard.
+	merchantProcessor := SuccessfulMerchantProcessor new.
+	
+	cashier checkout: cart2 with: creditCard using: merchantProcessor into: salesBook.
+	
+	self assert: 1 equals: salesBook size.
+	self assert: 39.99 equals: salesBook first.! !
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 13:29:55' prior: 50626701!
+test03CanCheckoutMultipleItems
+
+	| cashier salesBook creditCard merchantProcessor |
+	
+	self setup.
+	
+	cart2 add: 9780262046305.
+	cart2 add: 1000000000000.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	creditCard := self activeCreditCard.
+	merchantProcessor := SuccessfulMerchantProcessor new.
+	
+	cashier checkout: cart2 with: creditCard using: merchantProcessor into: salesBook.
+	
+	self assert: 1 equals: salesBook size.
+	self assert: 59.99 equals: salesBook first.! !
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 13:30:04' prior: 50626832!
+test04CanNotUseExpiredCreditCard
+
+	| cashier salesBook creditCard merchantProcessor |
+	
+	self setup.
+	
+	cart2 add: 9780262046305.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	creditCard := self expiredCreditCard.
+	merchantProcessor := SuccessfulMerchantProcessor new.
+	
+	self
+		should: [ cashier checkout: cart2 with: creditCard using: merchantProcessor into: salesBook. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: Cashier expiredCreditCardErrorMessage equals: anError messageText.
+			self assert: salesBook isEmpty.
+		]! !
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 13:30:09' prior: 50626809!
+test05CanNotUseFundlessCreditCard
+
+	| cart cashier salesBook creditCard merchantProcessor |
+	
+	self setup.
+	
+	cart := Cart acceptingItemsOf: priceList.
+	cart2 add: 9780262046305.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	creditCard := self activeCreditCard.
+	merchantProcessor := FundlessMerchantProcessor new.
+	
+	self
+		should: [ cashier checkout: cart with: creditCard using: merchantProcessor into: salesBook. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: MerchantProcessor fundlessCreditCardErrorMessage equals: anError messageText.
+			self assert: salesBook isEmpty.
+		]! !
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 13:30:16' prior: 50627051!
+test05CanNotUseFundlessCreditCard
+
+	| cashier salesBook creditCard merchantProcessor |
+	
+	self setup.
+	
+	cart2 add: 9780262046305.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	creditCard := self activeCreditCard.
+	merchantProcessor := FundlessMerchantProcessor new.
+	
+	self
+		should: [ cashier checkout: cart2 with: creditCard using: merchantProcessor into: salesBook. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: MerchantProcessor fundlessCreditCardErrorMessage equals: anError messageText.
+			self assert: salesBook isEmpty.
+		]! !
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 13:30:29' prior: 50626879!
+test06CanNotUseOtherPersonCreditCard
+
+	| cashier salesBook creditCard merchantProcessor |
+	
+	self setup.
+	
+	cart2 add: 9780262046305.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	creditCard := self activeCreditCard.
+	merchantProcessor := OtherPersonMerchantProcessor new.
+	
+	self
+		should: [ cashier checkout: cart2 with: creditCard using: merchantProcessor into: salesBook. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: MerchantProcessor otherPersonCreditCardErrorMessage equals: anError messageText.
+			self assert: salesBook isEmpty.
+		]! !
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 13:30:37' prior: 50626921!
+test07CheckoutsIfEverythingOk
+
+	| cashier salesBook creditCard merchantProcessor |
+	
+	self setup.
+	
+	cart2 add: 9780262046305.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	creditCard := self activeCreditCard.
+	merchantProcessor := SuccessfulMerchantProcessor new.
+	
+	cashier checkout: cart2 with: creditCard using: merchantProcessor into: salesBook.
+	
+	self assert: 1 equals: salesBook size.
+	self assert: 39.99 equals: salesBook first.! !
+
+!testRun: #CashierTest #test07CheckoutsIfEverythingOk stamp: 'TM 6/12/2023 13:30:39'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'TM 6/12/2023 13:30:39'!
+PASSED!
+
+!testRun: #CashierTest #test02CanCheckoutSingleItem stamp: 'TM 6/12/2023 13:30:39'!
+PASSED!
+
+!testRun: #CashierTest #test03CanCheckoutMultipleItems stamp: 'TM 6/12/2023 13:30:39'!
+PASSED!
+
+!testRun: #CashierTest #test04CanNotUseExpiredCreditCard stamp: 'TM 6/12/2023 13:30:39'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotUseFundlessCreditCard stamp: 'TM 6/12/2023 13:30:39'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotUseOtherPersonCreditCard stamp: 'TM 6/12/2023 13:30:39'!
+PASSED!
+
+!testRun: #CashierTest #test07CheckoutsIfEverythingOk stamp: 'TM 6/12/2023 13:30:39'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'TM 6/12/2023 13:30:42'!
+PASSED!
+
+!testRun: #CashierTest #test02CanCheckoutSingleItem stamp: 'TM 6/12/2023 13:30:42'!
+PASSED!
+
+!testRun: #CashierTest #test03CanCheckoutMultipleItems stamp: 'TM 6/12/2023 13:30:42'!
+PASSED!
+
+!testRun: #CashierTest #test04CanNotUseExpiredCreditCard stamp: 'TM 6/12/2023 13:30:42'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotUseFundlessCreditCard stamp: 'TM 6/12/2023 13:30:42'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotUseOtherPersonCreditCard stamp: 'TM 6/12/2023 13:30:42'!
+PASSED!
+
+!testRun: #CashierTest #test07CheckoutsIfEverythingOk stamp: 'TM 6/12/2023 13:30:42'!
+PASSED!
+
+!classDefinition: #CashierTest category: 'TusLibros' stamp: 'TM 6/12/2023 13:30:51'!
+TestCase subclass: #CashierTest
+	instanceVariableNames: 'priceList cart'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'TM 6/12/2023 13:30:51' prior: 50626968!
+setup
+
+	priceList := PriceList new.
+	priceList add: 9780262046305 for: 39.99.
+	priceList add: 1000000000000 for: 20.00.
+	
+	cart := Cart acceptingItemsOf: priceList.! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'TM 6/12/2023 13:30:51' prior: 50627096!
+test06CanNotUseOtherPersonCreditCard
+
+	| cashier salesBook creditCard merchantProcessor |
+	
+	self setup.
+	
+	cart add: 9780262046305.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	creditCard := self activeCreditCard.
+	merchantProcessor := OtherPersonMerchantProcessor new.
+	
+	self
+		should: [ cashier checkout: cart with: creditCard using: merchantProcessor into: salesBook. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: MerchantProcessor otherPersonCreditCardErrorMessage equals: anError messageText.
+			self assert: salesBook isEmpty.
+		]! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'TM 6/12/2023 13:30:51' prior: 50627118!
+test07CheckoutsIfEverythingOk
+
+	| cashier salesBook creditCard merchantProcessor |
+	
+	self setup.
+	
+	cart add: 9780262046305.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	creditCard := self activeCreditCard.
+	merchantProcessor := SuccessfulMerchantProcessor new.
+	
+	cashier checkout: cart with: creditCard using: merchantProcessor into: salesBook.
+	
+	self assert: 1 equals: salesBook size.
+	self assert: 39.99 equals: salesBook first.! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'TM 6/12/2023 13:30:51' prior: 50627030!
+test04CanNotUseExpiredCreditCard
+
+	| cashier salesBook creditCard merchantProcessor |
+	
+	self setup.
+	
+	cart add: 9780262046305.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	creditCard := self expiredCreditCard.
+	merchantProcessor := SuccessfulMerchantProcessor new.
+	
+	self
+		should: [ cashier checkout: cart with: creditCard using: merchantProcessor into: salesBook. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: Cashier expiredCreditCardErrorMessage equals: anError messageText.
+			self assert: salesBook isEmpty.
+		]! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'TM 6/12/2023 13:30:51' prior: 50626976!
+test01CanNotCheckoutEmptyCart
+
+	| cashier salesBook creditCard merchantProcessor |
+	
+	self setup.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	creditCard := self activeCreditCard.
+	merchantProcessor := SuccessfulMerchantProcessor new.
+	
+	self
+		should: [ cashier checkout: cart with: creditCard using: merchantProcessor into: salesBook. ]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [ :anError |
+			self assert: Cashier emptyCartErrorMessage equals: anError messageText 
+		]! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'TM 6/12/2023 13:30:51' prior: 50627012!
+test03CanCheckoutMultipleItems
+
+	| cashier salesBook creditCard merchantProcessor |
+	
+	self setup.
+	
+	cart add: 9780262046305.
+	cart add: 1000000000000.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	creditCard := self activeCreditCard.
+	merchantProcessor := SuccessfulMerchantProcessor new.
+	
+	cashier checkout: cart with: creditCard using: merchantProcessor into: salesBook.
+	
+	self assert: 1 equals: salesBook size.
+	self assert: 59.99 equals: salesBook first.! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'TM 6/12/2023 13:30:51' prior: 50627074!
+test05CanNotUseFundlessCreditCard
+
+	| cashier salesBook creditCard merchantProcessor |
+	
+	self setup.
+	
+	cart add: 9780262046305.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	creditCard := self activeCreditCard.
+	merchantProcessor := FundlessMerchantProcessor new.
+	
+	self
+		should: [ cashier checkout: cart with: creditCard using: merchantProcessor into: salesBook. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: MerchantProcessor fundlessCreditCardErrorMessage equals: anError messageText.
+			self assert: salesBook isEmpty.
+		]! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'TM 6/12/2023 13:30:51' prior: 50626995!
+test02CanCheckoutSingleItem
+
+	| cashier salesBook creditCard merchantProcessor |
+	
+	self setup.
+	
+	cart add: 9780262046305.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.
+	
+	creditCard := self activeCreditCard.
+	merchantProcessor := SuccessfulMerchantProcessor new.
+	
+	cashier checkout: cart with: creditCard using: merchantProcessor into: salesBook.
+	
+	self assert: 1 equals: salesBook size.
+	self assert: 39.99 equals: salesBook first.! !
+
+!classDefinition: #CashierTest category: 'TusLibros' stamp: 'TM 6/12/2023 13:31:30'!
+TestCase subclass: #CashierTest
+	instanceVariableNames: 'priceList cart cashier2'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #CashierTest category: 'TusLibros' stamp: 'TM 6/12/2023 13:31:32'!
+TestCase subclass: #CashierTest
+	instanceVariableNames: 'priceList cart cashier2 salesBook2'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 13:31:28' prior: 50627259!
+test01CanNotCheckoutEmptyCart
+
+	| creditCard merchantProcessor |
+	
+	self setup.
+		
+	creditCard := self activeCreditCard.
+	merchantProcessor := SuccessfulMerchantProcessor new.
+	
+	self
+		should: [ cashier2 checkout: cart with: creditCard using: merchantProcessor into: salesBook2. ]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [ :anError |
+			self assert: Cashier emptyCartErrorMessage equals: anError messageText 
+		]! !
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 13:32:06' prior: 50627320!
+test02CanCheckoutSingleItem
+
+	| creditCard merchantProcessor |
+	
+	self setup.
+	
+	cart add: 9780262046305.
+		
+	creditCard := self activeCreditCard.
+	merchantProcessor := SuccessfulMerchantProcessor new.
+	
+	cashier2 checkout: cart with: creditCard using: merchantProcessor into: salesBook2.
+	
+	self assert: 1 equals: salesBook2 size.
+	self assert: 39.99 equals: salesBook2 first.! !
+!CashierTest methodsFor: 'auxiliary' stamp: 'TM 6/12/2023 13:32:18' prior: 50627188!
+setup
+
+	priceList := PriceList new.
+	priceList add: 9780262046305 for: 39.99.
+	priceList add: 1000000000000 for: 20.00.
+	
+	cart := Cart acceptingItemsOf: priceList.
+	
+	cashier2 := Cashier new.
+	salesBook2 := OrderedCollection new.! !
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 13:32:41' prior: 50627279!
+test03CanCheckoutMultipleItems
+
+	| creditCard merchantProcessor |
+	
+	self setup.
+	
+	cart add: 9780262046305.
+	cart add: 1000000000000.
+		
+	creditCard := self activeCreditCard.
+	merchantProcessor := SuccessfulMerchantProcessor new.
+	
+	cashier2 checkout: cart with: creditCard using: merchantProcessor into: salesBook2.
+	
+	self assert: 1 equals: salesBook2 size.
+	self assert: 59.99 equals: salesBook2 first.! !
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 13:33:00' prior: 50627237!
+test04CanNotUseExpiredCreditCard
+
+	| creditCard merchantProcessor |
+	
+	self setup.
+	
+	cart add: 9780262046305.
+		
+	creditCard := self expiredCreditCard.
+	merchantProcessor := SuccessfulMerchantProcessor new.
+	
+	self
+		should: [ cashier2 checkout: cart with: creditCard using: merchantProcessor into: salesBook2. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: Cashier expiredCreditCardErrorMessage equals: anError messageText.
+			self assert: salesBook2 isEmpty.
+		]! !
+
+!testRun: #CashierTest #test04CanNotUseExpiredCreditCard stamp: 'TM 6/12/2023 13:33:04'!
+PASSED!
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 13:33:13' prior: 50627353!
+test01CanNotCheckoutEmptyCart
+
+	| creditCard merchantProcessor |
+	
+	self setup.
+		
+	creditCard := self activeCreditCard.
+	merchantProcessor := SuccessfulMerchantProcessor new.
+	
+	self
+		should: [ cashier2 checkout: cart with: creditCard using: merchantProcessor into: salesBook2. ]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [ :anError |
+			self assert: Cashier emptyCartErrorMessage equals: anError messageText.
+			self assert: salesBook2 isEmpty.
+		]! !
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'TM 6/12/2023 13:33:15'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'TM 6/12/2023 13:33:15'!
+PASSED!
+
+!testRun: #CashierTest #test02CanCheckoutSingleItem stamp: 'TM 6/12/2023 13:33:15'!
+PASSED!
+
+!testRun: #CashierTest #test03CanCheckoutMultipleItems stamp: 'TM 6/12/2023 13:33:15'!
+PASSED!
+
+!testRun: #CashierTest #test04CanNotUseExpiredCreditCard stamp: 'TM 6/12/2023 13:33:15'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotUseFundlessCreditCard stamp: 'TM 6/12/2023 13:33:15'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotUseOtherPersonCreditCard stamp: 'TM 6/12/2023 13:33:15'!
+PASSED!
+
+!testRun: #CashierTest #test07CheckoutsIfEverythingOk stamp: 'TM 6/12/2023 13:33:15'!
+PASSED!
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 13:33:31' prior: 50627298!
+test05CanNotUseFundlessCreditCard
+
+	| creditCard merchantProcessor |
+	
+	self setup.
+	
+	cart add: 9780262046305.
+		
+	creditCard := self activeCreditCard.
+	merchantProcessor := FundlessMerchantProcessor new.
+	
+	self
+		should: [ cashier2 checkout: cart with: creditCard using: merchantProcessor into: salesBook2. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: MerchantProcessor fundlessCreditCardErrorMessage equals: anError messageText.
+			self assert: salesBook2 isEmpty.
+		]! !
+
+!testRun: #CashierTest #test05CanNotUseFundlessCreditCard stamp: 'TM 6/12/2023 13:33:33'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'TM 6/12/2023 13:33:33'!
+PASSED!
+
+!testRun: #CashierTest #test02CanCheckoutSingleItem stamp: 'TM 6/12/2023 13:33:33'!
+PASSED!
+
+!testRun: #CashierTest #test03CanCheckoutMultipleItems stamp: 'TM 6/12/2023 13:33:33'!
+PASSED!
+
+!testRun: #CashierTest #test04CanNotUseExpiredCreditCard stamp: 'TM 6/12/2023 13:33:33'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotUseFundlessCreditCard stamp: 'TM 6/12/2023 13:33:33'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotUseOtherPersonCreditCard stamp: 'TM 6/12/2023 13:33:33'!
+PASSED!
+
+!testRun: #CashierTest #test07CheckoutsIfEverythingOk stamp: 'TM 6/12/2023 13:33:33'!
+PASSED!
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 13:33:44' prior: 50627197!
+test06CanNotUseOtherPersonCreditCard
+
+	| creditCard merchantProcessor |
+	
+	self setup.
+	
+	cart add: 9780262046305.
+	
+	creditCard := self activeCreditCard.
+	merchantProcessor := OtherPersonMerchantProcessor new.
+	
+	self
+		should: [ cashier2 checkout: cart with: creditCard using: merchantProcessor into: salesBook2. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: MerchantProcessor otherPersonCreditCardErrorMessage equals: anError messageText.
+			self assert: salesBook2 isEmpty.
+		]! !
+
+!testRun: #CashierTest #test06CanNotUseOtherPersonCreditCard stamp: 'TM 6/12/2023 13:33:46'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'TM 6/12/2023 13:33:46'!
+PASSED!
+
+!testRun: #CashierTest #test02CanCheckoutSingleItem stamp: 'TM 6/12/2023 13:33:46'!
+PASSED!
+
+!testRun: #CashierTest #test03CanCheckoutMultipleItems stamp: 'TM 6/12/2023 13:33:46'!
+PASSED!
+
+!testRun: #CashierTest #test04CanNotUseExpiredCreditCard stamp: 'TM 6/12/2023 13:33:46'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotUseFundlessCreditCard stamp: 'TM 6/12/2023 13:33:46'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotUseOtherPersonCreditCard stamp: 'TM 6/12/2023 13:33:46'!
+PASSED!
+
+!testRun: #CashierTest #test07CheckoutsIfEverythingOk stamp: 'TM 6/12/2023 13:33:46'!
+PASSED!
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 13:33:59' prior: 50627219!
+test07CheckoutsIfEverythingOk
+
+	| creditCard merchantProcessor |
+	
+	self setup.
+	
+	cart add: 9780262046305.
+		
+	creditCard := self activeCreditCard.
+	merchantProcessor := SuccessfulMerchantProcessor new.
+	
+	cashier2 checkout: cart with: creditCard using: merchantProcessor into: salesBook2.
+	
+	self assert: 1 equals: salesBook2 size.
+	self assert: 39.99 equals: salesBook2 first.! !
+
+!testRun: #CashierTest #test07CheckoutsIfEverythingOk stamp: 'TM 6/12/2023 13:34:01'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'TM 6/12/2023 13:34:01'!
+PASSED!
+
+!testRun: #CashierTest #test02CanCheckoutSingleItem stamp: 'TM 6/12/2023 13:34:01'!
+PASSED!
+
+!testRun: #CashierTest #test03CanCheckoutMultipleItems stamp: 'TM 6/12/2023 13:34:01'!
+PASSED!
+
+!testRun: #CashierTest #test04CanNotUseExpiredCreditCard stamp: 'TM 6/12/2023 13:34:01'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotUseFundlessCreditCard stamp: 'TM 6/12/2023 13:34:01'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotUseOtherPersonCreditCard stamp: 'TM 6/12/2023 13:34:01'!
+PASSED!
+
+!testRun: #CashierTest #test07CheckoutsIfEverythingOk stamp: 'TM 6/12/2023 13:34:01'!
+PASSED!
+
+!classDefinition: #CashierTest category: 'TusLibros' stamp: 'TM 6/12/2023 13:34:11'!
+TestCase subclass: #CashierTest
+	instanceVariableNames: 'priceList cart cashier salesBook2'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'TM 6/12/2023 13:34:11' prior: 50627385!
+setup
+
+	priceList := PriceList new.
+	priceList add: 9780262046305 for: 39.99.
+	priceList add: 1000000000000 for: 20.00.
+	
+	cart := Cart acceptingItemsOf: priceList.
+	
+	cashier := Cashier new.
+	salesBook2 := OrderedCollection new.! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'TM 6/12/2023 13:34:11' prior: 50627519!
+test06CanNotUseOtherPersonCreditCard
+
+	| creditCard merchantProcessor |
+	
+	self setup.
+	
+	cart add: 9780262046305.
+	
+	creditCard := self activeCreditCard.
+	merchantProcessor := OtherPersonMerchantProcessor new.
+	
+	self
+		should: [ cashier checkout: cart with: creditCard using: merchantProcessor into: salesBook2. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: MerchantProcessor otherPersonCreditCardErrorMessage equals: anError messageText.
+			self assert: salesBook2 isEmpty.
+		]! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'TM 6/12/2023 13:34:11' prior: 50627563!
+test07CheckoutsIfEverythingOk
+
+	| creditCard merchantProcessor |
+	
+	self setup.
+	
+	cart add: 9780262046305.
+		
+	creditCard := self activeCreditCard.
+	merchantProcessor := SuccessfulMerchantProcessor new.
+	
+	cashier checkout: cart with: creditCard using: merchantProcessor into: salesBook2.
+	
+	self assert: 1 equals: salesBook2 size.
+	self assert: 39.99 equals: salesBook2 first.! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'TM 6/12/2023 13:34:11' prior: 50627411!
+test04CanNotUseExpiredCreditCard
+
+	| creditCard merchantProcessor |
+	
+	self setup.
+	
+	cart add: 9780262046305.
+		
+	creditCard := self expiredCreditCard.
+	merchantProcessor := SuccessfulMerchantProcessor new.
+	
+	self
+		should: [ cashier checkout: cart with: creditCard using: merchantProcessor into: salesBook2. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: Cashier expiredCreditCardErrorMessage equals: anError messageText.
+			self assert: salesBook2 isEmpty.
+		]! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'TM 6/12/2023 13:34:11' prior: 50627433!
+test01CanNotCheckoutEmptyCart
+
+	| creditCard merchantProcessor |
+	
+	self setup.
+		
+	creditCard := self activeCreditCard.
+	merchantProcessor := SuccessfulMerchantProcessor new.
+	
+	self
+		should: [ cashier checkout: cart with: creditCard using: merchantProcessor into: salesBook2. ]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [ :anError |
+			self assert: Cashier emptyCartErrorMessage equals: anError messageText.
+			self assert: salesBook2 isEmpty.
+		]! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'TM 6/12/2023 13:34:11' prior: 50627395!
+test03CanCheckoutMultipleItems
+
+	| creditCard merchantProcessor |
+	
+	self setup.
+	
+	cart add: 9780262046305.
+	cart add: 1000000000000.
+		
+	creditCard := self activeCreditCard.
+	merchantProcessor := SuccessfulMerchantProcessor new.
+	
+	cashier checkout: cart with: creditCard using: merchantProcessor into: salesBook2.
+	
+	self assert: 1 equals: salesBook2 size.
+	self assert: 59.99 equals: salesBook2 first.! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'TM 6/12/2023 13:34:11' prior: 50627475!
+test05CanNotUseFundlessCreditCard
+
+	| creditCard merchantProcessor |
+	
+	self setup.
+	
+	cart add: 9780262046305.
+		
+	creditCard := self activeCreditCard.
+	merchantProcessor := FundlessMerchantProcessor new.
+	
+	self
+		should: [ cashier checkout: cart with: creditCard using: merchantProcessor into: salesBook2. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: MerchantProcessor fundlessCreditCardErrorMessage equals: anError messageText.
+			self assert: salesBook2 isEmpty.
+		]! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'TM 6/12/2023 13:34:11' prior: 50627370!
+test02CanCheckoutSingleItem
+
+	| creditCard merchantProcessor |
+	
+	self setup.
+	
+	cart add: 9780262046305.
+		
+	creditCard := self activeCreditCard.
+	merchantProcessor := SuccessfulMerchantProcessor new.
+	
+	cashier checkout: cart with: creditCard using: merchantProcessor into: salesBook2.
+	
+	self assert: 1 equals: salesBook2 size.
+	self assert: 39.99 equals: salesBook2 first.! !
+
+!classDefinition: #CashierTest category: 'TusLibros' stamp: 'TM 6/12/2023 13:34:14'!
+TestCase subclass: #CashierTest
+	instanceVariableNames: 'priceList cart cashier salesBook'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'TM 6/12/2023 13:34:14' prior: 50627610!
+setup
+
+	priceList := PriceList new.
+	priceList add: 9780262046305 for: 39.99.
+	priceList add: 1000000000000 for: 20.00.
+	
+	cart := Cart acceptingItemsOf: priceList.
+	
+	cashier := Cashier new.
+	salesBook := OrderedCollection new.! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'TM 6/12/2023 13:34:14' prior: 50627621!
+test06CanNotUseOtherPersonCreditCard
+
+	| creditCard merchantProcessor |
+	
+	self setup.
+	
+	cart add: 9780262046305.
+	
+	creditCard := self activeCreditCard.
+	merchantProcessor := OtherPersonMerchantProcessor new.
+	
+	self
+		should: [ cashier checkout: cart with: creditCard using: merchantProcessor into: salesBook. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: MerchantProcessor otherPersonCreditCardErrorMessage equals: anError messageText.
+			self assert: salesBook isEmpty.
+		]! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'TM 6/12/2023 13:34:14' prior: 50627641!
+test07CheckoutsIfEverythingOk
+
+	| creditCard merchantProcessor |
+	
+	self setup.
+	
+	cart add: 9780262046305.
+		
+	creditCard := self activeCreditCard.
+	merchantProcessor := SuccessfulMerchantProcessor new.
+	
+	cashier checkout: cart with: creditCard using: merchantProcessor into: salesBook.
+	
+	self assert: 1 equals: salesBook size.
+	self assert: 39.99 equals: salesBook first.! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'TM 6/12/2023 13:34:14' prior: 50627656!
+test04CanNotUseExpiredCreditCard
+
+	| creditCard merchantProcessor |
+	
+	self setup.
+	
+	cart add: 9780262046305.
+		
+	creditCard := self expiredCreditCard.
+	merchantProcessor := SuccessfulMerchantProcessor new.
+	
+	self
+		should: [ cashier checkout: cart with: creditCard using: merchantProcessor into: salesBook. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: Cashier expiredCreditCardErrorMessage equals: anError messageText.
+			self assert: salesBook isEmpty.
+		]! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'TM 6/12/2023 13:34:14' prior: 50627675!
+test01CanNotCheckoutEmptyCart
+
+	| creditCard merchantProcessor |
+	
+	self setup.
+		
+	creditCard := self activeCreditCard.
+	merchantProcessor := SuccessfulMerchantProcessor new.
+	
+	self
+		should: [ cashier checkout: cart with: creditCard using: merchantProcessor into: salesBook. ]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [ :anError |
+			self assert: Cashier emptyCartErrorMessage equals: anError messageText.
+			self assert: salesBook isEmpty.
+		]! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'TM 6/12/2023 13:34:14' prior: 50627693!
+test03CanCheckoutMultipleItems
+
+	| creditCard merchantProcessor |
+	
+	self setup.
+	
+	cart add: 9780262046305.
+	cart add: 1000000000000.
+		
+	creditCard := self activeCreditCard.
+	merchantProcessor := SuccessfulMerchantProcessor new.
+	
+	cashier checkout: cart with: creditCard using: merchantProcessor into: salesBook.
+	
+	self assert: 1 equals: salesBook size.
+	self assert: 59.99 equals: salesBook first.! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'TM 6/12/2023 13:34:14' prior: 50627709!
+test05CanNotUseFundlessCreditCard
+
+	| creditCard merchantProcessor |
+	
+	self setup.
+	
+	cart add: 9780262046305.
+		
+	creditCard := self activeCreditCard.
+	merchantProcessor := FundlessMerchantProcessor new.
+	
+	self
+		should: [ cashier checkout: cart with: creditCard using: merchantProcessor into: salesBook. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: MerchantProcessor fundlessCreditCardErrorMessage equals: anError messageText.
+			self assert: salesBook isEmpty.
+		]! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'TM 6/12/2023 13:34:14' prior: 50627729!
+test02CanCheckoutSingleItem
+
+	| creditCard merchantProcessor |
+	
+	self setup.
+	
+	cart add: 9780262046305.
+		
+	creditCard := self activeCreditCard.
+	merchantProcessor := SuccessfulMerchantProcessor new.
+	
+	cashier checkout: cart with: creditCard using: merchantProcessor into: salesBook.
+	
+	self assert: 1 equals: salesBook size.
+	self assert: 39.99 equals: salesBook first.! !
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'TM 6/12/2023 13:34:52'!
+PASSED!
+
+!testRun: #CashierTest #test02CanCheckoutSingleItem stamp: 'TM 6/12/2023 13:34:52'!
+PASSED!
+
+!testRun: #CashierTest #test03CanCheckoutMultipleItems stamp: 'TM 6/12/2023 13:34:52'!
+PASSED!
+
+!testRun: #CashierTest #test04CanNotUseExpiredCreditCard stamp: 'TM 6/12/2023 13:34:52'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotUseFundlessCreditCard stamp: 'TM 6/12/2023 13:34:52'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotUseOtherPersonCreditCard stamp: 'TM 6/12/2023 13:34:52'!
+PASSED!
+
+!testRun: #CashierTest #test07CheckoutsIfEverythingOk stamp: 'TM 6/12/2023 13:34:52'!
+PASSED!
+
+----SNAPSHOT----(12 June 2023 13:34:58) CuisUniversity-5832.image priorSource: 9434171!
+
+----QUIT----(12 June 2023 13:35:02) CuisUniversity-5832.image priorSource: 9480190!
