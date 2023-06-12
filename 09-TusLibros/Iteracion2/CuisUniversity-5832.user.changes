@@ -65,3 +65,104 @@ test06CanNotUseOtherPersonCreditCard! !
 test05CanNotUseOtherPersonCreditCard!
 
 ----SNAPSHOT----(12 June 2023 09:52:48) CuisUniversity-5832.image priorSource: 9366758!
+
+!classDefinition: #Cashier category: 'TusLibros' stamp: 'TM 6/12/2023 10:01:47'!
+Object subclass: #Cashier
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 10:01:44' prior: 50624579!
+test01CanNotCheckoutEmptyCart
+
+	| catalog cart cashier |
+	
+	catalog := Array with: 9780262046305.
+	cart := Cart acceptingItemsOf: catalog.
+	
+	cashier := Cashier new.
+	
+	self
+		should: [ cashier checkout: cart. ]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [ :anError |
+			self assert: Cashier emptyCartErrorMessage equals: anError messageText 
+		]! !
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'TM 6/12/2023 10:01:53'!
+ERROR!
+!Cashier methodsFor: 'checkout' stamp: 'TM 6/12/2023 10:02:00'!
+checkout: cart 
+	self shouldBeImplemented.! !
+!Cashier methodsFor: 'checkout' stamp: 'TM 6/12/2023 10:06:54' prior: 50624641!
+checkout: aCart 
+	^self error: Cart emptyCartErrorMessage.! !
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'TM 6/12/2023 10:06:57'!
+ERROR!
+!Cart class methodsFor: 'error messages' stamp: 'TM 6/12/2023 10:07:05'!
+emptyCartErrorMessage
+	self shouldBeImplemented.! !
+!Cart class methodsFor: 'error messages' stamp: 'TM 6/12/2023 10:07:23' prior: 50624653!
+emptyCartErrorMessage
+	^'Cannot checkout empty cart'.! !
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'TM 6/12/2023 10:07:25'!
+ERROR!
+!Cashier class methodsFor: 'as yet unclassified' stamp: 'TM 6/12/2023 10:08:07'!
+emptyCartErrorMessage
+	self shouldBeImplemented.! !
+
+!methodRemoval: Cart class #emptyCartErrorMessage stamp: 'TM 6/12/2023 10:08:16'!
+emptyCartErrorMessage
+	^'Cannot checkout empty cart'.!
+!Cashier class methodsFor: 'error messages' stamp: 'TM 6/12/2023 10:08:47' prior: 50624666!
+emptyCartErrorMessage
+	^'Cannot checkout empty cart'.! !
+!Cashier methodsFor: 'checkout' stamp: 'TM 6/12/2023 10:08:59' prior: 50624645!
+checkout: aCart 
+	^self error: Cashier emptyCartErrorMessage.! !
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'TM 6/12/2023 10:09:01'!
+PASSED!
+
+!testRun: #CashierTest #test02CanCheckoutSingleItem stamp: 'TM 6/12/2023 10:09:01'!
+PASSED!
+
+!testRun: #CashierTest #test03CanCheckoutMultipleItems stamp: 'TM 6/12/2023 10:09:01'!
+PASSED!
+
+!testRun: #CashierTest #test04CanNotUseExpiredCreditCard stamp: 'TM 6/12/2023 10:09:01'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotUseFundlessCreditCard stamp: 'TM 6/12/2023 10:09:01'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotUseOtherPersonCreditCard stamp: 'TM 6/12/2023 10:09:01'!
+PASSED!
+
+!testRun: #CashierTest #test07CheckoutsIfEverythingOk stamp: 'TM 6/12/2023 10:09:01'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'TM 6/12/2023 10:09:05'!
+PASSED!
+
+!testRun: #CashierTest #test02CanCheckoutSingleItem stamp: 'TM 6/12/2023 10:09:05'!
+PASSED!
+
+!testRun: #CashierTest #test03CanCheckoutMultipleItems stamp: 'TM 6/12/2023 10:09:05'!
+PASSED!
+
+!testRun: #CashierTest #test04CanNotUseExpiredCreditCard stamp: 'TM 6/12/2023 10:09:05'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotUseFundlessCreditCard stamp: 'TM 6/12/2023 10:09:05'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotUseOtherPersonCreditCard stamp: 'TM 6/12/2023 10:09:05'!
+PASSED!
+
+!testRun: #CashierTest #test07CheckoutsIfEverythingOk stamp: 'TM 6/12/2023 10:09:05'!
+PASSED!
+
+----SNAPSHOT----(12 June 2023 10:09:19) CuisUniversity-5832.image priorSource: 9374832!

@@ -120,8 +120,22 @@ TestCase subclass: #CashierTest
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 09:51:13'!
-test01CanNotCheckoutEmptyCart! !
+!CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 10:01:44'!
+test01CanNotCheckoutEmptyCart
+
+	| catalog cart cashier |
+	
+	catalog := Array with: 9780262046305.
+	cart := Cart acceptingItemsOf: catalog.
+	
+	cashier := Cashier new.
+	
+	self
+		should: [ cashier checkout: cart. ]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [ :anError |
+			self assert: Cashier emptyCartErrorMessage equals: anError messageText 
+		]! !
 
 !CashierTest methodsFor: 'tests' stamp: 'TM 6/12/2023 09:51:23'!
 test02CanCheckoutSingleItem! !
@@ -218,3 +232,25 @@ Cart class
 acceptingItemsOf: aCatalog
 
 	^self new initializeAcceptingItemsOf: aCatalog ! !
+
+
+!classDefinition: #Cashier category: 'TusLibros'!
+Object subclass: #Cashier
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!Cashier methodsFor: 'checkout' stamp: 'TM 6/12/2023 10:08:59'!
+checkout: aCart 
+	^self error: Cashier emptyCartErrorMessage.! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'Cashier class' category: 'TusLibros'!
+Cashier class
+	instanceVariableNames: ''!
+
+!Cashier class methodsFor: 'error messages' stamp: 'TM 6/12/2023 10:08:47'!
+emptyCartErrorMessage
+	^'Cannot checkout empty cart'.! !
