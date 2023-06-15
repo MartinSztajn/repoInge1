@@ -25510,3 +25510,1549 @@ FAILURE!
 FAILURE!
 
 ----SNAPSHOT----(12 June 2023 22:00:49) CuisUniversity-5706.image priorSource: 18007133!
+
+----STARTUP---- (14 June 2023 20:25:14) as C:\windows64\CuisUniversity-5706.image!
+
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 20:26:01'!
+FAILURE!
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 20:26:03'!
+FAILURE!
+!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/12/2023 21:57:08' prior: 50897437!
+test16CartRefreshesExpirationTime
+
+	
+	| interface cartId  |
+
+	interface := self createDefaultInterface.
+
+	cartId := interface createCartFor: self validUser authenticatedWith: self validUserPassword.
+	(Delay forSeconds: 1) wait.	
+	
+	self
+		shouldnt: [interface add: self validBook quantity: 1 toCartIdentifiedAs: cartId]
+		raise: Error - MessageNotUnderstood.
+		
+	(Delay forSeconds: 1) wait.	
+	
+	self
+		shouldnt: [interface add: self validBook quantity: 1 toCartIdentifiedAs: cartId]
+		raise: Error - MessageNotUnderstood.
+! !
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 20:26:58'!
+PASSED!
+!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 20:27:46' prior: 50897488!
+test16CartRefreshesExpirationTime
+
+	
+	| interface cartId  |
+
+	interface := self createDefaultInterface.
+
+	cartId := interface createCartFor: self validUser authenticatedWith: self validUserPassword.
+	(Delay forSeconds: 1) wait.	
+	
+	self
+		shouldnt: [interface listCartIdentifiedAs: cartId ]
+		raise: Error - MessageNotUnderstood.
+		
+	(Delay forSeconds: 1) wait.	
+	
+	self
+		shouldnt: [interface add: self validBook quantity: 1 toCartIdentifiedAs: cartId]
+		raise: Error - MessageNotUnderstood.
+! !
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 20:27:49'!
+PASSED!
+!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 20:27:55' prior: 50897511!
+test16CartRefreshesExpirationTime
+
+	
+	| interface cartId  |
+
+	interface := self createDefaultInterface.
+
+	cartId := interface createCartFor: self validUser authenticatedWith: self validUserPassword.
+	(Delay forSeconds: 1) wait.	
+	
+	self
+		shouldnt: [interface listCartIdentifiedAs: cartId ]
+		raise: Error - MessageNotUnderstood.
+		
+	(Delay forSeconds: 1) wait.	
+	
+	self
+		shouldnt: [interface listCartIdentifiedAs: cartId ]
+		raise: Error - MessageNotUnderstood.
+! !
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 20:27:57'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test01CanCreateCartWithValidUserAndPassword stamp: 'Ms 6/14/2023 20:27:57'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test02CanNotCreateCartWithInvalidUser stamp: 'Ms 6/14/2023 20:27:57'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test03CanNotCreateCartWithInvalidPassword stamp: 'Ms 6/14/2023 20:27:57'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test04CanAddItemsToACreatedCart stamp: 'Ms 6/14/2023 20:27:57'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test05CanNotAddItemToNotCreatedCart stamp: 'Ms 6/14/2023 20:27:57'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test06CanNotAddItemNotSellByTheStore stamp: 'Ms 6/14/2023 20:27:57'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test07ListCartOfAnEmptyCartReturnsAnEmptyBag stamp: 'Ms 6/14/2023 20:27:57'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test08CanNotListCartOfInvalidCartId stamp: 'Ms 6/14/2023 20:27:57'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test09ListCartReturnsTheRightNumberOfItems stamp: 'Ms 6/14/2023 20:27:57'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test10CanCheckoutACart stamp: 'Ms 6/14/2023 20:27:57'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test11CanNotCheckoutANotCreatedCart stamp: 'Ms 6/14/2023 20:27:57'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test12CanNotCheckoutAnEmptyCart stamp: 'Ms 6/14/2023 20:27:57'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test13CartExpiredAfter30minutes stamp: 'Ms 6/14/2023 20:28:01'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test14CanNotCheckoutCartExpiredAfter30minutes stamp: 'Ms 6/14/2023 20:28:05'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test15CanNotListCartExpiredAfter30minutes stamp: 'Ms 6/14/2023 20:28:09'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 20:28:11'!
+PASSED!
+!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 20:28:31' prior: 50897533!
+test16CartRefreshesExpirationTime
+
+	
+	| interface cartId  |
+
+	interface := self createDefaultInterface.
+
+	cartId := interface createCartFor: self validUser authenticatedWith: self validUserPassword.
+	(Delay forSeconds: 1) wait.	
+	
+	self
+		shouldnt: [interface listCartIdentifiedAs: cartId ]
+		raise: Error - MessageNotUnderstood.
+		
+	(Delay forSeconds: 1) wait.	
+	
+	self
+		shouldnt: [interface 
+			checkOutCartIdentifiedAs: cartId 
+			withCreditCardNumbered: '1111222233334444' 
+			ownedBy: 'Juan Perez' 
+			expiringOn: testObjectsFactory notExpiredMonthOfYear ]
+		raise: Error - MessageNotUnderstood.
+! !
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 20:28:35'!
+FAILURE!
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 20:28:37'!
+FAILURE!
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 20:28:47'!
+FAILURE!
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 20:28:49'!
+FAILURE!
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 20:29:13'!
+FAILURE!
+!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 20:29:32' prior: 50897608!
+test16CartRefreshesExpirationTime
+
+	
+	| interface cartId  |
+
+	interface := self createDefaultInterface.
+
+	cartId := interface createCartFor: self validUser authenticatedWith: self validUserPassword.
+	(Delay forSeconds: 1) wait.	
+	
+	self
+		shouldnt: [interface 
+			checkOutCartIdentifiedAs: cartId 
+			withCreditCardNumbered: '1111222233334444' 
+			ownedBy: 'Juan Perez' 
+			expiringOn: testObjectsFactory notExpiredMonthOfYear  ]
+		raise: Error - MessageNotUnderstood.
+		
+	(Delay forSeconds: 1) wait.	
+	
+	self
+		shouldnt: [interface listCartIdentifiedAs: cartId]
+		raise: Error - MessageNotUnderstood.
+! !
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 20:29:36'!
+FAILURE!
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 20:29:37'!
+FAILURE!
+!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 20:29:50' prior: 50896908!
+test14CanNotCheckoutCartExpiredAfter30minutes
+
+	
+	| interface cartId  |
+
+	interface := self createDefaultInterface.
+
+	cartId := interface createCartFor: self validUser authenticatedWith: self validUserPassword.
+	(Delay forSeconds: 2) wait.	
+	
+	self
+		should: [interface 
+			checkOutCartIdentifiedAs: cartId 
+			withCreditCardNumbered: '1111222233334444' 
+			ownedBy: 'Juan Perez' 
+			expiringOn: testObjectsFactory notExpiredMonthOfYear ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText = RestInterface cartHasExpiredAfter30minutes ]
+		
+		
+		! !
+
+!testRun: #RestInterfaceTest #test14CanNotCheckoutCartExpiredAfter30minutes stamp: 'Ms 6/14/2023 20:29:55'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test14CanNotCheckoutCartExpiredAfter30minutes stamp: 'Ms 6/14/2023 20:33:11'!
+FAILURE!
+
+!testRun: #RestInterfaceTest #test14CanNotCheckoutCartExpiredAfter30minutes stamp: 'Ms 6/14/2023 20:33:14'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test14CanNotCheckoutCartExpiredAfter30minutes stamp: 'Ms 6/14/2023 20:33:24'!
+FAILURE!
+
+!testRun: #RestInterfaceTest #test14CanNotCheckoutCartExpiredAfter30minutes stamp: 'Ms 6/14/2023 20:33:26'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test15CanNotListCartExpiredAfter30minutes stamp: 'Ms 6/14/2023 20:33:33'!
+PASSED!
+!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 20:33:40' prior: 50897676!
+test14CanNotCheckoutCartExpiredAfter30minutes
+
+	
+	| interface cartId  |
+
+	interface := self createDefaultInterface.
+
+	cartId := interface createCartFor: self validUser authenticatedWith: self validUserPassword.
+	(Delay forSeconds: 4) wait.	
+	
+	self
+		should: [interface 
+			checkOutCartIdentifiedAs: cartId 
+			withCreditCardNumbered: '1111222233334444' 
+			ownedBy: 'Juan Perez' 
+			expiringOn: testObjectsFactory notExpiredMonthOfYear ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText = RestInterface cartHasExpiredAfter30minutes ]
+		
+		
+		! !
+
+!testRun: #RestInterfaceTest #test14CanNotCheckoutCartExpiredAfter30minutes stamp: 'Ms 6/14/2023 20:33:47'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test14CanNotCheckoutCartExpiredAfter30minutes stamp: 'Ms 6/14/2023 20:34:50'!
+PASSED!
+!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 20:35:12' prior: 50897647!
+test16CartRefreshesExpirationTime
+
+	
+	| interface cartId  |
+
+	interface := self createDefaultInterface.
+
+	cartId := interface createCartFor: self validUser authenticatedWith: self validUserPassword.
+	(Delay forSeconds: 2) wait.	
+	
+	self
+		shouldnt: [interface 
+			checkOutCartIdentifiedAs: cartId 
+			withCreditCardNumbered: '1111222233334444' 
+			ownedBy: 'Juan Perez' 
+			expiringOn: testObjectsFactory notExpiredMonthOfYear  ]
+		raise: Error - MessageNotUnderstood.
+		
+	(Delay forSeconds: 2) wait.	
+	
+	self
+		shouldnt: [interface listCartIdentifiedAs: cartId]
+		raise: Error - MessageNotUnderstood.
+! !
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 20:35:19'!
+FAILURE!
+!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 20:38:18' prior: 50897749!
+test16CartRefreshesExpirationTime
+
+	
+	| interface cartId  |
+
+	interface := self createDefaultInterface.
+
+	cartId := interface createCartFor: self validUser authenticatedWith: self validUserPassword.
+	(Delay forSeconds: 1) wait.	
+	
+	self
+		shouldnt: [interface 
+			checkOutCartIdentifiedAs: cartId 
+			withCreditCardNumbered: '1111222233334444' 
+			ownedBy: 'Juan Perez' 
+			expiringOn: testObjectsFactory notExpiredMonthOfYear  ]
+		raise: Error - MessageNotUnderstood.
+		
+	(Delay forSeconds: 1) wait.	
+	
+	self
+		shouldnt: [interface listCartIdentifiedAs: cartId]
+		raise: Error - MessageNotUnderstood.
+! !
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 20:38:21'!
+FAILURE!
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 20:38:22'!
+FAILURE!
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 20:40:22'!
+FAILURE!
+
+!testRun: #RestInterfaceTest #test14CanNotCheckoutCartExpiredAfter30minutes stamp: 'Ms 6/14/2023 20:42:40'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test14CanNotCheckoutCartExpiredAfter30minutes stamp: 'Ms 6/14/2023 20:44:08'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 20:48:39'!
+FAILURE!
+!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 20:50:15' prior: 50897774!
+test16CartRefreshesExpirationTime
+
+	
+	| interface cartId  |
+
+	interface := self createDefaultInterface.
+
+	cartId := interface createCartFor: self validUser authenticatedWith: self validUserPassword.
+	(Delay forSeconds: 3) wait.	
+	
+	self
+		shouldnt: [interface 
+			checkOutCartIdentifiedAs: cartId 
+			withCreditCardNumbered: '1111222233334444' 
+			ownedBy: 'Juan Perez' 
+			expiringOn: testObjectsFactory notExpiredMonthOfYear  ]
+		raise: Error - MessageNotUnderstood.
+		
+	(Delay forSeconds: 3) wait.	
+	
+	self
+		shouldnt: [interface listCartIdentifiedAs: cartId]
+		raise: Error - MessageNotUnderstood.
+! !
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 20:50:20'!
+FAILURE!
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 20:50:23'!
+FAILURE!
+!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 20:53:01' prior: 50897817!
+test16CartRefreshesExpirationTime
+
+	
+	| interface cartId  |
+
+	interface := self createDefaultInterface.
+
+	cartId := interface createCartFor: self validUser authenticatedWith: self validUserPassword.
+	(Delay forSeconds: 2) wait.	
+	
+	self
+		shouldnt: [interface 
+			checkOutCartIdentifiedAs: cartId 
+			withCreditCardNumbered: '1111222233334444' 
+			ownedBy: 'Juan Perez' 
+			expiringOn: testObjectsFactory notExpiredMonthOfYear  ]
+		raise: Error - MessageNotUnderstood.
+		
+	(Delay forSeconds: 2) wait.	
+	
+	self
+		shouldnt: [interface listCartIdentifiedAs: cartId]
+		raise: Error - MessageNotUnderstood.
+! !
+!RestInterface methodsFor: 'interface' stamp: 'Ms 6/14/2023 20:53:13' prior: 50897403!
+assertCartIsActive: aCartId
+
+	^ cartsLastAccess at: aCartId ifPresent: [ :lastAccess |
+		(lastAccess + 10 seconds  < DateAndTime now) ifTrue: [
+			self error: RestInterface cartHasExpiredAfter30minutes.	
+		]
+		ifFalse: [
+			cartsLastAccess at: aCartId  put:  DateAndTime now.
+		]
+	]! !
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 20:53:23'!
+FAILURE!
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 20:53:25'!
+FAILURE!
+!RestInterface methodsFor: 'interface' stamp: 'Ms 6/14/2023 20:54:50' prior: 50897868!
+assertCartIsActive: aCartId
+
+	^ cartsLastAccess at: aCartId ifPresent: [ :lastAccess |
+		((lastAccess + 10 seconds)  < DateAndTime now) ifTrue: [
+			self error: RestInterface cartHasExpiredAfter30minutes.	
+		]
+		ifFalse: [
+			cartsLastAccess at: aCartId  put:  DateAndTime now.
+		]
+	]! !
+
+!testRun: #RestInterfaceTest #test01CanCreateCartWithValidUserAndPassword stamp: 'Ms 6/14/2023 20:54:56'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test02CanNotCreateCartWithInvalidUser stamp: 'Ms 6/14/2023 20:54:56'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test03CanNotCreateCartWithInvalidPassword stamp: 'Ms 6/14/2023 20:54:56'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test04CanAddItemsToACreatedCart stamp: 'Ms 6/14/2023 20:54:56'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test05CanNotAddItemToNotCreatedCart stamp: 'Ms 6/14/2023 20:54:56'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test06CanNotAddItemNotSellByTheStore stamp: 'Ms 6/14/2023 20:54:56'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test07ListCartOfAnEmptyCartReturnsAnEmptyBag stamp: 'Ms 6/14/2023 20:54:56'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test08CanNotListCartOfInvalidCartId stamp: 'Ms 6/14/2023 20:54:56'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test09ListCartReturnsTheRightNumberOfItems stamp: 'Ms 6/14/2023 20:54:56'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test10CanCheckoutACart stamp: 'Ms 6/14/2023 20:54:56'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test11CanNotCheckoutANotCreatedCart stamp: 'Ms 6/14/2023 20:54:56'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test12CanNotCheckoutAnEmptyCart stamp: 'Ms 6/14/2023 20:54:56'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test13CartExpiredAfter30minutes stamp: 'Ms 6/14/2023 20:55:00'!
+FAILURE!
+
+!testRun: #RestInterfaceTest #test14CanNotCheckoutCartExpiredAfter30minutes stamp: 'Ms 6/14/2023 20:55:04'!
+FAILURE!
+
+!testRun: #RestInterfaceTest #test15CanNotListCartExpiredAfter30minutes stamp: 'Ms 6/14/2023 20:55:08'!
+FAILURE!
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 20:55:10'!
+FAILURE!
+!RestInterface methodsFor: 'interface' stamp: 'Ms 6/14/2023 20:55:36' prior: 50897887!
+assertCartIsActive: aCartId
+
+	^ cartsLastAccess at: aCartId ifPresent: [ :lastAccess |
+		((lastAccess + 2 seconds)  < (DateAndTime now)) ifTrue: [
+			self error: RestInterface cartHasExpiredAfter30minutes.	
+		]
+		ifFalse: [
+			cartsLastAccess at: aCartId  put:  DateAndTime now.
+		]
+	]! !
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 20:55:50'!
+FAILURE!
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 20:55:52'!
+FAILURE!
+!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 20:55:59' prior: 50897846!
+test16CartRefreshesExpirationTime
+
+	
+	| interface cartId  |
+
+	interface := self createDefaultInterface.
+
+	cartId := interface createCartFor: self validUser authenticatedWith: self validUserPassword.
+	(Delay forSeconds: 1) wait.	
+	
+	self
+		shouldnt: [interface 
+			checkOutCartIdentifiedAs: cartId 
+			withCreditCardNumbered: '1111222233334444' 
+			ownedBy: 'Juan Perez' 
+			expiringOn: testObjectsFactory notExpiredMonthOfYear  ]
+		raise: Error - MessageNotUnderstood.
+		
+	(Delay forSeconds: 1) wait.	
+	
+	self
+		shouldnt: [interface listCartIdentifiedAs: cartId]
+		raise: Error - MessageNotUnderstood.
+! !
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 20:56:02'!
+FAILURE!
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 20:56:03'!
+FAILURE!
+!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 20:58:56' prior: 50897720!
+test14CanNotCheckoutCartExpiredAfter30minutes
+
+	
+	| interface cartId  |
+
+	interface := self createDefaultInterface.
+
+	cartId := interface createCartFor: self validUser authenticatedWith: self validUserPassword.
+	(Delay forSeconds: 1) wait.	
+	
+	self
+		should: [interface 
+			checkOutCartIdentifiedAs: cartId 
+			withCreditCardNumbered: '1111222233334444' 
+			ownedBy: 'Juan Perez' 
+			expiringOn: testObjectsFactory notExpiredMonthOfYear ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText = RestInterface cartHasExpiredAfter30minutes ]
+		
+		
+		! !
+
+!testRun: #RestInterfaceTest #test14CanNotCheckoutCartExpiredAfter30minutes stamp: 'Ms 6/14/2023 20:58:59'!
+FAILURE!
+
+!testRun: #RestInterfaceTest #test14CanNotCheckoutCartExpiredAfter30minutes stamp: 'Ms 6/14/2023 20:59:00'!
+FAILURE!
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 21:00:22'!
+FAILURE!
+!RestInterface methodsFor: 'interface' stamp: 'Ms 6/14/2023 21:00:35' prior: 50897954!
+assertCartIsActive: aCartId
+
+	^ cartsLastAccess at: aCartId ifPresent: [ :lastAccess |
+		((lastAccess + 6 seconds)  < (DateAndTime now)) ifTrue: [
+			self error: RestInterface cartHasExpiredAfter30minutes.	
+		]
+		ifFalse: [
+			cartsLastAccess at: aCartId  put:  DateAndTime now.
+		]
+	]! !
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 21:00:41'!
+FAILURE!
+!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 21:00:57' prior: 50897973!
+test16CartRefreshesExpirationTime
+
+	
+	| interface cartId  |
+
+	interface := self createDefaultInterface.
+
+	cartId := interface createCartFor: self validUser authenticatedWith: self validUserPassword.
+	(Delay forSeconds: 1) wait.	
+	
+	self
+		shouldnt: [interface listCartIdentifiedAs: cartId]
+		raise: Error - MessageNotUnderstood.
+		
+	(Delay forSeconds: 1) wait.	
+	
+	self
+		shouldnt: [interface listCartIdentifiedAs: cartId]
+		raise: Error - MessageNotUnderstood.
+! !
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 21:01:00'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test01CanCreateCartWithValidUserAndPassword stamp: 'Ms 6/14/2023 21:01:00'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test02CanNotCreateCartWithInvalidUser stamp: 'Ms 6/14/2023 21:01:00'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test03CanNotCreateCartWithInvalidPassword stamp: 'Ms 6/14/2023 21:01:00'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test04CanAddItemsToACreatedCart stamp: 'Ms 6/14/2023 21:01:00'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test05CanNotAddItemToNotCreatedCart stamp: 'Ms 6/14/2023 21:01:00'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test06CanNotAddItemNotSellByTheStore stamp: 'Ms 6/14/2023 21:01:00'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test07ListCartOfAnEmptyCartReturnsAnEmptyBag stamp: 'Ms 6/14/2023 21:01:00'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test08CanNotListCartOfInvalidCartId stamp: 'Ms 6/14/2023 21:01:00'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test09ListCartReturnsTheRightNumberOfItems stamp: 'Ms 6/14/2023 21:01:00'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test10CanCheckoutACart stamp: 'Ms 6/14/2023 21:01:00'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test11CanNotCheckoutANotCreatedCart stamp: 'Ms 6/14/2023 21:01:00'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test12CanNotCheckoutAnEmptyCart stamp: 'Ms 6/14/2023 21:01:00'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test13CartExpiredAfter30minutes stamp: 'Ms 6/14/2023 21:01:04'!
+FAILURE!
+
+!testRun: #RestInterfaceTest #test14CanNotCheckoutCartExpiredAfter30minutes stamp: 'Ms 6/14/2023 21:01:05'!
+FAILURE!
+
+!testRun: #RestInterfaceTest #test15CanNotListCartExpiredAfter30minutes stamp: 'Ms 6/14/2023 21:01:09'!
+FAILURE!
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 21:01:11'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 21:01:20'!
+PASSED!
+!RestInterface methodsFor: 'interface' stamp: 'Ms 6/14/2023 21:01:32' prior: 50898035!
+assertCartIsActive: aCartId
+
+	^ cartsLastAccess at: aCartId ifPresent: [ :lastAccess |
+		((lastAccess)  < (DateAndTime now)) ifTrue: [
+			self error: RestInterface cartHasExpiredAfter30minutes.	
+		]
+		ifFalse: [
+			cartsLastAccess at: aCartId  put:  DateAndTime now.
+		]
+	]! !
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 21:01:43'!
+FAILURE!
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 21:01:44'!
+FAILURE!
+!RestInterface methodsFor: 'interface' stamp: 'Ms 6/14/2023 21:02:00' prior: 50898130!
+assertCartIsActive: aCartId
+
+	^ cartsLastAccess at: aCartId ifPresent: [ :lastAccess |
+		(lastAccess + 2  < DateAndTime now) ifTrue: [
+			self error: RestInterface cartHasExpiredAfter30minutes.	
+		]
+		ifFalse: [
+			cartsLastAccess at: aCartId  put:  DateAndTime now.
+		]
+	]! !
+!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 21:03:41' prior: 50898002!
+test14CanNotCheckoutCartExpiredAfter30minutes
+
+	
+	| interface cartId  |
+
+	interface := self createDefaultInterface.
+
+	cartId := interface createCartFor: self validUser authenticatedWith: self validUserPassword.
+	(Delay forSeconds: 4) wait.	
+	
+	self
+		should: [interface 
+			checkOutCartIdentifiedAs: cartId 
+			withCreditCardNumbered: '1111222233334444' 
+			ownedBy: 'Juan Perez' 
+			expiringOn: testObjectsFactory notExpiredMonthOfYear ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText = RestInterface cartHasExpiredAfter30minutes ]
+		
+		
+		! !
+!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 21:04:09' prior: 50898160!
+test14CanNotCheckoutCartExpiredAfter30minutes
+
+	
+	| interface cartId  |
+
+	interface := self createDefaultInterface.
+
+	cartId := interface createCartFor: self validUser authenticatedWith: self validUserPassword.
+	(Delay forSeconds: 1) wait.	
+	
+	self
+		should: [interface 
+			checkOutCartIdentifiedAs: cartId 
+			withCreditCardNumbered: '1111222233334444' 
+			ownedBy: 'Juan Perez' 
+			expiringOn: testObjectsFactory notExpiredMonthOfYear ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText = RestInterface cartHasExpiredAfter30minutes ]
+		
+		
+		! !
+!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 21:04:13' prior: 50897142!
+test15CanNotListCartExpiredAfter30minutes
+
+	
+	| interface cartId  |
+
+	interface := self createDefaultInterface.
+
+	cartId := interface createCartFor: self validUser authenticatedWith: self validUserPassword.
+	(Delay forSeconds: 1) wait.	
+	
+	self
+		should: [interface listCartIdentifiedAs: cartId ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText = RestInterface cartHasExpiredAfter30minutes ]
+		
+		
+		! !
+!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 21:04:17' prior: 50896868!
+test13CartExpiredAfter30minutes
+
+	
+	| interface cartId  |
+
+	interface := self createDefaultInterface.
+
+	cartId := interface createCartFor: self validUser authenticatedWith: self validUserPassword.
+	(Delay forSeconds: 1) wait.	
+	
+	self
+		should: [	interface add: self validBook quantity: 1 toCartIdentifiedAs: cartId. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText = RestInterface cartHasExpiredAfter30minutes ]
+		
+		
+		! !
+!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 21:04:39' prior: 50898222!
+test13CartExpiredAfter30minutes
+
+	
+	| interface cartId  |
+
+	interface := self createDefaultInterface.
+
+	cartId := interface createCartFor: self validUser authenticatedWith: self validUserPassword.
+	(Delay forSeconds: 4) wait.	
+	
+	self
+		should: [	interface add: self validBook quantity: 1 toCartIdentifiedAs: cartId. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText = RestInterface cartHasExpiredAfter30minutes ]
+		
+		
+		! !
+!RestInterface methodsFor: 'interface' stamp: 'Ms 6/14/2023 21:05:16' prior: 50898148!
+assertCartIsActive: aCartId
+
+	^ cartsLastAccess at: aCartId ifPresent: [ :lastAccess |
+		((lastAccess + 2)  < DateAndTime now) ifTrue: [
+			self error: RestInterface cartHasExpiredAfter30minutes.	
+		]
+		ifFalse: [
+			cartsLastAccess at: aCartId  put:  DateAndTime now.
+		]
+	]! !
+!RestInterface methodsFor: 'interface' stamp: 'Ms 6/14/2023 21:05:55' prior: 50898258!
+assertCartIsActive: aCartId
+
+	^ cartsLastAccess at: aCartId ifPresent: [ :lastAccess |
+		((lastAccess + 2 seconds )  < DateAndTime now) ifTrue: [
+			self error: RestInterface cartHasExpiredAfter30minutes.	
+		]
+		ifFalse: [
+			cartsLastAccess at: aCartId  put:  DateAndTime now.
+		]
+	]! !
+!RestInterface methodsFor: 'interface' stamp: 'Ms 6/14/2023 21:05:59' prior: 50898270!
+assertCartIsActive: aCartId
+
+	^ cartsLastAccess at: aCartId ifPresent: [ :lastAccess |
+		(lastAccess + 2 seconds  < DateAndTime now) ifTrue: [
+			self error: RestInterface cartHasExpiredAfter30minutes.	
+		]
+		ifFalse: [
+			cartsLastAccess at: aCartId  put:  DateAndTime now.
+		]
+	]! !
+
+!testRun: #RestInterfaceTest #test13CartExpiredAfter30minutes stamp: 'Ms 6/14/2023 21:06:08'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test14CanNotCheckoutCartExpiredAfter30minutes stamp: 'Ms 6/14/2023 21:06:11'!
+FAILURE!
+
+!testRun: #RestInterfaceTest #test14CanNotCheckoutCartExpiredAfter30minutes stamp: 'Ms 6/14/2023 21:06:12'!
+FAILURE!
+!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 21:06:17' prior: 50898182!
+test14CanNotCheckoutCartExpiredAfter30minutes
+
+	
+	| interface cartId  |
+
+	interface := self createDefaultInterface.
+
+	cartId := interface createCartFor: self validUser authenticatedWith: self validUserPassword.
+	(Delay forSeconds: 4) wait.	
+	
+	self
+		should: [interface 
+			checkOutCartIdentifiedAs: cartId 
+			withCreditCardNumbered: '1111222233334444' 
+			ownedBy: 'Juan Perez' 
+			expiringOn: testObjectsFactory notExpiredMonthOfYear ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText = RestInterface cartHasExpiredAfter30minutes ]
+		
+		
+		! !
+
+!testRun: #RestInterfaceTest #test14CanNotCheckoutCartExpiredAfter30minutes stamp: 'Ms 6/14/2023 21:06:24'!
+PASSED!
+!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 21:06:31' prior: 50898204!
+test15CanNotListCartExpiredAfter30minutes
+
+	
+	| interface cartId  |
+
+	interface := self createDefaultInterface.
+
+	cartId := interface createCartFor: self validUser authenticatedWith: self validUserPassword.
+	(Delay forSeconds: 4) wait.	
+	
+	self
+		should: [interface listCartIdentifiedAs: cartId ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText = RestInterface cartHasExpiredAfter30minutes ]
+		
+		
+		! !
+
+!testRun: #RestInterfaceTest #test15CanNotListCartExpiredAfter30minutes stamp: 'Ms 6/14/2023 21:06:37'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 21:06:51'!
+PASSED!
+!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 21:07:15' prior: 50898051!
+test16CartRefreshesExpirationTime
+
+	
+	| interface cartId  |
+
+	interface := self createDefaultInterface.
+
+	cartId := interface createCartFor: self validUser authenticatedWith: self validUserPassword.
+	(Delay forSeconds: 1) wait.	
+	
+	self
+		shouldnt: [interface add: self validBook quantity: 1 toCartIdentifiedAs: cartId. ]
+		raise: Error - MessageNotUnderstood.
+		
+	(Delay forSeconds: 1) wait.	
+	
+	self
+		shouldnt: [interface listCartIdentifiedAs: cartId]
+		raise: Error - MessageNotUnderstood.
+! !
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 21:07:19'!
+PASSED!
+!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 21:07:26' prior: 50898355!
+test16CartRefreshesExpirationTime
+
+	
+	| interface cartId  |
+
+	interface := self createDefaultInterface.
+
+	cartId := interface createCartFor: self validUser authenticatedWith: self validUserPassword.
+	(Delay forSeconds: 1) wait.	
+	
+	self
+		shouldnt: [interface add: self validBook quantity: 1 toCartIdentifiedAs: cartId. ]
+		raise: Error - MessageNotUnderstood.
+		
+	(Delay forSeconds: 1) wait.	
+	
+	self
+		shouldnt: [interface add: self validBook quantity: 1 toCartIdentifiedAs: cartId. ]
+		raise: Error - MessageNotUnderstood.
+! !
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 21:07:28'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test01CanCreateCartWithValidUserAndPassword stamp: 'Ms 6/14/2023 21:07:28'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test02CanNotCreateCartWithInvalidUser stamp: 'Ms 6/14/2023 21:07:28'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test03CanNotCreateCartWithInvalidPassword stamp: 'Ms 6/14/2023 21:07:28'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test04CanAddItemsToACreatedCart stamp: 'Ms 6/14/2023 21:07:28'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test05CanNotAddItemToNotCreatedCart stamp: 'Ms 6/14/2023 21:07:28'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test06CanNotAddItemNotSellByTheStore stamp: 'Ms 6/14/2023 21:07:28'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test07ListCartOfAnEmptyCartReturnsAnEmptyBag stamp: 'Ms 6/14/2023 21:07:28'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test08CanNotListCartOfInvalidCartId stamp: 'Ms 6/14/2023 21:07:28'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test09ListCartReturnsTheRightNumberOfItems stamp: 'Ms 6/14/2023 21:07:29'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test10CanCheckoutACart stamp: 'Ms 6/14/2023 21:07:29'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test11CanNotCheckoutANotCreatedCart stamp: 'Ms 6/14/2023 21:07:29'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test12CanNotCheckoutAnEmptyCart stamp: 'Ms 6/14/2023 21:07:29'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test13CartExpiredAfter30minutes stamp: 'Ms 6/14/2023 21:07:33'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test14CanNotCheckoutCartExpiredAfter30minutes stamp: 'Ms 6/14/2023 21:07:37'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test15CanNotListCartExpiredAfter30minutes stamp: 'Ms 6/14/2023 21:07:41'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 21:07:43'!
+PASSED!
+!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 21:08:53' prior: 50898377!
+test16CartRefreshesExpirationTime
+
+	
+	| interface cartId  |
+
+	interface := self createDefaultInterface.
+
+	cartId := interface createCartFor: self validUser authenticatedWith: self validUserPassword.
+	(Delay forSeconds: 1) wait.	
+	
+	self
+		shouldnt: [interface 
+			checkOutCartIdentifiedAs: cartId 
+			withCreditCardNumbered: '1111222233334444' 
+			ownedBy: 'Juan Perez' 
+			expiringOn: testObjectsFactory notExpiredMonthOfYear ]
+		raise: Error - MessageNotUnderstood.
+		
+	(Delay forSeconds: 1) wait.	
+	
+	self
+		shouldnt: [interface add: self validBook quantity: 1 toCartIdentifiedAs: cartId. ]
+		raise: Error - MessageNotUnderstood.
+! !
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 21:08:55'!
+FAILURE!
+!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 21:09:02' prior: 50898454!
+test16CartRefreshesExpirationTime
+
+	
+	| interface cartId  |
+
+	interface := self createDefaultInterface.
+
+	cartId := interface createCartFor: self validUser authenticatedWith: self validUserPassword.
+	(Delay forSeconds: 5) wait.	
+	
+	self
+		shouldnt: [interface 
+			checkOutCartIdentifiedAs: cartId 
+			withCreditCardNumbered: '1111222233334444' 
+			ownedBy: 'Juan Perez' 
+			expiringOn: testObjectsFactory notExpiredMonthOfYear ]
+		raise: Error - MessageNotUnderstood.
+		
+	(Delay forSeconds: 1) wait.	
+	
+	self
+		shouldnt: [interface add: self validBook quantity: 1 toCartIdentifiedAs: cartId. ]
+		raise: Error - MessageNotUnderstood.
+! !
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 21:09:08'!
+FAILURE!
+!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 21:10:18' prior: 50898480!
+test16CartRefreshesExpirationTime
+
+	
+	| interface cartId  |
+
+	interface := self createDefaultInterface.
+
+	cartId := interface createCartFor: self validUser authenticatedWith: self validUserPassword.
+	
+	self
+		shouldnt: [interface 
+			checkOutCartIdentifiedAs: cartId 
+			withCreditCardNumbered: '1111222233334444' 
+			ownedBy: 'Juan Perez' 
+			expiringOn: testObjectsFactory notExpiredMonthOfYear ]
+		raise: Error - MessageNotUnderstood.
+		
+	(Delay forSeconds: 1) wait.	
+	
+	self
+		shouldnt: [interface add: self validBook quantity: 1 toCartIdentifiedAs: cartId. ]
+		raise: Error - MessageNotUnderstood.
+! !
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 21:11:17'!
+FAILURE!
+!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 21:11:30' prior: 50898506!
+test16CartRefreshesExpirationTime
+
+	
+	| interface cartId  |
+
+	interface := self createDefaultInterface.
+
+	cartId := interface createCartFor: self validUser authenticatedWith: self validUserPassword.
+	
+	(Delay forSeconds: 1) wait.	
+
+	self
+		shouldnt: [interface 
+			checkOutCartIdentifiedAs: cartId 
+			withCreditCardNumbered: '1111222233334444' 
+			ownedBy: 'Juan Perez' 
+			expiringOn: testObjectsFactory notExpiredMonthOfYear ]
+		raise: Error - MessageNotUnderstood.
+		
+	(Delay forSeconds: 1) wait.	
+	
+	self
+		shouldnt: [interface add: self validBook quantity: 1 toCartIdentifiedAs: cartId. ]
+		raise: Error - MessageNotUnderstood.
+! !
+!RestInterface methodsFor: 'interface' stamp: 'Ms 6/14/2023 21:11:40' prior: 50898282!
+assertCartIsActive: aCartId
+
+	^ cartsLastAccess at: aCartId ifPresent: [ :lastAccess |
+		(lastAccess + 10 seconds  < DateAndTime now) ifTrue: [
+			self error: RestInterface cartHasExpiredAfter30minutes.	
+		]
+		ifFalse: [
+			cartsLastAccess at: aCartId  put:  DateAndTime now.
+		]
+	]! !
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 21:11:46'!
+FAILURE!
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 21:11:47'!
+FAILURE!
+!RestInterface methodsFor: 'interface' stamp: 'Ms 6/14/2023 21:12:11' prior: 50898554!
+assertCartIsActive: aCartId
+
+	^ cartsLastAccess at: aCartId ifPresent: [ :lastAccess |
+		(lastAccess + 600 seconds  < DateAndTime now) ifTrue: [
+			self error: RestInterface cartHasExpiredAfter30minutes.	
+		]
+		ifFalse: [
+			cartsLastAccess at: aCartId  put:  DateAndTime now.
+		]
+	]! !
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 21:12:15'!
+FAILURE!
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 21:12:16'!
+FAILURE!
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 21:13:11'!
+FAILURE!
+!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 21:14:00' prior: 50898531!
+test16CartRefreshesExpirationTime
+
+	
+	| interface cartId  |
+
+	interface := self createDefaultInterface.
+
+	cartId := interface createCartFor: self validUser authenticatedWith: self validUserPassword.
+	
+	(Delay forSeconds: 1) wait.	
+
+	self
+		shouldnt: [interface 
+			checkOutCartIdentifiedAs: cartId 
+			withCreditCardNumbered: '1111222233334444' 
+			ownedBy: 'Juan Perez' 
+			expiringOn: testObjectsFactory notExpiredMonthOfYear ]
+		raise: Error - MessageNotUnderstood.
+		
+	(Delay forSeconds: 1) wait.	
+	
+	self
+		shouldnt: [interface 
+			checkOutCartIdentifiedAs: cartId 
+			withCreditCardNumbered: '1111222233334444' 
+			ownedBy: 'Juan Perez' 
+			expiringOn: testObjectsFactory notExpiredMonthOfYear]
+		raise: Error - MessageNotUnderstood.
+! !
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 21:14:02'!
+FAILURE!
+!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 21:14:24' prior: 50898595!
+test16CartRefreshesExpirationTime
+
+	
+	| interface cartId  |
+
+	interface := self createDefaultInterface.
+
+	cartId := interface createCartFor: self validUser authenticatedWith: self validUserPassword.
+	
+	(Delay forSeconds: 1) wait.	
+
+	self
+		shouldnt: [interface 
+			checkOutCartIdentifiedAs: cartId 
+			withCreditCardNumbered: '1111222233334444' 
+			ownedBy: 'Juan Perez' 
+			expiringOn: testObjectsFactory notExpiredMonthOfYear. ]
+		raise: Error - MessageNotUnderstood.
+		
+	(Delay forSeconds: 1) wait.	
+	
+	self
+		shouldnt: [interface add: self validBook quantity: 1 toCartIdentifiedAs: cartId. ]
+		raise: Error - MessageNotUnderstood.
+! !
+!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 21:14:32' prior: 50898625!
+test16CartRefreshesExpirationTime
+
+	
+	| interface cartId  |
+
+	interface := self createDefaultInterface.
+
+	cartId := interface createCartFor: self validUser authenticatedWith: self validUserPassword.
+	
+	(Delay forSeconds: 1) wait.	
+
+	self
+		shouldnt: [interface add: self validBook quantity: 1 toCartIdentifiedAs: cartId. ]
+		raise: Error - MessageNotUnderstood.
+		
+	(Delay forSeconds: 1) wait.	
+	
+	self
+		shouldnt: [interface add: self validBook quantity: 1 toCartIdentifiedAs: cartId. ]
+		raise: Error - MessageNotUnderstood.
+! !
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 21:14:37'!
+PASSED!
+!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 21:15:32' prior: 50898648!
+test16CartRefreshesExpirationTime
+
+	
+	| interface cartId  |
+
+	interface := self createDefaultInterface.
+
+	cartId := interface createCartFor: self validUser authenticatedWith: self validUserPassword.
+	
+	(Delay forSeconds: 1) wait.	
+
+	self
+		shouldnt: [interface add: self validBook quantity: 1 toCartIdentifiedAs: cartId. ]
+		raise: Error - MessageNotUnderstood.
+		
+	(Delay forSeconds: 1) wait.	
+	
+	self
+		shouldnt: [interface 
+			checkOutCartIdentifiedAs: cartId 
+			withCreditCardNumbered: '1111222233334444' 
+			ownedBy: 'Juan Perez' 
+			expiringOn: testObjectsFactory notExpiredMonthOfYear]
+		raise: Error - MessageNotUnderstood.
+! !
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 21:15:36'!
+PASSED!
+!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 21:15:49' prior: 50898671!
+test16CartRefreshesExpirationTime
+
+	
+	| interface cartId  |
+
+	interface := self createDefaultInterface.
+
+	cartId := interface createCartFor: self validUser authenticatedWith: self validUserPassword.
+	
+	(Delay forSeconds: 1) wait.	
+
+	self
+		shouldnt: [interface 
+			checkOutCartIdentifiedAs: cartId 
+			withCreditCardNumbered: '1111222233334444' 
+			ownedBy: 'Juan Perez' 
+			expiringOn: testObjectsFactory notExpiredMonthOfYear]
+		raise: Error - MessageNotUnderstood.
+		
+	(Delay forSeconds: 1) wait.	
+	
+	self
+		shouldnt: [interface 
+			checkOutCartIdentifiedAs: cartId 
+			withCreditCardNumbered: '1111222233334444' 
+			ownedBy: 'Juan Perez' 
+			expiringOn: testObjectsFactory notExpiredMonthOfYear]
+		raise: Error - MessageNotUnderstood.
+! !
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 21:15:51'!
+FAILURE!
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 21:15:53'!
+FAILURE!
+!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 21:15:32' prior: 50898697!
+test16CartRefreshesExpirationTime
+
+	
+	| interface cartId  |
+
+	interface := self createDefaultInterface.
+
+	cartId := interface createCartFor: self validUser authenticatedWith: self validUserPassword.
+	
+	(Delay forSeconds: 1) wait.	
+
+	self
+		shouldnt: [interface add: self validBook quantity: 1 toCartIdentifiedAs: cartId. ]
+		raise: Error - MessageNotUnderstood.
+		
+	(Delay forSeconds: 1) wait.	
+	
+	self
+		shouldnt: [interface 
+			checkOutCartIdentifiedAs: cartId 
+			withCreditCardNumbered: '1111222233334444' 
+			ownedBy: 'Juan Perez' 
+			expiringOn: testObjectsFactory notExpiredMonthOfYear]
+		raise: Error - MessageNotUnderstood.
+! !
+!RestInterface methodsFor: 'interface' stamp: 'Ms 6/14/2023 21:16:22' prior: 50898573!
+assertCartIsActive: aCartId
+
+	^ cartsLastAccess at: aCartId ifPresent: [ :lastAccess |
+		(lastAccess + 2 seconds  < DateAndTime now) ifTrue: [
+			self error: RestInterface cartHasExpiredAfter30minutes.	
+		]
+		ifFalse: [
+			cartsLastAccess at: aCartId  put:  DateAndTime now.
+		]
+	]! !
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 21:16:30'!
+PASSED!
+!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 21:18:14'!
+getCartIdFromInterface: interface
+
+	^ interface createCartFor: self validUser authenticatedWith: self validUserPassword! !
+!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 21:18:14' prior: 50898305!
+test14CanNotCheckoutCartExpiredAfter30minutes
+
+	
+	| interface cartId  |
+
+	interface := self createDefaultInterface.
+
+	cartId := self getCartIdFromInterface: interface.
+	(Delay forSeconds: 4) wait.	
+	
+	self
+		should: [interface 
+			checkOutCartIdentifiedAs: cartId 
+			withCreditCardNumbered: '1111222233334444' 
+			ownedBy: 'Juan Perez' 
+			expiringOn: testObjectsFactory notExpiredMonthOfYear ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText = RestInterface cartHasExpiredAfter30minutes ]
+		
+		
+		! !
+!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 21:18:15' prior: 50895466!
+test12CanNotCheckoutAnEmptyCart
+
+	| interface cartId |
+
+	interface := self createDefaultInterface.
+
+	cartId := self getCartIdFromInterface: interface.
+	self
+		should: [interface 
+			checkOutCartIdentifiedAs: cartId 
+			withCreditCardNumbered: '1111222233334444' 
+			ownedBy: 'Juan Perez' 
+			expiringOn: testObjectsFactory notExpiredMonthOfYear ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText = interface cartCanNotBeEmptyErrorMessage ]
+		
+		! !
+!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 21:18:15' prior: 50898331!
+test15CanNotListCartExpiredAfter30minutes
+
+	
+	| interface cartId  |
+
+	interface := self createDefaultInterface.
+
+	cartId := self getCartIdFromInterface: interface.
+	(Delay forSeconds: 4) wait.	
+	
+	self
+		should: [interface listCartIdentifiedAs: cartId ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText = RestInterface cartHasExpiredAfter30minutes ]
+		
+		
+		! !
+!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 21:18:15' prior: 50895408!
+test09ListCartReturnsTheRightNumberOfItems
+
+	| interface cartId cartContent |
+
+	interface := self createDefaultInterface.
+
+	cartId := self getCartIdFromInterface: interface.
+	interface add: self validBook quantity: 1 toCartIdentifiedAs: cartId.
+	interface add: self anotherValidBook quantity: 2 toCartIdentifiedAs: cartId.
+	cartContent := interface listCartIdentifiedAs: cartId.
+	
+	self assert: (cartContent occurrencesOf: self validBook) = 1. 
+	self assert: (cartContent occurrencesOf: self anotherValidBook) = 2
+! !
+!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 21:18:15' prior: 50895337!
+test04CanAddItemsToACreatedCart
+
+	| interface cartId |
+
+	interface := self createDefaultInterface.
+
+	cartId := self getCartIdFromInterface: interface.
+	self
+		shouldnt: [interface add: self validBook quantity: 1 toCartIdentifiedAs: cartId]
+		raise: Error - MessageNotUnderstood
+		! !
+!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 21:18:15' prior: 50898730!
+test16CartRefreshesExpirationTime
+
+	
+	| interface cartId  |
+
+	interface := self createDefaultInterface.
+
+	cartId := self getCartIdFromInterface: interface.
+	
+	(Delay forSeconds: 1) wait.	
+
+	self
+		shouldnt: [interface add: self validBook quantity: 1 toCartIdentifiedAs: cartId. ]
+		raise: Error - MessageNotUnderstood.
+		
+	(Delay forSeconds: 1) wait.	
+	
+	self
+		shouldnt: [interface 
+			checkOutCartIdentifiedAs: cartId 
+			withCreditCardNumbered: '1111222233334444' 
+			ownedBy: 'Juan Perez' 
+			expiringOn: testObjectsFactory notExpiredMonthOfYear]
+		raise: Error - MessageNotUnderstood.
+! !
+!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 21:18:15' prior: 50898240!
+test13CartExpiredAfter30minutes
+
+	
+	| interface cartId  |
+
+	interface := self createDefaultInterface.
+
+	cartId := self getCartIdFromInterface: interface.
+	(Delay forSeconds: 4) wait.	
+	
+	self
+		should: [	interface add: self validBook quantity: 1 toCartIdentifiedAs: cartId. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText = RestInterface cartHasExpiredAfter30minutes ]
+		
+		
+		! !
+!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 21:18:15' prior: 50895382!
+test07ListCartOfAnEmptyCartReturnsAnEmptyBag
+
+	| interface cartId |
+
+	interface := self createDefaultInterface.
+
+	cartId := self getCartIdFromInterface: interface.
+	self assert: (interface listCartIdentifiedAs: cartId) isEmpty 
+	! !
+!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 21:18:15' prior: 50895295!
+test01CanCreateCartWithValidUserAndPassword
+
+	| interface cartID |
+	
+	interface := self createDefaultInterface.
+
+	cartID := self getCartIdFromInterface: interface.
+	
+	self assert: (interface listCartIdentifiedAs: cartID) isEmpty! !
+!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 21:18:15' prior: 50895429!
+test10CanCheckoutACart
+
+	| interface cartId  |
+
+	interface := self createDefaultInterface.
+
+	cartId := self getCartIdFromInterface: interface.
+	interface add: self validBook quantity: 1 toCartIdentifiedAs: cartId.
+	self
+		shouldnt: [interface 
+			checkOutCartIdentifiedAs: cartId 
+			withCreditCardNumbered: '1111222233334444' 
+			ownedBy: 'Juan Perez' 
+			expiringOn: testObjectsFactory notExpiredMonthOfYear ]
+		raise: Error - MessageNotUnderstood
+		
+		! !
+!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 21:18:15' prior: 50895365!
+test06CanNotAddItemNotSellByTheStore
+
+	| interface cartId |
+
+	interface := self createDefaultInterface.
+
+	cartId := self getCartIdFromInterface: interface.
+	self
+		should: [interface add: self invalidBook quantity: 1 toCartIdentifiedAs: cartId ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError | 
+			self assert: anError messageText = interface invalidItemErrorMessage ]
+		! !
+
+!testRun: #RestInterfaceTest #test01CanCreateCartWithValidUserAndPassword stamp: 'Ms 6/14/2023 21:18:26'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test02CanNotCreateCartWithInvalidUser stamp: 'Ms 6/14/2023 21:18:26'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test03CanNotCreateCartWithInvalidPassword stamp: 'Ms 6/14/2023 21:18:26'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test04CanAddItemsToACreatedCart stamp: 'Ms 6/14/2023 21:18:26'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test05CanNotAddItemToNotCreatedCart stamp: 'Ms 6/14/2023 21:18:26'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test06CanNotAddItemNotSellByTheStore stamp: 'Ms 6/14/2023 21:18:26'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test07ListCartOfAnEmptyCartReturnsAnEmptyBag stamp: 'Ms 6/14/2023 21:18:26'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test08CanNotListCartOfInvalidCartId stamp: 'Ms 6/14/2023 21:18:26'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test09ListCartReturnsTheRightNumberOfItems stamp: 'Ms 6/14/2023 21:18:26'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test10CanCheckoutACart stamp: 'Ms 6/14/2023 21:18:26'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test11CanNotCheckoutANotCreatedCart stamp: 'Ms 6/14/2023 21:18:26'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test12CanNotCheckoutAnEmptyCart stamp: 'Ms 6/14/2023 21:18:26'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test13CartExpiredAfter30minutes stamp: 'Ms 6/14/2023 21:18:30'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test14CanNotCheckoutCartExpiredAfter30minutes stamp: 'Ms 6/14/2023 21:18:34'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test15CanNotListCartExpiredAfter30minutes stamp: 'Ms 6/14/2023 21:18:38'!
+PASSED!
+
+!testRun: #RestInterfaceTest #test16CartRefreshesExpirationTime stamp: 'Ms 6/14/2023 21:18:40'!
+PASSED!
+!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 21:19:14' prior: 50898901!
+test07ListCartOfAnEmptyCartReturnsAnEmptyBag
+
+	| interface cartId |
+
+	interface := self createDefaultInterface.
+	cartId := self getCartIdFromInterface: interface.
+	
+	self assert: (interface listCartIdentifiedAs: cartId) isEmpty 
+	! !
+
+----SNAPSHOT----(14 June 2023 21:28:37) CuisUniversity-5706.image priorSource: 18106381!
