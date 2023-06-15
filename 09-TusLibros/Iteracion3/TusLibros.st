@@ -10,7 +10,7 @@ test01NewCartsAreCreatedEmpty
 
 	self assert: testObjectsFactory createCart isEmpty! !
 
-!CartTest methodsFor: 'tests' stamp: 'HernanWilkinson 6/17/2013 18:10'!
+!CartTest methodsFor: 'tests' stamp: 'TM 6/15/2023 11:23:26'!
 test02CanNotAddItemsThatDoNotBelongToStore
 
 	| cart |
@@ -21,7 +21,7 @@ test02CanNotAddItemsThatDoNotBelongToStore
 		should: [ cart add: testObjectsFactory itemNotSellByTheStore ]
 		raise: Error - MessageNotUnderstood
 		withExceptionDo: [ :anError |
-			self assert: anError messageText = cart invalidItemErrorMessage.
+			self assert: anError messageText = Cart invalidItemErrorMessage.
 			self assert: cart isEmpty ]! !
 
 !CartTest methodsFor: 'tests' stamp: 'HernanWilkinson 6/17/2013 18:10'!
@@ -34,7 +34,7 @@ test03AfterAddingAnItemTheCartIsNotEmptyAnymore
 	cart add: testObjectsFactory itemSellByTheStore.
 	self deny: cart isEmpty ! !
 
-!CartTest methodsFor: 'tests' stamp: 'HernanWilkinson 6/17/2013 18:10'!
+!CartTest methodsFor: 'tests' stamp: 'TM 6/15/2023 11:23:52'!
 test04CanNotAddNonPositiveNumberOfItems
 
 	| cart |
@@ -45,10 +45,10 @@ test04CanNotAddNonPositiveNumberOfItems
 		should: [cart add: 0 of: testObjectsFactory itemSellByTheStore ]
 		raise: Error - MessageNotUnderstood
 		withExceptionDo: [ :anError |
-			self assert: anError messageText = cart invalidQuantityErrorMessage.
+			self assert: anError messageText = Cart invalidQuantityErrorMessage.
 			self assert: cart isEmpty ]! !
 
-!CartTest methodsFor: 'tests' stamp: 'HernanWilkinson 6/17/2013 18:10'!
+!CartTest methodsFor: 'tests' stamp: 'TM 6/15/2023 11:23:31'!
 test05CanNotAddMoreThanOneItemNotSellByTheStore
 
 	| cart |
@@ -59,7 +59,7 @@ test05CanNotAddMoreThanOneItemNotSellByTheStore
 		should: [cart add: 2 of: testObjectsFactory itemNotSellByTheStore  ]
 		raise: Error - MessageNotUnderstood
 		withExceptionDo: [ :anError |
-			self assert: anError messageText = cart invalidItemErrorMessage.
+			self assert: anError messageText = Cart invalidItemErrorMessage.
 			self assert: cart isEmpty ]! !
 
 !CartTest methodsFor: 'tests' stamp: 'HernanWilkinson 6/17/2013 18:11'!
@@ -253,7 +253,7 @@ debit: anAmount from: aCreditCard
 
 !classDefinition: #RestInterfaceTest category: 'TusLibros'!
 TestCase subclass: #RestInterfaceTest
-	instanceVariableNames: 'testObjectsFactory'
+	instanceVariableNames: 'testObjectsFactory clockOffset'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
@@ -269,7 +269,7 @@ test01CanCreateCartWithValidUserAndPassword
 	
 	self assert: (interface listCartIdentifiedAs: cartID) isEmpty! !
 
-!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/12/2023 21:40:31'!
+!RestInterfaceTest methodsFor: 'tests' stamp: 'TM 6/15/2023 11:22:26'!
 test02CanNotCreateCartWithInvalidUser
 
 	| interface |
@@ -280,9 +280,9 @@ test02CanNotCreateCartWithInvalidUser
 		should: [ interface createCartFor: self invalidUser authenticatedWith: self validUserPassword ]
 		raise: Error - MessageNotUnderstood
 		withExceptionDo: [ :anError | 
-			self assert: anError messageText = interface invalidUserAndOrPasswordErrorMessage ]! !
+			self assert: anError messageText = RestInterface invalidUserAndOrPasswordErrorMessage ]! !
 
-!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/12/2023 21:40:31'!
+!RestInterfaceTest methodsFor: 'tests' stamp: 'TM 6/15/2023 11:22:31'!
 test03CanNotCreateCartWithInvalidPassword
 
 	| interface |
@@ -293,7 +293,7 @@ test03CanNotCreateCartWithInvalidPassword
 		should: [ interface createCartFor: self validUser authenticatedWith: self invalidPassword ]
 		raise: Error - MessageNotUnderstood
 		withExceptionDo: [ :anError | 
-			self assert: anError messageText = interface invalidUserAndOrPasswordErrorMessage ]! !
+			self assert: anError messageText = RestInterface invalidUserAndOrPasswordErrorMessage ]! !
 
 !RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 21:18:15'!
 test04CanAddItemsToACreatedCart
@@ -308,7 +308,7 @@ test04CanAddItemsToACreatedCart
 		raise: Error - MessageNotUnderstood
 		! !
 
-!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/12/2023 21:40:03'!
+!RestInterfaceTest methodsFor: 'tests' stamp: 'TM 6/15/2023 11:21:30'!
 test05CanNotAddItemToNotCreatedCart
 
 	| interface |
@@ -319,10 +319,10 @@ test05CanNotAddItemToNotCreatedCart
 		should: [interface add: self validBook quantity: 1 toCartIdentifiedAs: self invalidCartId]
 		raise: Error - MessageNotUnderstood
 		withExceptionDo: [ :anError | 
-			self assert: anError messageText = interface invalidCartIdErrorMessage ]
+			self assert: anError messageText = RestInterface invalidCartIdErrorMessage ]
 		! !
 
-!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 21:18:15'!
+!RestInterfaceTest methodsFor: 'tests' stamp: 'TM 6/15/2023 11:22:00'!
 test06CanNotAddItemNotSellByTheStore
 
 	| interface cartId |
@@ -334,7 +334,7 @@ test06CanNotAddItemNotSellByTheStore
 		should: [interface add: self invalidBook quantity: 1 toCartIdentifiedAs: cartId ]
 		raise: Error - MessageNotUnderstood
 		withExceptionDo: [ :anError | 
-			self assert: anError messageText = interface invalidItemErrorMessage ]
+			self assert: anError messageText = RestInterface invalidItemErrorMessage ]
 		! !
 
 !RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 21:19:14'!
@@ -348,7 +348,7 @@ test07ListCartOfAnEmptyCartReturnsAnEmptyBag
 	self assert: (interface listCartIdentifiedAs: cartId) isEmpty 
 	! !
 
-!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/12/2023 21:40:03'!
+!RestInterfaceTest methodsFor: 'tests' stamp: 'TM 6/15/2023 11:21:34'!
 test08CanNotListCartOfInvalidCartId
 
 	| interface |
@@ -359,7 +359,7 @@ test08CanNotListCartOfInvalidCartId
 		should: [interface listCartIdentifiedAs: self invalidCartId] 
 		raise: Error - MessageNotUnderstood
 		withExceptionDo: [ :anError | 
-			self assert: anError messageText = interface invalidCartIdErrorMessage ]
+			self assert: anError messageText = RestInterface invalidCartIdErrorMessage ]
 	! !
 
 !RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 21:18:15'!
@@ -397,7 +397,7 @@ test10CanCheckoutACart
 		
 		! !
 
-!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/12/2023 21:40:03'!
+!RestInterfaceTest methodsFor: 'tests' stamp: 'TM 6/15/2023 11:21:38'!
 test11CanNotCheckoutANotCreatedCart
 
 	| interface |
@@ -412,11 +412,11 @@ test11CanNotCheckoutANotCreatedCart
 			expiringOn: testObjectsFactory notExpiredMonthOfYear ]
 		raise: Error - MessageNotUnderstood
 		withExceptionDo: [ :anError |
-			self assert: anError messageText = interface invalidCartIdErrorMessage ]
+			self assert: anError messageText = RestInterface invalidCartIdErrorMessage ]
 		
 		! !
 
-!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 21:18:15'!
+!RestInterfaceTest methodsFor: 'tests' stamp: 'TM 6/15/2023 11:20:15'!
 test12CanNotCheckoutAnEmptyCart
 
 	| interface cartId |
@@ -432,12 +432,12 @@ test12CanNotCheckoutAnEmptyCart
 			expiringOn: testObjectsFactory notExpiredMonthOfYear ]
 		raise: Error - MessageNotUnderstood
 		withExceptionDo: [ :anError |
-			self assert: anError messageText = interface cartCanNotBeEmptyErrorMessage ]
+			self assert: anError messageText = RestInterface cartCanNotBeEmptyErrorMessage ]
 		
 		! !
 
-!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 21:18:15'!
-test13CartExpiredAfter30minutes
+!RestInterfaceTest methodsFor: 'tests' stamp: 'TM 6/15/2023 11:51:02'!
+test13CanNotAddToCartAfterExpiration
 
 	
 	| interface cartId  |
@@ -445,19 +445,20 @@ test13CartExpiredAfter30minutes
 	interface := self createDefaultInterface.
 
 	cartId := self getCartIdFromInterface: interface.
-	(Delay forSeconds: 4) wait.	
+	
+	self advanceClock: 30 minutes.
 	
 	self
 		should: [	interface add: self validBook quantity: 1 toCartIdentifiedAs: cartId. ]
 		raise: Error - MessageNotUnderstood
 		withExceptionDo: [ :anError |
-			self assert: anError messageText = RestInterface cartHasExpiredAfter30minutes ]
+			self assert: anError messageText = RestInterface cartHasExpiredErrorMessage ]
 		
 		
 		! !
 
-!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 21:18:14'!
-test14CanNotCheckoutCartExpiredAfter30minutes
+!RestInterfaceTest methodsFor: 'tests' stamp: 'TM 6/15/2023 11:53:43'!
+test14CanNotCheckoutCartAfterExpiration
 
 	
 	| interface cartId  |
@@ -465,7 +466,8 @@ test14CanNotCheckoutCartExpiredAfter30minutes
 	interface := self createDefaultInterface.
 
 	cartId := self getCartIdFromInterface: interface.
-	(Delay forSeconds: 4) wait.	
+
+	self advanceClock: 30 minutes.
 	
 	self
 		should: [interface 
@@ -475,13 +477,13 @@ test14CanNotCheckoutCartExpiredAfter30minutes
 			expiringOn: testObjectsFactory notExpiredMonthOfYear ]
 		raise: Error - MessageNotUnderstood
 		withExceptionDo: [ :anError |
-			self assert: anError messageText = RestInterface cartHasExpiredAfter30minutes ]
+			self assert: anError messageText = RestInterface cartHasExpiredErrorMessage ]
 		
 		
 		! !
 
-!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 21:18:15'!
-test15CanNotListCartExpiredAfter30minutes
+!RestInterfaceTest methodsFor: 'tests' stamp: 'TM 6/15/2023 11:53:48'!
+test15CanNotListCartExpiredAfterExpiration
 
 	
 	| interface cartId  |
@@ -489,18 +491,19 @@ test15CanNotListCartExpiredAfter30minutes
 	interface := self createDefaultInterface.
 
 	cartId := self getCartIdFromInterface: interface.
-	(Delay forSeconds: 4) wait.	
+
+	self advanceClock: 30 minutes.
 	
 	self
 		should: [interface listCartIdentifiedAs: cartId ]
 		raise: Error - MessageNotUnderstood
 		withExceptionDo: [ :anError |
-			self assert: anError messageText = RestInterface cartHasExpiredAfter30minutes ]
+			self assert: anError messageText = RestInterface cartHasExpiredErrorMessage ]
 		
 		
 		! !
 
-!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/14/2023 21:18:15'!
+!RestInterfaceTest methodsFor: 'tests' stamp: 'TM 6/15/2023 11:54:16'!
 test16CartRefreshesExpirationTime
 
 	
@@ -510,13 +513,13 @@ test16CartRefreshesExpirationTime
 
 	cartId := self getCartIdFromInterface: interface.
 	
-	(Delay forSeconds: 1) wait.	
+	self advanceClock: 20 minutes.
 
 	self
 		shouldnt: [interface add: self validBook quantity: 1 toCartIdentifiedAs: cartId. ]
 		raise: Error - MessageNotUnderstood.
 		
-	(Delay forSeconds: 1) wait.	
+	self advanceClock: 20 minutes.
 	
 	self
 		shouldnt: [interface 
@@ -556,13 +559,19 @@ validUsersAndPasswords
 		yourself! !
 
 
-!RestInterfaceTest methodsFor: 'interface' stamp: 'ARM 6/11/2023 14:12:44'!
+!RestInterfaceTest methodsFor: 'interface' stamp: 'TM 6/15/2023 11:48:26'!
 createDefaultInterface
 	
-	^RestInterface
+	| interface |
+	
+	interface := RestInterface
 		authenticatingWith: self
 		acceptingItemsOf: testObjectsFactory defaultCatalog
-		merchantProcessor: self.! !
+		merchantProcessor: self.
+		
+	interface clock: self.
+	
+	^interface.! !
 
 !RestInterfaceTest methodsFor: 'interface' stamp: 'Ms 6/14/2023 21:18:14'!
 getCartIdFromInterface: interface
@@ -575,13 +584,6 @@ is: aUser authenticatingWith: aPassword
 	
 	storedPassword := self validUsersAndPasswords at: aUser ifAbsent: [ ^false ].
 	^aPassword = storedPassword ! !
-
-
-!RestInterfaceTest methodsFor: 'SetUp' stamp: 'HernanWilkinson 6/21/2013 23:43'!
-setUp 
-
-	testObjectsFactory := StoreTestObjectsFactory new.
-! !
 
 
 !RestInterfaceTest methodsFor: 'invalid credentials' stamp: 'HernanWilkinson 6/21/2013 23:49'!
@@ -605,6 +607,40 @@ invalidUser
 
 	^'invalidUser'! !
 
+
+!RestInterfaceTest methodsFor: 'setup' stamp: 'TM 6/15/2023 11:45:19'!
+setUp
+
+	testObjectsFactory := StoreTestObjectsFactory new.
+	
+	clockOffset := 0 minutes.! !
+
+
+!RestInterfaceTest methodsFor: 'clock' stamp: 'TM 6/15/2023 11:52:53'!
+advanceClock: aDuration
+
+	clockOffset := clockOffset + aDuration! !
+
+!RestInterfaceTest methodsFor: 'clock' stamp: 'TM 6/15/2023 11:53:11'!
+clockOffset: aDuration
+
+	clockOffset := aDuration! !
+
+!RestInterfaceTest methodsFor: 'clock' stamp: 'TM 6/15/2023 11:45:50'!
+now
+
+	^DateAndTime now + clockOffset.! !
+
+!RestInterfaceTest methodsFor: 'clock' stamp: 'TM 6/15/2023 11:52:44'!
+resetClock
+
+	clockOffset := 0! !
+
+!RestInterfaceTest methodsFor: 'clock' stamp: 'TM 6/15/2023 11:52:49'!
+retardClock: aDuration
+
+	clockOffset := clockOffset - aDuration! !
+
 
 !classDefinition: #Cart category: 'TusLibros'!
 Object subclass: #Cart
@@ -613,26 +649,15 @@ Object subclass: #Cart
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!Cart methodsFor: 'error messages' stamp: 'HernanWilkinson 6/21/2013 23:59'!
-invalidItemErrorMessage
-	
-	^self class invalidItemErrorMessage ! !
-
-!Cart methodsFor: 'error messages' stamp: 'HernanWilkinson 6/22/2013 00:00'!
-invalidQuantityErrorMessage
-	
-	^self class invalidQuantityErrorMessage ! !
-
-
-!Cart methodsFor: 'assertions' stamp: 'HernanWilkinson 6/17/2013 18:06'!
+!Cart methodsFor: 'assertions' stamp: 'TM 6/15/2023 11:23:36'!
 assertIsValidItem: anItem
 
-	(catalog includesKey: anItem) ifFalse: [ self error: self invalidItemErrorMessage ]! !
+	(catalog includesKey: anItem) ifFalse: [ self error: Cart invalidItemErrorMessage ]! !
 
-!Cart methodsFor: 'assertions' stamp: 'HernanWilkinson 6/17/2013 17:51'!
+!Cart methodsFor: 'assertions' stamp: 'TM 6/15/2023 11:23:56'!
 assertIsValidQuantity: aQuantity
 
-	aQuantity strictlyPositive ifFalse: [ self error: self invalidQuantityErrorMessage ]! !
+	aQuantity strictlyPositive ifFalse: [ self error: Cart invalidQuantityErrorMessage ]! !
 
 
 !Cart methodsFor: 'content' stamp: 'HernanWilkinson 6/22/2013 00:20'!
@@ -764,10 +789,10 @@ initializeToCheckout: aCart charging: aCreditCard throught: aMerchantProcessor r
 Cashier class
 	instanceVariableNames: ''!
 
-!Cashier class methodsFor: 'assertions' stamp: 'HernanWilkinson 6/17/2013 18:22'!
+!Cashier class methodsFor: 'assertions' stamp: 'TM 6/15/2023 11:20:22'!
 assertIsNotEmpty: aCart 
 	
-	aCart isEmpty ifTrue: [self error: self cartCanNotBeEmptyErrorMessage ]! !
+	aCart isEmpty ifTrue: [self error: RestInterface cartCanNotBeEmptyErrorMessage ]! !
 
 !Cashier class methodsFor: 'assertions' stamp: 'HernanWilkinson 6/17/2013 18:23'!
 assertIsNotExpired: aCreditCard on: aDate
@@ -827,41 +852,29 @@ expiringOn: aMonth
 
 !classDefinition: #RestInterface category: 'TusLibros'!
 Object subclass: #RestInterface
-	instanceVariableNames: 'authenticationSystem carts catalog lastId merchantProcessor salesBook cartsLastAccess'
+	instanceVariableNames: 'authenticationSystem carts catalog lastId merchantProcessor salesBook cartsLastAccess expirationTime clock'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!RestInterface methodsFor: 'interface' stamp: 'Ms 6/12/2023 21:49:24'!
+!RestInterface methodsFor: 'interface' stamp: 'TM 6/15/2023 11:35:55'!
 add: aBook quantity: anAmount toCartIdentifiedAs: aCartId
 
 	| cart |
 	
-	self assertCartIsActive: aCartId.
+	self refreshCartExpiration: aCartId.
 	
 	cart := self cartWithId: aCartId.
 	cart add: anAmount of: aBook ! !
 
-!RestInterface methodsFor: 'interface' stamp: 'Ms 6/14/2023 21:16:22'!
-assertCartIsActive: aCartId
-
-	^ cartsLastAccess at: aCartId ifPresent: [ :lastAccess |
-		(lastAccess + 2 seconds  < DateAndTime now) ifTrue: [
-			self error: RestInterface cartHasExpiredAfter30minutes.	
-		]
-		ifFalse: [
-			cartsLastAccess at: aCartId  put:  DateAndTime now.
-		]
-	]! !
-
-!RestInterface methodsFor: 'interface' stamp: 'Ms 6/12/2023 21:50:50'!
+!RestInterface methodsFor: 'interface' stamp: 'TM 6/15/2023 11:36:16'!
 checkOutCartIdentifiedAs: aCartId withCreditCardNumbered: aCreditCartNumber ownedBy: anOwner expiringOn: anExpirationMonthOfYear
 
 	| cart |
 	
+	self refreshCartExpiration: aCartId.
+	
 	cart := self cartWithId: aCartId.
-	self assertCartIsActive: aCartId.
-
 	
 	Cashier 
 		toCheckout: cart 
@@ -870,7 +883,7 @@ checkOutCartIdentifiedAs: aCartId withCreditCardNumbered: aCreditCartNumber owne
 		on: self today 
 		registeringOn: salesBook! !
 
-!RestInterface methodsFor: 'interface' stamp: 'Ms 6/12/2023 21:42:16'!
+!RestInterface methodsFor: 'interface' stamp: 'TM 6/15/2023 11:35:38'!
 createCartFor: aUser authenticatedWith: aPassword
 
 	| cartId |
@@ -883,73 +896,83 @@ createCartFor: aUser authenticatedWith: aPassword
 	
 	^cartId ! !
 
-!RestInterface methodsFor: 'interface' stamp: 'Ms 6/12/2023 21:50:57'!
+!RestInterface methodsFor: 'interface' stamp: 'TM 6/15/2023 11:36:24'!
 listCartIdentifiedAs: aCartId
 
 	| cart |
 	
+	self refreshCartExpiration: aCartId.
+	
 	cart := self cartWithId: aCartId.
-	self assertCartIsActive: aCartId.
 
 	^cart content! !
 
 
-!RestInterface methodsFor: 'error signaling' stamp: 'Ms 6/12/2023 21:40:03'!
+!RestInterface methodsFor: 'error signaling' stamp: 'TM 6/15/2023 11:21:43'!
 signalInvalidCartId
 	
-	self error: self invalidCartIdErrorMessage ! !
+	self error: RestInterface invalidCartIdErrorMessage ! !
 
-!RestInterface methodsFor: 'error signaling' stamp: 'Ms 6/12/2023 21:40:31'!
+!RestInterface methodsFor: 'error signaling' stamp: 'TM 6/15/2023 11:22:37'!
 signalInvalidUserAndOrPassword
 	
-	self error: self invalidUserAndOrPasswordErrorMessage! !
+	self error: RestInterface invalidUserAndOrPasswordErrorMessage! !
 
 
-!RestInterface methodsFor: 'simulation' stamp: 'ARM 6/11/2023 13:54:36'!
+!RestInterface methodsFor: 'authentication' stamp: 'ARM 6/11/2023 13:54:36'!
 is: aUser authenticatingWith: aPassword 
 	
 	^authenticationSystem is: aUser authenticatingWith: aPassword 
 ! !
 
 
-!RestInterface methodsFor: 'error messages' stamp: 'HernanWilkinson 6/22/2013 11:17'!
-cartCanNotBeEmptyErrorMessage
-	
-	^Cashier cartCanNotBeEmptyErrorMessage ! !
-
-!RestInterface methodsFor: 'error messages' stamp: 'Ms 6/12/2023 21:40:03'!
-invalidCartIdErrorMessage
-	
-	^'Invalid cart id'! !
-
-!RestInterface methodsFor: 'error messages' stamp: 'HernanWilkinson 6/21/2013 23:59'!
-invalidItemErrorMessage
-	
-	^Cart invalidItemErrorMessage ! !
-
-!RestInterface methodsFor: 'error messages' stamp: 'Ms 6/12/2023 21:40:31'!
-invalidUserAndOrPasswordErrorMessage
-	
-	^'Invalid user and/or password'! !
-
-
-!RestInterface methodsFor: 'initialization' stamp: 'Ms 6/12/2023 21:05:09'!
+!RestInterface methodsFor: 'initialization' stamp: 'TM 6/15/2023 11:54:31'!
 initializeAuthenticatingWith: anAuthenticationSystem acceptingItemsOf: aCatalog merchantProcessor: anMP
 
 	authenticationSystem := anAuthenticationSystem.
 	catalog := aCatalog.
+	merchantProcessor := anMP.
+
 	carts := Dictionary new.
 	lastId := 0.
-	merchantProcessor := anMP.
-	cartsLastAccess := Dictionary new.! !
+	
+	cartsLastAccess := Dictionary new.
+	expirationTime := 30 minutes.
+	
+	clock := DateAndTime.! !
 
 
-!RestInterface methodsFor: 'private' stamp: 'Ms 6/12/2023 20:54:46'!
+!RestInterface methodsFor: 'clock' stamp: 'TM 6/15/2023 11:42:10'!
+clock: aDateAndTimeSubclass
+	
+	^clock := aDateAndTimeSubclass.! !
+
+!RestInterface methodsFor: 'clock' stamp: 'TM 6/15/2023 11:37:31'!
+today
+	
+	^clock now! !
+
+
+!RestInterface methodsFor: 'expiration' stamp: 'TM 6/15/2023 11:37:46'!
+refreshCartExpiration: aCartId
+
+	cartsLastAccess at: aCartId ifPresent: [ :lastAccess |
+		(lastAccess + expirationTime < clock now)
+		ifTrue: [
+			self error: RestInterface cartHasExpiredErrorMessage.	
+		]
+		ifFalse: [
+			cartsLastAccess at: aCartId put: clock now.
+		]
+	]! !
+
+
+!RestInterface methodsFor: 'carts' stamp: 'Ms 6/12/2023 20:54:46'!
 cartWithId: aCartId
 
 	^ carts at: aCartId ifAbsent: [ self signalInvalidCartId ]! !
 
-!RestInterface methodsFor: 'private' stamp: 'HernanWilkinson 6/21/2013 23:32'!
+!RestInterface methodsFor: 'carts' stamp: 'HernanWilkinson 6/21/2013 23:32'!
 generateCartId
 	
 	"Recuerden que esto es un ejemplo, por lo que voy a generar ids numericos consecutivos, pero en una 
@@ -958,25 +981,41 @@ generateCartId
 	lastId := lastId + 1.
 	^lastId! !
 
-!RestInterface methodsFor: 'private' stamp: 'HernanWilkinson 6/22/2013 11:17'!
-today
-	
-	^DateAndTime now! !
-
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
 !classDefinition: 'RestInterface class' category: 'TusLibros'!
 RestInterface class
 	instanceVariableNames: ''!
 
-!RestInterface class methodsFor: 'as yet unclassified' stamp: 'ARM 6/11/2023 14:13:04'!
+!RestInterface class methodsFor: 'instance creation' stamp: 'ARM 6/11/2023 14:13:04'!
 authenticatingWith: aValidUsersAndPasswords acceptingItemsOf: aCatalog merchantProcessor: anMP
 
 	^self new initializeAuthenticatingWith: aValidUsersAndPasswords acceptingItemsOf: aCatalog merchantProcessor: anMP! !
 
-!RestInterface class methodsFor: 'as yet unclassified' stamp: 'Ms 6/12/2023 21:20:08'!
-cartHasExpiredAfter30minutes
+
+!RestInterface class methodsFor: 'error messages' stamp: 'TM 6/15/2023 11:19:37'!
+cartCanNotBeEmptyErrorMessage
+	
+	^Cashier cartCanNotBeEmptyErrorMessage ! !
+
+!RestInterface class methodsFor: 'error messages' stamp: 'TM 6/15/2023 11:16:46'!
+cartHasExpiredErrorMessage
 	^'El carrito expiro despues de no ser utilizado por 30 minutos'! !
+
+!RestInterface class methodsFor: 'error messages' stamp: 'TM 6/15/2023 11:20:37'!
+invalidCartIdErrorMessage
+	
+	^'Invalid cart id'! !
+
+!RestInterface class methodsFor: 'error messages' stamp: 'TM 6/15/2023 11:20:46'!
+invalidItemErrorMessage
+	
+	^Cart invalidItemErrorMessage ! !
+
+!RestInterface class methodsFor: 'error messages' stamp: 'TM 6/15/2023 11:20:54'!
+invalidUserAndOrPasswordErrorMessage
+	
+	^'Invalid user and/or password'! !
 
 
 !classDefinition: #StoreTestObjectsFactory category: 'TusLibros'!
@@ -985,6 +1024,11 @@ Object subclass: #StoreTestObjectsFactory
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
+
+!StoreTestObjectsFactory methodsFor: 'items' stamp: 'HernanWilkinson 6/22/2013 00:16'!
+anotherItemSellByTheStore
+	
+	^'anotherValidBook'! !
 
 !StoreTestObjectsFactory methodsFor: 'items' stamp: 'HernanWilkinson 6/22/2013 00:16'!
 anotherItemSellByTheStorePrice
@@ -1047,9 +1091,3 @@ initialize
 today
 	
 	^ today! !
-
-
-!StoreTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'HernanWilkinson 6/22/2013 00:16'!
-anotherItemSellByTheStore
-	
-	^'anotherValidBook'! !
