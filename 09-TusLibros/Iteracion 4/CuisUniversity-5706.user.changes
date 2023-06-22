@@ -1,0 +1,5276 @@
+
+
+----STARTUP---- (15 June 2023 17:15:26) as C:\windows64\CuisUniversity-5706.image!
+
+
+----End fileIn of C:\windows64\repoInge1\09-TusLibros\Iteracion3\TusLibros.st----!
+!Cart methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:45' prior: 50899693!
+assertIsValidQuantity: aQuantity
+
+
+
+	aQuantity strictlyPositive ifFalse: [ self error: Cart invalidQuantityErrorMessage ]! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:45' prior: 50899730!
+add: anItem
+
+
+
+	^ self add: 1 of: anItem ! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:46' prior: 50895523!
+invalidQuantityErrorMessage
+	
+	^self class invalidQuantityErrorMessage ! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:46' prior: 50899735!
+add: aQuantity of: anItem
+
+
+
+	self assertIsValidQuantity: aQuantity.
+
+	self assertIsValidItem: anItem.
+
+
+
+	1 to: aQuantity do: [ :aNumber | items add: anItem ]! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:46' prior: 50899721!
+isEmpty
+
+	
+
+	^items isEmpty ! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:46' prior: 50899705!
+initializeAcceptingItemsOf: aCatalog
+
+
+
+	catalog := aCatalog.
+
+	items := OrderedCollection new.! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:46' prior: 50899716!
+includes: anItem
+
+
+
+	^items includes: anItem ! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:46' prior: 50899686!
+assertIsValidItem: anItem
+
+
+
+	(catalog includesKey: anItem) ifFalse: [ self error: Cart invalidItemErrorMessage ]! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:46' prior: 50899700!
+content
+
+	
+
+	^Bag new
+
+		addAll: items;
+
+		yourself ! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:46' prior: 50895518!
+invalidItemErrorMessage
+	
+	^self class invalidItemErrorMessage ! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:47' prior: 50899725!
+total
+
+
+
+	^ items sum: [ :anItem | catalog at: anItem ]! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:47' prior: 50899711!
+occurrencesOf: anItem
+
+
+
+	^items occurrencesOf: anItem  ! !
+!Cart class methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:47' prior: 50899756!
+invalidQuantityErrorMessage
+
+	
+
+	^'Invalid number of items'! !
+!Cart class methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:47' prior: 50899762!
+acceptingItemsOf: aCatalog
+
+
+
+	^self new initializeAcceptingItemsOf: aCatalog ! !
+!Cart class methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:47' prior: 50899751!
+invalidItemErrorMessage
+
+	
+
+	^'Item is not in catalog'! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:47' prior: 50899124 overrides: 16961394!
+setUp 
+
+
+
+	testObjectsFactory := StoreTestObjectsFactory new.! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:47' prior: 50899037!
+test01NewCartsAreCreatedEmpty
+
+
+
+	self assert: testObjectsFactory createCart isEmpty! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:47' prior: 50899043!
+test02CanNotAddItemsThatDoNotBelongToStore
+
+
+
+	| cart |
+
+	
+
+	cart := testObjectsFactory createCart.
+
+	
+
+	self 
+
+		should: [ cart add: testObjectsFactory itemNotSellByTheStore ]
+
+		raise: Error - MessageNotUnderstood
+
+		withExceptionDo: [ :anError |
+
+			self assert: anError messageText = Cart invalidItemErrorMessage.
+
+			self assert: cart isEmpty ]! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:48' prior: 50899105!
+test07CartDoesNotHoldNotAddedItems
+
+
+
+	| cart |
+
+	
+
+	cart := testObjectsFactory createCart.
+
+	
+
+	self deny: (cart includes: testObjectsFactory itemSellByTheStore)! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:48' prior: 50899066!
+test04CanNotAddNonPositiveNumberOfItems
+
+
+
+	| cart |
+
+	
+
+	cart := testObjectsFactory createCart.
+
+	
+
+	self 
+
+		should: [cart add: 0 of: testObjectsFactory itemSellByTheStore ]
+
+		raise: Error - MessageNotUnderstood
+
+		withExceptionDo: [ :anError |
+
+			self assert: anError messageText = Cart invalidQuantityErrorMessage.
+
+			self assert: cart isEmpty ]! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:48' prior: 50899113!
+test08CartRemembersTheNumberOfAddedItems
+
+
+
+	| cart |
+
+	
+
+	cart := testObjectsFactory createCart.
+
+	
+
+	cart add: 2 of: testObjectsFactory itemSellByTheStore.
+
+	self assert: (cart occurrencesOf: testObjectsFactory itemSellByTheStore) = 2! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:48' prior: 50899057!
+test03AfterAddingAnItemTheCartIsNotEmptyAnymore
+
+
+
+	| cart |
+
+	
+
+	cart := testObjectsFactory createCart.
+
+	
+
+	cart add: testObjectsFactory itemSellByTheStore.
+
+	self deny: cart isEmpty ! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:48' prior: 50899080!
+test05CanNotAddMoreThanOneItemNotSellByTheStore
+
+
+
+	| cart |
+
+	
+
+	cart := testObjectsFactory createCart.
+
+	
+
+	self 
+
+		should: [cart add: 2 of: testObjectsFactory itemNotSellByTheStore  ]
+
+		raise: Error - MessageNotUnderstood
+
+		withExceptionDo: [ :anError |
+
+			self assert: anError messageText = Cart invalidItemErrorMessage.
+
+			self assert: cart isEmpty ]! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:48' prior: 50899095!
+test06CartRemembersAddedItems
+
+
+
+	| cart |
+
+	
+
+	cart := testObjectsFactory createCart.
+
+	
+
+	cart add: testObjectsFactory itemSellByTheStore.
+
+	self assert: (cart includes: testObjectsFactory itemSellByTheStore)! !
+!Cashier methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:48' prior: 50899802!
+checkOut
+
+
+
+	self calculateTotal.
+
+	self debitTotal.
+
+	self registerSale.
+
+
+
+	^ total! !
+!Cashier methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:48' prior: 50899782!
+calculateTotal
+
+
+
+	total := cart total.
+
+	! !
+!Cashier methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:49' prior: 50899791!
+debitTotal
+
+
+
+	merchantProcessor debit: total from: creditCard.
+
+	! !
+!Cashier methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:49' prior: 50899808!
+initializeToCheckout: aCart charging: aCreditCard throught: aMerchantProcessor registeringOn: aSalesBook
+
+	
+
+	cart := aCart.
+
+	creditCard := aCreditCard.
+
+	merchantProcessor := aMerchantProcessor.
+
+	salesBook := aSalesBook! !
+!Cashier methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:49' prior: 50899787!
+createSale
+
+
+
+	^ total
+
+! !
+!Cashier methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:49' prior: 50899797!
+registerSale
+
+
+
+	salesBook add: self createSale! !
+!Cashier class methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:49' prior: 50899842!
+toCheckout: aCart charging: aCreditCard throught: aMerchantProcessor on: aDate registeringOn: aSalesBook
+
+	
+
+	self assertIsNotEmpty: aCart.
+
+	self assertIsNotExpired: aCreditCard on: aDate.
+
+	
+
+	^self new initializeToCheckout: aCart charging: aCreditCard throught: aMerchantProcessor registeringOn: aSalesBook! !
+!Cashier class methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:49' prior: 50899833!
+assertIsNotExpired: aCreditCard on: aDate
+
+	
+
+	(aCreditCard isExpiredOn: aDate) ifTrue: [ self error: self canNotChargeAnExpiredCreditCardErrorMessage ]! !
+!Cashier class methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:49' prior: 50899855!
+canNotChargeAnExpiredCreditCardErrorMessage
+
+	
+
+	^'Can not charge an expired credit card'! !
+!Cashier class methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:50' prior: 50899826!
+assertIsNotEmpty: aCart 
+
+	
+
+	aCart isEmpty ifTrue: [self error: RestInterface cartCanNotBeEmptyErrorMessage ]! !
+!Cashier class methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:50' prior: 50899862!
+cartCanNotBeEmptyErrorMessage
+
+	
+
+	^'Can not check out an empty cart'! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:50' prior: 50899272 overrides: 16961394!
+setUp 
+
+
+
+	testObjectsFactory := StoreTestObjectsFactory new.
+
+	debitBehavior := [ :anAmount :aCreditCard | ]! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:50' prior: 50899219!
+test05CashierChargesCreditCardUsingMerchantProcessor
+
+
+
+	| cart cashier salesBook total creditCard debitedAmout debitedCreditCard  |
+
+
+
+	cart := testObjectsFactory createCart.
+
+	cart add: testObjectsFactory itemSellByTheStore.
+
+	creditCard := testObjectsFactory notExpiredCreditCard.
+
+	salesBook := OrderedCollection new.
+
+ 
+
+	cashier:= Cashier 
+
+		toCheckout: cart 
+
+		charging: creditCard
+
+		throught: self
+
+		on: testObjectsFactory today
+
+		registeringOn: salesBook.
+
+		
+
+	debitBehavior := [ :anAmount :aCreditCard | 
+
+		debitedAmout := anAmount.
+
+		debitedCreditCard := aCreditCard ].
+
+	total := cashier checkOut.
+
+					
+
+	self assert: debitedCreditCard = creditCard.
+
+	self assert: debitedAmout = total.! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:50' prior: 50899178!
+test03CanNotCheckoutWithAnExpiredCreditCart
+
+
+
+	| cart salesBook |
+
+
+
+	cart := testObjectsFactory createCart.
+
+	cart add: testObjectsFactory itemSellByTheStore.
+
+	salesBook := OrderedCollection new.
+
+	
+
+	self
+
+		should: [ Cashier 
+
+				toCheckout: cart 
+
+				charging: testObjectsFactory expiredCreditCard 
+
+				throught: self
+
+				on: testObjectsFactory today
+
+				registeringOn: salesBook ]
+
+		raise: Error - MessageNotUnderstood
+
+		withExceptionDo: [ :anError | 
+
+			self assert: anError messageText = Cashier canNotChargeAnExpiredCreditCardErrorMessage.
+
+			self assert: salesBook isEmpty ]! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:50' prior: 50899200!
+test04CheckoutRegistersASale
+
+
+
+	| cart cashier salesBook total |
+
+
+
+	cart := testObjectsFactory createCart.
+
+	cart add: testObjectsFactory itemSellByTheStore.
+
+	salesBook := OrderedCollection new.
+
+ 
+
+	cashier:= Cashier 
+
+		toCheckout: cart 
+
+		charging: testObjectsFactory notExpiredCreditCard
+
+		throught: self
+
+		on: testObjectsFactory today
+
+		registeringOn: salesBook.
+
+		
+
+	total := cashier checkOut.
+
+					
+
+	self assert: salesBook size = 1.
+
+	self assert: salesBook first = total.! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:51' prior: 50899244!
+test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit
+
+
+
+	| cart cashier salesBook creditCard |
+
+
+
+	cart := testObjectsFactory createCart.
+
+	cart add: testObjectsFactory itemSellByTheStore.
+
+	creditCard := testObjectsFactory notExpiredCreditCard.
+
+	salesBook := OrderedCollection new.
+
+ 	debitBehavior := [ :anAmount :aCreditCard | self error: self creditCardHasNoCreditErrorMessage].
+
+	
+
+	cashier:= Cashier 
+
+		toCheckout: cart 
+
+		charging: creditCard
+
+		throught: self
+
+		on: testObjectsFactory today
+
+		registeringOn: salesBook.
+
+		
+
+	self 
+
+		should: [cashier checkOut ]
+
+		raise: Error - MessageNotUnderstood
+
+		withExceptionDo: [ :anError |
+
+			self assert: anError messageText = self creditCardHasNoCreditErrorMessage.
+
+			self assert: salesBook isEmpty ]! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:51' prior: 50899142!
+test01CanNotCheckoutAnEmptyCart
+
+
+
+	| salesBook |
+
+	
+
+	salesBook := OrderedCollection new.
+
+	self 
+
+		should: [ Cashier 
+
+			toCheckout: testObjectsFactory createCart 
+
+			charging: testObjectsFactory notExpiredCreditCard 
+
+			throught: self
+
+			on: testObjectsFactory today
+
+			registeringOn:  salesBook ]
+
+		raise: Error - MessageNotUnderstood
+
+		withExceptionDo: [ :anError |
+
+			self assert: anError messageText = Cashier cartCanNotBeEmptyErrorMessage.
+
+			self assert: salesBook isEmpty ]! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:51' prior: 50899279!
+creditCardHasNoCreditErrorMessage
+
+	
+
+	^'Credit card has no credit'! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:51' prior: 50899161!
+test02CalculatedTotalIsCorrect
+
+
+
+	| cart cashier |
+
+	
+
+	cart := testObjectsFactory createCart.
+
+	cart add: 2 of: testObjectsFactory itemSellByTheStore.
+
+	
+
+	cashier :=  Cashier
+
+		toCheckout: cart 
+
+		charging: testObjectsFactory notExpiredCreditCard 
+
+		throught: self
+
+		on: testObjectsFactory today 
+
+		registeringOn: OrderedCollection new.
+
+		
+
+	self assert: cashier checkOut = (testObjectsFactory itemSellByTheStorePrice * 2)! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:51' prior: 50899285!
+debit: anAmount from: aCreditCard 
+
+
+
+	^debitBehavior value: anAmount value: aCreditCard ! !
+!CreditCard methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:51' prior: 50899879!
+isExpiredOn: aDate 
+
+	
+
+	^expiration start < (Month month: aDate monthIndex year: aDate yearNumber) start ! !
+!CreditCard methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:51' prior: 50899886!
+initializeExpiringOn: aMonth 
+
+	
+
+	expiration := aMonth ! !
+!CreditCard class methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:51' prior: 50899899!
+expiringOn: aMonth 
+
+	
+
+	^self new initializeExpiringOn: aMonth! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:52' prior: 50899947!
+createCartFor: aUser authenticatedWith: aPassword
+
+
+
+	| cartId |
+
+	
+
+	(self is: aUser authenticatingWith: aPassword) ifFalse: [ self signalInvalidUserAndOrPassword ].
+
+	
+
+	cartId := self generateCartId.
+
+	carts at: cartId put: (Cart acceptingItemsOf: catalog).
+
+	cartsLastAccess at: cartId put: (DateAndTime now).
+
+	
+
+	^cartId ! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:52' prior: 50898753!
+assertCartIsActive: aCartId
+
+	^ cartsLastAccess at: aCartId ifPresent: [ :lastAccess |
+		(lastAccess + 2 seconds  < DateAndTime now) ifTrue: [
+			self error: RestInterface cartHasExpiredAfter30minutes.	
+		]
+		ifFalse: [
+			cartsLastAccess at: aCartId  put:  DateAndTime now.
+		]
+	]! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:52' prior: 50899922!
+add: aBook quantity: anAmount toCartIdentifiedAs: aCartId
+
+
+
+	| cart |
+
+	
+
+	self refreshCartExpiration: aCartId.
+
+	
+
+	cart := self cartWithId: aCartId.
+
+	cart add: anAmount of: aBook ! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:52' prior: 50900003!
+clock: aDateAndTimeSubclass
+
+	
+
+	^clock := aDateAndTimeSubclass.! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:52' prior: 50900012!
+refreshCartExpiration: aCartId
+
+
+
+	cartsLastAccess at: aCartId ifPresent: [ :lastAccess |
+
+		(lastAccess + expirationTime < clock now)
+
+		ifTrue: [
+
+			self error: RestInterface cartHasExpiredErrorMessage.	
+
+		]
+
+		ifFalse: [
+
+			cartsLastAccess at: aCartId put: clock now.
+
+		]
+
+	]! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:52' prior: 50896581!
+invalidUserAndOrPasswordErrorMessage
+	
+	^'Invalid user and/or password'! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:52' prior: 50900024!
+cartWithId: aCartId
+
+
+
+	^ carts at: aCartId ifAbsent: [ self signalInvalidCartId ]! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:52' prior: 50900008!
+today
+
+	
+
+	^clock now! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:53' prior: 50899961!
+listCartIdentifiedAs: aCartId
+
+
+
+	| cart |
+
+	
+
+	self refreshCartExpiration: aCartId.
+
+	
+
+	cart := self cartWithId: aCartId.
+
+
+
+	^cart content! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:53' prior: 50899975!
+signalInvalidUserAndOrPassword
+
+	
+
+	self error: RestInterface invalidUserAndOrPasswordErrorMessage! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:53' prior: 50899982!
+is: aUser authenticatingWith: aPassword 
+
+	
+
+	^authenticationSystem is: aUser authenticatingWith: aPassword 
+
+! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:53' prior: 50896519!
+invalidCartIdErrorMessage
+	
+	^'Invalid cart id'! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:53' prior: 50900030!
+generateCartId
+
+	
+
+	"Recuerden que esto es un ejemplo, por lo que voy a generar ids numericos consecutivos, pero en una 
+
+	implementacion real no deberian se numeros consecutivos ni nada que genere problemas de seguridad - Hernan"
+
+	
+
+	lastId := lastId + 1.
+
+	^lastId! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:53' prior: 50899989!
+initializeAuthenticatingWith: anAuthenticationSystem acceptingItemsOf: aCatalog merchantProcessor: anMP
+
+
+
+	authenticationSystem := anAuthenticationSystem.
+
+	catalog := aCatalog.
+
+	merchantProcessor := anMP.
+
+
+
+	carts := Dictionary new.
+
+	lastId := 0.
+
+	
+
+	cartsLastAccess := Dictionary new.
+
+	expirationTime := 30 minutes.
+
+	
+
+	clock := DateAndTime.! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:53' prior: 50895814!
+invalidItemErrorMessage
+	
+	^Cart invalidItemErrorMessage ! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:53' prior: 50899969!
+signalInvalidCartId
+
+	
+
+	self error: RestInterface invalidCartIdErrorMessage ! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:54' prior: 50899931!
+checkOutCartIdentifiedAs: aCartId withCreditCardNumbered: aCreditCartNumber ownedBy: anOwner expiringOn: anExpirationMonthOfYear
+
+
+
+	| cart |
+
+	
+
+	self refreshCartExpiration: aCartId.
+
+	
+
+	cart := self cartWithId: aCartId.
+
+	
+
+	Cashier 
+
+		toCheckout: cart 
+
+		charging: (CreditCard expiringOn: anExpirationMonthOfYear) 
+
+		throught: merchantProcessor 
+
+		on: self today 
+
+		registeringOn: salesBook! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:54' prior: 50895754!
+cartCanNotBeEmptyErrorMessage
+	
+	^Cashier cartCanNotBeEmptyErrorMessage ! !
+!RestInterface class methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:54' prior: 50900081!
+invalidUserAndOrPasswordErrorMessage
+
+	
+
+	^'Invalid user and/or password'! !
+!RestInterface class methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:54' prior: 50900065!
+cartHasExpiredErrorMessage
+
+	^'El carrito expiro despues de no ser utilizado por 30 minutos'! !
+!RestInterface class methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:54' prior: 50896279!
+cartHasExpiredAfter30minutes
+	^'El carrito expiro despues de no ser utilizado por 30 minutos'! !
+!RestInterface class methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:54' prior: 50900071!
+invalidCartIdErrorMessage
+
+	
+
+	^'Invalid cart id'! !
+!RestInterface class methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:54' prior: 50900050!
+authenticatingWith: aValidUsersAndPasswords acceptingItemsOf: aCatalog merchantProcessor: anMP
+
+
+
+	^self new initializeAuthenticatingWith: aValidUsersAndPasswords acceptingItemsOf: aCatalog merchantProcessor: anMP! !
+!RestInterface class methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:54' prior: 50900076!
+invalidItemErrorMessage
+
+	
+
+	^Cart invalidItemErrorMessage ! !
+!RestInterface class methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:54' prior: 50900060!
+cartCanNotBeEmptyErrorMessage
+
+	
+
+	^Cashier cartCanNotBeEmptyErrorMessage ! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:55' prior: 50899572!
+validBook
+
+	
+
+	^testObjectsFactory itemSellByTheStore ! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:55' prior: 50898884!
+test13CartExpiredAfter30minutes
+
+	
+	| interface cartId  |
+
+	interface := self createDefaultInterface.
+
+	cartId := self getCartIdFromInterface: interface.
+	(Delay forSeconds: 4) wait.	
+	
+	self
+		should: [	interface add: self validBook quantity: 1 toCartIdentifiedAs: cartId. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText = RestInterface cartHasExpiredAfter30minutes ]
+		
+		
+		! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:55' prior: 50898775!
+test14CanNotCheckoutCartExpiredAfter30minutes
+
+	
+	| interface cartId  |
+
+	interface := self createDefaultInterface.
+
+	cartId := self getCartIdFromInterface: interface.
+	(Delay forSeconds: 4) wait.	
+	
+	self
+		should: [interface 
+			checkOutCartIdentifiedAs: cartId 
+			withCreditCardNumbered: '1111222233334444' 
+			ownedBy: 'Juan Perez' 
+			expiringOn: testObjectsFactory notExpiredMonthOfYear ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText = RestInterface cartHasExpiredAfter30minutes ]
+		
+		
+		! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:55' prior: 50899670!
+retardClock: aDuration
+
+
+
+	clockOffset := clockOffset - aDuration! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:55' prior: 50899433!
+test10CanCheckoutACart
+
+
+
+	| interface cartId  |
+
+
+
+	interface := self createDefaultInterface.
+
+
+
+	cartId := self getCartIdFromInterface: interface.
+
+	interface add: self validBook quantity: 1 toCartIdentifiedAs: cartId.
+
+	self
+
+		shouldnt: [interface 
+
+			checkOutCartIdentifiedAs: cartId 
+
+			withCreditCardNumbered: '1111222233334444' 
+
+			ownedBy: 'Juan Perez' 
+
+			expiringOn: testObjectsFactory notExpiredMonthOfYear ]
+
+		raise: Error - MessageNotUnderstood
+
+		
+
+		! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:55' prior: 50899543!
+test16CartRefreshesExpirationTime
+
+
+
+	
+
+	| interface cartId  |
+
+
+
+	interface := self createDefaultInterface.
+
+
+
+	cartId := self getCartIdFromInterface: interface.
+
+	
+
+	self advanceClock: 20 minutes.
+
+
+
+	self
+
+		shouldnt: [interface add: self validBook quantity: 1 toCartIdentifiedAs: cartId. ]
+
+		raise: Error - MessageNotUnderstood.
+
+		
+
+	self advanceClock: 20 minutes.
+
+	
+
+	self
+
+		shouldnt: [interface 
+
+			checkOutCartIdentifiedAs: cartId 
+
+			withCreditCardNumbered: '1111222233334444' 
+
+			ownedBy: 'Juan Perez' 
+
+			expiringOn: testObjectsFactory notExpiredMonthOfYear]
+
+		raise: Error - MessageNotUnderstood.
+
+! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:56' prior: 50899526!
+test15CanNotListCartExpiredAfterExpiration
+
+
+
+	
+
+	| interface cartId  |
+
+
+
+	interface := self createDefaultInterface.
+
+
+
+	cartId := self getCartIdFromInterface: interface.
+
+
+
+	self advanceClock: 30 minutes.
+
+	
+
+	self
+
+		should: [interface listCartIdentifiedAs: cartId ]
+
+		raise: Error - MessageNotUnderstood
+
+		withExceptionDo: [ :anError |
+
+			self assert: anError messageText = RestInterface cartHasExpiredErrorMessage ]
+
+		
+
+		
+
+		! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:56' prior: 50899330!
+test03CanNotCreateCartWithInvalidPassword
+
+
+
+	| interface |
+
+
+
+	interface := self createDefaultInterface.
+
+
+
+	self
+
+		should: [ interface createCartFor: self validUser authenticatedWith: self invalidPassword ]
+
+		raise: Error - MessageNotUnderstood
+
+		withExceptionDo: [ :anError | 
+
+			self assert: anError messageText = RestInterface invalidUserAndOrPasswordErrorMessage ]! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:56' prior: 50899662!
+now
+
+
+
+	^DateAndTime now + clockOffset.! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:56' prior: 50899357!
+test05CanNotAddItemToNotCreatedCart
+
+
+
+	| interface |
+
+
+
+	interface := self createDefaultInterface.
+
+
+
+	self
+
+		should: [interface add: self validBook quantity: 1 toCartIdentifiedAs: self invalidCartId]
+
+		raise: Error - MessageNotUnderstood
+
+		withExceptionDo: [ :anError | 
+
+			self assert: anError messageText = RestInterface invalidCartIdErrorMessage ]
+
+		! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:56' prior: 50899399!
+test08CanNotListCartOfInvalidCartId
+
+
+
+	| interface |
+
+
+
+	interface := self createDefaultInterface.
+
+
+
+	self 
+
+		should: [interface listCartIdentifiedAs: self invalidCartId] 
+
+		raise: Error - MessageNotUnderstood
+
+		withExceptionDo: [ :anError | 
+
+			self assert: anError messageText = RestInterface invalidCartIdErrorMessage ]
+
+	! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:56' prior: 50899578!
+validUser
+
+	
+
+	^'validUser'! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:56' prior: 50899606!
+getCartIdFromInterface: interface
+
+
+
+	^ interface createCartFor: self validUser authenticatedWith: self validUserPassword! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:56' prior: 50899345!
+test04CanAddItemsToACreatedCart
+
+
+
+	| interface cartId |
+
+
+
+	interface := self createDefaultInterface.
+
+
+
+	cartId := self getCartIdFromInterface: interface.
+
+	self
+
+		shouldnt: [interface add: self validBook quantity: 1 toCartIdentifiedAs: cartId]
+
+		raise: Error - MessageNotUnderstood
+
+		! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:57' prior: 50899666!
+resetClock
+
+
+
+	clockOffset := 0! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:57' prior: 50899488!
+test13CanNotAddToCartAfterExpiration
+
+
+
+	
+
+	| interface cartId  |
+
+
+
+	interface := self createDefaultInterface.
+
+
+
+	cartId := self getCartIdFromInterface: interface.
+
+	
+
+	self advanceClock: 30 minutes.
+
+	
+
+	self
+
+		should: [	interface add: self validBook quantity: 1 toCartIdentifiedAs: cartId. ]
+
+		raise: Error - MessageNotUnderstood
+
+		withExceptionDo: [ :anError |
+
+			self assert: anError messageText = RestInterface cartHasExpiredErrorMessage ]
+
+		
+
+		
+
+		! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:57' prior: 50899315!
+test02CanNotCreateCartWithInvalidUser
+
+
+
+	| interface |
+
+
+
+	interface := self createDefaultInterface.
+
+
+
+	self
+
+		should: [ interface createCartFor: self invalidUser authenticatedWith: self validUserPassword ]
+
+		raise: Error - MessageNotUnderstood
+
+		withExceptionDo: [ :anError | 
+
+			self assert: anError messageText = RestInterface invalidUserAndOrPasswordErrorMessage ]! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:57' prior: 50899372!
+test06CanNotAddItemNotSellByTheStore
+
+
+
+	| interface cartId |
+
+
+
+	interface := self createDefaultInterface.
+
+
+
+	cartId := self getCartIdFromInterface: interface.
+
+	self
+
+		should: [interface add: self invalidBook quantity: 1 toCartIdentifiedAs: cartId ]
+
+		raise: Error - MessageNotUnderstood
+
+		withExceptionDo: [ :anError | 
+
+			self assert: anError messageText = RestInterface invalidItemErrorMessage ]
+
+		! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:57' prior: 50899653!
+advanceClock: aDuration
+
+
+
+	clockOffset := clockOffset + aDuration! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:57' prior: 50899388!
+test07ListCartOfAnEmptyCartReturnsAnEmptyBag
+
+
+
+	| interface cartId |
+
+
+
+	interface := self createDefaultInterface.
+
+	cartId := self getCartIdFromInterface: interface.
+
+	
+
+	self assert: (interface listCartIdentifiedAs: cartId) isEmpty 
+
+	! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:57' prior: 50899647 overrides: 16961394!
+setUp
+
+
+
+	testObjectsFactory := StoreTestObjectsFactory new.
+
+	
+
+	clockOffset := 0 minutes.! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:57' prior: 50899642!
+invalidUser
+
+
+
+	^'invalidUser'! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:58' prior: 50899505!
+test14CanNotCheckoutCartAfterExpiration
+
+
+
+	
+
+	| interface cartId  |
+
+
+
+	interface := self createDefaultInterface.
+
+
+
+	cartId := self getCartIdFromInterface: interface.
+
+
+
+	self advanceClock: 30 minutes.
+
+	
+
+	self
+
+		should: [interface 
+
+			checkOutCartIdentifiedAs: cartId 
+
+			withCreditCardNumbered: '1111222233334444' 
+
+			ownedBy: 'Juan Perez' 
+
+			expiringOn: testObjectsFactory notExpiredMonthOfYear ]
+
+		raise: Error - MessageNotUnderstood
+
+		withExceptionDo: [ :anError |
+
+			self assert: anError messageText = RestInterface cartHasExpiredErrorMessage ]
+
+		
+
+		
+
+		! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:58' prior: 50899595!
+createDefaultInterface
+
+	
+
+	| interface |
+
+	
+
+	interface := RestInterface
+
+		authenticatingWith: self
+
+		acceptingItemsOf: testObjectsFactory defaultCatalog
+
+		merchantProcessor: self.
+
+		
+
+	interface clock: self.
+
+	
+
+	^interface.! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:58' prior: 50899629!
+invalidCartId
+
+	
+
+	"Devuelvo nil porque seguro que siempre sera un id invalido, no importa que sea el id - Hernan"
+
+	^nil! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:58' prior: 50899637!
+invalidPassword
+
+	
+
+	^'invalidPassword'! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:58' prior: 50899304!
+test01CanCreateCartWithValidUserAndPassword
+
+
+
+	| interface cartID |
+
+	
+
+	interface := self createDefaultInterface.
+
+
+
+	cartID := self getCartIdFromInterface: interface.
+
+	
+
+	self assert: (interface listCartIdentifiedAs: cartID) isEmpty! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:58' prior: 50899413!
+test09ListCartReturnsTheRightNumberOfItems
+
+
+
+	| interface cartId cartContent |
+
+
+
+	interface := self createDefaultInterface.
+
+
+
+	cartId := self getCartIdFromInterface: interface.
+
+	interface add: self validBook quantity: 1 toCartIdentifiedAs: cartId.
+
+	interface add: self anotherValidBook quantity: 2 toCartIdentifiedAs: cartId.
+
+	cartContent := interface listCartIdentifiedAs: cartId.
+
+	
+
+	self assert: (cartContent occurrencesOf: self validBook) = 1. 
+
+	self assert: (cartContent occurrencesOf: self anotherValidBook) = 2
+
+! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:58' prior: 50899588!
+validUsersAndPasswords
+
+	
+
+	^Dictionary new
+
+		at: self validUser put: self validUserPassword;
+
+		yourself! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:59' prior: 50899613!
+is: aUser authenticatingWith: aPassword 
+
+	| storedPassword |
+
+	
+
+	storedPassword := self validUsersAndPasswords at: aUser ifAbsent: [ ^false ].
+
+	^aPassword = storedPassword ! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:59' prior: 50899469!
+test12CanNotCheckoutAnEmptyCart
+
+
+
+	| interface cartId |
+
+
+
+	interface := self createDefaultInterface.
+
+
+
+	cartId := self getCartIdFromInterface: interface.
+
+	self
+
+		should: [interface 
+
+			checkOutCartIdentifiedAs: cartId 
+
+			withCreditCardNumbered: '1111222233334444' 
+
+			ownedBy: 'Juan Perez' 
+
+			expiringOn: testObjectsFactory notExpiredMonthOfYear ]
+
+		raise: Error - MessageNotUnderstood
+
+		withExceptionDo: [ :anError |
+
+			self assert: anError messageText = RestInterface cartCanNotBeEmptyErrorMessage ]
+
+		
+
+		! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:59' prior: 50899623!
+invalidBook
+
+
+
+	^testObjectsFactory itemNotSellByTheStore ! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:59' prior: 50899451!
+test11CanNotCheckoutANotCreatedCart
+
+
+
+	| interface |
+
+
+
+	interface := self createDefaultInterface.
+
+
+
+	self
+
+		should: [interface 
+
+			checkOutCartIdentifiedAs: self invalidCartId  
+
+			withCreditCardNumbered: '1111222233334444' 
+
+			ownedBy: 'Juan Perez' 
+
+			expiringOn: testObjectsFactory notExpiredMonthOfYear ]
+
+		raise: Error - MessageNotUnderstood
+
+		withExceptionDo: [ :anError |
+
+			self assert: anError messageText = RestInterface invalidCartIdErrorMessage ]
+
+		
+
+		! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:59' prior: 50899658!
+clockOffset: aDuration
+
+
+
+	clockOffset := aDuration! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:59' prior: 50899583!
+validUserPassword
+
+	
+
+	^'validUserPassword'! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:59' prior: 50899566!
+anotherValidBook
+
+	
+
+	^testObjectsFactory anotherItemSellByTheStore ! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:16:59' prior: 50898815!
+test15CanNotListCartExpiredAfter30minutes
+
+	
+	| interface cartId  |
+
+	interface := self createDefaultInterface.
+
+	cartId := self getCartIdFromInterface: interface.
+	(Delay forSeconds: 4) wait.	
+	
+	self
+		should: [interface listCartIdentifiedAs: cartId ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText = RestInterface cartHasExpiredAfter30minutes ]
+		
+		
+		! !
+!StoreTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:17:00' prior: 50900160 overrides: 16920235!
+initialize
+
+
+
+	today := DateAndTime now! !
+!StoreTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:17:00' prior: 50900153!
+notExpiredMonthOfYear
+
+
+
+	^ Month month: today monthIndex year: today yearNumber + 1! !
+!StoreTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:17:00' prior: 50900119!
+itemSellByTheStorePrice
+
+	
+
+	^10! !
+!StoreTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:17:00' prior: 50900147!
+notExpiredCreditCard
+
+	
+
+	^CreditCard expiringOn: self notExpiredMonthOfYear! !
+!StoreTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:17:00' prior: 50900104!
+anotherItemSellByTheStorePrice
+
+	
+
+	^15! !
+!StoreTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:17:00' prior: 50900165!
+today
+
+	
+
+	^ today! !
+!StoreTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:17:00' prior: 50900109!
+itemNotSellByTheStore
+
+	
+
+	^'invalidBook'! !
+!StoreTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:17:00' prior: 50900130!
+defaultCatalog
+
+	
+
+	^ Dictionary new
+
+		at: self itemSellByTheStore put: self itemSellByTheStorePrice;
+
+		at: self anotherItemSellByTheStore put: self anotherItemSellByTheStorePrice;
+
+		yourself ! !
+!StoreTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:17:00' prior: 50900099!
+anotherItemSellByTheStore
+
+	
+
+	^'anotherValidBook'! !
+!StoreTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:17:00' prior: 50900124!
+createCart
+
+	
+
+	^Cart acceptingItemsOf: self defaultCatalog! !
+!StoreTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:17:01' prior: 50900140!
+expiredCreditCard
+
+	
+
+	^CreditCard expiringOn: (Month month: today monthIndex year: today yearNumber - 1)! !
+!StoreTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:17:01' prior: 50900114!
+itemSellByTheStore
+
+	
+
+	^ 'validBook'! !
+!RestInterfaceTest methodsFor: 'tests' stamp: 'Ms 6/15/2023 17:34:58' prior: 50900983!
+test13CanNotAddToCartAfterExpiration
+
+	| interface cartId  |
+
+	interface := self createDefaultInterface.
+	cartId := self getCartIdFromInterface: interface.	
+	
+	self advanceClock: 30 minutes.
+	
+	self
+		should: [	interface add: self validBook quantity: 1 toCartIdentifiedAs: cartId. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText = RestInterface cartHasExpiredErrorMessage ]
+
+		
+
+		
+
+		! !
+
+!classRemoval: #StoreTestObjectsFactory stamp: 'Ms 6/15/2023 17:36:38'!
+Object subclass: #StoreTestObjectsFactory
+	instanceVariableNames: 'today'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #RestInterface stamp: 'Ms 6/15/2023 17:36:39'!
+Object subclass: #RestInterface
+	instanceVariableNames: 'authenticationSystem carts catalog lastId merchantProcessor salesBook cartsLastAccess expirationTime clock'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #CreditCard stamp: 'Ms 6/15/2023 17:36:40'!
+Object subclass: #CreditCard
+	instanceVariableNames: 'expiration'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #Cashier stamp: 'Ms 6/15/2023 17:36:40'!
+Object subclass: #Cashier
+	instanceVariableNames: 'cart salesBook merchantProcessor creditCard total'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #Cart stamp: 'Ms 6/15/2023 17:36:41'!
+Object subclass: #Cart
+	instanceVariableNames: 'catalog items'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #RestInterfaceTest stamp: 'Ms 6/15/2023 17:36:41'!
+TestCase subclass: #RestInterfaceTest
+	instanceVariableNames: 'testObjectsFactory clockOffset'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #CashierTest stamp: 'Ms 6/15/2023 17:36:42'!
+TestCase subclass: #CashierTest
+	instanceVariableNames: 'testObjectsFactory debitBehavior'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #CartTest stamp: 'Ms 6/15/2023 17:36:43'!
+TestCase subclass: #CartTest
+	instanceVariableNames: 'testObjectsFactory'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+----End fileIn of C:\windows64\repoInge1\09-TusLibros\Iteracion3\TusLibros.st----!
+!Cart methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:11' prior: 50902022!
+assertIsValidQuantity: aQuantity
+
+
+
+	aQuantity strictlyPositive ifFalse: [ self error: Cart invalidQuantityErrorMessage ]! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:11' prior: 50902057!
+add: anItem
+
+
+
+	^ self add: 1 of: anItem ! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:11' prior: 50902061!
+add: aQuantity of: anItem
+
+
+
+	self assertIsValidQuantity: aQuantity.
+
+	self assertIsValidItem: anItem.
+
+
+
+	1 to: aQuantity do: [ :aNumber | items add: anItem ]! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:11' prior: 50902049!
+isEmpty
+
+	
+
+	^items isEmpty ! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:11' prior: 50902034!
+initializeAcceptingItemsOf: aCatalog
+
+
+
+	catalog := aCatalog.
+
+	items := OrderedCollection new.! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:12' prior: 50902045!
+includes: anItem
+
+
+
+	^items includes: anItem ! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:12' prior: 50902016!
+assertIsValidItem: anItem
+
+
+
+	(catalog includesKey: anItem) ifFalse: [ self error: Cart invalidItemErrorMessage ]! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:12' prior: 50902029!
+content
+
+	
+
+	^Bag new
+
+		addAll: items;
+
+		yourself ! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:12' prior: 50902053!
+total
+
+
+
+	^ items sum: [ :anItem | catalog at: anItem ]! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:12' prior: 50902040!
+occurrencesOf: anItem
+
+
+
+	^items occurrencesOf: anItem  ! !
+!Cart class methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:12' prior: 50902081!
+invalidQuantityErrorMessage
+
+	
+
+	^'Invalid number of items'! !
+!Cart class methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:12' prior: 50902086!
+acceptingItemsOf: aCatalog
+
+
+
+	^self new initializeAcceptingItemsOf: aCatalog ! !
+!Cart class methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:12' prior: 50902076!
+invalidItemErrorMessage
+
+	
+
+	^'Item is not in catalog'! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:12' prior: 50901473 overrides: 16961394!
+setUp 
+
+
+
+	testObjectsFactory := StoreTestObjectsFactory new.! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:12' prior: 50901390!
+test01NewCartsAreCreatedEmpty
+
+
+
+	self assert: testObjectsFactory createCart isEmpty! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:12' prior: 50901395!
+test02CanNotAddItemsThatDoNotBelongToStore
+
+
+
+	| cart |
+
+	
+
+	cart := testObjectsFactory createCart.
+
+	
+
+	self 
+
+		should: [ cart add: testObjectsFactory itemNotSellByTheStore ]
+
+		raise: Error - MessageNotUnderstood
+
+		withExceptionDo: [ :anError |
+
+			self assert: anError messageText = Cart invalidItemErrorMessage.
+
+			self assert: cart isEmpty ]! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:12' prior: 50901454!
+test07CartDoesNotHoldNotAddedItems
+
+
+
+	| cart |
+
+	
+
+	cart := testObjectsFactory createCart.
+
+	
+
+	self deny: (cart includes: testObjectsFactory itemSellByTheStore)! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:12' prior: 50901417!
+test04CanNotAddNonPositiveNumberOfItems
+
+
+
+	| cart |
+
+	
+
+	cart := testObjectsFactory createCart.
+
+	
+
+	self 
+
+		should: [cart add: 0 of: testObjectsFactory itemSellByTheStore ]
+
+		raise: Error - MessageNotUnderstood
+
+		withExceptionDo: [ :anError |
+
+			self assert: anError messageText = Cart invalidQuantityErrorMessage.
+
+			self assert: cart isEmpty ]! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:12' prior: 50901462!
+test08CartRemembersTheNumberOfAddedItems
+
+
+
+	| cart |
+
+	
+
+	cart := testObjectsFactory createCart.
+
+	
+
+	cart add: 2 of: testObjectsFactory itemSellByTheStore.
+
+	self assert: (cart occurrencesOf: testObjectsFactory itemSellByTheStore) = 2! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:12' prior: 50901409!
+test03AfterAddingAnItemTheCartIsNotEmptyAnymore
+
+
+
+	| cart |
+
+	
+
+	cart := testObjectsFactory createCart.
+
+	
+
+	cart add: testObjectsFactory itemSellByTheStore.
+
+	self deny: cart isEmpty ! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:12' prior: 50901431!
+test05CanNotAddMoreThanOneItemNotSellByTheStore
+
+
+
+	| cart |
+
+	
+
+	cart := testObjectsFactory createCart.
+
+	
+
+	self 
+
+		should: [cart add: 2 of: testObjectsFactory itemNotSellByTheStore  ]
+
+		raise: Error - MessageNotUnderstood
+
+		withExceptionDo: [ :anError |
+
+			self assert: anError messageText = Cart invalidItemErrorMessage.
+
+			self assert: cart isEmpty ]! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:12' prior: 50901445!
+test06CartRemembersAddedItems
+
+
+
+	| cart |
+
+	
+
+	cart := testObjectsFactory createCart.
+
+	
+
+	cart add: testObjectsFactory itemSellByTheStore.
+
+	self assert: (cart includes: testObjectsFactory itemSellByTheStore)! !
+!Cashier methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:12' prior: 50902122!
+checkOut
+
+
+
+	self calculateTotal.
+
+	self debitTotal.
+
+	self registerSale.
+
+
+
+	^ total! !
+!Cashier methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:12' prior: 50902105!
+calculateTotal
+
+
+
+	total := cart total.
+
+	! !
+!Cashier methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:12' prior: 50902113!
+debitTotal
+
+
+
+	merchantProcessor debit: total from: creditCard.
+
+	! !
+!Cashier methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:12' prior: 50902128!
+initializeToCheckout: aCart charging: aCreditCard throught: aMerchantProcessor registeringOn: aSalesBook
+
+	
+
+	cart := aCart.
+
+	creditCard := aCreditCard.
+
+	merchantProcessor := aMerchantProcessor.
+
+	salesBook := aSalesBook! !
+!Cashier methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:12' prior: 50902109!
+createSale
+
+
+
+	^ total
+
+! !
+!Cashier methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:12' prior: 50902118!
+registerSale
+
+
+
+	salesBook add: self createSale! !
+!Cashier class methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:12' prior: 50902160!
+toCheckout: aCart charging: aCreditCard throught: aMerchantProcessor on: aDate registeringOn: aSalesBook
+
+	
+
+	self assertIsNotEmpty: aCart.
+
+	self assertIsNotExpired: aCreditCard on: aDate.
+
+	
+
+	^self new initializeToCheckout: aCart charging: aCreditCard throught: aMerchantProcessor registeringOn: aSalesBook! !
+!Cashier class methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:12' prior: 50902152!
+assertIsNotExpired: aCreditCard on: aDate
+
+	
+
+	(aCreditCard isExpiredOn: aDate) ifTrue: [ self error: self canNotChargeAnExpiredCreditCardErrorMessage ]! !
+!Cashier class methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:12' prior: 50902173!
+canNotChargeAnExpiredCreditCardErrorMessage
+
+	
+
+	^'Can not charge an expired credit card'! !
+!Cashier class methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:12' prior: 50902145!
+assertIsNotEmpty: aCart 
+
+	
+
+	aCart isEmpty ifTrue: [self error: RestInterface cartCanNotBeEmptyErrorMessage ]! !
+!Cashier class methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:12' prior: 50902179!
+cartCanNotBeEmptyErrorMessage
+
+	
+
+	^'Can not check out an empty cart'! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:12' prior: 50901616 overrides: 16961394!
+setUp 
+
+
+
+	testObjectsFactory := StoreTestObjectsFactory new.
+
+	debitBehavior := [ :anAmount :aCreditCard | ]! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:12' prior: 50901564!
+test05CashierChargesCreditCardUsingMerchantProcessor
+
+
+
+	| cart cashier salesBook total creditCard debitedAmout debitedCreditCard  |
+
+
+
+	cart := testObjectsFactory createCart.
+
+	cart add: testObjectsFactory itemSellByTheStore.
+
+	creditCard := testObjectsFactory notExpiredCreditCard.
+
+	salesBook := OrderedCollection new.
+
+ 
+
+	cashier:= Cashier 
+
+		toCheckout: cart 
+
+		charging: creditCard
+
+		throught: self
+
+		on: testObjectsFactory today
+
+		registeringOn: salesBook.
+
+		
+
+	debitBehavior := [ :anAmount :aCreditCard | 
+
+		debitedAmout := anAmount.
+
+		debitedCreditCard := aCreditCard ].
+
+	total := cashier checkOut.
+
+					
+
+	self assert: debitedCreditCard = creditCard.
+
+	self assert: debitedAmout = total.! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:12' prior: 50901525!
+test03CanNotCheckoutWithAnExpiredCreditCart
+
+
+
+	| cart salesBook |
+
+
+
+	cart := testObjectsFactory createCart.
+
+	cart add: testObjectsFactory itemSellByTheStore.
+
+	salesBook := OrderedCollection new.
+
+	
+
+	self
+
+		should: [ Cashier 
+
+				toCheckout: cart 
+
+				charging: testObjectsFactory expiredCreditCard 
+
+				throught: self
+
+				on: testObjectsFactory today
+
+				registeringOn: salesBook ]
+
+		raise: Error - MessageNotUnderstood
+
+		withExceptionDo: [ :anError | 
+
+			self assert: anError messageText = Cashier canNotChargeAnExpiredCreditCardErrorMessage.
+
+			self assert: salesBook isEmpty ]! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:12' prior: 50901546!
+test04CheckoutRegistersASale
+
+
+
+	| cart cashier salesBook total |
+
+
+
+	cart := testObjectsFactory createCart.
+
+	cart add: testObjectsFactory itemSellByTheStore.
+
+	salesBook := OrderedCollection new.
+
+ 
+
+	cashier:= Cashier 
+
+		toCheckout: cart 
+
+		charging: testObjectsFactory notExpiredCreditCard
+
+		throught: self
+
+		on: testObjectsFactory today
+
+		registeringOn: salesBook.
+
+		
+
+	total := cashier checkOut.
+
+					
+
+	self assert: salesBook size = 1.
+
+	self assert: salesBook first = total.! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:12' prior: 50901589!
+test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit
+
+
+
+	| cart cashier salesBook creditCard |
+
+
+
+	cart := testObjectsFactory createCart.
+
+	cart add: testObjectsFactory itemSellByTheStore.
+
+	creditCard := testObjectsFactory notExpiredCreditCard.
+
+	salesBook := OrderedCollection new.
+
+ 	debitBehavior := [ :anAmount :aCreditCard | self error: self creditCardHasNoCreditErrorMessage].
+
+	
+
+	cashier:= Cashier 
+
+		toCheckout: cart 
+
+		charging: creditCard
+
+		throught: self
+
+		on: testObjectsFactory today
+
+		registeringOn: salesBook.
+
+		
+
+	self 
+
+		should: [cashier checkOut ]
+
+		raise: Error - MessageNotUnderstood
+
+		withExceptionDo: [ :anError |
+
+			self assert: anError messageText = self creditCardHasNoCreditErrorMessage.
+
+			self assert: salesBook isEmpty ]! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:12' prior: 50901491!
+test01CanNotCheckoutAnEmptyCart
+
+
+
+	| salesBook |
+
+	
+
+	salesBook := OrderedCollection new.
+
+	self 
+
+		should: [ Cashier 
+
+			toCheckout: testObjectsFactory createCart 
+
+			charging: testObjectsFactory notExpiredCreditCard 
+
+			throught: self
+
+			on: testObjectsFactory today
+
+			registeringOn:  salesBook ]
+
+		raise: Error - MessageNotUnderstood
+
+		withExceptionDo: [ :anError |
+
+			self assert: anError messageText = Cashier cartCanNotBeEmptyErrorMessage.
+
+			self assert: salesBook isEmpty ]! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:12' prior: 50901623!
+creditCardHasNoCreditErrorMessage
+
+	
+
+	^'Credit card has no credit'! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:12' prior: 50901509!
+test02CalculatedTotalIsCorrect
+
+
+
+	| cart cashier |
+
+	
+
+	cart := testObjectsFactory createCart.
+
+	cart add: 2 of: testObjectsFactory itemSellByTheStore.
+
+	
+
+	cashier :=  Cashier
+
+		toCheckout: cart 
+
+		charging: testObjectsFactory notExpiredCreditCard 
+
+		throught: self
+
+		on: testObjectsFactory today 
+
+		registeringOn: OrderedCollection new.
+
+		
+
+	self assert: cashier checkOut = (testObjectsFactory itemSellByTheStorePrice * 2)! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:12' prior: 50901629!
+debit: anAmount from: aCreditCard 
+
+
+
+	^debitBehavior value: anAmount value: aCreditCard ! !
+!CreditCard methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:13' prior: 50902195!
+isExpiredOn: aDate 
+
+	
+
+	^expiration start < (Month month: aDate monthIndex year: aDate yearNumber) start ! !
+!CreditCard methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:13' prior: 50902202!
+initializeExpiringOn: aMonth 
+
+	
+
+	expiration := aMonth ! !
+!CreditCard class methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:13' prior: 50902215!
+expiringOn: aMonth 
+
+	
+
+	^self new initializeExpiringOn: aMonth! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:13' prior: 50902261!
+createCartFor: aUser authenticatedWith: aPassword
+
+
+
+	| cartId |
+
+	
+
+	(self is: aUser authenticatingWith: aPassword) ifFalse: [ self signalInvalidUserAndOrPassword ].
+
+	
+
+	cartId := self generateCartId.
+
+	carts at: cartId put: (Cart acceptingItemsOf: catalog).
+
+	cartsLastAccess at: cartId put: (DateAndTime now).
+
+	
+
+	^cartId ! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:13' prior: 50902237!
+add: aBook quantity: anAmount toCartIdentifiedAs: aCartId
+
+
+
+	| cart |
+
+	
+
+	self refreshCartExpiration: aCartId.
+
+	
+
+	cart := self cartWithId: aCartId.
+
+	cart add: anAmount of: aBook ! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:13' prior: 50902312!
+clock: aDateAndTimeSubclass
+
+	
+
+	^clock := aDateAndTimeSubclass.! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:13' prior: 50902321!
+refreshCartExpiration: aCartId
+
+
+
+	cartsLastAccess at: aCartId ifPresent: [ :lastAccess |
+
+		(lastAccess + expirationTime < clock now)
+
+		ifTrue: [
+
+			self error: RestInterface cartHasExpiredErrorMessage.	
+
+		]
+
+		ifFalse: [
+
+			cartsLastAccess at: aCartId put: clock now.
+
+		]
+
+	]! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:13' prior: 50902333!
+cartWithId: aCartId
+
+
+
+	^ carts at: aCartId ifAbsent: [ self signalInvalidCartId ]! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:13' prior: 50902317!
+today
+
+	
+
+	^clock now! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:13' prior: 50902274!
+listCartIdentifiedAs: aCartId
+
+
+
+	| cart |
+
+	
+
+	self refreshCartExpiration: aCartId.
+
+	
+
+	cart := self cartWithId: aCartId.
+
+
+
+	^cart content! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:13' prior: 50902286!
+signalInvalidUserAndOrPassword
+
+	
+
+	self error: RestInterface invalidUserAndOrPasswordErrorMessage! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:13' prior: 50902292!
+is: aUser authenticatingWith: aPassword 
+
+	
+
+	^authenticationSystem is: aUser authenticatingWith: aPassword 
+
+! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:13' prior: 50902298!
+initializeAuthenticatingWith: anAuthenticationSystem acceptingItemsOf: aCatalog merchantProcessor: anMP
+
+
+
+	authenticationSystem := anAuthenticationSystem.
+
+	catalog := aCatalog.
+
+	merchantProcessor := anMP.
+
+
+
+	carts := Dictionary new.
+
+	lastId := 0.
+
+	
+
+	cartsLastAccess := Dictionary new.
+
+	expirationTime := 30 minutes.
+
+	
+
+	clock := DateAndTime.! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:13' prior: 50902339!
+generateCartId
+
+	
+
+	"Recuerden que esto es un ejemplo, por lo que voy a generar ids numericos consecutivos, pero en una 
+
+	implementacion real no deberian se numeros consecutivos ni nada que genere problemas de seguridad - Hernan"
+
+	
+
+	lastId := lastId + 1.
+
+	^lastId! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:13' prior: 50902281!
+signalInvalidCartId
+
+	
+
+	self error: RestInterface invalidCartIdErrorMessage ! !
+!RestInterface methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:13' prior: 50902246!
+checkOutCartIdentifiedAs: aCartId withCreditCardNumbered: aCreditCartNumber ownedBy: anOwner expiringOn: anExpirationMonthOfYear
+
+
+
+	| cart |
+
+	
+
+	self refreshCartExpiration: aCartId.
+
+	
+
+	cart := self cartWithId: aCartId.
+
+	
+
+	Cashier 
+
+		toCheckout: cart 
+
+		charging: (CreditCard expiringOn: anExpirationMonthOfYear) 
+
+		throught: merchantProcessor 
+
+		on: self today 
+
+		registeringOn: salesBook! !
+!RestInterface class methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:13' prior: 50902390!
+invalidUserAndOrPasswordErrorMessage
+
+	
+
+	^'Invalid user and/or password'! !
+!RestInterface class methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:13' prior: 50902374!
+cartHasExpiredErrorMessage
+
+	^'El carrito expiro despues de no ser utilizado por 30 minutos'! !
+!RestInterface class methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:13' prior: 50902380!
+invalidCartIdErrorMessage
+
+	
+
+	^'Invalid cart id'! !
+!RestInterface class methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:13' prior: 50902359!
+authenticatingWith: aValidUsersAndPasswords acceptingItemsOf: aCatalog merchantProcessor: anMP
+
+
+
+	^self new initializeAuthenticatingWith: aValidUsersAndPasswords acceptingItemsOf: aCatalog merchantProcessor: anMP! !
+!RestInterface class methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:13' prior: 50902385!
+invalidItemErrorMessage
+
+	
+
+	^Cart invalidItemErrorMessage ! !
+!RestInterface class methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:13' prior: 50902369!
+cartCanNotBeEmptyErrorMessage
+
+	
+
+	^Cashier cartCanNotBeEmptyErrorMessage ! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:13' prior: 50901910!
+validBook
+
+	
+
+	^testObjectsFactory itemSellByTheStore ! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:13' prior: 50902000!
+retardClock: aDuration
+
+
+
+	clockOffset := clockOffset - aDuration! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:13' prior: 50901772!
+test10CanCheckoutACart
+
+
+
+	| interface cartId  |
+
+
+
+	interface := self createDefaultInterface.
+
+
+
+	cartId := self getCartIdFromInterface: interface.
+
+	interface add: self validBook quantity: 1 toCartIdentifiedAs: cartId.
+
+	self
+
+		shouldnt: [interface 
+
+			checkOutCartIdentifiedAs: cartId 
+
+			withCreditCardNumbered: '1111222233334444' 
+
+			ownedBy: 'Juan Perez' 
+
+			expiringOn: testObjectsFactory notExpiredMonthOfYear ]
+
+		raise: Error - MessageNotUnderstood
+
+		
+
+		! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:13' prior: 50901881!
+test16CartRefreshesExpirationTime
+
+
+
+	
+
+	| interface cartId  |
+
+
+
+	interface := self createDefaultInterface.
+
+
+
+	cartId := self getCartIdFromInterface: interface.
+
+	
+
+	self advanceClock: 20 minutes.
+
+
+
+	self
+
+		shouldnt: [interface add: self validBook quantity: 1 toCartIdentifiedAs: cartId. ]
+
+		raise: Error - MessageNotUnderstood.
+
+		
+
+	self advanceClock: 20 minutes.
+
+	
+
+	self
+
+		shouldnt: [interface 
+
+			checkOutCartIdentifiedAs: cartId 
+
+			withCreditCardNumbered: '1111222233334444' 
+
+			ownedBy: 'Juan Perez' 
+
+			expiringOn: testObjectsFactory notExpiredMonthOfYear]
+
+		raise: Error - MessageNotUnderstood.
+
+! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:13' prior: 50901865!
+test15CanNotListCartExpiredAfterExpiration
+
+
+
+	
+
+	| interface cartId  |
+
+
+
+	interface := self createDefaultInterface.
+
+
+
+	cartId := self getCartIdFromInterface: interface.
+
+
+
+	self advanceClock: 30 minutes.
+
+	
+
+	self
+
+		should: [interface listCartIdentifiedAs: cartId ]
+
+		raise: Error - MessageNotUnderstood
+
+		withExceptionDo: [ :anError |
+
+			self assert: anError messageText = RestInterface cartHasExpiredErrorMessage ]
+
+		
+
+		
+
+		! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:13' prior: 50901673!
+test03CanNotCreateCartWithInvalidPassword
+
+
+
+	| interface |
+
+
+
+	interface := self createDefaultInterface.
+
+
+
+	self
+
+		should: [ interface createCartFor: self validUser authenticatedWith: self invalidPassword ]
+
+		raise: Error - MessageNotUnderstood
+
+		withExceptionDo: [ :anError | 
+
+			self assert: anError messageText = RestInterface invalidUserAndOrPasswordErrorMessage ]! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:13' prior: 50901992!
+now
+
+
+
+	^DateAndTime now + clockOffset.! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:13' prior: 50901700!
+test05CanNotAddItemToNotCreatedCart
+
+
+
+	| interface |
+
+
+
+	interface := self createDefaultInterface.
+
+
+
+	self
+
+		should: [interface add: self validBook quantity: 1 toCartIdentifiedAs: self invalidCartId]
+
+		raise: Error - MessageNotUnderstood
+
+		withExceptionDo: [ :anError | 
+
+			self assert: anError messageText = RestInterface invalidCartIdErrorMessage ]
+
+		! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:13' prior: 50901740!
+test08CanNotListCartOfInvalidCartId
+
+
+
+	| interface |
+
+
+
+	interface := self createDefaultInterface.
+
+
+
+	self 
+
+		should: [interface listCartIdentifiedAs: self invalidCartId] 
+
+		raise: Error - MessageNotUnderstood
+
+		withExceptionDo: [ :anError | 
+
+			self assert: anError messageText = RestInterface invalidCartIdErrorMessage ]
+
+	! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:13' prior: 50901915!
+validUser
+
+	
+
+	^'validUser'! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:13' prior: 50901940!
+getCartIdFromInterface: interface
+
+
+
+	^ interface createCartFor: self validUser authenticatedWith: self validUserPassword! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:13' prior: 50901688!
+test04CanAddItemsToACreatedCart
+
+
+
+	| interface cartId |
+
+
+
+	interface := self createDefaultInterface.
+
+
+
+	cartId := self getCartIdFromInterface: interface.
+
+	self
+
+		shouldnt: [interface add: self validBook quantity: 1 toCartIdentifiedAs: cartId]
+
+		raise: Error - MessageNotUnderstood
+
+		! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:13' prior: 50901996!
+resetClock
+
+
+
+	clockOffset := 0! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:13' prior: 50901827!
+test13CanNotAddToCartAfterExpiration
+
+
+
+	
+
+	| interface cartId  |
+
+
+
+	interface := self createDefaultInterface.
+
+
+
+	cartId := self getCartIdFromInterface: interface.
+
+	
+
+	self advanceClock: 30 minutes.
+
+	
+
+	self
+
+		should: [	interface add: self validBook quantity: 1 toCartIdentifiedAs: cartId. ]
+
+		raise: Error - MessageNotUnderstood
+
+		withExceptionDo: [ :anError |
+
+			self assert: anError messageText = RestInterface cartHasExpiredErrorMessage ]
+
+		
+
+		
+
+		! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:14' prior: 50901658!
+test02CanNotCreateCartWithInvalidUser
+
+
+
+	| interface |
+
+
+
+	interface := self createDefaultInterface.
+
+
+
+	self
+
+		should: [ interface createCartFor: self invalidUser authenticatedWith: self validUserPassword ]
+
+		raise: Error - MessageNotUnderstood
+
+		withExceptionDo: [ :anError | 
+
+			self assert: anError messageText = RestInterface invalidUserAndOrPasswordErrorMessage ]! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:14' prior: 50901714!
+test06CanNotAddItemNotSellByTheStore
+
+
+
+	| interface cartId |
+
+
+
+	interface := self createDefaultInterface.
+
+
+
+	cartId := self getCartIdFromInterface: interface.
+
+	self
+
+		should: [interface add: self invalidBook quantity: 1 toCartIdentifiedAs: cartId ]
+
+		raise: Error - MessageNotUnderstood
+
+		withExceptionDo: [ :anError | 
+
+			self assert: anError messageText = RestInterface invalidItemErrorMessage ]
+
+		! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:14' prior: 50901983!
+advanceClock: aDuration
+
+
+
+	clockOffset := clockOffset + aDuration! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:14' prior: 50901730!
+test07ListCartOfAnEmptyCartReturnsAnEmptyBag
+
+
+
+	| interface cartId |
+
+
+
+	interface := self createDefaultInterface.
+
+	cartId := self getCartIdFromInterface: interface.
+
+	
+
+	self assert: (interface listCartIdentifiedAs: cartId) isEmpty 
+
+	! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:14' prior: 50901844!
+test14CanNotCheckoutCartAfterExpiration
+
+
+
+	
+
+	| interface cartId  |
+
+
+
+	interface := self createDefaultInterface.
+
+
+
+	cartId := self getCartIdFromInterface: interface.
+
+
+
+	self advanceClock: 30 minutes.
+
+	
+
+	self
+
+		should: [interface 
+
+			checkOutCartIdentifiedAs: cartId 
+
+			withCreditCardNumbered: '1111222233334444' 
+
+			ownedBy: 'Juan Perez' 
+
+			expiringOn: testObjectsFactory notExpiredMonthOfYear ]
+
+		raise: Error - MessageNotUnderstood
+
+		withExceptionDo: [ :anError |
+
+			self assert: anError messageText = RestInterface cartHasExpiredErrorMessage ]
+
+		
+
+		
+
+		! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:14' prior: 50901973!
+invalidUser
+
+
+
+	^'invalidUser'! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:14' prior: 50901977 overrides: 16961394!
+setUp
+
+
+
+	testObjectsFactory := StoreTestObjectsFactory new.
+
+	
+
+	clockOffset := 0 minutes.! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:14' prior: 50901930!
+createDefaultInterface
+
+	
+
+	| interface |
+
+	
+
+	interface := RestInterface
+
+		authenticatingWith: self
+
+		acceptingItemsOf: testObjectsFactory defaultCatalog
+
+		merchantProcessor: self.
+
+		
+
+	interface clock: self.
+
+	
+
+	^interface.! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:14' prior: 50901648!
+test01CanCreateCartWithValidUserAndPassword
+
+
+
+	| interface cartID |
+
+	
+
+	interface := self createDefaultInterface.
+
+
+
+	cartID := self getCartIdFromInterface: interface.
+
+	
+
+	self assert: (interface listCartIdentifiedAs: cartID) isEmpty! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:14' prior: 50901961!
+invalidCartId
+
+	
+
+	"Devuelvo nil porque seguro que siempre sera un id invalido, no importa que sea el id - Hernan"
+
+	^nil! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:14' prior: 50901753!
+test09ListCartReturnsTheRightNumberOfItems
+
+
+
+	| interface cartId cartContent |
+
+
+
+	interface := self createDefaultInterface.
+
+
+
+	cartId := self getCartIdFromInterface: interface.
+
+	interface add: self validBook quantity: 1 toCartIdentifiedAs: cartId.
+
+	interface add: self anotherValidBook quantity: 2 toCartIdentifiedAs: cartId.
+
+	cartContent := interface listCartIdentifiedAs: cartId.
+
+	
+
+	self assert: (cartContent occurrencesOf: self validBook) = 1. 
+
+	self assert: (cartContent occurrencesOf: self anotherValidBook) = 2
+
+! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:14' prior: 50901968!
+invalidPassword
+
+	
+
+	^'invalidPassword'! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:14' prior: 50901924!
+validUsersAndPasswords
+
+	
+
+	^Dictionary new
+
+		at: self validUser put: self validUserPassword;
+
+		yourself! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:14' prior: 50901808!
+test12CanNotCheckoutAnEmptyCart
+
+
+
+	| interface cartId |
+
+
+
+	interface := self createDefaultInterface.
+
+
+
+	cartId := self getCartIdFromInterface: interface.
+
+	self
+
+		should: [interface 
+
+			checkOutCartIdentifiedAs: cartId 
+
+			withCreditCardNumbered: '1111222233334444' 
+
+			ownedBy: 'Juan Perez' 
+
+			expiringOn: testObjectsFactory notExpiredMonthOfYear ]
+
+		raise: Error - MessageNotUnderstood
+
+		withExceptionDo: [ :anError |
+
+			self assert: anError messageText = RestInterface cartCanNotBeEmptyErrorMessage ]
+
+		
+
+		! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:14' prior: 50901947!
+is: aUser authenticatingWith: aPassword 
+
+	| storedPassword |
+
+	
+
+	storedPassword := self validUsersAndPasswords at: aUser ifAbsent: [ ^false ].
+
+	^aPassword = storedPassword ! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:14' prior: 50901956!
+invalidBook
+
+
+
+	^testObjectsFactory itemNotSellByTheStore ! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:14' prior: 50901790!
+test11CanNotCheckoutANotCreatedCart
+
+
+
+	| interface |
+
+
+
+	interface := self createDefaultInterface.
+
+
+
+	self
+
+		should: [interface 
+
+			checkOutCartIdentifiedAs: self invalidCartId  
+
+			withCreditCardNumbered: '1111222233334444' 
+
+			ownedBy: 'Juan Perez' 
+
+			expiringOn: testObjectsFactory notExpiredMonthOfYear ]
+
+		raise: Error - MessageNotUnderstood
+
+		withExceptionDo: [ :anError |
+
+			self assert: anError messageText = RestInterface invalidCartIdErrorMessage ]
+
+		
+
+		! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:14' prior: 50901988!
+clockOffset: aDuration
+
+
+
+	clockOffset := aDuration! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:14' prior: 50901919!
+validUserPassword
+
+	
+
+	^'validUserPassword'! !
+!RestInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:14' prior: 50901904!
+anotherValidBook
+
+	
+
+	^testObjectsFactory anotherItemSellByTheStore ! !
+!StoreTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:14' prior: 50902466 overrides: 16920235!
+initialize
+
+
+
+	today := DateAndTime now! !
+!StoreTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:14' prior: 50902459!
+notExpiredMonthOfYear
+
+
+
+	^ Month month: today monthIndex year: today yearNumber + 1! !
+!StoreTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:14' prior: 50902427!
+itemSellByTheStorePrice
+
+	
+
+	^10! !
+!StoreTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:14' prior: 50902453!
+notExpiredCreditCard
+
+	
+
+	^CreditCard expiringOn: self notExpiredMonthOfYear! !
+!StoreTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:14' prior: 50902413!
+anotherItemSellByTheStorePrice
+
+	
+
+	^15! !
+!StoreTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:14' prior: 50902471!
+today
+
+	
+
+	^ today! !
+!StoreTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:14' prior: 50902418!
+itemNotSellByTheStore
+
+	
+
+	^'invalidBook'! !
+!StoreTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:14' prior: 50902436!
+defaultCatalog
+
+	
+
+	^ Dictionary new
+
+		at: self itemSellByTheStore put: self itemSellByTheStorePrice;
+
+		at: self anotherItemSellByTheStore put: self anotherItemSellByTheStorePrice;
+
+		yourself ! !
+!StoreTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:14' prior: 50902408!
+anotherItemSellByTheStore
+
+	
+
+	^'anotherValidBook'! !
+!StoreTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:14' prior: 50902431!
+createCart
+
+	
+
+	^Cart acceptingItemsOf: self defaultCatalog! !
+!StoreTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:14' prior: 50902446!
+expiredCreditCard
+
+	
+
+	^CreditCard expiringOn: (Month month: today monthIndex year: today yearNumber - 1)! !
+!StoreTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'Ms 6/15/2023 17:37:14' prior: 50902423!
+itemSellByTheStore
+
+	
+
+	^ 'validBook'! !
+
+!classRemoval: #StoreTestObjectsFactory stamp: 'Ms 6/15/2023 20:42:54'!
+Object subclass: #StoreTestObjectsFactory
+	instanceVariableNames: 'today'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #RestInterface stamp: 'Ms 6/15/2023 20:42:54'!
+Object subclass: #RestInterface
+	instanceVariableNames: 'authenticationSystem carts catalog lastId merchantProcessor salesBook cartsLastAccess expirationTime clock'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #CreditCard stamp: 'Ms 6/15/2023 20:42:55'!
+Object subclass: #CreditCard
+	instanceVariableNames: 'expiration'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #Cashier stamp: 'Ms 6/15/2023 20:42:55'!
+Object subclass: #Cashier
+	instanceVariableNames: 'cart salesBook merchantProcessor creditCard total'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #Cart stamp: 'Ms 6/15/2023 20:42:55'!
+Object subclass: #Cart
+	instanceVariableNames: 'catalog items'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #RestInterfaceTest stamp: 'Ms 6/15/2023 20:42:55'!
+TestCase subclass: #RestInterfaceTest
+	instanceVariableNames: 'testObjectsFactory clockOffset'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #CashierTest stamp: 'Ms 6/15/2023 20:42:56'!
+TestCase subclass: #CashierTest
+	instanceVariableNames: 'testObjectsFactory debitBehavior'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #CartTest stamp: 'Ms 6/15/2023 20:42:56'!
+TestCase subclass: #CartTest
+	instanceVariableNames: 'testObjectsFactory'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+----End fileIn of C:\windows64\repoProfes\2023-1c\09-TusLibros\Iteracion 4\ConsignaIteracion4\TusLibros-Model Ejercicio it4.st----!
+
+----End fileIn of C:\windows64\repoProfes\2023-1c\09-TusLibros\Iteracion 4\ConsignaIteracion4\TusLibrosREST Ejercicio it4.st----!
+
+----End fileIn of C:\windows64\repoProfes\2023-1c\09-TusLibros\Iteracion 4\ConsignaIteracion4\TusLibros-Tests Ejercicio it4.st----!
+
+----End fileIn of C:\windows64\Packages\System\Collections-CompactArrays.pck.st----!
+
+----End fileIn of C:\windows64\Packages\Features\Compression.pck.st----!
+
+----End fileIn of C:\windows64\Packages\Features\Sound.pck.st----!
+
+----End fileIn of C:\windows64\Packages\Features\Cryptography-DigitalSignatures.pck.st----!
+
+----End fileIn of C:\windows64\Packages\Features\Identities-UUID.pck.st----!
+
+----End fileIn of C:\windows64\Packages\System\Network-Kernel.pck.st----!
+
+----End fileIn of C:\windows64\repoProfes\2023-1c\09-TusLibros\Iteracion 4\ConsignaIteracion4\WebClient.pck.st----!
+
+----STARTUP---- (22 June 2023 09:43:36) as C:\windows64\CuisUniversity-5706.image!
+
+
+!classRemoval: #StoreTestObjectsFactory stamp: 'Ms 6/22/2023 09:50:36'!
+Object subclass: #StoreTestObjectsFactory
+	instanceVariableNames: 'today'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #RestInterface stamp: 'Ms 6/22/2023 09:50:36'!
+Object subclass: #RestInterface
+	instanceVariableNames: 'authenticationSystem carts catalog lastId merchantProcessor salesBook cartsLastAccess'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #CreditCard stamp: 'Ms 6/22/2023 09:50:36'!
+Object subclass: #CreditCard
+	instanceVariableNames: 'expiration'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #Cashier stamp: 'Ms 6/22/2023 09:50:37'!
+Object subclass: #Cashier
+	instanceVariableNames: 'cart salesBook merchantProcessor creditCard total'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #Cart stamp: 'Ms 6/22/2023 09:50:37'!
+Object subclass: #Cart
+	instanceVariableNames: 'catalog items'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #RestInterfaceTest stamp: 'Ms 6/22/2023 09:50:37'!
+TestCase subclass: #RestInterfaceTest
+	instanceVariableNames: 'testObjectsFactory'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #CashierTest stamp: 'Ms 6/22/2023 09:50:37'!
+TestCase subclass: #CashierTest
+	instanceVariableNames: 'testObjectsFactory debitBehavior'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #CartTest stamp: 'Ms 6/22/2023 09:50:37'!
+TestCase subclass: #CartTest
+	instanceVariableNames: 'testObjectsFactory'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+----End fileIn of C:\windows64\repoInge1\09-TusLibros\Iteracion 4\TusLibrosREST Ejercicio it4.st----!
+
+----End fileIn of C:\windows64\repoInge1\09-TusLibros\Iteracion 4\TusLibros-Tests Ejercicio it4.st----!
+
+----End fileIn of C:\windows64\Packages\System\Collections-CompactArrays.pck.st----!
+
+----End fileIn of C:\windows64\Packages\Features\Compression.pck.st----!
+
+----End fileIn of C:\windows64\Packages\Features\Sound.pck.st----!
+
+----End fileIn of C:\windows64\Packages\Features\Cryptography-DigitalSignatures.pck.st----!
+
+----End fileIn of C:\windows64\Packages\Features\Identities-UUID.pck.st----!
+
+----End fileIn of C:\windows64\Packages\System\Network-Kernel.pck.st----!
+
+----End fileIn of C:\windows64\repoInge1\09-TusLibros\Iteracion 4\WebClient.pck.st----!
+
+----End fileIn of C:\windows64\repoInge1\09-TusLibros\Iteracion 4\TusLibros-Model Ejercicio it4.st----!
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'Ms 6/22/2023 09:51:59'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'Ms 6/22/2023 09:51:59'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'Ms 6/22/2023 09:51:59'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'Ms 6/22/2023 09:51:59'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'Ms 6/22/2023 09:51:59'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'Ms 6/22/2023 09:51:59'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'Ms 6/22/2023 09:51:59'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'Ms 6/22/2023 09:51:59'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutAnEmptyCart stamp: 'Ms 6/22/2023 09:51:59'!
+PASSED!
+
+!testRun: #CashierTest #test02CalculatedTotalIsCorrect stamp: 'Ms 6/22/2023 09:51:59'!
+PASSED!
+
+!testRun: #CashierTest #test03CanNotCheckoutWithAnExpiredCreditCart stamp: 'Ms 6/22/2023 09:51:59'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutRegistersASale stamp: 'Ms 6/22/2023 09:51:59'!
+PASSED!
+
+!testRun: #CashierTest #test05CashierChargesCreditCardUsingMerchantProcessor stamp: 'Ms 6/22/2023 09:51:59'!
+PASSED!
+
+!testRun: #CashierTest #test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit stamp: 'Ms 6/22/2023 09:51:59'!
+PASSED!
+
+!testRun: #CreditCardTest #test01CreditCardNumberWithLessThan16DigitsIsNotValid stamp: 'Ms 6/22/2023 09:51:59'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CreditCardNumberWithMoreThan16DigitsIsNotValid stamp: 'Ms 6/22/2023 09:51:59'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CreditCardNumberShouldBeDigitsOnly stamp: 'Ms 6/22/2023 09:51:59'!
+PASSED!
+
+!testRun: #CreditCardTest #test04NameCanNotBeEmpty stamp: 'Ms 6/22/2023 09:51:59'!
+PASSED!
+
+!testRun: #CreditCardTest #test05IsExpiredOnNextExpirationMonth stamp: 'Ms 6/22/2023 09:51:59'!
+PASSED!
+
+!testRun: #CreditCardTest #test06IsNotExpiredOnExpirationMonth stamp: 'Ms 6/22/2023 09:51:59'!
+PASSED!
+
+!testRun: #CreditCardTest #test07CanGetCreditCardInfoFromIt stamp: 'Ms 6/22/2023 09:51:59'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test01CanCreateCartWithValidUserAndPassword stamp: 'Ms 6/22/2023 09:51:59'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test02CanNotCreateCartWithInvalidUser stamp: 'Ms 6/22/2023 09:51:59'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test03CanNotCreateCartWithInvalidPassword stamp: 'Ms 6/22/2023 09:51:59'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test04CanAddItemsToACreatedCart stamp: 'Ms 6/22/2023 09:51:59'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test05CanNotAddItemToNotCreatedCart stamp: 'Ms 6/22/2023 09:51:59'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test06CanNotAddItemNotSellByTheStore stamp: 'Ms 6/22/2023 09:51:59'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test08CanNotListCartOfInvalidCartId stamp: 'Ms 6/22/2023 09:51:59'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test09ListCartReturnsTheRightNumberOfItems stamp: 'Ms 6/22/2023 09:51:59'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test10CheckOutReturnsTransactionIdAndImpactsCustomerPurchases stamp: 'Ms 6/22/2023 09:51:59'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test10_1_CanNotCheckoutAnAlreadyCheckedOutCart stamp: 'Ms 6/22/2023 09:51:59'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test11CanNotCheckoutANotCreatedCart stamp: 'Ms 6/22/2023 09:51:59'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test12CanNotCheckoutAnEmptyCart stamp: 'Ms 6/22/2023 09:51:59'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test13CanNotCheckoutWithAnExpiredCreditCard stamp: 'Ms 6/22/2023 09:51:59'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test14ListPurchasesIncludesBoughtItems stamp: 'Ms 6/22/2023 09:51:59'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test15CanNotListPurchasesOfInvalidCustomer stamp: 'Ms 6/22/2023 09:51:59'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test16CanNotListPurchasesOfValidCustomerWithInvalidPassword stamp: 'Ms 6/22/2023 09:51:59'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test17CanNotAddToCartWhenSessionIsExpired stamp: 'Ms 6/22/2023 09:51:59'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test18CanNotListCartWhenSessionIsExpired stamp: 'Ms 6/22/2023 09:51:59'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test19CanNotCheckOutCartWhenSessionIsExpired stamp: 'Ms 6/22/2023 09:51:59'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test20BookPerformanceShouldNotTakeTooLong stamp: 'Ms 6/22/2023 09:52:01'!
+FAILURE!
+
+!testRun: #TusLibrosSystemFacadeTest #test21StorePerformanceShouldNotTakeTooLong stamp: 'Ms 6/22/2023 09:52:03'!
+FAILURE!
+
+!classRemoval: #TusLibrosSystemFacade stamp: 'Ms 6/22/2023 09:55:16'!
+Object subclass: #TusLibrosSystemFacade
+	instanceVariableNames: 'validUsersAndPasswords catalog lastId merchantProcessor salesBook clock cartSessions'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Model'!
+
+!classRemoval: #Ticket stamp: 'Ms 6/22/2023 09:55:17'!
+Object subclass: #Ticket
+	instanceVariableNames: 'lineItems transactionId transactionIdSale transactionIdTaxes'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Model'!
+
+!classRemoval: #Sale stamp: 'Ms 6/22/2023 09:55:17'!
+Object subclass: #Sale
+	instanceVariableNames: 'customer ticket'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Model'!
+
+!classRemoval: #MerchantProcessor stamp: 'Ms 6/22/2023 09:55:17'!
+Object subclass: #MerchantProcessor
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Model'!
+
+!classRemoval: #LineItem stamp: 'Ms 6/22/2023 09:55:17'!
+Object subclass: #LineItem
+	instanceVariableNames: 'item quantity total'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Model'!
+
+!classRemoval: #CreditCard stamp: 'Ms 6/22/2023 09:55:17'!
+Object subclass: #CreditCard
+	instanceVariableNames: 'expiration number ownerName'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Model'!
+
+!classRemoval: #Clock stamp: 'Ms 6/22/2023 09:55:18'!
+Object subclass: #Clock
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Model'!
+
+!classRemoval: #Cashier stamp: 'Ms 6/22/2023 09:55:18'!
+Object subclass: #Cashier
+	instanceVariableNames: 'cart salesBook merchantProcessor creditCard owner ticket'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Model'!
+
+!classRemoval: #CartSession stamp: 'Ms 6/22/2023 09:55:18'!
+Object subclass: #CartSession
+	instanceVariableNames: 'owner cart lastUsedTime systemFacade'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Model'!
+
+!classRemoval: #Cart stamp: 'Ms 6/22/2023 09:55:18'!
+Object subclass: #Cart
+	instanceVariableNames: 'catalog items'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Model'!
+
+!classRemoval: #ManualClock stamp: 'Ms 6/22/2023 09:55:19'!
+ProtoObject subclass: #ManualClock
+	instanceVariableNames: 'now'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Tests'!
+
+!classRemoval: #StoreTestObjectsFactory stamp: 'Ms 6/22/2023 09:55:19'!
+Object subclass: #StoreTestObjectsFactory
+	instanceVariableNames: 'today'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Tests'!
+
+!classRemoval: #TusLibrosSystemFacadeTest stamp: 'Ms 6/22/2023 09:55:19'!
+TestCase subclass: #TusLibrosSystemFacadeTest
+	instanceVariableNames: 'testObjectsFactory clock systemFacade merchantProcessorTransactionId'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Tests'!
+
+!classRemoval: #CreditCardTest stamp: 'Ms 6/22/2023 09:55:20'!
+TestCase subclass: #CreditCardTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Tests'!
+
+!classRemoval: #CashierTest stamp: 'Ms 6/22/2023 09:55:20'!
+TestCase subclass: #CashierTest
+	instanceVariableNames: 'testObjectsFactory debitBehavior'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Tests'!
+
+!classRemoval: #CartTest stamp: 'Ms 6/22/2023 09:55:20'!
+TestCase subclass: #CartTest
+	instanceVariableNames: 'testObjectsFactory'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Tests'!
+
+----End fileIn of C:\windows64\repoInge1\09-TusLibros\Iteracion 4\TusLibros-Model Ejercicio it4.st----!
+
+!classRemoval: #RealTimeClock stamp: 'Ms 6/22/2023 09:56:12'!
+ProtoObject subclass: #RealTimeClock
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibrosREST'!
+
+!classRemoval: #DefaultMerchantProcessor stamp: 'Ms 6/22/2023 09:56:12'!
+ProtoObject subclass: #DefaultMerchantProcessor
+	instanceVariableNames: 'transactionId'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibrosREST'!
+
+!classRemoval: #TusLibrosServerRestInterface stamp: 'Ms 6/22/2023 09:56:12'!
+Object subclass: #TusLibrosServerRestInterface
+	instanceVariableNames: 'systemFacade'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibrosREST'!
+
+!classRemoval: #TusLibrosClientTestWindowModel stamp: 'Ms 6/22/2023 09:56:13'!
+Object subclass: #TusLibrosClientTestWindowModel
+	instanceVariableNames: 'cartIds selectedCartIdsIndex selectedBookCatalogIndex currentSelectedCartContent restInterface'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibrosREST'!
+
+!classRemoval: #TusLibrosClientRestInterface stamp: 'Ms 6/22/2023 09:56:13'!
+Object subclass: #TusLibrosClientRestInterface
+	instanceVariableNames: 'port'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibrosREST'!
+
+!classRemoval: #TusLibrosClientTestWindow stamp: 'Ms 6/22/2023 09:56:13'!
+SystemWindow subclass: #TusLibrosClientTestWindow
+	instanceVariableNames: 'cartIdsListMorph booksCatalogListMorph cartContentListMorph addToCartButtonMorph listCartButtonMorph selectedCartLabelMorph'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibrosREST'!
+
+----End fileIn of C:\windows64\repoInge1\09-TusLibros\Iteracion 4\TusLibros-Tests Ejercicio it4.st----!
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'Ms 6/22/2023 09:56:28'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'Ms 6/22/2023 09:56:28'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'Ms 6/22/2023 09:56:28'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'Ms 6/22/2023 09:56:28'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'Ms 6/22/2023 09:56:28'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'Ms 6/22/2023 09:56:28'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'Ms 6/22/2023 09:56:28'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'Ms 6/22/2023 09:56:28'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutAnEmptyCart stamp: 'Ms 6/22/2023 09:56:28'!
+PASSED!
+
+!testRun: #CashierTest #test02CalculatedTotalIsCorrect stamp: 'Ms 6/22/2023 09:56:28'!
+PASSED!
+
+!testRun: #CashierTest #test03CanNotCheckoutWithAnExpiredCreditCart stamp: 'Ms 6/22/2023 09:56:28'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutRegistersASale stamp: 'Ms 6/22/2023 09:56:28'!
+PASSED!
+
+!testRun: #CashierTest #test05CashierChargesCreditCardUsingMerchantProcessor stamp: 'Ms 6/22/2023 09:56:28'!
+PASSED!
+
+!testRun: #CashierTest #test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit stamp: 'Ms 6/22/2023 09:56:28'!
+PASSED!
+
+!testRun: #CreditCardTest #test01CreditCardNumberWithLessThan16DigitsIsNotValid stamp: 'Ms 6/22/2023 09:56:28'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CreditCardNumberWithMoreThan16DigitsIsNotValid stamp: 'Ms 6/22/2023 09:56:28'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CreditCardNumberShouldBeDigitsOnly stamp: 'Ms 6/22/2023 09:56:28'!
+PASSED!
+
+!testRun: #CreditCardTest #test04NameCanNotBeEmpty stamp: 'Ms 6/22/2023 09:56:28'!
+PASSED!
+
+!testRun: #CreditCardTest #test05IsExpiredOnNextExpirationMonth stamp: 'Ms 6/22/2023 09:56:28'!
+PASSED!
+
+!testRun: #CreditCardTest #test06IsNotExpiredOnExpirationMonth stamp: 'Ms 6/22/2023 09:56:28'!
+PASSED!
+
+!testRun: #CreditCardTest #test07CanGetCreditCardInfoFromIt stamp: 'Ms 6/22/2023 09:56:28'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test01CanCreateCartWithValidUserAndPassword stamp: 'Ms 6/22/2023 09:56:28'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test02CanNotCreateCartWithInvalidUser stamp: 'Ms 6/22/2023 09:56:28'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test03CanNotCreateCartWithInvalidPassword stamp: 'Ms 6/22/2023 09:56:28'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test04CanAddItemsToACreatedCart stamp: 'Ms 6/22/2023 09:56:28'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test05CanNotAddItemToNotCreatedCart stamp: 'Ms 6/22/2023 09:56:28'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test06CanNotAddItemNotSellByTheStore stamp: 'Ms 6/22/2023 09:56:28'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test08CanNotListCartOfInvalidCartId stamp: 'Ms 6/22/2023 09:56:28'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test09ListCartReturnsTheRightNumberOfItems stamp: 'Ms 6/22/2023 09:56:28'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test10CheckOutReturnsTransactionIdAndImpactsCustomerPurchases stamp: 'Ms 6/22/2023 09:56:28'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test10_1_CanNotCheckoutAnAlreadyCheckedOutCart stamp: 'Ms 6/22/2023 09:56:28'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test11CanNotCheckoutANotCreatedCart stamp: 'Ms 6/22/2023 09:56:28'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test12CanNotCheckoutAnEmptyCart stamp: 'Ms 6/22/2023 09:56:28'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test13CanNotCheckoutWithAnExpiredCreditCard stamp: 'Ms 6/22/2023 09:56:28'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test14ListPurchasesIncludesBoughtItems stamp: 'Ms 6/22/2023 09:56:28'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test15CanNotListPurchasesOfInvalidCustomer stamp: 'Ms 6/22/2023 09:56:28'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test16CanNotListPurchasesOfValidCustomerWithInvalidPassword stamp: 'Ms 6/22/2023 09:56:28'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test17CanNotAddToCartWhenSessionIsExpired stamp: 'Ms 6/22/2023 09:56:28'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test18CanNotListCartWhenSessionIsExpired stamp: 'Ms 6/22/2023 09:56:28'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test19CanNotCheckOutCartWhenSessionIsExpired stamp: 'Ms 6/22/2023 09:56:28'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test20BookPerformanceShouldNotTakeTooLong stamp: 'Ms 6/22/2023 09:56:30'!
+FAILURE!
+
+!testRun: #TusLibrosSystemFacadeTest #test21StorePerformanceShouldNotTakeTooLong stamp: 'Ms 6/22/2023 09:56:32'!
+FAILURE!
+
+!testRun: #TusLibrosSystemFacadeTest #test01CanCreateCartWithValidUserAndPassword stamp: 'Ms 6/22/2023 09:56:59'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test02CanNotCreateCartWithInvalidUser stamp: 'Ms 6/22/2023 09:56:59'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test03CanNotCreateCartWithInvalidPassword stamp: 'Ms 6/22/2023 09:56:59'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test04CanAddItemsToACreatedCart stamp: 'Ms 6/22/2023 09:56:59'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test05CanNotAddItemToNotCreatedCart stamp: 'Ms 6/22/2023 09:56:59'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test06CanNotAddItemNotSellByTheStore stamp: 'Ms 6/22/2023 09:56:59'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test08CanNotListCartOfInvalidCartId stamp: 'Ms 6/22/2023 09:56:59'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test09ListCartReturnsTheRightNumberOfItems stamp: 'Ms 6/22/2023 09:56:59'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test10CheckOutReturnsTransactionIdAndImpactsCustomerPurchases stamp: 'Ms 6/22/2023 09:56:59'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test10_1_CanNotCheckoutAnAlreadyCheckedOutCart stamp: 'Ms 6/22/2023 09:56:59'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test11CanNotCheckoutANotCreatedCart stamp: 'Ms 6/22/2023 09:56:59'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test12CanNotCheckoutAnEmptyCart stamp: 'Ms 6/22/2023 09:56:59'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test13CanNotCheckoutWithAnExpiredCreditCard stamp: 'Ms 6/22/2023 09:56:59'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test14ListPurchasesIncludesBoughtItems stamp: 'Ms 6/22/2023 09:56:59'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test15CanNotListPurchasesOfInvalidCustomer stamp: 'Ms 6/22/2023 09:56:59'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test16CanNotListPurchasesOfValidCustomerWithInvalidPassword stamp: 'Ms 6/22/2023 09:56:59'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test17CanNotAddToCartWhenSessionIsExpired stamp: 'Ms 6/22/2023 09:56:59'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test18CanNotListCartWhenSessionIsExpired stamp: 'Ms 6/22/2023 09:56:59'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test19CanNotCheckOutCartWhenSessionIsExpired stamp: 'Ms 6/22/2023 09:56:59'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test20BookPerformanceShouldNotTakeTooLong stamp: 'Ms 6/22/2023 09:57:01'!
+FAILURE!
+
+!testRun: #TusLibrosSystemFacadeTest #test21StorePerformanceShouldNotTakeTooLong stamp: 'Ms 6/22/2023 09:57:03'!
+FAILURE!
+!TusLibrosSystemFacade methodsFor: 'private' stamp: 'Ms 6/22/2023 09:59:27' prior: 50983787!
+bookPerformance: anItem
+
+	| bookPerformance totalMoney totalSales readySemaphore|
+
+	bookPerformance := Dictionary new.
+	
+	readySemaphore := Semaphore new.
+	[totalSales := self totalSalesOf: anItem. readySemaphore  signal.] fork.
+	[totalMoney := self totalMoneyRaisedBy: anItem. readySemaphore  signal.] fork.
+	readySemaphore wait.
+	readySemaphore wait.
+
+	bookPerformance at: 'quantity' put: totalSales.
+	bookPerformance at: 'total' put: totalMoney.
+	bookPerformance at: 'summary' put: anItem,' was selled ',totalSales asString, ' times and raised a total amount of money equal to: ', totalMoney asString.
+	
+	^bookPerformance
+	
+
+! !
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'Ms 6/22/2023 09:59:29'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'Ms 6/22/2023 09:59:29'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'Ms 6/22/2023 09:59:29'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'Ms 6/22/2023 09:59:29'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'Ms 6/22/2023 09:59:29'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'Ms 6/22/2023 09:59:29'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'Ms 6/22/2023 09:59:29'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'Ms 6/22/2023 09:59:29'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutAnEmptyCart stamp: 'Ms 6/22/2023 09:59:29'!
+PASSED!
+
+!testRun: #CashierTest #test02CalculatedTotalIsCorrect stamp: 'Ms 6/22/2023 09:59:29'!
+PASSED!
+
+!testRun: #CashierTest #test03CanNotCheckoutWithAnExpiredCreditCart stamp: 'Ms 6/22/2023 09:59:29'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutRegistersASale stamp: 'Ms 6/22/2023 09:59:29'!
+PASSED!
+
+!testRun: #CashierTest #test05CashierChargesCreditCardUsingMerchantProcessor stamp: 'Ms 6/22/2023 09:59:29'!
+PASSED!
+
+!testRun: #CashierTest #test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit stamp: 'Ms 6/22/2023 09:59:29'!
+PASSED!
+
+!testRun: #CreditCardTest #test01CreditCardNumberWithLessThan16DigitsIsNotValid stamp: 'Ms 6/22/2023 09:59:29'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CreditCardNumberWithMoreThan16DigitsIsNotValid stamp: 'Ms 6/22/2023 09:59:29'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CreditCardNumberShouldBeDigitsOnly stamp: 'Ms 6/22/2023 09:59:29'!
+PASSED!
+
+!testRun: #CreditCardTest #test04NameCanNotBeEmpty stamp: 'Ms 6/22/2023 09:59:29'!
+PASSED!
+
+!testRun: #CreditCardTest #test05IsExpiredOnNextExpirationMonth stamp: 'Ms 6/22/2023 09:59:29'!
+PASSED!
+
+!testRun: #CreditCardTest #test06IsNotExpiredOnExpirationMonth stamp: 'Ms 6/22/2023 09:59:29'!
+PASSED!
+
+!testRun: #CreditCardTest #test07CanGetCreditCardInfoFromIt stamp: 'Ms 6/22/2023 09:59:29'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test01CanCreateCartWithValidUserAndPassword stamp: 'Ms 6/22/2023 09:59:29'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test02CanNotCreateCartWithInvalidUser stamp: 'Ms 6/22/2023 09:59:29'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test03CanNotCreateCartWithInvalidPassword stamp: 'Ms 6/22/2023 09:59:29'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test04CanAddItemsToACreatedCart stamp: 'Ms 6/22/2023 09:59:29'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test05CanNotAddItemToNotCreatedCart stamp: 'Ms 6/22/2023 09:59:29'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test06CanNotAddItemNotSellByTheStore stamp: 'Ms 6/22/2023 09:59:29'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test08CanNotListCartOfInvalidCartId stamp: 'Ms 6/22/2023 09:59:29'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test09ListCartReturnsTheRightNumberOfItems stamp: 'Ms 6/22/2023 09:59:29'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test10CheckOutReturnsTransactionIdAndImpactsCustomerPurchases stamp: 'Ms 6/22/2023 09:59:29'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test10_1_CanNotCheckoutAnAlreadyCheckedOutCart stamp: 'Ms 6/22/2023 09:59:29'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test11CanNotCheckoutANotCreatedCart stamp: 'Ms 6/22/2023 09:59:29'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test12CanNotCheckoutAnEmptyCart stamp: 'Ms 6/22/2023 09:59:29'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test13CanNotCheckoutWithAnExpiredCreditCard stamp: 'Ms 6/22/2023 09:59:29'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test14ListPurchasesIncludesBoughtItems stamp: 'Ms 6/22/2023 09:59:29'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test15CanNotListPurchasesOfInvalidCustomer stamp: 'Ms 6/22/2023 09:59:29'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test16CanNotListPurchasesOfValidCustomerWithInvalidPassword stamp: 'Ms 6/22/2023 09:59:29'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test17CanNotAddToCartWhenSessionIsExpired stamp: 'Ms 6/22/2023 09:59:29'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test18CanNotListCartWhenSessionIsExpired stamp: 'Ms 6/22/2023 09:59:29'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test19CanNotCheckOutCartWhenSessionIsExpired stamp: 'Ms 6/22/2023 09:59:29'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test20BookPerformanceShouldNotTakeTooLong stamp: 'Ms 6/22/2023 09:59:30'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test21StorePerformanceShouldNotTakeTooLong stamp: 'Ms 6/22/2023 09:59:33'!
+FAILURE!
+
+!testRun: #TusLibrosSystemFacadeTest #test21StorePerformanceShouldNotTakeTooLong stamp: 'Ms 6/22/2023 09:59:35'!
+FAILURE!
+!TusLibrosSystemFacade methodsFor: 'private' stamp: 'Ms 6/22/2023 10:00:42' prior: 50983828!
+storePerformance
+
+	| totalMoney totalSales performance readySemaphore |
+	
+	performance := Dictionary new.
+	
+	readySemaphore := Semaphore new.
+	[totalSales := self totalSales. readySemaphore  signal.] fork.
+	[totalMoney := self totalMoneyRaised. readySemaphore  signal.] fork.
+	readySemaphore wait.
+	readySemaphore wait.
+	
+	performance at: 'quantity' put: totalSales.
+	performance at: 'total' put: totalMoney.
+	performance at: 'summary' put: 'The store selled a total of ',totalSales asString, ' books and raised a total amount of money equal to: ', totalMoney asString.
+	
+	^performance
+	
+
+! !
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'Ms 6/22/2023 10:00:44'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'Ms 6/22/2023 10:00:44'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'Ms 6/22/2023 10:00:44'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'Ms 6/22/2023 10:00:44'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'Ms 6/22/2023 10:00:44'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'Ms 6/22/2023 10:00:44'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'Ms 6/22/2023 10:00:44'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'Ms 6/22/2023 10:00:44'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutAnEmptyCart stamp: 'Ms 6/22/2023 10:00:44'!
+PASSED!
+
+!testRun: #CashierTest #test02CalculatedTotalIsCorrect stamp: 'Ms 6/22/2023 10:00:44'!
+PASSED!
+
+!testRun: #CashierTest #test03CanNotCheckoutWithAnExpiredCreditCart stamp: 'Ms 6/22/2023 10:00:44'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutRegistersASale stamp: 'Ms 6/22/2023 10:00:44'!
+PASSED!
+
+!testRun: #CashierTest #test05CashierChargesCreditCardUsingMerchantProcessor stamp: 'Ms 6/22/2023 10:00:44'!
+PASSED!
+
+!testRun: #CashierTest #test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit stamp: 'Ms 6/22/2023 10:00:44'!
+PASSED!
+
+!testRun: #CreditCardTest #test01CreditCardNumberWithLessThan16DigitsIsNotValid stamp: 'Ms 6/22/2023 10:00:44'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CreditCardNumberWithMoreThan16DigitsIsNotValid stamp: 'Ms 6/22/2023 10:00:44'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CreditCardNumberShouldBeDigitsOnly stamp: 'Ms 6/22/2023 10:00:44'!
+PASSED!
+
+!testRun: #CreditCardTest #test04NameCanNotBeEmpty stamp: 'Ms 6/22/2023 10:00:44'!
+PASSED!
+
+!testRun: #CreditCardTest #test05IsExpiredOnNextExpirationMonth stamp: 'Ms 6/22/2023 10:00:44'!
+PASSED!
+
+!testRun: #CreditCardTest #test06IsNotExpiredOnExpirationMonth stamp: 'Ms 6/22/2023 10:00:44'!
+PASSED!
+
+!testRun: #CreditCardTest #test07CanGetCreditCardInfoFromIt stamp: 'Ms 6/22/2023 10:00:44'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test01CanCreateCartWithValidUserAndPassword stamp: 'Ms 6/22/2023 10:00:44'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test02CanNotCreateCartWithInvalidUser stamp: 'Ms 6/22/2023 10:00:44'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test03CanNotCreateCartWithInvalidPassword stamp: 'Ms 6/22/2023 10:00:44'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test04CanAddItemsToACreatedCart stamp: 'Ms 6/22/2023 10:00:44'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test05CanNotAddItemToNotCreatedCart stamp: 'Ms 6/22/2023 10:00:44'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test06CanNotAddItemNotSellByTheStore stamp: 'Ms 6/22/2023 10:00:44'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test08CanNotListCartOfInvalidCartId stamp: 'Ms 6/22/2023 10:00:44'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test09ListCartReturnsTheRightNumberOfItems stamp: 'Ms 6/22/2023 10:00:44'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test10CheckOutReturnsTransactionIdAndImpactsCustomerPurchases stamp: 'Ms 6/22/2023 10:00:44'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test10_1_CanNotCheckoutAnAlreadyCheckedOutCart stamp: 'Ms 6/22/2023 10:00:44'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test11CanNotCheckoutANotCreatedCart stamp: 'Ms 6/22/2023 10:00:44'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test12CanNotCheckoutAnEmptyCart stamp: 'Ms 6/22/2023 10:00:44'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test13CanNotCheckoutWithAnExpiredCreditCard stamp: 'Ms 6/22/2023 10:00:44'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test14ListPurchasesIncludesBoughtItems stamp: 'Ms 6/22/2023 10:00:44'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test15CanNotListPurchasesOfInvalidCustomer stamp: 'Ms 6/22/2023 10:00:44'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test16CanNotListPurchasesOfValidCustomerWithInvalidPassword stamp: 'Ms 6/22/2023 10:00:44'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test17CanNotAddToCartWhenSessionIsExpired stamp: 'Ms 6/22/2023 10:00:44'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test18CanNotListCartWhenSessionIsExpired stamp: 'Ms 6/22/2023 10:00:44'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test19CanNotCheckOutCartWhenSessionIsExpired stamp: 'Ms 6/22/2023 10:00:44'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test20BookPerformanceShouldNotTakeTooLong stamp: 'Ms 6/22/2023 10:00:45'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test21StorePerformanceShouldNotTakeTooLong stamp: 'Ms 6/22/2023 10:00:46'!
+PASSED!
+!TusLibrosSystemFacade methodsFor: 'semaphore' stamp: 'Ms 6/22/2023 10:06:09'!
+processClosure: aClosureCollection
+
+	| readySemaphore |
+	
+	readySemaphore := Semaphore new.
+	
+	aClosureCollection do: [ :item | [ item value. readySemaphore  signal. ]  fork ].
+
+	readySemaphore wait.
+	readySemaphore wait.! !
+!TusLibrosSystemFacade methodsFor: 'private' stamp: 'Ms 6/22/2023 10:07:00' prior: 50985373!
+bookPerformance: anItem
+
+	| bookPerformance totalMoney totalSales |
+
+	bookPerformance := Dictionary new.
+	
+	self processClosure: [[totalSales := self totalSalesOf: anItem.].  totalMoney := self totalMoneyRaisedBy: anItem.].
+	
+	bookPerformance at: 'quantity' put: totalSales.
+	bookPerformance at: 'total' put: totalMoney.
+	bookPerformance at: 'summary' put: anItem,' was selled ',totalSales asString, ' times and raised a total amount of money equal to: ', totalMoney asString.
+	
+	^bookPerformance
+	
+
+! !
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'Ms 6/22/2023 10:07:04'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'Ms 6/22/2023 10:07:04'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'Ms 6/22/2023 10:07:04'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'Ms 6/22/2023 10:07:04'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'Ms 6/22/2023 10:07:04'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'Ms 6/22/2023 10:07:04'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'Ms 6/22/2023 10:07:04'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'Ms 6/22/2023 10:07:04'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutAnEmptyCart stamp: 'Ms 6/22/2023 10:07:04'!
+PASSED!
+
+!testRun: #CashierTest #test02CalculatedTotalIsCorrect stamp: 'Ms 6/22/2023 10:07:04'!
+PASSED!
+
+!testRun: #CashierTest #test03CanNotCheckoutWithAnExpiredCreditCart stamp: 'Ms 6/22/2023 10:07:04'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutRegistersASale stamp: 'Ms 6/22/2023 10:07:04'!
+PASSED!
+
+!testRun: #CashierTest #test05CashierChargesCreditCardUsingMerchantProcessor stamp: 'Ms 6/22/2023 10:07:04'!
+PASSED!
+
+!testRun: #CashierTest #test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit stamp: 'Ms 6/22/2023 10:07:04'!
+PASSED!
+
+!testRun: #CreditCardTest #test01CreditCardNumberWithLessThan16DigitsIsNotValid stamp: 'Ms 6/22/2023 10:07:04'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CreditCardNumberWithMoreThan16DigitsIsNotValid stamp: 'Ms 6/22/2023 10:07:04'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CreditCardNumberShouldBeDigitsOnly stamp: 'Ms 6/22/2023 10:07:04'!
+PASSED!
+
+!testRun: #CreditCardTest #test04NameCanNotBeEmpty stamp: 'Ms 6/22/2023 10:07:04'!
+PASSED!
+
+!testRun: #CreditCardTest #test05IsExpiredOnNextExpirationMonth stamp: 'Ms 6/22/2023 10:07:04'!
+PASSED!
+
+!testRun: #CreditCardTest #test06IsNotExpiredOnExpirationMonth stamp: 'Ms 6/22/2023 10:07:04'!
+PASSED!
+
+!testRun: #CreditCardTest #test07CanGetCreditCardInfoFromIt stamp: 'Ms 6/22/2023 10:07:04'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test01CanCreateCartWithValidUserAndPassword stamp: 'Ms 6/22/2023 10:07:04'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test02CanNotCreateCartWithInvalidUser stamp: 'Ms 6/22/2023 10:07:04'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test03CanNotCreateCartWithInvalidPassword stamp: 'Ms 6/22/2023 10:07:04'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test04CanAddItemsToACreatedCart stamp: 'Ms 6/22/2023 10:07:04'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test05CanNotAddItemToNotCreatedCart stamp: 'Ms 6/22/2023 10:07:04'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test06CanNotAddItemNotSellByTheStore stamp: 'Ms 6/22/2023 10:07:04'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test08CanNotListCartOfInvalidCartId stamp: 'Ms 6/22/2023 10:07:04'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test09ListCartReturnsTheRightNumberOfItems stamp: 'Ms 6/22/2023 10:07:04'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test10CheckOutReturnsTransactionIdAndImpactsCustomerPurchases stamp: 'Ms 6/22/2023 10:07:04'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test10_1_CanNotCheckoutAnAlreadyCheckedOutCart stamp: 'Ms 6/22/2023 10:07:04'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test11CanNotCheckoutANotCreatedCart stamp: 'Ms 6/22/2023 10:07:04'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test12CanNotCheckoutAnEmptyCart stamp: 'Ms 6/22/2023 10:07:04'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test13CanNotCheckoutWithAnExpiredCreditCard stamp: 'Ms 6/22/2023 10:07:04'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test14ListPurchasesIncludesBoughtItems stamp: 'Ms 6/22/2023 10:07:04'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test15CanNotListPurchasesOfInvalidCustomer stamp: 'Ms 6/22/2023 10:07:04'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test16CanNotListPurchasesOfValidCustomerWithInvalidPassword stamp: 'Ms 6/22/2023 10:07:04'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test17CanNotAddToCartWhenSessionIsExpired stamp: 'Ms 6/22/2023 10:07:04'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test18CanNotListCartWhenSessionIsExpired stamp: 'Ms 6/22/2023 10:07:04'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test19CanNotCheckOutCartWhenSessionIsExpired stamp: 'Ms 6/22/2023 10:07:04'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test20BookPerformanceShouldNotTakeTooLong stamp: 'Ms 6/22/2023 10:07:04'!
+ERROR!
+
+!testRun: #TusLibrosSystemFacadeTest #test21StorePerformanceShouldNotTakeTooLong stamp: 'Ms 6/22/2023 10:07:05'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test20BookPerformanceShouldNotTakeTooLong stamp: 'Ms 6/22/2023 10:07:05'!
+ERROR!
+
+!testRun: #TusLibrosSystemFacadeTest #test20BookPerformanceShouldNotTakeTooLong stamp: 'Ms 6/22/2023 10:07:13'!
+ERROR!
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'Ms 6/22/2023 10:07:21'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'Ms 6/22/2023 10:07:21'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'Ms 6/22/2023 10:07:21'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'Ms 6/22/2023 10:07:21'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'Ms 6/22/2023 10:07:21'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'Ms 6/22/2023 10:07:21'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'Ms 6/22/2023 10:07:21'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'Ms 6/22/2023 10:07:21'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutAnEmptyCart stamp: 'Ms 6/22/2023 10:07:21'!
+PASSED!
+
+!testRun: #CashierTest #test02CalculatedTotalIsCorrect stamp: 'Ms 6/22/2023 10:07:21'!
+PASSED!
+
+!testRun: #CashierTest #test03CanNotCheckoutWithAnExpiredCreditCart stamp: 'Ms 6/22/2023 10:07:21'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutRegistersASale stamp: 'Ms 6/22/2023 10:07:21'!
+PASSED!
+
+!testRun: #CashierTest #test05CashierChargesCreditCardUsingMerchantProcessor stamp: 'Ms 6/22/2023 10:07:21'!
+PASSED!
+
+!testRun: #CashierTest #test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit stamp: 'Ms 6/22/2023 10:07:21'!
+PASSED!
+
+!testRun: #CreditCardTest #test01CreditCardNumberWithLessThan16DigitsIsNotValid stamp: 'Ms 6/22/2023 10:07:21'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CreditCardNumberWithMoreThan16DigitsIsNotValid stamp: 'Ms 6/22/2023 10:07:21'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CreditCardNumberShouldBeDigitsOnly stamp: 'Ms 6/22/2023 10:07:21'!
+PASSED!
+
+!testRun: #CreditCardTest #test04NameCanNotBeEmpty stamp: 'Ms 6/22/2023 10:07:21'!
+PASSED!
+
+!testRun: #CreditCardTest #test05IsExpiredOnNextExpirationMonth stamp: 'Ms 6/22/2023 10:07:21'!
+PASSED!
+
+!testRun: #CreditCardTest #test06IsNotExpiredOnExpirationMonth stamp: 'Ms 6/22/2023 10:07:21'!
+PASSED!
+
+!testRun: #CreditCardTest #test07CanGetCreditCardInfoFromIt stamp: 'Ms 6/22/2023 10:07:21'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test01CanCreateCartWithValidUserAndPassword stamp: 'Ms 6/22/2023 10:07:21'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test02CanNotCreateCartWithInvalidUser stamp: 'Ms 6/22/2023 10:07:21'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test03CanNotCreateCartWithInvalidPassword stamp: 'Ms 6/22/2023 10:07:21'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test04CanAddItemsToACreatedCart stamp: 'Ms 6/22/2023 10:07:21'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test05CanNotAddItemToNotCreatedCart stamp: 'Ms 6/22/2023 10:07:21'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test06CanNotAddItemNotSellByTheStore stamp: 'Ms 6/22/2023 10:07:21'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test08CanNotListCartOfInvalidCartId stamp: 'Ms 6/22/2023 10:07:21'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test09ListCartReturnsTheRightNumberOfItems stamp: 'Ms 6/22/2023 10:07:21'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test10CheckOutReturnsTransactionIdAndImpactsCustomerPurchases stamp: 'Ms 6/22/2023 10:07:21'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test10_1_CanNotCheckoutAnAlreadyCheckedOutCart stamp: 'Ms 6/22/2023 10:07:21'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test11CanNotCheckoutANotCreatedCart stamp: 'Ms 6/22/2023 10:07:21'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test12CanNotCheckoutAnEmptyCart stamp: 'Ms 6/22/2023 10:07:21'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test13CanNotCheckoutWithAnExpiredCreditCard stamp: 'Ms 6/22/2023 10:07:21'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test14ListPurchasesIncludesBoughtItems stamp: 'Ms 6/22/2023 10:07:21'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test15CanNotListPurchasesOfInvalidCustomer stamp: 'Ms 6/22/2023 10:07:21'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test16CanNotListPurchasesOfValidCustomerWithInvalidPassword stamp: 'Ms 6/22/2023 10:07:21'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test17CanNotAddToCartWhenSessionIsExpired stamp: 'Ms 6/22/2023 10:07:21'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test18CanNotListCartWhenSessionIsExpired stamp: 'Ms 6/22/2023 10:07:21'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test19CanNotCheckOutCartWhenSessionIsExpired stamp: 'Ms 6/22/2023 10:07:21'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test20BookPerformanceShouldNotTakeTooLong stamp: 'Ms 6/22/2023 10:07:21'!
+ERROR!
+
+!testRun: #TusLibrosSystemFacadeTest #test21StorePerformanceShouldNotTakeTooLong stamp: 'Ms 6/22/2023 10:07:22'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test20BookPerformanceShouldNotTakeTooLong stamp: 'Ms 6/22/2023 10:07:22'!
+ERROR!
+
+!testRun: #TusLibrosSystemFacadeTest #test20BookPerformanceShouldNotTakeTooLong stamp: 'Ms 6/22/2023 10:07:48'!
+ERROR!
+!TusLibrosSystemFacade methodsFor: 'private' stamp: 'Ms 6/22/2023 10:08:04' prior: 50985728!
+bookPerformance: anItem
+
+	| bookPerformance totalMoney totalSales |
+
+	bookPerformance := Dictionary new.
+	
+	self processClosure: {[totalSales := self totalSalesOf: anItem.].  totalMoney := self totalMoneyRaisedBy: anItem.}.
+	
+	bookPerformance at: 'quantity' put: totalSales.
+	bookPerformance at: 'total' put: totalMoney.
+	bookPerformance at: 'summary' put: anItem,' was selled ',totalSales asString, ' times and raised a total amount of money equal to: ', totalMoney asString.
+	
+	^bookPerformance
+	
+
+! !
+!TusLibrosSystemFacade methodsFor: 'private' stamp: 'Ms 6/22/2023 10:08:17' prior: 50986058!
+bookPerformance: anItem
+
+	| bookPerformance totalMoney totalSales |
+
+	bookPerformance := Dictionary new.
+	
+	self processClosure: {[totalSales := self totalSalesOf: anItem.].  [totalMoney := self totalMoneyRaisedBy: anItem.]}.
+	
+	bookPerformance at: 'quantity' put: totalSales.
+	bookPerformance at: 'total' put: totalMoney.
+	bookPerformance at: 'summary' put: anItem,' was selled ',totalSales asString, ' times and raised a total amount of money equal to: ', totalMoney asString.
+	
+	^bookPerformance
+	
+
+! !
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'Ms 6/22/2023 10:08:21'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'Ms 6/22/2023 10:08:21'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'Ms 6/22/2023 10:08:21'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'Ms 6/22/2023 10:08:21'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'Ms 6/22/2023 10:08:21'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'Ms 6/22/2023 10:08:21'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'Ms 6/22/2023 10:08:21'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'Ms 6/22/2023 10:08:21'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutAnEmptyCart stamp: 'Ms 6/22/2023 10:08:21'!
+PASSED!
+
+!testRun: #CashierTest #test02CalculatedTotalIsCorrect stamp: 'Ms 6/22/2023 10:08:21'!
+PASSED!
+
+!testRun: #CashierTest #test03CanNotCheckoutWithAnExpiredCreditCart stamp: 'Ms 6/22/2023 10:08:21'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutRegistersASale stamp: 'Ms 6/22/2023 10:08:21'!
+PASSED!
+
+!testRun: #CashierTest #test05CashierChargesCreditCardUsingMerchantProcessor stamp: 'Ms 6/22/2023 10:08:21'!
+PASSED!
+
+!testRun: #CashierTest #test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit stamp: 'Ms 6/22/2023 10:08:21'!
+PASSED!
+
+!testRun: #CreditCardTest #test01CreditCardNumberWithLessThan16DigitsIsNotValid stamp: 'Ms 6/22/2023 10:08:21'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CreditCardNumberWithMoreThan16DigitsIsNotValid stamp: 'Ms 6/22/2023 10:08:21'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CreditCardNumberShouldBeDigitsOnly stamp: 'Ms 6/22/2023 10:08:21'!
+PASSED!
+
+!testRun: #CreditCardTest #test04NameCanNotBeEmpty stamp: 'Ms 6/22/2023 10:08:21'!
+PASSED!
+
+!testRun: #CreditCardTest #test05IsExpiredOnNextExpirationMonth stamp: 'Ms 6/22/2023 10:08:21'!
+PASSED!
+
+!testRun: #CreditCardTest #test06IsNotExpiredOnExpirationMonth stamp: 'Ms 6/22/2023 10:08:21'!
+PASSED!
+
+!testRun: #CreditCardTest #test07CanGetCreditCardInfoFromIt stamp: 'Ms 6/22/2023 10:08:21'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test01CanCreateCartWithValidUserAndPassword stamp: 'Ms 6/22/2023 10:08:21'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test02CanNotCreateCartWithInvalidUser stamp: 'Ms 6/22/2023 10:08:21'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test03CanNotCreateCartWithInvalidPassword stamp: 'Ms 6/22/2023 10:08:21'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test04CanAddItemsToACreatedCart stamp: 'Ms 6/22/2023 10:08:21'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test05CanNotAddItemToNotCreatedCart stamp: 'Ms 6/22/2023 10:08:21'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test06CanNotAddItemNotSellByTheStore stamp: 'Ms 6/22/2023 10:08:21'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test08CanNotListCartOfInvalidCartId stamp: 'Ms 6/22/2023 10:08:21'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test09ListCartReturnsTheRightNumberOfItems stamp: 'Ms 6/22/2023 10:08:21'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test10CheckOutReturnsTransactionIdAndImpactsCustomerPurchases stamp: 'Ms 6/22/2023 10:08:21'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test10_1_CanNotCheckoutAnAlreadyCheckedOutCart stamp: 'Ms 6/22/2023 10:08:21'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test11CanNotCheckoutANotCreatedCart stamp: 'Ms 6/22/2023 10:08:21'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test12CanNotCheckoutAnEmptyCart stamp: 'Ms 6/22/2023 10:08:21'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test13CanNotCheckoutWithAnExpiredCreditCard stamp: 'Ms 6/22/2023 10:08:21'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test14ListPurchasesIncludesBoughtItems stamp: 'Ms 6/22/2023 10:08:21'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test15CanNotListPurchasesOfInvalidCustomer stamp: 'Ms 6/22/2023 10:08:21'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test16CanNotListPurchasesOfValidCustomerWithInvalidPassword stamp: 'Ms 6/22/2023 10:08:21'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test17CanNotAddToCartWhenSessionIsExpired stamp: 'Ms 6/22/2023 10:08:21'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test18CanNotListCartWhenSessionIsExpired stamp: 'Ms 6/22/2023 10:08:21'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test19CanNotCheckOutCartWhenSessionIsExpired stamp: 'Ms 6/22/2023 10:08:21'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test20BookPerformanceShouldNotTakeTooLong stamp: 'Ms 6/22/2023 10:08:22'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test21StorePerformanceShouldNotTakeTooLong stamp: 'Ms 6/22/2023 10:08:23'!
+PASSED!
+!TusLibrosSystemFacade methodsFor: 'private' stamp: 'Ms 6/22/2023 10:08:55' prior: 50985548!
+storePerformance
+
+	| totalMoney totalSales performance readySemaphore |
+	
+	performance := Dictionary new.
+	
+	readySemaphore := Semaphore new.
+	[totalSales := self totalSales. readySemaphore  signal.] fork.
+	[totalMoney := self totalMoneyRaised. readySemaphore  signal.] fork.
+	readySemaphore wait.
+	readySemaphore wait.
+	
+	self processClosure: {[totalSales := self totalSales.].  [totalMoney := self totalMoneyRaised.]}.
+
+	
+	performance at: 'quantity' put: totalSales.
+	performance at: 'total' put: totalMoney.
+	performance at: 'summary' put: 'The store selled a total of ',totalSales asString, ' books and raised a total amount of money equal to: ', totalMoney asString.
+	
+	^performance
+	
+
+! !
+!TusLibrosSystemFacade methodsFor: 'private' stamp: 'Ms 6/22/2023 10:08:59' prior: 50986244!
+storePerformance
+
+	| totalMoney totalSales performance |
+	
+	performance := Dictionary new.
+	
+	self processClosure: {[totalSales := self totalSales.].  [totalMoney := self totalMoneyRaised.]}.
+
+	
+	performance at: 'quantity' put: totalSales.
+	performance at: 'total' put: totalMoney.
+	performance at: 'summary' put: 'The store selled a total of ',totalSales asString, ' books and raised a total amount of money equal to: ', totalMoney asString.
+	
+	^performance
+	
+
+! !
+
+!testRun: #TusLibrosSystemFacadeTest #test01CanCreateCartWithValidUserAndPassword stamp: 'Ms 6/22/2023 10:09:01'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test02CanNotCreateCartWithInvalidUser stamp: 'Ms 6/22/2023 10:09:01'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test03CanNotCreateCartWithInvalidPassword stamp: 'Ms 6/22/2023 10:09:01'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test04CanAddItemsToACreatedCart stamp: 'Ms 6/22/2023 10:09:02'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test05CanNotAddItemToNotCreatedCart stamp: 'Ms 6/22/2023 10:09:02'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test06CanNotAddItemNotSellByTheStore stamp: 'Ms 6/22/2023 10:09:02'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test08CanNotListCartOfInvalidCartId stamp: 'Ms 6/22/2023 10:09:02'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test09ListCartReturnsTheRightNumberOfItems stamp: 'Ms 6/22/2023 10:09:02'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test10CheckOutReturnsTransactionIdAndImpactsCustomerPurchases stamp: 'Ms 6/22/2023 10:09:02'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test10_1_CanNotCheckoutAnAlreadyCheckedOutCart stamp: 'Ms 6/22/2023 10:09:02'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test11CanNotCheckoutANotCreatedCart stamp: 'Ms 6/22/2023 10:09:02'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test12CanNotCheckoutAnEmptyCart stamp: 'Ms 6/22/2023 10:09:02'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test13CanNotCheckoutWithAnExpiredCreditCard stamp: 'Ms 6/22/2023 10:09:02'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test14ListPurchasesIncludesBoughtItems stamp: 'Ms 6/22/2023 10:09:02'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test15CanNotListPurchasesOfInvalidCustomer stamp: 'Ms 6/22/2023 10:09:02'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test16CanNotListPurchasesOfValidCustomerWithInvalidPassword stamp: 'Ms 6/22/2023 10:09:02'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test17CanNotAddToCartWhenSessionIsExpired stamp: 'Ms 6/22/2023 10:09:02'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test18CanNotListCartWhenSessionIsExpired stamp: 'Ms 6/22/2023 10:09:02'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test19CanNotCheckOutCartWhenSessionIsExpired stamp: 'Ms 6/22/2023 10:09:02'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test20BookPerformanceShouldNotTakeTooLong stamp: 'Ms 6/22/2023 10:09:03'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test21StorePerformanceShouldNotTakeTooLong stamp: 'Ms 6/22/2023 10:09:04'!
+PASSED!
+!TusLibrosSystemFacade methodsFor: 'semaphore' stamp: 'Ms 6/22/2023 10:09:48' prior: 50985718!
+processClosure: aClosureCollection
+
+	| readySemaphore |
+	
+	readySemaphore := Semaphore new.
+	
+	aClosureCollection do: [ :item | [ item value. readySemaphore  signal. ]  fork ].
+	aClosureCollection size repeat: [	readySemaphore wait.]
+	! !
+
+!testRun: #TusLibrosSystemFacadeTest #test01CanCreateCartWithValidUserAndPassword stamp: 'Ms 6/22/2023 10:09:49'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test02CanNotCreateCartWithInvalidUser stamp: 'Ms 6/22/2023 10:09:49'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test03CanNotCreateCartWithInvalidPassword stamp: 'Ms 6/22/2023 10:09:49'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test04CanAddItemsToACreatedCart stamp: 'Ms 6/22/2023 10:09:49'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test05CanNotAddItemToNotCreatedCart stamp: 'Ms 6/22/2023 10:09:49'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test06CanNotAddItemNotSellByTheStore stamp: 'Ms 6/22/2023 10:09:49'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test08CanNotListCartOfInvalidCartId stamp: 'Ms 6/22/2023 10:09:49'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test09ListCartReturnsTheRightNumberOfItems stamp: 'Ms 6/22/2023 10:09:49'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test10CheckOutReturnsTransactionIdAndImpactsCustomerPurchases stamp: 'Ms 6/22/2023 10:09:49'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test10_1_CanNotCheckoutAnAlreadyCheckedOutCart stamp: 'Ms 6/22/2023 10:09:49'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test11CanNotCheckoutANotCreatedCart stamp: 'Ms 6/22/2023 10:09:49'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test12CanNotCheckoutAnEmptyCart stamp: 'Ms 6/22/2023 10:09:49'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test13CanNotCheckoutWithAnExpiredCreditCard stamp: 'Ms 6/22/2023 10:09:49'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test14ListPurchasesIncludesBoughtItems stamp: 'Ms 6/22/2023 10:09:49'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test15CanNotListPurchasesOfInvalidCustomer stamp: 'Ms 6/22/2023 10:09:49'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test16CanNotListPurchasesOfValidCustomerWithInvalidPassword stamp: 'Ms 6/22/2023 10:09:49'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test17CanNotAddToCartWhenSessionIsExpired stamp: 'Ms 6/22/2023 10:09:49'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test18CanNotListCartWhenSessionIsExpired stamp: 'Ms 6/22/2023 10:09:49'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test19CanNotCheckOutCartWhenSessionIsExpired stamp: 'Ms 6/22/2023 10:09:49'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test20BookPerformanceShouldNotTakeTooLong stamp: 'Ms 6/22/2023 10:09:49'!
+ERROR!
+
+!testRun: #TusLibrosSystemFacadeTest #test21StorePerformanceShouldNotTakeTooLong stamp: 'Ms 6/22/2023 10:09:49'!
+ERROR!
+!TusLibrosSystemFacade methodsFor: 'semaphore' stamp: 'Ms 6/22/2023 10:10:00' prior: 50986366!
+processClosure: aClosureCollection
+
+	| readySemaphore |
+	
+	readySemaphore := Semaphore new.
+	
+	aClosureCollection do: [ :item | [ item value. readySemaphore  signal. ]  fork ].
+	(aClosureCollection size) repeat: [	readySemaphore wait.]
+	! !
+
+!testRun: #TusLibrosSystemFacadeTest #test01CanCreateCartWithValidUserAndPassword stamp: 'Ms 6/22/2023 10:10:01'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test02CanNotCreateCartWithInvalidUser stamp: 'Ms 6/22/2023 10:10:01'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test03CanNotCreateCartWithInvalidPassword stamp: 'Ms 6/22/2023 10:10:01'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test04CanAddItemsToACreatedCart stamp: 'Ms 6/22/2023 10:10:01'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test05CanNotAddItemToNotCreatedCart stamp: 'Ms 6/22/2023 10:10:01'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test06CanNotAddItemNotSellByTheStore stamp: 'Ms 6/22/2023 10:10:01'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test08CanNotListCartOfInvalidCartId stamp: 'Ms 6/22/2023 10:10:01'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test09ListCartReturnsTheRightNumberOfItems stamp: 'Ms 6/22/2023 10:10:01'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test10CheckOutReturnsTransactionIdAndImpactsCustomerPurchases stamp: 'Ms 6/22/2023 10:10:01'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test10_1_CanNotCheckoutAnAlreadyCheckedOutCart stamp: 'Ms 6/22/2023 10:10:01'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test11CanNotCheckoutANotCreatedCart stamp: 'Ms 6/22/2023 10:10:01'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test12CanNotCheckoutAnEmptyCart stamp: 'Ms 6/22/2023 10:10:01'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test13CanNotCheckoutWithAnExpiredCreditCard stamp: 'Ms 6/22/2023 10:10:01'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test14ListPurchasesIncludesBoughtItems stamp: 'Ms 6/22/2023 10:10:01'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test15CanNotListPurchasesOfInvalidCustomer stamp: 'Ms 6/22/2023 10:10:01'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test16CanNotListPurchasesOfValidCustomerWithInvalidPassword stamp: 'Ms 6/22/2023 10:10:01'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test17CanNotAddToCartWhenSessionIsExpired stamp: 'Ms 6/22/2023 10:10:01'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test18CanNotListCartWhenSessionIsExpired stamp: 'Ms 6/22/2023 10:10:01'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test19CanNotCheckOutCartWhenSessionIsExpired stamp: 'Ms 6/22/2023 10:10:01'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test20BookPerformanceShouldNotTakeTooLong stamp: 'Ms 6/22/2023 10:10:01'!
+ERROR!
+
+!testRun: #TusLibrosSystemFacadeTest #test21StorePerformanceShouldNotTakeTooLong stamp: 'Ms 6/22/2023 10:10:01'!
+ERROR!
+!TusLibrosSystemFacade methodsFor: 'semaphore' stamp: 'Ms 6/22/2023 10:10:14' prior: 50986456!
+processClosure: aClosureCollection
+
+	| readySemaphore |
+	
+	readySemaphore := Semaphore new.
+	
+	aClosureCollection do: [ :item | [ item value. readySemaphore  signal. ]  fork ].
+	(aClosureCollection size) timesRepeat: [	readySemaphore wait.]
+	! !
+
+!testRun: #TusLibrosSystemFacadeTest #test01CanCreateCartWithValidUserAndPassword stamp: 'Ms 6/22/2023 10:10:15'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test02CanNotCreateCartWithInvalidUser stamp: 'Ms 6/22/2023 10:10:15'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test03CanNotCreateCartWithInvalidPassword stamp: 'Ms 6/22/2023 10:10:15'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test04CanAddItemsToACreatedCart stamp: 'Ms 6/22/2023 10:10:15'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test05CanNotAddItemToNotCreatedCart stamp: 'Ms 6/22/2023 10:10:15'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test06CanNotAddItemNotSellByTheStore stamp: 'Ms 6/22/2023 10:10:15'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test08CanNotListCartOfInvalidCartId stamp: 'Ms 6/22/2023 10:10:15'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test09ListCartReturnsTheRightNumberOfItems stamp: 'Ms 6/22/2023 10:10:15'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test10CheckOutReturnsTransactionIdAndImpactsCustomerPurchases stamp: 'Ms 6/22/2023 10:10:15'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test10_1_CanNotCheckoutAnAlreadyCheckedOutCart stamp: 'Ms 6/22/2023 10:10:15'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test11CanNotCheckoutANotCreatedCart stamp: 'Ms 6/22/2023 10:10:15'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test12CanNotCheckoutAnEmptyCart stamp: 'Ms 6/22/2023 10:10:15'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test13CanNotCheckoutWithAnExpiredCreditCard stamp: 'Ms 6/22/2023 10:10:15'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test14ListPurchasesIncludesBoughtItems stamp: 'Ms 6/22/2023 10:10:15'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test15CanNotListPurchasesOfInvalidCustomer stamp: 'Ms 6/22/2023 10:10:15'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test16CanNotListPurchasesOfValidCustomerWithInvalidPassword stamp: 'Ms 6/22/2023 10:10:15'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test17CanNotAddToCartWhenSessionIsExpired stamp: 'Ms 6/22/2023 10:10:15'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test18CanNotListCartWhenSessionIsExpired stamp: 'Ms 6/22/2023 10:10:15'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test19CanNotCheckOutCartWhenSessionIsExpired stamp: 'Ms 6/22/2023 10:10:15'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test20BookPerformanceShouldNotTakeTooLong stamp: 'Ms 6/22/2023 10:10:16'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test21StorePerformanceShouldNotTakeTooLong stamp: 'Ms 6/22/2023 10:10:17'!
+PASSED!
+!TusLibrosSystemFacade methodsFor: 'semaphore' stamp: 'Ms 6/22/2023 10:10:21' prior: 50986546!
+processClosure: aClosureCollection
+
+	| readySemaphore |
+	
+	readySemaphore := Semaphore new.
+	
+	aClosureCollection do: [ :item | [ item value. readySemaphore  signal. ]  fork ].
+	aClosureCollection size timesRepeat: [	readySemaphore wait.]
+	! !
+
+!testRun: #TusLibrosSystemFacadeTest #test01CanCreateCartWithValidUserAndPassword stamp: 'Ms 6/22/2023 10:10:22'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test02CanNotCreateCartWithInvalidUser stamp: 'Ms 6/22/2023 10:10:22'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test03CanNotCreateCartWithInvalidPassword stamp: 'Ms 6/22/2023 10:10:22'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test04CanAddItemsToACreatedCart stamp: 'Ms 6/22/2023 10:10:22'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test05CanNotAddItemToNotCreatedCart stamp: 'Ms 6/22/2023 10:10:22'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test06CanNotAddItemNotSellByTheStore stamp: 'Ms 6/22/2023 10:10:22'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test08CanNotListCartOfInvalidCartId stamp: 'Ms 6/22/2023 10:10:22'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test09ListCartReturnsTheRightNumberOfItems stamp: 'Ms 6/22/2023 10:10:22'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test10CheckOutReturnsTransactionIdAndImpactsCustomerPurchases stamp: 'Ms 6/22/2023 10:10:22'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test10_1_CanNotCheckoutAnAlreadyCheckedOutCart stamp: 'Ms 6/22/2023 10:10:22'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test11CanNotCheckoutANotCreatedCart stamp: 'Ms 6/22/2023 10:10:22'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test12CanNotCheckoutAnEmptyCart stamp: 'Ms 6/22/2023 10:10:22'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test13CanNotCheckoutWithAnExpiredCreditCard stamp: 'Ms 6/22/2023 10:10:22'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test14ListPurchasesIncludesBoughtItems stamp: 'Ms 6/22/2023 10:10:22'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test15CanNotListPurchasesOfInvalidCustomer stamp: 'Ms 6/22/2023 10:10:22'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test16CanNotListPurchasesOfValidCustomerWithInvalidPassword stamp: 'Ms 6/22/2023 10:10:22'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test17CanNotAddToCartWhenSessionIsExpired stamp: 'Ms 6/22/2023 10:10:22'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test18CanNotListCartWhenSessionIsExpired stamp: 'Ms 6/22/2023 10:10:22'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test19CanNotCheckOutCartWhenSessionIsExpired stamp: 'Ms 6/22/2023 10:10:22'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test20BookPerformanceShouldNotTakeTooLong stamp: 'Ms 6/22/2023 10:10:23'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test21StorePerformanceShouldNotTakeTooLong stamp: 'Ms 6/22/2023 10:10:24'!
+PASSED!
+
+----End fileIn of C:\windows64\repoInge1\09-TusLibros\Iteracion 4\TusLibrosREST Ejercicio it4.st----!
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'Ms 6/22/2023 10:17:41'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'Ms 6/22/2023 10:17:41'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'Ms 6/22/2023 10:17:41'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'Ms 6/22/2023 10:17:41'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'Ms 6/22/2023 10:17:41'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'Ms 6/22/2023 10:17:41'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'Ms 6/22/2023 10:17:41'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'Ms 6/22/2023 10:17:41'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutAnEmptyCart stamp: 'Ms 6/22/2023 10:17:41'!
+PASSED!
+
+!testRun: #CashierTest #test02CalculatedTotalIsCorrect stamp: 'Ms 6/22/2023 10:17:41'!
+PASSED!
+
+!testRun: #CashierTest #test03CanNotCheckoutWithAnExpiredCreditCart stamp: 'Ms 6/22/2023 10:17:41'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutRegistersASale stamp: 'Ms 6/22/2023 10:17:41'!
+PASSED!
+
+!testRun: #CashierTest #test05CashierChargesCreditCardUsingMerchantProcessor stamp: 'Ms 6/22/2023 10:17:41'!
+PASSED!
+
+!testRun: #CashierTest #test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit stamp: 'Ms 6/22/2023 10:17:41'!
+PASSED!
+
+!testRun: #CreditCardTest #test01CreditCardNumberWithLessThan16DigitsIsNotValid stamp: 'Ms 6/22/2023 10:17:41'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CreditCardNumberWithMoreThan16DigitsIsNotValid stamp: 'Ms 6/22/2023 10:17:41'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CreditCardNumberShouldBeDigitsOnly stamp: 'Ms 6/22/2023 10:17:41'!
+PASSED!
+
+!testRun: #CreditCardTest #test04NameCanNotBeEmpty stamp: 'Ms 6/22/2023 10:17:41'!
+PASSED!
+
+!testRun: #CreditCardTest #test05IsExpiredOnNextExpirationMonth stamp: 'Ms 6/22/2023 10:17:41'!
+PASSED!
+
+!testRun: #CreditCardTest #test06IsNotExpiredOnExpirationMonth stamp: 'Ms 6/22/2023 10:17:41'!
+PASSED!
+
+!testRun: #CreditCardTest #test07CanGetCreditCardInfoFromIt stamp: 'Ms 6/22/2023 10:17:41'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test01CanCreateCartWithValidUserAndPassword stamp: 'Ms 6/22/2023 10:17:41'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test02CanNotCreateCartWithInvalidUser stamp: 'Ms 6/22/2023 10:17:41'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test03CanNotCreateCartWithInvalidPassword stamp: 'Ms 6/22/2023 10:17:41'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test04CanAddItemsToACreatedCart stamp: 'Ms 6/22/2023 10:17:41'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test05CanNotAddItemToNotCreatedCart stamp: 'Ms 6/22/2023 10:17:41'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test06CanNotAddItemNotSellByTheStore stamp: 'Ms 6/22/2023 10:17:41'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test08CanNotListCartOfInvalidCartId stamp: 'Ms 6/22/2023 10:17:41'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test09ListCartReturnsTheRightNumberOfItems stamp: 'Ms 6/22/2023 10:17:41'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test10CheckOutReturnsTransactionIdAndImpactsCustomerPurchases stamp: 'Ms 6/22/2023 10:17:41'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test10_1_CanNotCheckoutAnAlreadyCheckedOutCart stamp: 'Ms 6/22/2023 10:17:41'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test11CanNotCheckoutANotCreatedCart stamp: 'Ms 6/22/2023 10:17:41'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test12CanNotCheckoutAnEmptyCart stamp: 'Ms 6/22/2023 10:17:41'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test13CanNotCheckoutWithAnExpiredCreditCard stamp: 'Ms 6/22/2023 10:17:41'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test14ListPurchasesIncludesBoughtItems stamp: 'Ms 6/22/2023 10:17:41'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test15CanNotListPurchasesOfInvalidCustomer stamp: 'Ms 6/22/2023 10:17:41'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test16CanNotListPurchasesOfValidCustomerWithInvalidPassword stamp: 'Ms 6/22/2023 10:17:41'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test17CanNotAddToCartWhenSessionIsExpired stamp: 'Ms 6/22/2023 10:17:41'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test18CanNotListCartWhenSessionIsExpired stamp: 'Ms 6/22/2023 10:17:41'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test19CanNotCheckOutCartWhenSessionIsExpired stamp: 'Ms 6/22/2023 10:17:41'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test20BookPerformanceShouldNotTakeTooLong stamp: 'Ms 6/22/2023 10:17:42'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test21StorePerformanceShouldNotTakeTooLong stamp: 'Ms 6/22/2023 10:17:43'!
+PASSED!
+
+----End fileIn of C:\windows64\repoInge1\09-TusLibros\Iteracion 4\WebClient.pck.st----!
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'Ms 6/22/2023 10:19:09'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'Ms 6/22/2023 10:19:09'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'Ms 6/22/2023 10:19:09'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'Ms 6/22/2023 10:19:09'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'Ms 6/22/2023 10:19:09'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'Ms 6/22/2023 10:19:09'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'Ms 6/22/2023 10:19:09'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'Ms 6/22/2023 10:19:09'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutAnEmptyCart stamp: 'Ms 6/22/2023 10:19:09'!
+PASSED!
+
+!testRun: #CashierTest #test02CalculatedTotalIsCorrect stamp: 'Ms 6/22/2023 10:19:09'!
+PASSED!
+
+!testRun: #CashierTest #test03CanNotCheckoutWithAnExpiredCreditCart stamp: 'Ms 6/22/2023 10:19:09'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutRegistersASale stamp: 'Ms 6/22/2023 10:19:09'!
+PASSED!
+
+!testRun: #CashierTest #test05CashierChargesCreditCardUsingMerchantProcessor stamp: 'Ms 6/22/2023 10:19:09'!
+PASSED!
+
+!testRun: #CashierTest #test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit stamp: 'Ms 6/22/2023 10:19:09'!
+PASSED!
+
+!testRun: #CreditCardTest #test01CreditCardNumberWithLessThan16DigitsIsNotValid stamp: 'Ms 6/22/2023 10:19:09'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CreditCardNumberWithMoreThan16DigitsIsNotValid stamp: 'Ms 6/22/2023 10:19:09'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CreditCardNumberShouldBeDigitsOnly stamp: 'Ms 6/22/2023 10:19:09'!
+PASSED!
+
+!testRun: #CreditCardTest #test04NameCanNotBeEmpty stamp: 'Ms 6/22/2023 10:19:09'!
+PASSED!
+
+!testRun: #CreditCardTest #test05IsExpiredOnNextExpirationMonth stamp: 'Ms 6/22/2023 10:19:09'!
+PASSED!
+
+!testRun: #CreditCardTest #test06IsNotExpiredOnExpirationMonth stamp: 'Ms 6/22/2023 10:19:09'!
+PASSED!
+
+!testRun: #CreditCardTest #test07CanGetCreditCardInfoFromIt stamp: 'Ms 6/22/2023 10:19:09'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test01CanCreateCartWithValidUserAndPassword stamp: 'Ms 6/22/2023 10:19:09'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test02CanNotCreateCartWithInvalidUser stamp: 'Ms 6/22/2023 10:19:09'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test03CanNotCreateCartWithInvalidPassword stamp: 'Ms 6/22/2023 10:19:09'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test04CanAddItemsToACreatedCart stamp: 'Ms 6/22/2023 10:19:09'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test05CanNotAddItemToNotCreatedCart stamp: 'Ms 6/22/2023 10:19:09'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test06CanNotAddItemNotSellByTheStore stamp: 'Ms 6/22/2023 10:19:09'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test08CanNotListCartOfInvalidCartId stamp: 'Ms 6/22/2023 10:19:09'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test09ListCartReturnsTheRightNumberOfItems stamp: 'Ms 6/22/2023 10:19:09'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test10CheckOutReturnsTransactionIdAndImpactsCustomerPurchases stamp: 'Ms 6/22/2023 10:19:09'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test10_1_CanNotCheckoutAnAlreadyCheckedOutCart stamp: 'Ms 6/22/2023 10:19:09'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test11CanNotCheckoutANotCreatedCart stamp: 'Ms 6/22/2023 10:19:09'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test12CanNotCheckoutAnEmptyCart stamp: 'Ms 6/22/2023 10:19:09'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test13CanNotCheckoutWithAnExpiredCreditCard stamp: 'Ms 6/22/2023 10:19:09'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test14ListPurchasesIncludesBoughtItems stamp: 'Ms 6/22/2023 10:19:09'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test15CanNotListPurchasesOfInvalidCustomer stamp: 'Ms 6/22/2023 10:19:09'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test16CanNotListPurchasesOfValidCustomerWithInvalidPassword stamp: 'Ms 6/22/2023 10:19:09'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test17CanNotAddToCartWhenSessionIsExpired stamp: 'Ms 6/22/2023 10:19:09'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test18CanNotListCartWhenSessionIsExpired stamp: 'Ms 6/22/2023 10:19:09'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test19CanNotCheckOutCartWhenSessionIsExpired stamp: 'Ms 6/22/2023 10:19:09'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test20BookPerformanceShouldNotTakeTooLong stamp: 'Ms 6/22/2023 10:19:10'!
+PASSED!
+
+!testRun: #TusLibrosSystemFacadeTest #test21StorePerformanceShouldNotTakeTooLong stamp: 'Ms 6/22/2023 10:19:11'!
+PASSED!
+
+TusLibrosServerRestInterface installForDefaultSystem!
+
+TusLibrosServerRestInterface installForDefaultSystem!
+
+TusLibrosServerRestInterface installForDefaultSystem!
+
+TusLibrosServerRestInterface installForDefaultSystem!
+
+TusLibrosServerRestInterface installForDefaultSystem.
+WebServer reset.
+TusLibrosClientTestWindow open.!
+!TusLibrosClientRestInterface methodsFor: 'error' stamp: 'Ms 6/22/2023 10:27:48' overrides: 16902107!
+error: aMessage
+	self inform: 		aMessage.! !
+!TusLibrosClientRestInterface methodsFor: 'error' stamp: 'Ms 6/22/2023 10:27:55' prior: 50996306 overrides: 16902107!
+error: aMessage
+	^self inform: 		aMessage.! !
+
+TusLibrosServerRestInterface installForDefaultSystem.
+WebServer reset.
+TusLibrosClientTestWindow open.!
+!TusLibrosClientTestWindow methodsFor: 'events' stamp: 'Ms 6/22/2023 10:39:55'!
+messageError: anErrorMessage
+	
+	self inform: anErrorMessage.! !
+
+
+TusLibrosServerRestInterface installForDefaultSystem.
+WebServer reset.
+TusLibrosClientTestWindow open.
+!
+
+
+TusLibrosServerRestInterface installForDefaultSystem.
+WebServer reset.
+TusLibrosClientTestWindow open.
+!
